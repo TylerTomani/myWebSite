@@ -14,6 +14,7 @@ sectionTitles.forEach(el => {
         const subSection = section.querySelector('.sub-section')
         toggleShow(subSection)
         currentSection = section
+
     })
     el.addEventListener('focus', e => {
         const section = getSection(e.target.parentElement)
@@ -26,6 +27,7 @@ sectionTitles.forEach(el => {
 })
 
 function toggleShow(el){
+    console.log(el)
     if(!el.classList.contains('hide')){
         el.classList.add('hide')
     } else {
