@@ -1,0 +1,108 @@
+/* tbody can not get border } */
+/* #dataTable tbody {
+    border: 2px solid blue;
+} */
+#items-container {
+    /* border: 2px solid red; */
+}
+#dataTable {
+    width: 100%;
+    /* background-color: red; */
+    /* border-collapse: collapse; */
+    /* Ensures borders don't double */
+}
+#dataTable #topRow {
+    background-color: blue;
+}
+#dataTable #topRow th {
+    
+}
+#dataTable tbody tr {
+    
+}
+
+
+#dataTable th,
+#dataTable td {
+    /* flex-basis: 10%; */
+    /* border: 2px solid blue; */
+    /* Ensures cells get borders */
+    /* padding: 8px; */
+    /* width: 50%; */
+}
+/* Item **** Description **** Unit **** Price ...  */
+#items-container>div:first-child {
+    /* width: 100%; */
+    /* vertical-align: top; */
+    /* padding-top: 35px; */
+    /* border:  2px solid blue; */
+    /* display: fle; */
+}
+#items-container table>tbody tr#topRow {
+    /* background-color: #54A0E7; */
+    /* height: 30px; */
+}
+#items-container table>tbody tr#topRow th:first-child {
+    /* width: 14px; */
+}
+#items-container table>tbody tr#topRow th#item_headline {
+    /* height: 30px; */
+    /* color: #FFFFFD; */
+    /* font-family: arial; */
+    /* font-size: 14px; */
+    /* font-weight: 400; */
+    /* padding-left: 8px; */
+    /* text-align: left; */
+}
+#items-container table>tbody tr#topRow th#description_headline {
+    /* `color: #FFFFFD; */
+    /* `font-family: arial; */
+    /* `font-size: 14px; */
+    /* `font-weight: 400; */
+    /* `padding-left: 5px; */
+    /* `text-align: left; */
+}
+#items-container table>tbody tr#topRow th#unit_price_headline {
+    /* color: #FFFFFD; */
+    /* font-family: arial; */
+    /* font-size: 14px; */
+    /* font-weight: 400; */
+    /* padding-left: 0px; */
+    /* text-align: right; */
+    /* padding-right: 4px; */
+}
+
+#items-container table>tbody tr#topRow th#quantity_headline {
+    /* color: #FFFFFD; */
+    /* font-family: arial; */
+    /* font-size: 14px; */
+    /* font-weight: 400; */
+    /* padding-left: 0px; */
+    /* text-align: right; */
+    /* padding-right: 4px; */
+}
+
+#items-container table>tbody tr#topRow th#topRowTax {
+    /* display: none; */
+    /* color: #FFFFFD; */
+    /* font-family: arial; */
+    /* font-size: 14px; */
+    /* font-weight: 400; */
+    /* padding-left: 0px; */
+    /* text-align: right; */
+    /* padding-right: 26px; */
+    /* padding-left: 35px; */
+}
+
+#items-container table>tbody tr#topRow th#amount_headline {
+    /* color: #FFFFFD; */
+    /* font-family: arial; */
+    /* font-size: 14px; */
+    /* font-weight: 400; */
+    /* padding-left: 0px; */
+    /* text-align: right; */
+    /* padding-right: 10px; */
+}
+td.invoiceDataPriceOrQty {
+    /* background-color: blue; */
+}

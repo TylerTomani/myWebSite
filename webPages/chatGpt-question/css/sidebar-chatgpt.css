@@ -1,0 +1,116 @@
+:root{
+    --draggable-bg: #444242;
+    --mainTargetDiv-bg: rgb(44, 43, 43);
+    --text-prime-color: white;
+}
+main {
+    display: flex;
+    position: relative;;
+    overflow-x: hidden;
+    height: 100vh;    
+    background-color: var(--mainTargetDiv-bg);
+}
+nav.chatgpt-nav-icons {
+    width: 20%;
+    width: 100%;
+    background-color: var(--draggable-bg);
+    display: flex;
+    flex-direction: column;
+}
+.flex {display: flex;}
+.justify-between {justify-content: space-between;}
+#newQuestionBtn:active,
+#newQuestionBtn:focus,
+#sideToggleBtn:active,
+#sideToggleBtn:focus {
+    box-shadow: 0 0 4px 5px lightcyan;
+}
+aside.draggable {
+    position: sticky;
+    top: 0;
+    width: 0;
+    left: -20%;
+    border-right: 2px solid black;
+    background-color: lightgrey;
+    transition: all 200ms;
+    height: 100vh;
+}
+.draggable h2 {
+    font-size: 1rem;
+}
+
+#sideToggleBtn.active{
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+}
+aside.draggable.active {
+    font-family: ui-sans-serif,/* -apple-system, */system-ui,"Segoe UI",Helvetica,"Apple Color Emoji",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol";
+    font-style:normal;
+    color: var(--text-prime-color);
+    width: 20%;
+    border-right: 2px solid black;
+    background-color: var(--draggable-bg);
+    transition: all 300ms;
+    height: 100vh;
+}
+.draggable.active *{
+    position: relative;
+    transition: all 300ms;
+    opacity: 1;
+}
+
+
+.draggable > * {
+    transition: all 300ms;
+    opacity: 0;
+}
+.draggable > ul {   
+    width: 100%;
+    margin-left: 5%;
+}
+.draggable > ul li {
+    width: 100%;
+    color: white;
+    font-weight: 1;
+    list-style: none
+}
+.draggable > ul li{
+}
+.draggable > ul.sidebar-topics-container > li > ul > li > a{
+    font-size: 80%;
+
+}
+.draggable > ul.sidebar-topics-container > li > ul > li > a,
+.draggable > ul.sidebar-topics-container > li > a{
+    border-radius: 10px;
+    width: 90%;
+    padding: 1% 2.5%;
+    display: inline-block;
+    text-wrap: nowrap;
+    overflow-x: hidden;
+    text-decoration: none;
+    color: white;
+    /* border: 1px solid white; */
+    margin: 1% 0;
+    font-weight: 250;
+}
+.draggable>ul.sidebar-topics-container a:active,
+.draggable>ul.sidebar-topics-container a:focus{
+    /* background-color: lightgoldenrodyellow; */
+    /* color: black; */
+    font-weight: 500;
+    padding-left: 5%;
+}
+.draggable.active ~ #mainTargetDiv{
+    width: 80%;
+}
+
+#mainTargetDiv{
+    background-color: var(--mainTargetDiv-bg);
+    /* position: absolute; */
+    width: 100%;
+    color: white;
+}
+
+

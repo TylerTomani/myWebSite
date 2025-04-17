@@ -1,0 +1,816 @@
+<h4>Javascript</h4>
+<div class="topics-questions">
+    <!-- Letter Focus Perfect -->
+    <div class="topic">
+        <a id="autofocusSomeForLoop " tabindex="0" href="#" class="drop-topic questions-topic">autofocus some() vs forLoop() ..
+        </a>
+        <div class="questions-container">
+            <div class="question-container">
+                <!-- Below in the the articles are the same format is chatgpt -->
+                <!-- I'm keeping the html the same but adding the classes:
+                       questions-answer, question-txt, answer-txt-->
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h6 class="sr-only">autofocus some() vs forLoop() and Default href on load</h6>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                             it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code drop-question">
+Thanks I realized it was actually working but my home.html was named wrongs, i had it like this 
+<strong class="r">located inside</strong> <a target="_blank" href="../../js/questionsLoadOg.js">js/questionsLoadOg</a>
+topics.forEach(el => {
+    if(el.hasAttribute('autofocus')){
+        fetchLessonHref(el.href)
+        console.log(el.href)
+    } else {
+        fetchLessonHref(home.html)
+    }
+    el.addEventListener('focusout', e => {
+        clicked = false
+    })
+    el.addEventListener('click', e => {
+        e.preventDefault()
+        e.stopPropagation()
+        fetchLessonHref(e.target.href)
+        if(!clicked){
+            clicked = true
+        } else
+        if(clicked){
+            mainTargetDiv.focus()
+
+        } 
+    })
+})
+
+But do you think the some() method is  better? some() is called a method right?</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                            '.group/conversation-turn' of .text-base   -->
+                            <div class="markdown prose">
+                                <p>
+                                    Good catch on the filename — those little things are sneaky sometimes!
+                                </p>
+                                <p>
+                                    And yes — some() is a method! It’s an array method that returns true if at least one element in the array satisfies the
+                                    provided test function. It’s super clean for situations like this where you're just checking “hey, is there at least one
+                                    element like this?”
+                                </p>
+                                <h2>🔍 Comparing your forEach vs some():</h2>
+                                <p>Here’s what’s happening in your version:</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code r strike" >
+topics.forEach(el => {
+    if(el.hasAttribute('autofocus')){
+        fetchLessonHref(el.href)
+        console.log(el.href)
+    } else {
+        fetchLessonHref(`home.html`)
+    }
+})</pre>
+                                </div>
+                                <h4>Problem:</h4>
+                                <ul>
+                                    <li>It loops through every topic.</li>
+                                    <li>It fetches either the element’s href or home.html for each one — which means you might fetch multiple times on load (one
+                                        for each element).</li>
+                                </ul>
+                                <h4>If your goal is to fetch only once:</h4>
+                                <ul>
+                                    <li>If one has autofocus, fetch that and stop.</li>
+                                    <li>Otherwise, fetch home.html.</li>
+                                </ul>
+                                <h3>Then yes — using .some() is more efficient and semantically clearer.</h3></h3>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="">
+const hasAutoFocus = Array.from(topics).some(el => {
+    if (el.hasAttribute('autofocus')) {
+        fetchLessonHref(el.href)
+        console.log(el.href)
+        return true // stops the some() loop right here
+    }
+    return false
+})
+
+if (!hasAutoFocus) {
+    fetchLessonHref('home.html')
+}
+                                    </pre>
+                                </div>
+                                <h3 class="r">**Make Drop down for full code, where this is 
+                                    <a style="color: magenta;" href="../../js/questionsLoad.js">questionLoad.js</a>
+                                </h3>
+                                <h4>Why this is better:</h4>
+                                <ul>
+                                    <li>some() stops looping as soon as it finds a match.</li>
+                                    <li>No redundant fetches.</li>
+                                    <li>Clear intent: if any element has autofocus, load it — otherwise load home.html</li>
+                                </ul>
+                                <h3>✅ Is .some() a method?</h3>
+                                <p>Yes — <strong>officially</strong>:</p>
+                                <ul>
+                                    <li>It’s an Array.prototype method.</li>
+                                    <li>Its job is to test whether at least one element in an array passes the test implemented by the provided function.</li>
+                                    <li>It returns a boolean — true or false.</li>
+                                </ul>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+[1, 2, 3].some(num => num > 2) // returns true</pre>
+                                </div>
+                                <h3>📚 If you’re curious — related array methods:</h3>
+                                <ul>
+                                    <li>.some() → checks for at least one passing item.</li>
+                                    <li>.every() → checks if all items pass.</li>
+                                    <li>.find() → returns the first matching item, or undefined.</li>
+                                    <li>.filter() → returns all matching items in a new array.</li>
+                                    <li>.map() → transforms all items into something else.</li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </article>
+                </div>    
+                <!-- ------------------------------------------------------- -->
+            </div>
+        </div>
+    </div>
+    <div class="topic">
+        <a id="letterFocus" tabindex="0" href="#" class="drop-topic questions-topic">letterFocus perfect
+        </a>
+        <div class="questions-container">
+            <div class="question-container">
+                <!-- Below in the the articles are the same format is chatgpt -->
+                <!-- I'm keeping the html the same but adding the classes:
+                       questions-answer, question-txt, answer-txt-->
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h6 class="sr-only">letterFocusPerfect</h6>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                             it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code drop-question">
+                                    why is the following code at line 47 executing twice
+                                    'm stripping the code down more, i'm trying here is the the html and the javascript. The
+                                    last thing i need is when an element from idEls has focus, and a different letter is
+                                    pressed, the focus needs to go to the closest nearest element below the current focused
+                                    element if there are multiple elements sharing the same first letter, for example on
+                                    this simple page, if the input box or add button are focused and the letter "T" is
+                                    pressed, the focus should go to task 1, not #tutorialLink, but if "T" is pressed again
+                                    while #task1 has focus the focus should go to #task2 then #task3 then loop back around
+                                    back to #tutorialLink but if a different letter is pressed it like "H" or "B" or "A" or
+                                    "I" it should just go to homelink backlink add buttong and input box, so in summary, if
+                                    there are multiple elements with the same first letter, the focus should go to the
+                                    closest element with that letter that appears below the current focused element from
+                                    idEls, if there is only one element with that letter it should just go to that element,
+                                    also if there are multiple elements with the same letter, like on this page
+                                    #tutorialLink, #task 1 2 and 3, if "T" is pressed i should go to the first element
+                                    tutorialLink if no other element is focused but if "T" is pressed again it should go to
+                                    task1 and if again task2, if "shift + t" is pressed it should focus backwards and loop
+                                    bac to the top which is task3 when it reches zero
+    
+                                    import { idEls, inputBox } from "./addTask.js";
+    
+                                    let inputBoxFocused = false;
+                                    let lastPressedLetter = '';
+                                    let iLetter = 0;
+                                    let currentIndex
+                                    // Sort elements in natural DOM order
+                                    // let idElsArr = Array.from(idEls).sort((a, b) => a.compareDocumentPosition(b) & 2 ? 1
+                                    : -1);
+    
+                                    // Track input focus
+                                    inputBox.addEventListener('focus', () => inputBoxFocused = true);
+                                    inputBox.addEventListener('blur', () => inputBoxFocused = false);
+    
+                                    let idElsArr = Array.from(idEls);
+    
+    
+                                    idEls.forEach(el => {
+                                    el.addEventListener('keydown', e => {
+                                    currentIndex = [...idElsArr].indexOf(e.target)
+                                    })
+    
+                                    })
+    
+                                    // Keydown event listener
+                                    document.addEventListener('keydown', (e) => {
+                                    if (inputBoxFocused) return; // Ignore if typing in input box
+    
+                                    let letter = e.key.toLowerCase();
+                                    if (letter === "i") e.preventDefault(); // Prevent unwanted behavior for "i"
+    
+                                    // Filter elements that start with the pressed letter
+                                    let letteredArr = idElsArr.filter(el => el.id.startsWith(letter));
+    
+                                    // Ensure letteredArr has at least one element
+                                    if (letteredArr.length === 0) return;
+    
+                                    // Get the currently focused element
+                                    let focusedEl = document.activeElement;
+    
+                                    // Find the index of the focused element in letteredArr
+                                    let focusedIndexLetArr = letteredArr.indexOf(focusedEl);
+    
+                                    // console.log(focusedIndexLetArr)
+                                    // console.log(indexIdEls)
+    
+                                    if(focusedIndexLetArr == -1){
+                                    letteredArr[0].focus();
+                                    } else {
+                                    console.log('yes')
+                                    }
+    
+                                    // Focus the next element
+                                    lastPressedLetter = letter;
+                                    });
+    
+                                    &lt;div class="project">
+                                    &lt;h2>Project Container&lt;/h2>
+                                    &lt;div class="project-container">
+                                    &lt;div class="todo-app">
+                                    &lt;h2>To-Do List &lt;img src="images/list-icon-screenshot.png" alt="">&lt;/h2>
+                                    &lt;div class="row">
+                                    &lt;input type="text" id="input-box" placeholder="Add Task Here" value="clean kitchen">
+                                    &lt;!-- ??? This Does NOT work with module scripts ??? -->
+                                    &lt;!-- &lt;button id="addBtn" onclick="addTask()">Add&lt;/button> -->
+                                    &lt;button id="addBtn">Add&lt;/button>
+                                    &lt;/div>
+    
+                                    &lt;ul class="task-container">
+                                    &lt;li id="task1" tabindex="0" class="checked">&lt;span class="checkbox">o&lt;/span>Task
+                                    1&lt;/li>
+                                    &lt;li id="task2" tabindex="0" >&lt;span class="checkbox">o&lt;/span>task 2
+                                    &lt;span class="xbox">x&lt;/span>
+                                    &lt;/li>
+                                    &lt;li id="task3" tabindex="0" >&lt;span class="checkbox">o&lt;/span>task 3 &lt;/li>
+                                    &lt;/ul>
+                                    &lt;/div>
+    
+                                    &lt;/div>
+                                    &lt;/div></pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                            '.group/conversation-turn' of .text-base   -->
+                            <div class="markdown prose">
+                                <p>
+                                    Got it! You want the focus behavior to prioritize the closest matching element below the
+                                    currently focused element when
+                                    a different letter is pressed. If cycling through elements of the same letter, it should
+                                    loop forward and backward as
+                                    expected.
+                                </p>
+                                <h2>Fixes & Improvements</h2>
+                                <h3>1. Find the nearest matching element below the current focus.</h3>
+                                <ul>
+                                    <li>If no element is focused, start from the first match.</li>
+                                    <li>If a different letter is pressed, move to the closest matching element below the
+                                        current focus.</li>
+                                </ul>
+                                <h3>2. Cycle through elements when pressing the same letter multiple times.</h3>
+                                <ul>
+                                    <li>Pressing "T" moves through all T elements (e.g., #tutorialLink → #task1 → #task2 →
+                                        #task3 → (loop back)).</li>
+                                    <li>Pressing "Shift + T" cycles backwards.</li>
+                                </ul>
+                                <h3>3. General letter navigation.</h3>
+                                <ul>
+                                    <li>If "H" is pressed, go to #homeLink if present.</li>
+                                    <li>If "B" is pressed, go to #backLink, etc.</li>
+                                    <li>If only one matching element exists, focus it.</li>
+                                </ul>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="">
+import { idEls, inputBox } from "./addTask.js";
+
+let inputBoxFocused = false;
+let lastPressedLetter = "";
+let iLetter = 0;
+let currentIndex = -1;
+
+// Convert NodeList to Array for filtering and indexing
+let idElsArr = Array.from(idEls);
+
+// Track input focus
+inputBox.addEventListener("focus", () => (inputBoxFocused = true));
+inputBox.addEventListener("blur", () => (inputBoxFocused = false));
+
+// Track current focus inside `idEls`
+idEls.forEach((el) => {
+    el.addEventListener("keydown", (e) => {
+        currentIndex = idElsArr.indexOf(e.target);
+});
+});
+
+// Keydown event listener
+document.addEventListener("keydown", (e) => {
+    if (inputBoxFocused) return; // Ignore if typing in input box
+
+let letter = e.key.toLowerCase();
+    if (letter === "i") e.preventDefault(); // Prevent unwanted behavior for "i"
+
+// Filter elements that start with the pressed letter
+let letteredArr = idElsArr.filter((el) => el.id.toLowerCase().startsWith(letter));
+
+if (letteredArr.length === 0) return; // No matching elements, exit
+
+let focusedEl = document.activeElement;
+let focusedIndex = idElsArr.indexOf(focusedEl);
+
+// If pressing a different letter, find the closest match below
+if (lastPressedLetter !== letter) {
+    let closestIndex = letteredArr.findIndex(el => idElsArr.indexOf(el) > focusedIndex);
+    iLetter = closestIndex !== -1 ? closestIndex : 0; // If none found below, start from first
+    } else {
+    // If pressing the same letter, cycle forward
+    iLetter = (letteredArr.indexOf(focusedEl) + 1) % letteredArr.length;
+}
+// Handle Shift + Letter for backwards cycling
+if (e.shiftKey) {
+    iLetter = (letteredArr.indexOf(focusedEl) - 1 + letteredArr.length) %
+    letteredArr.length;
+}
+// Focus the selected element
+letteredArr[iLetter].focus();
+    lastPressedLetter = letter;
+});</pre>
+                                </div>
+                                <h2>Behavior Summary</h2>
+                                <ul>
+                                    <li>Pressing "T" starts at #tutorialLink.</li>
+                                    <li>Pressing "T" again moves to #task1 → #task2 → #task3 → loop back.</li>
+                                    <li>Pressing "Shift + T" moves backwards (task3 → task2 → task1 → tutorialLink).</li>
+                                    <li>Pressing a different letter ("H", "B", "A", "I") goes to the first matching element.
+                                    </li>
+                                    <li>If a different letter is pressed, the focus moves to the closest element below the
+                                        current focus.</li>
+                                    <li>If no element is focused, it starts from the first matching element.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                </div>    
+                <!-- ------------------------------------------------------- -->
+            </div>
+        </div>
+    </div>
+    <!-- Catch and Display Error -->
+    <div class="topic">
+        <a id="catchAndDisplayError" tabindex="0" href="#" class="drop-topic questions-topic">Catch and Display Error
+        </a>
+        <div class="questions-container">
+            <div class="question-container">
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h6 class="sr-only">Handle promise errors</h6>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                         it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code drop-question">
+                                    thank you this is helpful, but i want to be able to store the error message into a variable for any broken script for
+                                    example, how would i do that it in the following code,
+                                    
+                                    it would be nice to store the error message shown in the browswer in a variable
+                                    
+                                    const messedUpVariable = 1 akj
+                                    
+                                    console.log(messedUpVariable)
+                                    
+                                    // console.log(Error message shown in console of chrome)
+                                    // let consoleLogMessage = Error message shown in console of chrome
+                                </pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                        '.group/conversation-turn' of .text-base   -->
+                            <div class="markdown prose">
+                                <p>
+                                    You can capture the error message from a script that fails to execute by using try...catch. However, syntax errors like
+                                    const messedUpVariable = 1 akj will cause a parsing error and prevent the script from running at all. To catch such
+                                    errors dynamically, you need to wrap the evaluation in a try...catch block or use window.onerror.
+                                </p>
+                                <h3>Solution 1: Using try...catch (For Runtime Errors)</h3>
+                                <p>If the error happens at runtime (e.g., calling an undefined function), you can capture it with try...catch:</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+let consoleLogMessage = "";
+
+try {
+    // This will cause a runtime error
+    someUndefinedFunction();
+} catch (error) {
+    consoleLogMessage = error.message;
+    console.log("Stored Error:", consoleLogMessage);
+}</pre>
+                                </div>
+                                <h3>Solution 2: Using window.onerror (For Syntax & Other Errors)</h3>
+                                <p>
+                                    If you want to catch all errors, including syntax errors, globally in a browser environment, use window.onerror:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+let consoleLogMessage = "";
+
+window.onerror = function(message, source, lineno, colno, error) {
+    consoleLogMessage = message;
+    console.log("Captured error:", consoleLogMessage);
+};
+
+// Intentionally causing a syntax error (in an `eval` block to avoid stopping script execution)
+try {
+    eval("const brokenVar = 1 akj"); // Syntax error
+} catch (error) {
+    consoleLogMessage = error.message;
+    console.log("Caught Syntax Error:", consoleLogMessage);
+}</pre>
+                                </div>
+                                <p>
+                                    How It Works:
+                                    window.onerror captures errors that occur anywhere in the script.
+                                    eval() allows intentional execution of invalid code without breaking the entire script.
+                                    try...catch is useful for runtime errors, but it cannot catch syntax errors outside an eval() call.
+                                    This approach stores error messages in consoleLogMessage, making them accessible for further handling. 🚀                                
+                                </p>                
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- ------------------------------------------------------- -->
+            </div>
+        </div>
+
+    </div>
+    <!-- Event Listener Duplication Debug -->
+    <div class="topic">
+        <a id="eventListenerDuplicationDebug" tabindex="0" href="#" class="drop-topic questions-topic">Event Listener Duplication Debug
+        </a>
+        <div class="questions-container">
+            <div class="question-container">
+                <!-- Below in the the articles are the same format is chatgpt -->
+                 <!-- I'm keeping the html the same but adding the classes:
+                   questions-answer, question-txt, answer-txt-->
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h6 class="sr-only">Event Listener Duplication Debug</h6>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                         it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code drop-question">
+                                    why is the following code at line 47 executing twice 
+export let lastStep = null
+export function stepTxtsFocus() {
+const steps = document.querySelectorAll('.step , .step-float')
+// const tabIndexElements = document.querySelectorAll('.copy-code, textarea')
+// Maybe just keep text area with focus
+const tabIndexElements = document.querySelectorAll('.copy-code')
+const  imgVids = document.querySelectorAll('.step-img > img, .step-vid, video')
+let stepFocused
+    tabIndexElements.forEach(el => {
+        el.addEventListener('keydown', e => {
+            let letter = e.key.toLowerCase()
+            if (letter == 'enter') {
+                toggleImgVid(e)
+            }
+        })
+    })
+    steps.forEach(el => {
+        el.addEventListener('focus', e => {
+            removeAllTabIndexes()
+            deEnlargeAllImgVid()
+    
+        })
+    })
+    addEventListener('keydown', e => {
+        let letter = e.key.toLowerCase()
+        if (letter == 'enter') {
+            toggleImgVid(e)
+            addTabIndexes(e)
+        }
+        if(letter == 'm'){
+            const targetDiv = document.querySelector('#targetDiv')
+            targetDiv.focus()
+            
+        }
+        if(!isNaN(letter)){
+            let intLet = parseInt(letter)
+            if(intLet <= steps.length){
+                steps[intLet - 1].focus()
+            } else {
+                const endNxtLesson = document.querySelector('#endNxtLesson')
+                endNxtLesson.focus()
+            }
+        }
+    })
+    function toggleImgVid(e){
+        e.preventDefault()
+        console.log(e.target)    
+        if(e.target.classList.contains('copy-code')){
+            e.preventDefault()
+        }
+        
+
+    }
+    function addTabIndexes(e){
+        const tabEls = e.target.querySelectorAll('.copy-code, textarea')
+        tabEls.forEach(el => {
+            el.setAttribute('tabindex', '0')
+        })
+    }
+    function removeAllTabIndexes(){
+        tabIndexElements.forEach(el => {
+            el.setAttribute('tabindex', '-1')
+        })
+    }
+    function deEnlargeAllImgVid(){
+        imgVids.forEach(el => {
+            if(el.classList.contains('enlarge')){
+                el.classList.remove('enlarge')
+            }
+        })
+    }
+}
+function getStep(parent){
+    // if(parent.classList.contains('step')){
+    if(parent.classList.contains('step')){
+        return parent
+    } else if (parent.parentElement){
+        return getStep(parent.parentElement)
+    } else {
+        return null
+    }
+}
+stepTxtsFocus()</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                        '.group/conversation-turn' of .text-base   -->
+                            <div class="markdown prose">
+                                <p>
+                                    The reason why the code at line 47 (i.e., toggleImgVid(e)) is executing twice could be due to multiple event listeners
+                                    triggering it. Here are possible reasons:
+                                </p>
+                                <h3>1. Multiple Event Listeners Firing</h3>
+                                <p>
+                                    There are two separate places where toggleImgVid(e) is being called:
+                                    Inside the keydown event listener for .copy-code elements:
+                                    js
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="">
+tabIndexElements.forEach(el => {
+    el.addEventListener('keydown', e => {
+        let letter = e.key.toLowerCase()
+        if (letter == 'enter') {
+            <span class="r">toggleImgVid(e) // Call 1</span>
+        }
+    })
+})</pre>
+                                </div>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="">
+addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+        <span class="r">toggleImgVid(e) // Call 2</span>
+        addTabIndexes(e)
+    }
+})</pre>
+                                </div>
+                                <h3>2. Event Bubbling</h3>
+                                <p>
+                                    If the keydown event is triggered inside a .copy-code element, it will first fire in the individual element's event
+                                    listener (inside the tabIndexElements.forEach(...) loop).
+                                    Then, because keydown events bubble up, it also triggers the global keydown event listener.
+                                    This results in toggleImgVid(e) executing twice—once from the .copy-code element listener and once from the global
+                                    listener.
+                                </p>
+                                <h3>Solution</h3>
+                                <p>
+                                    To prevent duplicate execution, you can stop event propagation inside the .copy-code event listener:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+tabIndexElements.forEach(el => {
+    el.addEventListener('keydown', e => {
+        let letter = e.key.toLowerCase()
+        if (letter == 'enter') {
+            <span class="m">e.stopPropagation() // Prevent event from reaching the global listener</span>
+            toggleImgVid(e)
+        }
+    })
+})</pre>
+                                </div>
+                                
+                                <p>
+                                    <strong>Alternative Fix:</strong> Using a Single Event Listener
+                                    Instead of attaching an event listener to each .copy-code element, delegate it to the document:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+document.addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+        if (e.target.classList.contains('copy-code')) {
+            e.preventDefault()
+            toggleImgVid(e)
+            return // Prevent further execution
+        }
+        toggleImgVid(e)
+        addTabIndexes(e)
+    }
+})</pre>
+                                </div>                          
+                                <p>
+                                    This avoids multiple event listeners and prevents duplicate execution.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+           
+                <!-- ------------------------------------------------------- -->
+            </div>
+        </div>
+    </div>
+    <h5>Chrome Extension</h5>
+    <div class="topic">
+        <a id="implementChromeExtensionLetterFocus" tabindex="0" href="#" class="drop-topic questions-topic">implement Chrome extension - Google Letter Focus
+        </a>
+        <div class="questions-container">
+            <div class="question-container">
+                <!-- Below in the the articles are the same format is chatgpt -->
+                 <!-- I'm keeping the html the same but adding the classes:
+                   questions-answer, question-txt, answer-txt-->
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h6 class="sr-only">implement Chrome extension</h6>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                         it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code drop-question">
+       You said:
+&lt;div class="CCgQ5 vCa9Yd QfkTvb N8QANc Va3FIb EE3Upf" aria-level="3" role="heading">&lt;span>Stack Overflow - Integrate
+        With Your Tech Stack&lt;/span>&lt;/div>
+&lt;!-- Below are sub results  
+&lt;a data-agch="HJ3bqe" data-impdclcc="1" data-agdh="fvd3vc" data-rw="https://www...">
+Custom | Pricing &amp; Plans&lt;/a>
+&lt;a data-agch="HJ3bqe" data-impdclcc="1" data-agdh="fvd3vc" data-rw="https://www.googleadservices.com/pagead..."
+>Knowing Sharing Platform&lt;/a>
+&lt;!-- Next Result 
+&lt;div class="CCgQ5 vCa9Yd QfkTvb N8QANc Va3FIb EE3Upf" aria-level="3" role="heading">&lt;span>REST News API for
+        Developers&lt;/span>&lt;/div>
+i'm trying make an extension to add to chrome that will apply my letter focus scripts, above are the html elements i want to target, the divs with a role="heading" are the main search results on googles, the a tage with the data-agch="HJ3bqe" are the heading sub results, i would love to target both so that if i press the first letter in one of the results the focus goes to the result,  as you can see the first div with role "heading" and the span inside containing the text Stack Overflow... is the first result in the google search result , if i press the "S" I would love the focus to go there then if i press "k", it will then go to Knowing Sharing Platform, if press "r" the focus will go to Rest New..., basically everytime i press a letter on the keyboard the focus will go to the first element with the text that has that first letter, then if the same letter is pressed again it will go to the next element containing that letter as its first character, but, if shift and that letter is pressed it will go to the previous element and cycle through the page, for example if the page first opens and shift + "s" is pressed it shouldn't go to Stack Overflow... it should go to the bottom of the page to the last element with that letter, and continue decending through the elements up if shift + that letter is pressed, how can i write a script for this and make it an extension  for chrome</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                        '.group/conversation-turn' of .text-base   -->
+                            <div class="markdown prose">
+                                <p>
+                                    To implement this Chrome extension, follow these steps: 
+                                </p>
+                                <h3>1. Create the Manifest File (manifest.json)</h3>
+                                <p>
+                                    This defines the extension's permissions and scripts.
+                                    <br>
+                                    json
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="">
+{
+  "manifest_version": 3,
+  "name": "Google Search Letter Focus",
+  "version": "1.0",
+  "description": "Navigate Google search results using the first letter keys.",
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": ["https://www.google.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}</pre>
+                                </div>
+                                <h3>2. Create the Content Script (content.js)</h3>
+                                <p>
+                                    This script will handle key presses and focus the relevant search results.
+                                    <br>
+                                    javascript
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+let searchResults = [];
+let currentIndexes = {};
+
+document.addEventListener("keydown", (event) => {
+if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+let isShift = event.shiftKey;
+let key = event.key.toLowerCase();
+if (key.length !== 1 || !/[a-z]/.test(key)) return;
+
+// Get search result elements if not already fetched
+if (searchResults.length === 0) {
+searchResults = [...document.querySelectorAll('div[role="heading"] span, a[data-agch="HJ3bqe"]')];
+}
+
+let matchingResults = searchResults.filter(el =>
+el.innerText.trim().toLowerCase().startsWith(key)
+);
+
+if (matchingResults.length === 0) return;
+
+// Initialize tracking index if not set
+if (!(key in currentIndexes)) {
+currentIndexes[key] = isShift ? matchingResults.length - 1 : 0;
+} else {
+currentIndexes[key] += isShift ? -1 : 1;
+}
+
+// Cycle through matches
+if (currentIndexes[key] >= matchingResults.length) currentIndexes[key] = 0;
+if (currentIndexes[key] &lt; 0) currentIndexes[key]=matchingResults.length - 1; let
+    target=matchingResults[currentIndexes[key]]; target.scrollIntoView({ behavior: "smooth" , block: "center" });
+    target.focus(); 
+});</pre>
+                                </div>
+                                <h3>3. Add a Background Script (background.js)</h3>
+                                <p>
+                                    This ensures the content script runs when needed.
+                                    <br>
+                                    javascript
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+chrome.runtime.onInstalled.addListener(() => {
+    console.log("Google Search Letter Focus Extension Installed");
+});</pre>
+                                </div>
+                                <h3>4. Create a Popup (Optional)</h3>
+                                <p>
+                                    Create popup.html for an options menu.
+                                    <br>
+                                    <strong>html</strong>
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+&lt;!DOCTYPE html>
+&lt;html>
+
+&lt;head>
+    &lt;title>Google Search Letter Focus&lt;/title>
+&lt;/head>
+
+&lt;body>
+    &lt;h2>Letter Navigation Active&lt;/h2>
+    &lt;p>Use letter keys to navigate search results.&lt;/p>
+&lt;/body>
+
+&lt;/html>
+5. Load the Extension into Chrome
+Open chrome://extensions/ in Chrome.</pre>
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </article>
+                </div>
+           
+                <!-- ------------------------------------------------------- -->
+            </div>
+        </div>
+    </div>
+    
+</div>

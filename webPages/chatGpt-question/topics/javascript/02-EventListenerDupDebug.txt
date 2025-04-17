@@ -1,0 +1,73 @@
+The reason why the code at line 47 (i.e., toggleImgVid(e)) is executing twice could be due to multiple event listeners triggering it. Here are possible reasons:
+
+1. Multiple Event Listeners Firing
+There are two separate places where toggleImgVid(e) is being called:
+Inside the keydown event listener for .copy-code elements:
+js
+Copy
+Edit
+tabIndexElements.forEach(el => {
+    el.addEventListener('keydown', e => {
+        let letter = e.key.toLowerCase()
+        if (letter == 'enter') {
+            toggleImgVid(e)  // Call 1
+        }
+    })
+})
+Inside the global keydown event listener:
+js
+Copy
+Edit
+addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+        toggleImgVid(e)  // Call 2
+        addTabIndexes(e)
+    }
+})
+2. Event Bubbling
+If the keydown event is triggered inside a .copy-code element, it will first fire in the individual element's event listener (inside the tabIndexElements.forEach(...) loop).
+Then, because keydown events bubble up, it also triggers the global keydown event listener.
+This results in toggleImgVid(e) executing twice—once from the .copy-code element listener and once from the global listener.
+Solution
+To prevent duplicate execution, you can stop event propagation inside the .copy-code event listener:
+
+js
+Copy
+Edit
+tabIndexElements.forEach(el => {
+    el.addEventListener('keydown', e => {
+        let letter = e.key.toLowerCase()
+        if (letter == 'enter') {
+            e.stopPropagation() // Prevent event from reaching the global listener
+            toggleImgVid(e)
+        }
+    })
+})
+
+
+js
+Copy
+Edit
+document.addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+        if (e.target.classList.contains('copy-code')) {
+            e.preventDefault()
+            toggleImgVid(e)
+            return // Prevent further execution
+        }
+        toggleImgVid(e)
+        addTabIndexes(e)
+    }
+})
+This avoids multiple event listeners and prevents duplicate execution.
+
+Would you like help testing this fix? 🚀
+
+
+
+
+
+
+

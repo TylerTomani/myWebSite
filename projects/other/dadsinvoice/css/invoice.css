@@ -1,0 +1,199 @@
+*{
+    margin: 0;
+    padding:0;
+}
+main {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    margin: 0;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+.items-container {
+    padding: 0 .5%;
+}
+#invoiceHeading{
+    display: flex;
+    justify-content: flex-end;
+}
+#invoice-container{
+    width: 100%;
+    
+    border: 2px solid red;
+}
+select {
+    border: 1px solid black;
+}
+
+#invoice_heading {
+    text-align: right;
+    position: relative;
+    right: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 8px;
+    width: 250px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    font-family: arial;
+    font-size: 28px;
+    color: #808080;
+}
+.to-from-container {
+    display: flex;
+    /* border: 2px solid blue; */
+    width: 100%;
+}
+.to-from-container h3{
+    font-size: 18px;
+    font-family: verdana;
+    color: #3c3c3c;
+}
+.to-from-container > #to,
+.to-from-container>#from {
+    flex-basis: 50%;
+    width: 50%;
+}
+.to-from-container > #to{
+}
+#to_name,
+#from_name {
+    border: 1px solid black;
+    width: 100%;
+    padding-left: 3px;
+    padding-bottom: 3px;
+    font-weight: normal;
+    font-family: verdana;
+    font-size: 13px;
+    color: #3c3c3c;
+}
+#to_address,
+#from_address {
+    width: 100%;
+    overflow: auto;
+    outline: none;
+    padding: 5px;
+    font-weight: normal;
+    font-family: verdana;
+    font-size: 13px;
+    color: silver;
+}
+#from_address {
+font-family: verdana;
+    font-size: 13px;
+    color: rgb(60, 60, 60);
+    background-color: rgb(255, 255, 255);
+    
+}
+#to_new_customer{
+    border: 1px solid black;
+    width: 100%;
+    padding: 2% 0;
+    padding-left: 7px;
+    margin: 2% 0;
+    font-weight: normal;
+    font-family: verdana;
+    font-size: 13px;
+    color: silver;
+}
+#invoice_num_container {
+    display: flex;
+    width: 100%;
+}
+#invoice_num_container > * {
+    flex-basis: 32%;
+    /* width: 33%; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#invoice_num_container > * input{
+    width: 100%;
+
+}
+.items-container {
+    /* position: relative; */
+    width: 100%;
+}
+.item-table{
+    position: relative;;
+    margin-top: 2.5%;
+    padding: 2% .5%;
+    padding-top: 4%;
+    padding-left: 1%;
+    display: flex;
+    /* flex-wrap: wrap; */
+    gap: 1%;
+    border-radius: 4px;
+    /* border: 1px solid black; */
+}
+.item-table:focus,.item-table:active,
+.item-table:hover{
+    border: 2px solid orange;
+}
+
+.item-table .delete-item-btn{
+    display: none;
+}
+.delete-item-btn.active {
+    opacity: 100;
+    display: block;
+    position: absolute;
+    top: -10px; /* Move up */
+    right: -10px; /* Move slightly to the right */
+    z-index: 10; /* Ensure it's above other elements */
+    background-color: tomato;
+    padding: .2% 2%;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.item-table > *  h4{
+    /* background-color: blue; */
+    font-size: 60%;
+}
+.item-table > *{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-start; */
+    align-items: flex-start;
+}
+.item-table > .item {
+    /* flex-basis: 12.5%;    */
+    /* padding: .5% 1% */
+}
+.item-table > .description {
+    /* flex-basis: 50%; */
+    flex-grow: 1;
+
+    field-sizing: content;
+}
+.item-table > .description textarea{
+    height: 25px;
+    width: 100%;
+    min-width: 100px;
+}
+.item-table > .unit-price,.item-table > .quanity,.item-table > .item-total{
+    flex-basis: 12.5%;
+    flex-grow: 1;
+}
+.item-table>.unit-price  input,
+.item-table>.quanity    input,
+.item-table>.item-total input {
+    width: 100%;
+
+}
+
+#newItemBtn{
+    width: 20%;
+    /* background-color: blue; */
+}
+input,
+textarea {
+    /* pointer-events: none; */
+    font-size: 16px;
+    /* Prevent auto-zoom */
+    transform: scale(1);
+    /* Prevent unwanted zooming */
+    touch-action: manipulation;
+}

@@ -1,0 +1,229 @@
+<h4>Github</h4>
+<div class="topics-questions">
+    <!-- Installing Git -->
+    <div class="topic">
+        <a tabindex="0" href="#" class="drop-topic">Installing Git for Visual Studio code
+            <br>(pull error)
+        </a>
+        <div class="questions-container">
+            <div class="question-container">
+                <!-- Below in the the articles are the same format is chatgpt -->
+                 <!-- I'm keeping the html the same but adding the classes:
+                   questions-answer, question-txt, answer-txt-->
+                <!-- Push and Pull Error -->
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h5 class="sr-only">Question: Atom Error when pulling</h5>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                         it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code">
+                                    i dont want to keep the local changes and i getting the folllowing message when trying to use the
+                                    3rd option,
+                                    git checkout -- javascript-youtube/chrisCourses/chrisCourses.html
+                                    git pull origin main
+                                    (base) /bin/zsh:$ git pull origin main
+                                    From https://github.com/TylerTomani/youtube-resources
+                                    * branch main -> FETCH_HEAD
+                                    Auto-merging javascript-youtube/chrisCourses/02-pacman/js/lesson-temp.js
+                                    hint: Waiting for your editor to close the file... atom --wait: atom: command not found
+                                    error: There was a problem with the editor 'atom --wait'.
+                                    Not committing merge; use 'git commit' to complete the merge.
+                                </pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                            '.group/conversation-turn' of .text-base   -->
+                            <div class="markdown prose">
+                                <p>
+                                    The reason why the code at line 47 (i.e., toggleImgVid(e)) is executing twice could be
+                                    due to multiple event listeners
+                                    triggering it. Here are possible reasons:
+                                </p>
+                                <h3>1. Multiple Event Listeners Firing</h3>
+                                <p>
+                                    There are two separate places where toggleImgVid(e) is being called:
+                                    Inside the keydown event listener for .copy-code elements:
+                                    js
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="">
+tabIndexElements.forEach(el => {
+    el.addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+    <span class="r">toggleImgVid(e) // Call 1</span>
+    }
+    })
+})</pre>
+                                </div>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="">
+addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+    <span class="r">toggleImgVid(e) // Call 2</span>
+    addTabIndexes(e)
+    }
+})
+                                    </pre>
+                                </div>
+                                <h3>2. Event Bubbling</h3>
+                                <p>
+                                    If the keydown event is triggered inside a .copy-code element, it will first fire in the
+                                    individual element's event
+                                    listener (inside the tabIndexElements.forEach(...) loop).
+                                    Then, because keydown events bubble up, it also triggers the global keydown event
+                                    listener.
+                                    This results in toggleImgVid(e) executing twice—once from the .copy-code element
+                                    listener and once from the global
+                                    listener.
+                                </p>
+                                <h3>Solution</h3>
+                                <p>
+                                    To prevent duplicate execution, you can stop event propagation inside the .copy-code
+                                    event listener:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+tabIndexElements.forEach(el => {
+    el.addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+    <span class="m">e.stopPropagation() // Prevent event from reaching the global
+        listener</span>
+    toggleImgVid(e)
+    }
+    })
+})
+                                    </pre>
+                                </div>
+    
+                                <p>
+                                    <strong>Alternative Fix:</strong> Using a Single Event Listener
+                                    Instead of attaching an event listener to each .copy-code element, delegate it to the
+                                    document:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+document.addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+    if (e.target.classList.contains('copy-code')) {
+    e.preventDefault()
+    toggleImgVid(e)
+        return // Prevent further execution
+    }
+    toggleImgVid(e)
+        addTabIndexes(e)
+    }
+})</pre>
+                                </div>
+                                <p>
+                                    This avoids multiple event listeners and prevents duplicate execution.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- ------------------------------------------------------- -->
+            </div>
+            <div class="question-container">            
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h5 class="sr-only">Question2 : TBD</h5>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                         it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code">
+                                    ** When question is not toggled, make 
+                                    the height stay 
+                                    at around this
+                                    big, with overflow-y scroll, if 
+                                    clicked show whole question
+                                    ...
+                                    ....
+                                    ...
+                                    ....
+
+                                </pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: Atom Error when pulling</h6>
+                        <div class="text-base">
+                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                        '.group/conversation-turn' of .text-base   -->
+                            <div class="markdown prose">
+                                <p>
+                                    It looks like Git is trying to use the atom editor to open a merge message, but it can't find
+                                    the atom command on your
+                                    system. You can resolve this by changing the default editor for Git or bypassing the editor
+                                    prompt.
+                                </p>
+                                <h3>1. Set a Different Default Editor (e.g., VS Code)</h3>
+                                <p>You can set VS Code as your default editor for Git:</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+                                        git config --global core.editor "code --wait"</pre>
+                                </div>
+                                <p>
+                                    This will configure VS Code to be used as the editor when Git requires it. After running this,
+                                    you can retry the git
+                                    pull:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+                                        git pull origin main</pre>
+                                </div>
+                                <h3>2. Complete the Merge Without Opening an Editor</h3>
+                                <p>Since you don’t want to keep local changes, you can skip the commit message prompt and force the
+                                    merge with --no-edit:</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+                                        git merge --no-edit</pre>
+                                </div>
+                                <p>Or if the merge is already in progress, you can complete it directly:</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+                                        git commit --no-edit</pre>
+                                </div>
+                                <p>After that, run:</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+                                        git pull origin main</pre>
+                                </div>
+                                <p class="r">
+                                    The above worked 🫡
+                                </p>
+                                <hr>
+                                <p>
+                                    If the merge is still causing issues, you can abort it and retry with the discard option:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+                                        git merge --abort
+                                        git reset --hard HEAD
+                                        git pull origin main</pre>
+                                </div>
+                                <p>
+                                    This will abort the current merge attempt, reset your local changes, and pull the latest changes
+                                    from the main branch.</p>
+                
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- ------------------------------------------------------- -->
+            </div>
+        </div>
+
+    </div>
+</div>

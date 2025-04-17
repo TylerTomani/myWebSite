@@ -1,0 +1,246 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    /* margin-left: 10%; */
+
+}
+.step-col {
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    margin: 2% 0;
+}
+.step-col > .step-txt{
+    border: 1px solid black;
+    margin-top: .5% 0 ;
+    margin-bottom: 1.5% ;
+    margin-left: 10%;
+    padding-bottom: 1%;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+}
+.step-col > .img-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+.step-col > .img-container > .step-img{
+    flex-basis: 50%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.step-col > .img-container img {
+    width: 90%;
+    max-height: 300px;
+}
+body {
+    padding-bottom: 5%;
+}
+.steps-container>h2{
+    font-size: 110%;
+}
+.steps-container>h3 {
+    font-size: 90%;
+}
+.steps-container>header {
+    display: flex;
+    padding-right: 2.5%;
+}
+.steps-container>header > .titles-container{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 80%;
+    padding-left: 1%;
+    padding-top: 1%;
+}
+.steps-container>header > .titles-container > h2{
+    font-size: 110%;
+}
+.steps-container>header > .titles-container > h3{
+    font-size: 90%;
+}
+.steps-container > header a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 50px;
+    flex-basis: 20%;
+    padding-top: 1%;
+    border: 1px solid orange;
+}
+.steps-container > header > a img {
+    align-self: center;
+    height: 100%;   
+    width: 100%;
+}
+
+#playlistVideoNumImg {
+    max-height: 100px;
+}
+
+.enlarge {
+    position: relative;
+    transform: scale(2.65);
+    right: 60%;
+}
+.enlarge-vid {
+    position: relative;
+    transform: scale(2.2);
+    right: 50%;
+}
+.enlarge-sm {
+    position: relative;
+    transform: scale(1.65);
+    right: 60%;
+}
+
+
+.copy-code:active,
+.copy-code:focus {
+    box-shadow: 0 0 6px 6px lightseagreen;
+}
+
+#nxtLesson {
+    margin-left: 2.5%;
+    padding: .5% 1.5%
+}
+
+#nxtLesson:active,
+#nxtLesson:focus {
+    box-shadow: 0 0 5px 5px lightseagreen;
+}
+.step>.step-vid>video {
+    border: 1px solid lightseagreen;
+}
+
+.step-txt:active,
+.step-txt:focus {
+    box-shadow: 0 0 3px 3px lightseagreen;
+}
+
+
+
+.fb-70 {
+    /* flex-basis: 70%; */
+}
+.step>.step-img,
+.step>.step-vid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.step>.step-img>img,
+.step>.step-vid>video {
+    width: 100%;
+    height: 90%;
+    /* min-height: 150px; */
+    max-height: 300px;
+    max-width: 350px;
+}
+
+.step {
+    display: flex;
+    /* background-color: blue; */
+    /* flex-wrap: wrap-reverse; */
+}
+
+.step>* {
+    flex-basis: 50%;
+    border: .5px solid black;
+    /* margin: 1.75%; */
+}
+
+.step>.step-txt {
+    flex-basis: 50%;
+    padding: 1%;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.step-txt > p{
+    margin-top: 2%;
+    padding: 0 2.5%;
+    line-height: 1.5;
+    font-size: .9rem;
+}
+.step-txt > p > a:visited{
+    color: blue;
+    text-decoration: none;
+}
+.step-txt > p > a{
+    font-size: 80%;
+    white-space: wrap;
+    display: inline-block
+}
+
+
+.code-container {
+    align-self: flex-start;
+    margin-left: 2%;
+    width: 90%;
+    color: white;
+}
+
+.copy-code {
+    border-radius: 5px;
+    background-color: black;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    max-height: 500px;
+    padding-left: 2.5%;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+}
+.copy-code > .code-container {
+    margin: 0;
+    overflow: hidden;
+    overflow-x: hidden;
+    border: none;
+    overflow-y: auto;
+}
+.copy-code > .code-container .copy-code{
+    border: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+
+}
+@media screen and (max-width: 770px) {
+    .copy-code{
+        font-size: .8rem;
+    }        
+    .step-txt>p {
+        font-size: .8rem;
+    }
+}
+@media screen and (max-width: 600px) {
+    .col-reverse{
+        flex-direction: column-reverse;
+    }
+    .step > .fb-70 {
+        flex-basis: 25%;
+        flex-direction: column;
+    }
+    .code-container{
+        margin: 1%;
+    }
+    .copy-code{
+        font-size: .8rem;
+    }   
+    
+}
+
+.w-70 {width: 70% !important;}
+.w-80 {width: 80% !important;}
+.w-90 {width: 90% !important;}

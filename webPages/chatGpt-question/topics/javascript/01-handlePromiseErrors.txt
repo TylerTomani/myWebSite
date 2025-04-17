@@ -1,0 +1,55 @@
+
+ChatGPT said:
+You can capture the error message from a script that fails to execute by using try...catch. However, syntax errors like const messedUpVariable = 1 akj will cause a parsing error and prevent the script from running at all. To catch such errors dynamically, you need to wrap the evaluation in a try...catch block or use window.onerror.
+
+Solution 1: Using try...catch (For Runtime Errors)
+If the error happens at runtime (e.g., calling an undefined function), you can capture it with try...catch:
+
+javascript
+Copy
+Edit
+let consoleLogMessage = "";
+
+try {
+    // This will cause a runtime error
+    someUndefinedFunction();
+} catch (error) {
+    consoleLogMessage = error.message;
+    console.log("Stored Error:", consoleLogMessage);
+}
+Solution 2: Using window.onerror (For Syntax & Other Errors)
+If you want to catch all errors, including syntax errors, globally in a browser environment, use window.onerror:
+
+javascript
+Copy
+Edit
+let consoleLogMessage = "";
+
+window.onerror = function(message, source, lineno, colno, error) {
+    consoleLogMessage = message;
+    console.log("Captured error:", consoleLogMessage);
+};
+
+// Intentionally causing a syntax error (in an `eval` block to avoid stopping script execution)
+try {
+    eval("const brokenVar = 1 akj"); // Syntax error
+} catch (error) {
+    consoleLogMessage = error.message;
+    console.log("Caught Syntax Error:", consoleLogMessage);
+}
+How It Works:
+window.onerror captures errors that occur anywhere in the script.
+eval() allows intentional execution of invalid code without breaking the entire script.
+try...catch is useful for runtime errors, but it cannot catch syntax errors outside an eval() call.
+This approach stores error messages in consoleLogMessage, making them accessible for further handling. 🚀
+
+
+
+
+
+
+
+
+
+
+

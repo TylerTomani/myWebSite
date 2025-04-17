@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    overflow: hidden;
+    overflow-y: scroll;
+
+}
+body>header {
+    display: flex;
+    justify-content: space-around;
+    height: 5vh;    
+}
+
+#mainTargetDiv{
+    border: 1px solid black;
+    height: 85vh;    
+}
+#mainTargetDiv.active, #mainTargetDiv:focus{
+    box-shadow: 0 0 3px 3px sandybrown;
+}
+nav.btm-nav {
+    position: fixed;
+    bottom: 0;
+    /* height: 15vh; */
+    margin-top: 5%;
+}
+nav.btm-nav > ul{
+    bottom: 2.5%;
+    /* justify-content: space-around; */
+    display: flex;
+    list-style: none;
+    border: 1px solid black;
+}
+nav.btm-nav>ul li {
+    border-bottom: none;
+    flex-basis: 30%;
+    display: flex;
+}
+nav.btm-nav>ul li a {
+    display: inline-block;
+    /* margin: 0 10%; */
+    width: 100%;
+    height: 100%;
+    padding: 5%;
+    text-decoration: none;
+    /* background-color: blue; */
+}
+nav.btm-nav>ul li a.active, nav.btm-nav>ul li a:focus{
+    background-color: rgba(244, 165, 96, 0.74);
+}

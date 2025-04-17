@@ -1,0 +1,55 @@
+main {
+    margin: 0 2.5%
+}
+.sections-container {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    margin: 0 2.5%;
+    margin-top: 2.5%;
+}
+.section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5%;
+}
+.section > header{
+    margin-bottom: 1.25%;
+}
+.section > .sub-section {
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.section > .sub-section > *{
+
+}
+.section > .sub-section > *{
+    border: 1px solid black;;
+    display: flex;
+    flex-direction: column;
+}
+.section>.sub-section>* > h4{
+    padding-left: 1%;
+}
+.section>.sub-section>* >p{
+    margin-left: 2.5%;
+    margin-top: 2%;
+    font-size: .7rem;
+}
+.section>.sub-section>* >.code-container{
+    font-size: .7rem;
+    border: 1px solid black;
+    width: 90%;
+    align-self: center;
+    margin-top: 2%;
+}
+.code-container > .copy-code{
+    padding-top: 1.5%;
+    padding-left: 1%;
+}
+
+
+.hide {
+    display: none !important;
+}

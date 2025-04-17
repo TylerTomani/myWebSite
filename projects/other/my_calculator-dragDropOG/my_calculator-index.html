@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my_calculator-drag&drop</title>
+    <script src="js/calculator-dragDrop.js" defer></script>
+    <link rel="stylesheet" href="css/calculator-dragDrop.css">
+</head>    
+<body>
+    <div class="container">
+        <h1>Drag and Drop Calculator</h1>
+        <textarea id="inputField" placeholder="Drag and drop or paste numbers here..." ondrop="handleDrop(event)"
+            ondragover="allowDrop(event)"></textarea>
+        <div class="button-container">
+            <button onclick="calculate('+')">+</button>
+            <button onclick="calculate('-')">-</button>
+            <button onclick="calculate('*')">x</button>
+            <button onclick="calculate('/')">÷</button>
+        </div>
+        <div class="result-options">
+            <label>
+                <input type="checkbox" id="commaSeparated" />
+                Comma-separated result
+            </label>
+        </div>
+        <h2 id="result">Result: </h2>
+    </div>
+
+    <script>
+        
+    </script>
+</body>
+
+</html>

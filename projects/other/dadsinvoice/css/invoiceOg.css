@@ -1,0 +1,42 @@
+.to-from-container {
+    display: flex;
+    width: 100%;
+    /* background-color: blue; */
+}
+
+
+
+#to_nameTD>select {
+    /* background-color: blue; */
+}
+
+#invoice_num_container {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+#invoice_num,
+#invoice_date,
+#invoice_due_date {
+    display: flex;
+    flex-basis: 30%;
+    border: 2px solid blue;
+
+}
+
+#number_label,
+#date_label,
+#invoice_due_date {
+    /* display: flex; */
+    /* width: 50%; */
+    /* border: 2px solid red; */
+}
+
+.invoiceForm_fromNameTD {
+    /* width: 50%; */
+}
+
+.invoiceForm_fromNameTD input {
+    width: 100%;
+}

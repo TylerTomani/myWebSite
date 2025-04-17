@@ -1,0 +1,27 @@
+.fcol {
+    flex-direction: column;
+}
+.fcol {
+    flex-direction: column !important;
+}
+
+.ac {align-items: center !important;}
+.as { 
+    align-items: flex-start !important;
+}
+.ae {align-items: flex-end !important;}
+.asc {
+    align-self: center !important;
+    /* background-color: yellow; */
+}
+.asc {align-self: center !important;}
+.ass {align-self: flex-start !important;}
+.ase {align-self: flex-end !important;}
+.jc {justify-content: center !important;}
+.js {justify-content: flex-start !important;}
+.je {justify-content: flex-end !important;}
+.jsc {justify-self: center !important;}
+.jss { 
+    justify-self: flex-start !important;
+}
+.jse {justify-self: flex-end !important;}

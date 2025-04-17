@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCommands&Shortcuts</title>
+    <link rel="stylesheet" href="css/codeComShortcuts.css">
+    <link rel="stylesheet" href="css/double-link-header.css">
+
+    <link rel="stylesheet" href="css/focusDrops.css">
+    <link rel="stylesheet" href="css/copy-code.css">
+    <script type="module" src="js/copy-code.js" defer></script>    
+    <script type="module" src="js/focusDrops.js" defer></script>    
+    <script type="module" src="js/codeFocusCopy.js" defer></script>    
+<!-- // These css and scripts below are unique to this page     -->
+
+</head>
+<body>
+    <header>
+        <div class="home-links-container">
+            <a tabindex="0" id="homelink" href="../../index.html">home</a>
+            <!-- <a tabindex="0" id="backlink" href="../index.html">&larr;back (Shorcuts & Commands)</a> -->
+        </div>
+        <h1>Code,
+            <br>&emsp; Commands<sub>(regex in vs code)</sub>
+            <br>&emsp;&emsp;& Shortcuts (Program Shortcuts)
+        </h1>
+        <p>
+            CHANGE class name cmd-rgx, that's bad, make individual page for each drop topic,
+            there will be to many here`
+        </p>
+    </header>
+    <main>
+        <div class="sections-container">
+            <!-- Terminal linux -->
+            <section class="section">
+                <header><h3><a id="terminalUnix" href="#" class="section-title">Terminal Unix</a></h3>
+                </header>
+                <section class="sub-section">
+                    <!-- -->
+                    <div class="cmd-regex">
+                        <h4>01</h4>
+                        <p>Find any path for file</p>
+                        <div class="code-container">
+                            <pre class="copy-code">
+mdfind "kMDItemCFBundleIdentifier == 'com.microsoft.VSCode'"</pre>
+                        </div>
+                    </div>
+                    <!-- &lt;!--\s*([\s\S]*?)\s* -->
+                    <div class="cmd-regex">
+                        <h4>02</h4>
+                        <p>Comment middle text </p>
+                        <div class="code-container">
+                            <pre class="copy-code">
+</pre>
+                        </div>
+                    </div>
+                    
+                </section>
+            </section>
+            <!-- regex in VS code -->
+            <section class="section">
+                <header><h3><a id="regexVsCode" href="#" class="section-title">regex in VS code</a></h3>
+                </header>
+                <section class="sub-section">
+                    <!-- console\.log\([^)]*\)(.*) -->
+                    <div class="cmd-regex">
+                        <h4>01</h4>
+                        <p>This will find all the console logs in the script in vs code</p>
+                        <div class="code-container">
+                            <pre class="copy-code">
+console\.log\([^)]*\)(.*)</pre>
+                        </div>
+                    </div>
+                    <!-- &lt;!--\s*([\s\S]*?)\s* -->
+                    <div class="cmd-regex">
+                        <h4>02</h4>
+                        <p>Comment middle text </p>
+                        <div class="code-container">
+                            <pre class="copy-code">
+&lt;!--\s*([\s\S]*?)\s*--&gt;</pre>
+                        </div>
+                    </div>
+                    
+                </section>
+            </section>
+            <!-- git-commands -->
+            <section class="section">
+                <header><h3><a id="gitCommands" href="#" class="section-title">git-commands</a></h3></header>
+                <section class="sub-section ">
+                    <div class="shortcut">
+                        <h4>reset and pull branch (replaces local changes)</h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+git reset --hard</pre>
+                        </div>
+                        
+                    </div>
+                    
+                </section>
+            </section>
+            <!-- Code Most used -->
+            <section class="section">
+                <header>
+                    <h3><a id="codeMostUsed" href="#" class="section-title">Code Most Used</a></h3>
+                </header>
+                <section class="sub-section">
+                    <div class="cmd-regex">
+                        <h4>Incrementing / Decrements Letter Focus</h4>
+                        <p style="color:red;font-size: 120%;" class="r">ironically this page also need this function</p>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+// This page has really good letter focus cycle
+if(letter == 'c' && !e.metaKey){
+    if(!e.shiftKey){
+        copyCodes[iCopyCodes].focus()
+        iCopyCodes = (iCopyCodes + 1) % copyCodes.length
+
+    } else{
+        iCopyCodes = (iCopyCodes - 1 + copyCodes.length) % copyCodes.length
+        
+    }
+    copyCodes[iCopyCodes].focus()
+    console.log(iLetter)
+}</pre>
+                        </div>
+                    </div>
+                    <div class="cmd-regex">
+                        <h4>CamelCase function</h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+function toCamelCase(str) {
+    return str
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
+}</pre>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <!-- command-shortcuts -->
+            <section class="section">
+                <header><h3><a id="" href="#" class="section-title">command shortcuts</a></h3></header>
+                <section class="sub-section ">
+                    <div class="shortcut">
+                        <h4>Select same variable in scope</h4>
+                        <p>
+                            ⌘ + D
+                        </p>
+                    </div>
+                    <div class="shortcut">
+                        <h4>Select same variable in scope</h4>
+                        <p>
+                            ⌘ + D
+                        </p>
+                    </div>
+                </section>
+            </section>
+        </div>        
+    </main>
+</body>

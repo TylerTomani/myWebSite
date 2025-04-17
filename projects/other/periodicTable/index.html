@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Periodic Table</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="../../../js/letterFocus.js" defer></script>
+    <script src="js/midi.js" defer></script>
+    <!-- <script src="js/midi2.js" defer></script> -->
+</head>
+
+<body>
+    <a tabindex="1" id="homelink" href="../../../index.html">home</a>
+    <header>
+        <h1>Periodic Table Midi Canvas</h1>
+        <a target="_blank" href="https://pubchem.ncbi.nlm.nih.gov/periodic-table/#popup=107">ref link</a>
+        <button autofocus  tabindex="1" id="start">start</button>
+    </header>
+    <main>
+        <div class="canvas-midi-container">
+            <canvas></canvas>
+            <div class="midi-txt-container">
+                <h2>midi-container</h2>
+            </div>
+        </div>
+    
+        <div class="periodic-table">
+            <!-- row 1 - 1 - 2 -->
+            <div tabindex="1" class="element" style="grid-column: 1; grid-row: 1;">
+                <span class="number">1</span>
+                <span class="symbol">H</span>
+                <span class="name">Hydrogen</span>
+                <span class="weight">1.008</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 18; grid-row: 1;">
+                <span class="number">2</span>
+                <span class="symbol">He</span>
+                <span class="name">Helium</span>
+                <span class="weight">4.0026</span>
+            </div>
+            <!-- row 2 - 3 - 10 -->
+            <div tabindex="1" class="element" style="grid-column: 1; grid-row: 2;">
+                <span class="number">3</span>
+                <span class="symbol">Li</span>
+                <span class="name">Lithium</span>
+                <span class="weight">6.94</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 2; grid-row: 2;">
+                <span class="number">4</span>
+                <span class="symbol">Be</span>
+                <span class="name">Beryllium</span>
+                <span class="weight">9.0122</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 13; grid-row: 2;">
+                <span class="number">5</span>
+                <span class="symbol">B</span>
+                <span class="name">Boron</span>
+                <span class="weight">10.81</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 14; grid-row: 2;">
+                <span class="number">6</span>
+                <span class="symbol">C</span>
+                <span class="name">Carbon</span>
+                <span class="weight">12.011</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 15; grid-row: 2;">
+                <span class="number">7</span>
+                <span class="symbol">N</span>
+                <span class="name">Nitrogen</span>
+                <span class="weight">14.007</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 16; grid-row: 2;">
+                <span class="number">8</span>
+                <span class="symbol">O</span>
+                <span class="name">Oxygen</span>
+                <span class="weight">15.999</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 17; grid-row: 2;">
+                <span class="number">9</span>
+                <span class="symbol">F</span>
+                <span class="name">Fluorine</span>
+                <span class="weight">18.998</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 18; grid-row: 2;">
+                <span class="number">10</span>
+                <span class="symbol">Ne</span>
+                <span class="name">Neon</span>
+                <span class="weight">20.180</span>
+            </div>
+            <!-- row 3 - 11 - 20 -->
+            <div tabindex="1" class="element" style="grid-column: 1; grid-row: 3;">
+                <span class="number">11</span>
+                <span class="symbol">Na</span>
+                <span class="name">Sodium</span>
+                <span class="weight">22.990</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 2; grid-row: 3;">
+                <span class="number">12</span>
+                <span class="symbol">Mg</span>
+                <span class="name">Magnesium</span>
+                <span class="weight">24.305</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 13; grid-row: 3;">
+                <span class="number">13</span>
+                <span class="symbol">Al</span>
+                <span class="name">Aluminium</span>
+                <span class="weight">26.982</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 14; grid-row: 3;">
+                <span class="number">14</span>
+                <span class="symbol">Si</span>
+                <span class="name">Silicon</span>
+                <span class="weight">28.085</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 15; grid-row: 3;">
+                <span class="number">15</span>
+                <span class="symbol">P</span>
+                <span class="name">Phosphorus</span>
+                <span class="weight">30.974</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 16; grid-row: 3;">
+                <span class="number">16</span>
+                <span class="symbol">S</span>
+                <span class="name">Sulfur</span>
+                <span class="weight">32.06</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 17; grid-row: 3;">
+                <span class="number">17</span>
+                <span class="symbol">Cl</span>
+                <span class="name">Chlorine</span>
+                <span class="weight">35.45</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 18; grid-row: 3;">
+                <span class="number">18</span>
+                <span class="symbol">Ar</span>
+                <span class="name">Argon</span>
+                <span class="weight">39.948</span>
+            </div>
+            <!-- row 4 - 19 - 36  -->
+            <div tabindex="1" class="element" style="grid-column: 1; grid-row: 4;">
+                <span class="number">19</span>
+                <span class="symbol">K</span>
+                <span class="name">Potassium</span>
+                <span class="weight">39.098</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 2; grid-row: 4;">
+                <span class="number">20</span>
+                <span class="symbol">Ca</span>
+                <span class="name">Calcium</span>
+                <span class="weight">40.078</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 3; grid-row: 4;">
+                <span class="number">21</span>
+                <span class="symbol">Sc</span>
+                <span class="name">Scandium</span>
+                <span class="weight">44.956</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 4; grid-row: 4;">
+                <span class="number">22</span>
+                <span class="symbol">Ti</span>
+                <span class="name">Titanium</span>
+                <span class="weight">47.867</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 5; grid-row: 4;">
+                <span class="number">23</span>
+                <span class="symbol">V</span>
+                <span class="name">Vanadium</span>
+                <span class="weight">50.942</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 6; grid-row: 4;">
+                <span class="number">24</span>
+                <span class="symbol">Cr</span>
+                <span class="name">Chromium</span>
+                <span class="weight">51.996</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 7; grid-row: 4;">
+                <span class="number">25</span>
+                <span class="symbol">Mn</span>
+                <span class="name">Manganese</span>
+                <span class="weight">54.938</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 8; grid-row: 4;">
+                <span class="number">26</span>
+                <span class="symbol">Fe</span>
+                <span class="name">Iron</span>
+                <span class="weight">55.845</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 9; grid-row: 4;">
+                <span class="number">27</span>
+                <span class="symbol">Co</span>
+                <span class="name">Cobalt</span>
+                <span class="weight">58.93319</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 10; grid-row: 4;">
+                <span class="number">28</span>
+                <span class="symbol">Ni</span>
+                <span class="name">Nickle</span>
+                <span class="weight">58.693</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 11; grid-row: 4;">
+                <span class="number">29</span>
+                <span class="symbol">Cu</span>
+                <span class="name">Copper</span>
+                <span class="weight">63.55</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 12; grid-row: 4;">
+                <span class="number">30</span>
+                <span class="symbol">Zn</span>
+                <span class="name">Zinc</span>
+                <span class="weight">65.4</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 13; grid-row: 4;">
+                <span class="number">31</span>
+                <span class="symbol">Ga</span>
+                <span class="name">Gallium</span>
+                <span class="weight">69.723</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 14; grid-row: 4;">
+                <span class="number">32</span>
+                <span class="symbol">Ge</span>
+                <span class="name">Germanium</span>
+                <span class="weight">72.63</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 15; grid-row: 4;">
+                <span class="number">33</span>
+                <span class="symbol">As</span>
+                <span class="name">Arsenic</span>
+                <span class="weight">74.92159</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 16; grid-row: 4;">
+                <span class="number">34</span>
+                <span class="symbol">Se</span>
+                <span class="name">Selenium</span>
+                <span class="weight">78.97</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 17; grid-row: 4;">
+                <span class="number">35</span>
+                <span class="symbol">Br</span>
+                <span class="name">Bromine</span>
+                <span class="weight">79.90</span>
+            </div>
+            <div tabindex="1" tabindex="1" class="element" style="grid-column: 18; grid-row: 4;">
+                <span class="number">36</span>
+                <span class="symbol">Kr</span>
+                <span class="name">Krypton</span>
+                <span class="weight">83.80</span>
+            </div>
+            
+            <!-- row 5 - 37 - 54 -->
+            <div tabindex="1" class="element" style="grid-column: 1; grid-row: 5;">
+                <span class="number">37</span>
+                <span class="symbol">Rb</span>
+                <span class="name">Rubidium</span>
+                <span class="weight">85.468</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 2; grid-row: 5;">
+                <span class="number">38</span>
+                <span class="symbol">Sr</span>
+                <span class="name">Strontium</span>
+                <span class="weight">87.62</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 3; grid-row: 5;">
+                <span class="number">39</span>
+                <span class="symbol">Y</span>
+                <span class="name"> Yttrium</span>
+                <span class="weight">88.90584</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 4; grid-row: 5;">
+                <span class="number">40</span>
+                <span class="symbol">Zr</span>
+                <span class="name">  Ziconium</span>
+                <span class="weight">91.22</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 5; grid-row: 5;">
+                <span class="number">41</span>
+                <span class="symbol">Nb</span>
+                <span class="name">  Niobium</span>
+                <span class="weight">92.90637</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 6; grid-row: 5;">
+                <span class="number">42</span>
+                <span class="symbol">Mo</span>
+                <span class="name">  Molybdenum</span>
+                <span class="weight">95.95</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 7; grid-row: 5;">
+                <span class="number">43</span>
+                <span class="symbol">Tc</span>
+                <span class="name">  Technetium</span>
+                <span class="weight">96.90636</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 8; grid-row: 5;">
+                <span class="number">44</span>
+                <span class="symbol">Ru</span>
+                <span class="name">  Ruthenium</span>
+                <span class="weight">101.1</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 9; grid-row: 5;">
+                <span class="number">45</span>
+                <span class="symbol">Rh</span>
+                <span class="name"> Rhodium</span>
+                <span class="weight">102.9055</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 10; grid-row: 5;">
+                <span class="number">46</span>
+                <span class="symbol">Pd</span>
+                <span class="name">  Palladium</span>
+                <span class="weight">106.42</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 11; grid-row: 5;">
+                <span class="number">47</span>
+                <span class="symbol">Ag</span>
+                <span class="name">  Silver</span>
+                <span class="weight">107.868</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 12; grid-row: 5;">
+                <span class="number">48</span>
+                <span class="symbol">Cd</span>
+                <span class="name">  Cadmium</span>
+                <span class="weight">112.41</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 13; grid-row: 5;">
+                <span class="number">49</span>
+                <span class="symbol">In</span>
+                <span class="name">  Indium</span>
+                <span class="weight">114.818</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 14; grid-row: 5;">
+                <span class="number">50</span>
+                <span class="symbol">Sn</span>
+                <span class="name">  Tin</span>
+                <span class="weight">118.71</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 15; grid-row: 5;">
+                <span class="number">51</span>
+                <span class="symbol">Sb</span>
+                <span class="name">  Antimony</span>
+                <span class="weight">121.760</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 16; grid-row: 5;">
+                <span class="number">52</span>
+                <span class="symbol">Te</span>
+                <span class="name">  Tellurium</span>
+                <span class="weight">127.6</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 17; grid-row: 5;">
+                <span class="number">53</span>
+                <span class="symbol">I</span>
+                <span class="name">  Iodine</span>
+                <span class="weight">126.9045</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 18; grid-row: 5;">
+                <span class="number">54</span>
+                <span class="symbol">Xe</span>
+                <span class="name">  Xenon</span>
+                <span class="weight">131.29</span>
+            </div>
+            <!-- row 6 - 55 - 56 - 72 - 86 -->
+            <div tabindex="1" class="element" style="grid-column: 1; grid-row: 6;">
+                <span class="number">55</span>
+                <span class="symbol">Cs</span>
+                <span class="name"> Cesium</span>
+                <span class="weight">132.9054520</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 2; grid-row: 6;">
+                <span class="number">56</span>
+                <span class="symbol">Ba</span>
+                <span class="name"> Barium</span>
+                <span class="weight">137.33</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 3; grid-row: 6;">
+                <span class="number"></span>
+                <span class="symbol"></span>
+                <span class="name">see bottom </span>
+                <span class="weight"></span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 4; grid-row: 6;">
+                <span class="number">72</span>
+                <span class="symbol">Hf</span>
+                <span class="name"> Hafnium</span>
+                <span class="weight">178.49</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 5; grid-row: 6;">
+                <span class="number">73</span>
+                <span class="symbol">Ta</span>
+                <span class="name"> Tantalum</span>
+                <span class="weight">180.9479</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 6; grid-row: 6;">
+                <span class="number">74</span>
+                <span class="symbol">W</span>
+                <span class="name"> Tungsten</span>
+                <span class="weight">183.84</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 7; grid-row: 6;">
+                <span class="number">75</span>
+                <span class="symbol">Re</span>
+                <span class="name">  Rhenium</span>
+                <span class="weight">186.207</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 8; grid-row: 6;">
+                <span class="number">76</span>
+                <span class="symbol">Os</span>
+                <span class="name">  Osmium</span>
+                <span class="weight">190.2</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 9; grid-row: 6;">
+                <span class="number">77</span>
+                <span class="symbol">Ir</span>
+                <span class="name">  Iridium</span>
+                <span class="weight">192.22</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 10; grid-row: 6;">
+                <span class="number">78</span>
+                <span class="symbol">Pt</span>
+                <span class="name">  Platinum</span>
+                <span class="weight">195.08</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 11; grid-row: 6;">
+                <span class="number">79</span>
+                <span class="symbol">Au</span>
+                <span class="name">  Gold</span>
+                <span class="weight">196.96657</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 12; grid-row: 6;">
+                <span class="number">80</span>
+                <span class="symbol">Hg</span>
+                <span class="name">  Mercury</span>
+                <span class="weight">200.59</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 13; grid-row: 6;">
+                <span class="number">81</span>
+                <span class="symbol">Tl</span>
+                <span class="name">  Thallium</span>
+                <span class="weight">200.59</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 14; grid-row: 6;">
+                <span class="number">82</span>
+                <span class="symbol">Pb</span>
+                <span class="name">  Lead</span>
+                <span class="weight">207</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 15; grid-row: 6;">
+                <span class="number">83</span>
+                <span class="symbol">Bi</span>
+                <span class="name">  Bismuth</span>
+                <span class="weight">208.98040</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 16; grid-row: 6;">
+                <span class="number">84</span>
+                <span class="symbol">Po</span>
+                <span class="name">  Polonium</span>
+                <span class="weight">208.98243</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 17; grid-row: 6;">
+                <span class="number">85</span>
+                <span class="symbol">At</span>
+                <span class="name">  Astatine</span>
+                <span class="weight">209.98715</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 18; grid-row: 6;">
+                <span class="number">86</span>
+                <span class="symbol">Rn</span>
+                <span class="name">  Radon</span>
+                <span class="weight">222.01758</span>
+            </div>
+            <!-- row 7 - 87 - 88 - 104 - 118 -->
+            <div tabindex="1" class="element" style="grid-column: 1; grid-row: 7;">
+                <span class="number">87</span>
+                <span class="symbol">Fr</span>
+                <span class="name"> Francium</span>
+                <span class="weight">223.01973</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 2; grid-row: 7;">
+                <span class="number">88</span>
+                <span class="symbol">Ra</span>
+                <span class="name"> Radium</span>
+                <span class="weight">226.02541</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 3; grid-row: 7;">
+                <span class="number"></span>
+                <span class="symbol"></span>
+                <span class="name"> see bottom</span>
+                <span class="weight"></span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 4; grid-row: 7;">
+                <span class="number">104</span>
+                <span class="symbol">Rf</span>
+                <span class="name"> Rutherfordium</span>
+                <span class="weight">267.122</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 5; grid-row: 7;">
+                <span class="number">105</span>
+                <span class="symbol">Db</span>
+                <span class="name"> Dubnium</span>
+                <span class="weight">268.126</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 6; grid-row: 7;">
+                <span class="number">106</span>
+                <span class="symbol">Sg</span>
+                <span class="name"> Seaborgium</span>
+                <span class="weight">269.128</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 7; grid-row: 7;">
+                <span class="number">107</span>
+                <span class="symbol">Bh</span>
+                <span class="name"> Bohrium</span>
+                <span class="weight">270.133</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 8; grid-row: 7;">
+                <span class="number">108</span>
+                <span class="symbol">Hs</span>
+                <span class="name"> Hassium</span>
+                <span class="weight">269.1336</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 9; grid-row: 7;">
+                <span class="number">109</span>
+                <span class="symbol">Mt</span>
+                <span class="name"> Meitnerium</span>
+                <span class="weight">277.154</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 10; grid-row: 7;">
+                <span class="number">110</span>
+                <span class="symbol">Ds</span>
+                <span class="name"> Darmstadtium</span>
+                <span class="weight">282.166</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 11; grid-row: 7;">
+                <span class="number">111</span>
+                <span class="symbol">Rg</span>
+                <span class="name"> Roentgenium</span>
+                <span class="weight">282.169</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 12; grid-row: 7;">
+                <span class="number">112</span>
+                <span class="symbol">Cn</span>
+                <span class="name"> Copernicium</span>
+                <span class="weight">286.179</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 13; grid-row: 7;">
+                <span class="number">113</span>
+                <span class="symbol">Nh</span>
+                <span class="name"> Nihonium</span>
+                <span class="weight">286.182</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 14; grid-row: 7;">
+                <span class="number">114</span>
+                <span class="symbol">Fl</span>
+                <span class="name"> Flerovium</span>
+                <span class="weight">290.192</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 15; grid-row: 7;">
+                <span class="number">115</span>
+                <span class="symbol">Mc</span>
+                <span class="name"> Moscovium</span>
+                <span class="weight">290.196</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 16; grid-row: 7;">
+                <span class="number">116</span>
+                <span class="symbol">Lv</span>
+                <span class="name"> Livermorium</span>
+                <span class="weight">293.205</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 17; grid-row: 7;">
+                <span class="number">117</span>
+                <span class="symbol">Ts</span>
+                <span class="name"> Tennesine</span>
+                <span class="weight">294.211</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 18; grid-row: 7;">
+                <span class="number">118</span>
+                <span class="symbol">Og</span>
+                <span class="name"> Oganesson</span>
+                <span class="weight">295.216</span>
+            </div>
+            <!-- row 8 - 57 - 71 -->
+            <div tabindex="1" class="element" style="grid-column: 4; grid-row: 8;">
+                <span class="number">57</span>
+                <span class="symbol">La</span>
+                <span class="name"> Lanthanum</span>
+                <span class="weight">138.9055</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 5; grid-row: 8;">
+                <span class="number">58</span>
+                <span class="symbol">Ce</span>
+                <span class="name">  Cerium</span>
+                <span class="weight">140.116</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 6; grid-row: 8;">
+                <span class="number">59</span>
+                <span class="symbol">Pr</span>
+                <span class="name"> Praseodymium</span>
+                <span class="weight">140.90766</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 7; grid-row: 8;">
+                <span class="number">60</span>
+                <span class="symbol">Nd</span>
+                <span class="name"> Neodymium</span>
+                <span class="weight">144.24</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 8; grid-row: 8;">
+                <span class="number">61</span>
+                <span class="symbol">Pm</span>
+                <span class="name"> Promethium</span>
+                <span class="weight">144.91276</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 9; grid-row: 8;">
+                <span class="number">62</span>
+                <span class="symbol">Sm</span>
+                <span class="name"> Samarium</span>
+                <span class="weight">150.4</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 10; grid-row: 8;">
+                <span class="number">63</span>
+                <span class="symbol">Eu</span>
+                <span class="name">  Europium</span>
+                <span class="weight">151.964</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 11; grid-row: 8;">
+                <span class="number">64</span>
+                <span class="symbol">Gd</span>
+                <span class="name">  Gadolinium</span>
+                <span class="weight">157.2</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 12; grid-row: 8;">
+                <span class="number">65</span>
+                <span class="symbol">Tb</span>
+                <span class="name">  Terbium</span>
+                <span class="weight">158.92535</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 13; grid-row: 8;">
+                <span class="number">66</span>
+                <span class="symbol">Dy</span>
+                <span class="name">  Dysprosium</span>
+                <span class="weight">162.500</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 14; grid-row: 8;">
+                <span class="number">67</span>
+                <span class="symbol">Ho</span>
+                <span class="name">  Holmium</span>
+                <span class="weight">164.93033</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 15; grid-row: 8;">
+                <span class="number">68</span>
+                <span class="symbol">Er</span>
+                <span class="name">  Erbium</span>
+                <span class="weight">167.26</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 16; grid-row: 8;">
+                <span class="number">69</span>
+                <span class="symbol">Tm</span>
+                <span class="name">  Thulium</span>
+                <span class="weight">168.93422</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 17; grid-row: 8;">
+                <span class="number">70</span>
+                <span class="symbol">Yb</span>
+                <span class="name">  Ytterbium</span>
+                <span class="weight">173.05</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 18; grid-row: 8;">
+                <span class="number">71</span>
+                <span class="symbol">Lu</span>
+                <span class="name">  Lutetium</span>
+                <span class="weight">174.9668</span>
+            </div>
+            <!-- row 9 - 89 - 103 -->
+            <div tabindex="1" class="element" style="grid-column: 4; grid-row: 9;">
+                <span class="number">89</span>
+                <span class="symbol">Ac</span>
+                <span class="name"> Actinium</span>
+                <span class="weight">227.02775</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 5; grid-row: 9;">
+                <span class="number">90</span>
+                <span class="symbol">Th</span>
+                <span class="name"> Thorium</span>
+                <span class="weight">232.038</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 6; grid-row: 9;">
+                <span class="number">91</span>
+                <span class="symbol">Pa</span>
+                <span class="name"> Protactinium</span>
+                <span class="weight">231.03588</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 7; grid-row: 9;">
+                <span class="number">92</span>
+                <span class="symbol">U</span>
+                <span class="name"> Uranium</span>
+                <span class="weight">238.0289</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 8; grid-row: 9;">
+                <span class="number">93</span>
+                <span class="symbol">Np</span>
+                <span class="name"> Neptunium</span>
+                <span class="weight">237.048172</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 9; grid-row: 9;">
+                <span class="number">94</span>
+                <span class="symbol">Pu</span>
+                <span class="name"> Plutonium</span>
+                <span class="weight">244.06420</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 10; grid-row: 9;">
+                <span class="number">95</span>
+                <span class="symbol">Am</span>
+                <span class="name"> Americium</span>
+                <span class="weight">243.061380</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 11; grid-row: 9;">
+                <span class="number">96</span>
+                <span class="symbol">Cm</span>
+                <span class="name"> Curium</span>
+                <span class="weight">247.07035</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 12; grid-row: 9;">
+                <span class="number">97</span>
+                <span class="symbol">Bk</span>
+                <span class="name"> Berkelium</span>
+                <span class="weight">247.07031</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 13; grid-row: 9;">
+                <span class="number">98</span>
+                <span class="symbol">Cf</span>
+                <span class="name"> Californium</span>
+                <span class="weight">251.07959</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 14; grid-row: 9;">
+                <span class="number">99</span>
+                <span class="symbol">Es</span>
+                <span class="name"> Einsteinium</span>
+                <span class="weight">252.0830</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 15; grid-row: 9;">
+                <span class="number">100</span>
+                <span class="symbol">Fm</span>
+                <span class="name"> Fermium</span>
+                <span class="weight">257.09511</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 16; grid-row: 9;">
+                <span class="number">101</span>
+                <span class="symbol">Md</span>
+                <span class="name"> Mendelevium</span>
+                <span class="weight">258.09843</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 17; grid-row: 9;">
+                <span class="number">102</span>
+                <span class="symbol">No</span>
+                <span class="name"> Nobelium</span>
+                <span class="weight">259.10100</span>
+            </div>
+            <div tabindex="1" class="element" style="grid-column: 18; grid-row: 9;">
+                <span class="number">103</span>
+                <span class="symbol">Lr</span>
+                <span class="name"> Lawrencium</span>
+                <span class="weight">266.120</span>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

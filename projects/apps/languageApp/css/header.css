@@ -1,0 +1,30 @@
+header.gb_jd-header {
+    display: flex;
+    background-image: linear-gradient(to right,
+        rgba(0, 102, 255, 0.2),
+        rgb(255,165, 0,.2),
+        rgb(255, 255, 0, .2),
+        rgb(255, 165, 0, .4),
+        rgb(255, 30, 255, .2));
+    background-color: rgb(255, 0, 0, .5);
+    width: 100%;
+    overflow-x: hidden;
+    justify-content: space-between;
+    padding: 0 2.5%
+}
+
+header.gb_jd-header>a.gb_a-google-user-icon {}
+
+header.gb_jd-header>a.gb_a-google-user-icon:active,
+header.gb_jd-header>a.gb_a-google-user-icon:focus {
+    border: 2px solid blue;
+}
+
+header.gb_jd-header>a.gb_a-google-user-icon>img {
+    border-radius: 50%;
+    display: block;
+    margin: 0px;
+    position: relative;
+    height: var(--gb_a-user-icon-hw);
+    width: var(--gb_a-user-icon-hw);
+}

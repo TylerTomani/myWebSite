@@ -1,0 +1,11 @@
+/* .smtxt{font-style: .5rem !important;}
+.mdtxt{font-style: .75rem !important;}
+.txt-1rem{font-style: 1rem !important;} */
+
+
+.smtxt {font-size: 50% !important;}
+.mdsmtxt {font-size: 60% !important;}
+.mdtxt {font-size: 75% !important;}
+.txt {font-size: 100% !important;}
+.lgtxt {font-size: 115% !important;}
+.xlgtxt {font-size: 125% !important;}

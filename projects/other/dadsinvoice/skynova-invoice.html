@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>invoice</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/bordersBackgrounds.css">
+    <link rel="stylesheet" href="css/invoice.css">
+</head>
+<body>
+
+    <!-- invoice table -->
+    <tbody>
+        <!-- From and  INVOICE  Top right of page (yellow background) -->
+         <!-- Figure out line 35 -->
+         <!-- From / INVOICE -->
+        <tr>    
+            <td>
+                <table cellpadding="0" cellspacing="0" style="width:100%;" class="by">
+                    <tbody >
+                        <tr style="vertical-align:bottom;" >
+                            <td style="padding:0px; margin:0px;" >
+                                <font style="font-size:18px;font-family:verdana;color:#3c3c3c;
+                                ">From</font>
+                            </td>
+                            <td style="padding:0px; margin:0px;text-align:right;">
+                                <font
+                                    style="font-size:28px;font-weight:bold; letter-spacing:5px; font-family:arial;color:#808080;">
+                                    <div id="invoiceHeadlineNoLogo"
+                                        style="position:relative; z-index:1; margin-bottom:-14px;">
+                                        <input class="bb1"  id="invoice_heading"
+                        onchange="document.getElementById('invoice_heading_copy').value=this.value"
+                                            style="text-align:right; padding-top:3px; padding-bottom:3px; padding-right:8px; width:250px; font-weight:bold; letter-spacing:5px; font-family:arial;font-size:28px;color:#808080;"
+                                            class="invoiceForm_fromNameTD"
+                                            onfocus="this.className='invoiceForm_fromNameTD_onFocus';"
+                                            onblur="this.className='invoiceForm_fromNameTD';" type="text"
+                                            name="invoice_heading" value="INVOICE">
+                                    </div>
+                                </font>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <!-- Hidden Oaks Contracting / To (mediumspringgreen background)-->
+        <tr>
+            <td>
+                <!-- TB 4 -->
+                <table  cellspacing="0" cellpadding="0" class="bmsg">
+                    <tbody>
+                        <tr>
+                            <td rowspan="2" style="vertical-align:top;">
+                                <!-- TB 5 -->
+                                <table border="0" cellpadding="0" cellspacing="0" style="margin-top:5px;">
+                                    <tbody>
+                                        <!-- From Hidden Oaks Contracting -->
+                                        <tr style="height:25px;">
+                                            <td class="invoiceForm_fromNameTD" id="from_nameTD">
+                                                <input id="from_name"
+                                                    style="outline:none;border:0px solid white;width:287px; padding-left:7px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    autocomplete="nope" type="text" name="from_name"
+                                                    onfocus="field_onfocus(this,'Your name');"
+                                                    onblur="field_onblur(this,'Your name');"
+                                                    value="Hidden Oaks Contracting">
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td style="height:5px;"></td>
+                                        </tr> -->
+                                        <!-- From address -->
+                                        <tr>
+                                            <td>    
+                                                <textarea  name="from_address" id="from_address" rows="4" cols="40"
+                                                    class="invoiceForm_fromNameTD"
+                                                    style="width: 289px; overflow: auto; outline: none; padding: 5px; font-weight: normal; font-family: verdana; font-size: 13px; color: rgb(60, 60, 60); background-color: rgb(255, 255, 255);"
+                                                    onfocus="field_onfocus(this,'Your address');"
+                                                    onblur="field_onblur(this,'Your address');" onkeyup="sz(this,4);"
+                                                    data-last-active-input="">1390 Jenks Place
+                                                    Farmington, NY 14425
+    
+                                                    Mike Tomani 585-203-6767</textarea><br
+                                                    style="font-size: 10px; font-family: Arial; color: silver; text-align: right; width: 299px; opacity: 0;"><span
+                                                    class="jqEasyCounterMsg"
+                                                    style="font-size: 10px; font-family: Arial; color: silver; text-align: right; width: 299px; opacity: 0;"></span>
+                                            </td>
+                                        </tr>
+                                        <!-- To -->
+                                        <tr>
+                                            <td style="padding:0px; margin:0px;padding-top:25px;padding-bottom:5px;">
+                                                <font style="font-size:18px;font-family:verdana;color:#3c3c3c;
+                                                ">To</font>
+                                            </td>
+                                        </tr>
+                                        <tr style="height:25px;">
+    
+                                            <td class="invoiceForm_fromNameTD" id="to_nameTD" style="position:relative">
+    
+                                                <input autocomplete="nope" id="customer_name"
+                                                    style="display:none; outline:none;border:0px solid white;width:287px; padding-left:7px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    type="text"
+                                                    onfocus="field_onfocus(this,'Your name');this.value=this.value;"
+                                                    onblur="customer_name_update();">
+                                                <input id="customer_id" style="display:none;">
+    
+    
+                                                <select id="to_name" name="to_id" onfocusin="field_onfocus(this,'');"
+                                                    onfocus="field_onfocus(this,'');" onblur="field_onblur(this,'');"
+                                                    onchange="getCustomerAddress(this.value);"
+                                                    style="outline:none;border:0px solid white;width:100%; padding-left:4px; font-weight:normal; font-family:verdana;font-size:13px;height:100%;color:#3c3c3c;">
+    
+                                                    <option value="17455125">Brian Mintz</option>
+                                                    <option value="27506549">Daniel &amp; Jeanne Pavlina</option>
+                                                    <option value="18476866">Ed Ziegler</option>
+                                                    <option value="17297983">ELAINE RALLO</option>
+                                                    <option value="28756044">Eric Loose</option>
+                                                    <option value="25448396">Hezekiah Simmons</option>
+                                                    <option value="20632129">Joel and Marilyn Greenberg</option>
+                                                    <option value="28538793">John Tarricone</option>
+                                                    <option value="27304347">Leslie Kramer</option>
+                                                    <option value="16958654">Madonna Ob Gyn</option>
+                                                    <option value="20879410">Owners of Property</option>
+                                                    <option value="28193623">Radha Godugu</option>
+                                                    <option value="28602683">Ray Siena</option>
+                                                    <option value="23388628">Ron Markese</option>
+                                                    <option value="20488166">Sheril Johnson</option>
+                                                    <option value="20488244">Sheril Johnson</option>
+                                                    <option value="17353820">TEST</option>
+                                                    <option value="21031380">Vilas Savant</option>
+                                                    <optgroup label="-----------------------------">
+    
+                                                        <option style="margin:0px; padding:0px; padding-left:2px;" value="0"
+                                                            selected="">New Customer</option>
+    
+                                                    </optgroup>
+                                                </select>
+    
+                                                <script>function edit_this_name() {
+
+                                                        var customer_name = document.getElementById('to_name').options[document.getElementById('to_name').selectedIndex].text;
+                                                        var customer_id = document.getElementById('to_name').options[document.getElementById('to_name').selectedIndex].value;
+                                                        document.getElementById('to_name').style.display = 'none';
+                                                        document.getElementById('edit_customer_name').style.display = 'none';
+                                                        document.getElementById('edit_customer_msg_save').style.display = '';
+
+                                                        document.getElementById('customer_name').style.display = '';
+                                                        document.getElementById('customer_name').focus();
+                                                        document.getElementById('customer_name').value = customer_name;
+                                                        document.getElementById('customer_id').value = customer_id;
+
+                                                    }
+                                                </script>
+                                                <button type="button" id="edit_customer_name"
+                                                    onmouseout="document.getElementById('edit_customer_msg').style.display='none';"
+                                                    onmouseover="document.getElementById('edit_customer_msg').style.display='';"
+                                                    onclick="edit_this_name();"
+                                                    style="background:none; padding:0; position:relative; top:2px; float:right; margin:0 1px 0 0; border:0; cursor:pointer;display:none;"><img
+                                                        style="padding-left:3px;vertical-align:bottom;margin-bottom:1px;"
+                                                        src="images/edit_customer.png"></button>
+                                                <span id="edit_customer_msg"
+                                                    style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;left:100%;top:0;">Click
+                                                    here to edit the name of this customer.<br><br>To create a new customer,
+                                                    select "New Customer" at the bottom of the drop-down to the left.</span>
+                                                <span id="edit_customer_msg_save"
+                                                    style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;left:100%; top:0;">Click
+                                                    outside the field to save the customer's name</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:5px;"></td>
+                                        </tr>
+    
+    
+    
+    
+                                        <tr id="to_new_customerTR" style="height:25px;">
+                                            <td class="invoiceForm_fromNameTD" id="to_new_customerTD">
+                                                <input id="to_new_customer" autocomplete="nope"
+                                                    style="outline:none;border:0px solid white;width:287px; padding-left:7px; font-weight:normal; font-family:verdana;font-size:13px;color:silver;"
+                                                    type="text" name="to_new_customer"
+                                                    onfocus="field_onfocus(this,'Customer name');"
+                                                    onblur="field_onblur(this,'Customer name');" value="Customer name">
+                                            </td>
+                                        </tr>
+    
+    
+                                        <tr id="to_new_customerBlankTR" style="">
+                                            <td style="height:5px;"></td>
+                                        </tr>
+    
+    
+                                        <tr>
+                                            <td>
+    
+                                                <textarea name="to_address" id="to_address" rows="4" cols="40"
+                                                    class="invoiceForm_fromNameTD"
+                                                    style="width:289px; overflow:auto; outline:none; padding:5px; font-weight:normal; font-family:verdana;font-size:13px;color:silver;"
+                                                    onfocus="field_onfocus(this,'Customer address');"
+                                                    onblur="field_onblur(this,'Customer address');"
+                                                    onkeyup="sz(this,4);">Customer address</textarea><br
+                                                    style="font-size: 10px; font-family: Arial; color: silver; text-align: right; width: 299px;"><span
+                                                    class="jqEasyCounterMsg"
+                                                    style="font-size: 10px; font-family: Arial; color: silver; text-align: right; width: 299px;"></span>
+                                            </td>
+                                        </tr>
+    
+    
+                                        <!-- TB 5 -->
+    
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td
+                                style="border:0px solid red; padding-right:0px; width:495px; text-align:right;vertical-align:top;">
+                                <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                                    <tbody>
+                                        <tr >
+                                            <td style="width:100px;"></td>
+                                            <td>
+                                                <div id="upload_area" class="invoiceForm_uploadArea_hidden">
+                                                </div>
+                                                <input  type="hidden" name="maxSize" value="9999999999">
+                                                <input type="hidden" name="maxW" value="300">
+                                                <input type="hidden" name="fullPath" value="http://www./upload/">
+                                                <input type="hidden" name="relPath" value="upload/">
+                                                <input type="hidden" name="colorR" value="255">
+                                                <input type="hidden" name="colorG" value="255">
+                                                <input type="hidden" name="colorB" value="255">
+                                                <input type="hidden" name="maxH" value="125">
+                                                <input type="hidden" name="filename" value="filename">
+    
+    
+    
+    
+                                                <div id="customization_uploadField" class="invoiceForm_uploadField_hidden">
+    
+                                                </div>
+    
+    
+    
+    
+    
+    
+                                                <div style="float:right;margin-top:3px;margin-right:0px;display:none;;"
+                                                    id="customization_uploadDelete">
+    
+                                                    <input type="button" onclick="customization_uploadDelete();"
+                                                        value="Delete Logo">
+    
+                                                </div>
+    
+    
+    
+    
+                                                <input type="text" style="display:none;" name="customization_logoFilename"
+                                                    id="customization_logoFilename" value="">
+    
+    
+    
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+    
+    
+    
+                            </td>
+                        </tr>
+    
+                        <tr>
+    
+                            <td style="vertical-align:bottom;">
+    
+    
+    
+                                <!-- TB 5 -->
+    
+                                <table border="0" cellpadding="0" cellspacing="0"
+                                    style="width:100%; height:100%; vertical-align:bottom;border:1px solid white;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:155px;"></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+    
+    
+    
+                                        <tr>
+                                            <td colspan="3">
+    
+    
+    
+    
+                                                <div id="invoiceHeadlineWhenLogo"
+                                                    style="display:none; float:right; vertical-align:top;margin-top:5px;margin-bottom:20px;text-align:right;letter-spacing:3px;font-size:22px;color:#3c3c3c;font-weight:normal;font-family:arial;">
+                                                    <br>
+                                                    <input id="invoice_heading_copy"
+                                                        onchange="document.getElementById('invoice_heading').value=this.value"
+                                                        style="text-align:right; padding-top:3px; padding-bottom:3px; padding-right:8px; width:200px; font-weight:normal; letter-spacing:3px; font-family:arial;font-size:22px;color:#3c3c3c;"
+                                                        class="invoiceForm_fromNameTD"
+                                                        onfocus="this.className='invoiceForm_fromNameTD_onFocus';"
+                                                        onblur="this.className='invoiceForm_fromNameTD';" type="text"
+                                                        value="INVOICE">
+                                                </div>
+    
+    
+                                            </td>
+                                        </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+                                        <tr style="height:25px;">
+    
+                                            <td></td>
+    
+                                            <td id="number_label"
+                                                style="width:146px; padding-right:8px;text-align:right;font-weight:bold;font-family:verdana;font-size:13px;color:#3c3c3c;">
+                                                Invoice # </td>
+    
+    
+    
+                                            <td class="invoiceForm_fromNameTD" id="invoice_numberTD"
+                                                style="position:relative">
+    
+    
+                                                <input id="invoice_number"
+                                                    style="outline:none;border:0px solid white; width:110px; padding-left:7px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    type="text" name="invoice_number" onfocus="field_onfocus(this,'');"
+                                                    onkeyup="onlyNumbersLettersOrDashes(this)"
+                                                    onblur="field_onblur(this,'');isUniqueInvoiceNumber(this,'newInvoice','invoice','')"
+                                                    value="0000019">
+    
+                                                <a onclick="show_numbering_overlay()"
+                                                    title="Click this link to change the invoice numbering scheme"
+                                                    style="position:absolute; top:4px; right:14px">
+                                                    <img style="cursor:pointer; border: 0;" src="/images/edit_customer.png">
+                                                </a>
+                                            </td>
+    
+                                        </tr>
+    
+    
+    
+                                        <tr>
+                                            <td style="height:5px;"></td>
+                                        </tr>
+    
+                                        <input type="hidden" name="html_hidden" id="html_hidden">
+    
+    
+    
+    
+    
+    
+    
+                                        <tr id="po_numberTR" style="height:25px;display:none;">
+    
+                                            <td></td>
+    
+                                            <td
+                                                style="width:126px; padding-right:8px;text-align:right;font-weight:bold;font-family:verdana;font-size:13px;color:#3c3c3c;">
+    
+                                                P.O. #
+                                            </td>
+    
+    
+    
+                                            <td class="invoiceForm_fromNameTD" id="po_numberTD">
+    
+                                                <input id="po_number"
+                                                    style="outline:none;border:0px solid white; width:141px; padding-left:7px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    type="text" name="po_number" onfocus="field_onfocus(this,'');"
+                                                    onkeyup="onlyNumbersLettersOrDashes(this)"
+                                                    onblur="field_onblur(this,'');" value="">
+                                            </td>
+    
+                                        </tr>
+    
+    
+    
+                                        <tr id="po_numberBlankTR" style="display:none;">
+                                            <td style="height:5px;"></td>
+                                        </tr>
+    
+                                        <input type="hidden" id="gmtnow" value="2024-10-31 03:55:20">
+                                        <input type="hidden" name="add_date" id="add_date" value="2024-10-31 03:55:20">
+                                        <input type="hidden" id="tax_popup" value="1">
+    
+                                        <tr style="height:25px;">
+                                            <td></td>
+                                            <td id="date_label"
+                                                style="padding-right:8px;text-align:right;font-weight:bold;font-family:verdana;font-size:13px;color:#3c3c3c;">
+                                                Invoice Date
+                                            </td>
+                                            <td class="invoiceForm_fromNameTD" id="invoice_dateTD">
+                                                <input id="invoice_date"
+                                                    style="width:141px;outline:none;border:0px solid white;cursor:pointer;background: url(images/calendar-16.png) 120px 2px no-repeat; padding-left:7px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    onfocus="field_onfocus(this,'');" onblur="field_onblur(this,'');"
+                                                    onchange="dueAfterInvoice()" type="text" name="invoice_date"
+                                                    value="10/30/2024" class="hasDatepicker">
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td style="height:5px;"></td>
+                                        </tr>
+    
+                                        <tr style="height:25px;">
+                                            <td></td>
+                                            <td id="due_date_label"
+                                                style="padding-right:8px;text-align:right;font-weight:bold;font-family:verdana;font-size:13px;color:#3c3c3c;">
+                                                Due Date </td>
+                                            <td class="invoiceForm_fromNameTD" id="payment_due_dateTD">
+                                                <input
+                                                    style="width:141px;outline:none;border:0px solid white;cursor:pointer;background: url(images/calendar-16.png) 120px 2px no-repeat; padding-left:7px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    onfocus="field_onfocus(this,'');" onblur="field_onblur(this,'');"
+                                                    type="text" name="payment_due_date" id="payment_due_date"
+                                                    onchange="invoiceBeforeDue()" value="10/30/2024" class="hasDatepicker">
+                                            </td>
+                                        </tr>
+    
+    
+    
+                                        <!-- TB 5 -->
+    
+                                    </tbody>
+                                </table>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+                            </td>
+    
+                        </tr>
+    
+    
+    
+    
+    
+                        <!-- TB 4 -->
+    
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <!-- Item / Description / Unit Price / Quantiy Amount (royalblue background)-->
+        <tr>
+            <td colspan="100" style="width:100%;vertical-align:top;padding-top:35px;">
+                <!-- TB 4 -->
+                <input type="hidden" id="swapOccurred" name="swapOccurred" value="0" defaultvalue="0">
+                <table class="brb" id="dataTable" border="0" cellpadding="0" cellspacing="0" width="100%" style="vertical-align:top;">
+                    <tbody>
+                        <tr id="topRow" style="background-color:#54A0E7;height:30px;">
+                            <th style="width:14px;"></th>
+    
+                            <th id="item_headline"
+                                style="height:30px; color:#FFFFFD;font-family:arial;font-size:14px;font-weight:400;padding-left:8px;text-align:left;">
+                                Item</th>
+    
+                            <th id="description_headline"
+                                style="color:#FFFFFD;font-family:arial;font-size:14px;font-weight:400;padding-left:5px;text-align:left;">
+                                Description</th>
+    
+                            <th id="unit_price_headline"
+                                style="color:#FFFFFD;font-family:arial;font-size:14px;font-weight:400;padding-left:0px;text-align:right;padding-right:4px;">
+                                Unit Price</th>
+    
+                            <th id="quantity_headline"
+                                style="color:#FFFFFD;font-family:arial;font-size:14px;font-weight:400;padding-left:0px;text-align:right;padding-right:4px;">
+                                Quantity</th>
+    
+    
+    
+    
+                            <th id="topRowTax"
+                                style="display:none;color:#FFFFFD;font-family:arial;font-size:14px;font-weight:400;padding-left:0px;text-align:right;padding-right:26px;padding-left:35px;">
+                                Tax <input type="hidden" name="sales_tax_new_enabled" value="true"></th>
+    
+    
+                            <th id="amount_headline"
+                                style="color:#FFFFFD;font-family:arial;font-size:14px;font-weight:400;padding-left:0px;text-align:right;padding-right:10px;">
+                                Amount</th>
+    
+                        </tr>
+    
+    
+    
+    
+    
+                        <tr class="invoiceDataHeadRow">
+                            <input type="hidden" name="lineid[]" id="lineid[]" value="0">
+                            <input type="hidden" name="isdirty[]" id="isdirty[]" value="0">
+                            <input type="hidden" name="numRows" id="numRows" value="2">
+    
+                            <td class="invoiceDataDelete">
+                                <img style="" onclick="zapthisrow(this,'dataTable');" border="0" title="Delete Line"
+                                    src="images/delete_item.gif">
+                            </td>
+    
+    
+                            <td class="invoiceDataItem">
+    
+                                <select onfocus="invoiceForm_changeBackground(this,'#FFFADC');"
+                                    onfocusin="objSelected=this; invoiceForm_changeBackground(this,'#FFFADC');"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');" name="item[]" id="itemSelect0"
+                                    class="inputInvoiceDataItem ">
+    
+                                    <option value="" selected="selected"></option>
+                                    <option value="Days">Days</option>
+                                    <option value="Hours">Hours</option>
+                                    <option value="Product">Product</option>
+                                    <option value="Service">Service</option>
+                                    <option value="Expense">Expense</option>
+                                    <option value="Discount_aynax">Discount</option>
+                                </select>
+                                <input type="hidden" name="expense_category[]" value="Other Expenses">
+    
+                            </td>
+    
+    
+    
+                            <td class="invoiceDataDescription">
+    
+    
+    
+    
+    
+                                <textarea name="description[]" id="description[]" rows="1" cols="40"
+                                    class="inputInvoiceDataDescription"
+                                    onfocus="invoiceForm_changeBackground(this,'#FFFADC');"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');" onkeyup="sz(this);"></textarea>
+                                <input type="hidden" name="expense_id[]" value="">
+                                <input type="hidden" name="project_id[]" value="0">
+                                <input type="hidden" name="hour_id[]" value="0">
+                                <input type="hidden" class="jPaymentId" name="payment_id[]" value="0">
+    
+    
+                            </td>
+    
+    
+                            <td class="invoiceDataPriceOrQty">
+                                <input name="unit_price[]" id="unit_price[]" type="text" autocomplete="nope"
+                                    class="inputInvoiceDataPriceOrQty" style="color:silver;"
+                                    onkeyup="sanitizeInvoiceLineValues(this);"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');forceDiscountNegative(this);checkIfEmpty(this);reCalculate(this, 'dataTable', this.value);"
+                                    onfocus="valueItemFocus(this)" value="0.00">
+                            </td>
+    
+                            <td class="invoiceDataPriceOrQty">
+    
+                                <input name="qty[]" id="qty[]" type="text" autocomplete="nope"
+                                    class="inputInvoiceDataPriceOrQty" style="color:silver;"
+                                    onkeyup="sanitizeInvoiceLineValues(this);"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');checkIfEmpty(this);reCalculate(this, 'dataTable', this.value);"
+                                    onfocus="valueItemFocus(this)" value="0.00">
+    
+                            </td>
+    
+    
+    
+    
+    
+                            <td class="tax1 invoiceDataTax_hidden" style="">
+    
+                                <!-- Note: The first input of class 'tax1' must be the total tax in order for the recalculate function in javascript.js to work.  -->
+                                <input name="tax_total[]" id="tax_total[]" class="tax_total" type="hidden" value="0.00">
+    
+                                <!-- tax inputs - for saving separate tax rates in invoice_line -->
+                                <input type="hidden" name="tax[]" class="tax_rate" value="">
+                                <input type="hidden" name="tax2[]" class="tax2_rate" value="">
+                                <input type="hidden" name="tax3[]" class="tax3_rate" value="">
+    
+                                <!-- tax-id inputs: -->
+                                <input type="hidden" name="tax_id[]" class="tax_id" value="">
+                                <input type="hidden" name="tax2_id[]" class="tax2_id" value="">
+                                <input type="hidden" name="tax3_id[]" class="tax3_id" value="">
+    
+                                <div style="position: relative;">
+    
+                                    <div class="downarrow currentTax" onclick="focusTaxSelect(this)"
+                                        style="font-size: 13px; padding: 5px; font-family: verdana; color: silver; background-color: rgb(255, 255, 255);"
+                                        data-groupid="">
+    
+                                        <span class="jtaxTotal">0.00% </span>
+                                        <img class="jActiveTax" src="images/dropdown_none.png">
+                                        <img class="jInactiveTax" style="display:none" src="images/dropdown_none_grey.png">
+    
+                                    </div>
+    
+                                    <div style="position: absolute; left:0; top:100%; max-width:180px; display:none; z-index:2; white-space:nowrap"
+                                        class="dropdown-sel">
+    
+                                        <ul class="tax_dropdown" style="font-family:verdana, sans-serif;">
+                                            <li style="border-bottom:1px solid #d2d2d2;"><label><input
+                                                        onclick="changeTaxSelect(this);" type="checkbox" class="NoTax"
+                                                        data-tax="0" checked=""><span>No Tax</span></label></li>
+    
+                                            <!--Tax components: -->
+    
+                                            <li style="border-top:1px solid #d2d2d2;"><label><input
+                                                        onclick="changeTaxSelect(this);" type="checkbox"
+                                                        class="NewTax"><span>New Tax</span></label></li>
+                                        </ul>
+    
+                                    </div>
+    
+                                </div>
+    
+                            </td>
+                            <td class="invoiceDataTax_hidden"> <input> <!-- Empty td-input to mimic TAX2 --> </td>
+    
+    
+    
+    
+                            <td class="invoiceDataAmount">
+    
+                                <div style="position: absolute;width: 88px;height: 32px;"
+                                    onclick="alert('The amount is calculated automatically as soon as you have entered something into both the unit price and the quantity field.\n\nExample: If you wish to invoice a service for $100.00, you should enter 100.00 in the unit price field and 1.00 in the quantity field.')">
+                                </div>
+                                <input name="total[]" id="total[]" type="text" autocomplete="nope" readonly=""
+                                    class="inputInvoiceDataAmount" value="0.00">
+    
+                            </td>
+    
+                        </tr>
+    
+    
+                        <tr class="invoiceDataHeadRow">
+                            <input type="hidden" name="lineid[]" id="lineid[]" value="1">
+                            <input type="hidden" name="isdirty[]" id="isdirty[]" value="0">
+                            <input type="hidden" name="numRows" id="numRows" value="2">
+    
+                            <td class="invoiceDataDelete">
+                                <img style="" onclick="zapthisrow(this,'dataTable');" border="0" title="Delete Line"
+                                    src="images/delete_item.gif">
+                            </td>
+    
+    
+                            <td class="invoiceDataItem">
+    
+                                <select onfocus="invoiceForm_changeBackground(this,'#FFFADC');"
+                                    onfocusin="objSelected=this; invoiceForm_changeBackground(this,'#FFFADC');"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');" name="item[]" id="itemSelect1"
+                                    class="inputInvoiceDataItem ">
+    
+                                    <option value="" selected="selected"></option>
+                                    <option value="Days">Days</option>
+                                    <option value="Hours">Hours</option>
+                                    <option value="Product">Product</option>
+                                    <option value="Service">Service</option>
+                                    <option value="Expense">Expense</option>
+                                    <option value="Discount_aynax">Discount</option>
+                                </select>
+                                <input type="hidden" name="expense_category[]" value="Other Expenses">
+    
+                            </td>
+    
+    
+    
+                            <td class="invoiceDataDescription">
+    
+    
+    
+    
+    
+                                <textarea name="description[]" id="description[]" rows="1" cols="40"
+                                    class="inputInvoiceDataDescription"
+                                    onfocus="invoiceForm_changeBackground(this,'#FFFADC');"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');" onkeyup="sz(this);"></textarea>
+                                <input type="hidden" name="expense_id[]" value="">
+                                <input type="hidden" name="project_id[]" value="0">
+                                <input type="hidden" name="hour_id[]" value="0">
+                                <input type="hidden" class="jPaymentId" name="payment_id[]" value="0">
+    
+    
+                            </td>
+    
+    
+                            <td class="invoiceDataPriceOrQty">
+                                <input name="unit_price[]" id="unit_price[]" type="text" autocomplete="nope"
+                                    class="inputInvoiceDataPriceOrQty" style="color:silver;"
+                                    onkeyup="sanitizeInvoiceLineValues(this);"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');forceDiscountNegative(this);checkIfEmpty(this);reCalculate(this, 'dataTable', this.value);"
+                                    onfocus="valueItemFocus(this)" value="0.00">
+                            </td>
+    
+                            <td class="invoiceDataPriceOrQty">
+    
+                                <input name="qty[]" id="qty[]" type="text" autocomplete="nope"
+                                    class="inputInvoiceDataPriceOrQty" style="color:silver;"
+                                    onkeyup="sanitizeInvoiceLineValues(this);"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');checkIfEmpty(this);reCalculate(this, 'dataTable', this.value);"
+                                    onfocus="valueItemFocus(this)" value="0.00">
+    
+                            </td>
+    
+    
+    
+    
+    
+                            <td class="tax1 invoiceDataTax_hidden" style="">
+    
+                                <!-- Note: The first input of class 'tax1' must be the total tax in order for the recalculate function in javascript.js to work.  -->
+                                <input name="tax_total[]" id="tax_total[]" class="tax_total" type="hidden" value="0.00">
+    
+                                <!-- tax inputs - for saving separate tax rates in invoice_line -->
+                                <input type="hidden" name="tax[]" class="tax_rate" value="">
+                                <input type="hidden" name="tax2[]" class="tax2_rate" value="">
+                                <input type="hidden" name="tax3[]" class="tax3_rate" value="">
+    
+                                <!-- tax-id inputs: -->
+                                <input type="hidden" name="tax_id[]" class="tax_id" value="">
+                                <input type="hidden" name="tax2_id[]" class="tax2_id" value="">
+                                <input type="hidden" name="tax3_id[]" class="tax3_id" value="">
+    
+                                <div style="position: relative;">
+    
+                                    <div class="downarrow currentTax" onclick="focusTaxSelect(this)"
+                                        style="font-size: 13px; padding: 5px; font-family: verdana; color: silver; background-color: rgb(255, 255, 255);"
+                                        data-groupid="">
+    
+                                        <span class="jtaxTotal">0.00% </span>
+                                        <img class="jActiveTax" src="images/dropdown_none.png">
+                                        <img class="jInactiveTax" style="display:none" src="images/dropdown_none_grey.png">
+    
+                                    </div>
+    
+                                    <div style="position: absolute; left:0; top:100%; max-width:180px; display:none; z-index:2; white-space:nowrap"
+                                        class="dropdown-sel">
+    
+                                        <ul class="tax_dropdown" style="font-family:verdana, sans-serif;">
+                                            <li style="border-bottom:1px solid #d2d2d2;"><label><input
+                                                        onclick="changeTaxSelect(this);" type="checkbox" class="NoTax"
+                                                        data-tax="0" checked=""><span>No Tax</span></label></li>
+    
+                                            <!--Tax components: -->
+    
+                                            <li style="border-top:1px solid #d2d2d2;"><label><input
+                                                        onclick="changeTaxSelect(this);" type="checkbox"
+                                                        class="NewTax"><span>New Tax</span></label></li>
+                                        </ul>
+    
+                                    </div>
+    
+                                </div>
+    
+                            </td>
+                            <td class="invoiceDataTax_hidden"> <input> <!-- Empty td-input to mimic TAX2 --> </td>
+    
+    
+    
+    
+                            <td class="invoiceDataAmount">
+    
+                                <div style="position: absolute;width: 88px;height: 32px;"
+                                    onclick="alert('The amount is calculated automatically as soon as you have entered something into both the unit price and the quantity field.\n\nExample: If you wish to invoice a service for $100.00, you should enter 100.00 in the unit price field and 1.00 in the quantity field.')">
+                                </div>
+                                <input name="total[]" id="total[]" type="text" autocomplete="nope" readonly=""
+                                    class="inputInvoiceDataAmount" value="0.00">
+    
+                            </td>
+    
+                        </tr>
+    
+    
+    
+    
+                    </tbody>
+                <!-- TB 4 -->
+                </table>
+            </td>
+        </tr>
+        <!-- New Line -->
+        <tr>
+            <td style="padding-top:10px;margin:0px;text-align:left;">
+                <button type="button" onclick="newLineClick()"
+                    style="display:inline-block; cursor: pointer; padding:3px 11px 4px 5px; font-size:11px; text-align: center; white-space: nowrap; font-family: sans-serif; line-height: 16px; border: 1px solid #aaaaaa; border-radius: 3px; background-color: #ffffff; background-image: linear-gradient(to bottom, #ffffff, #ffffff 33%, #ececec); color: #3c3c3c;">
+                    <img style="vertical-align:middle" src="images/icons/plus.svg" alt=""> <span
+                        style="line-height: 12px; position: relative; top: 1px;">New Line</span></button>
+            </td>
+        </tr>
+        <!-- row for padding ? i guess -->
+        <tr class="by">
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="by">
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <!-- TB 4 -->
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td style="width:500px;vertical-align:top;">
+                                <!-- TB 5 -->
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td
+                                                style="width:110px;padding-left:2px; font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;">
+                                                Invoice&nbsp;Notes </td>
+                                            <td style="padding-top:5px;">
+                                                <span id="edit_notes_name"
+                                                    onmouseout="document.getElementById('edit_notes_msg').style.display='none';"
+                                                    onmouseover="document.getElementById('edit_notes_msg').style.display='';"
+                                                    onclick="edit_default_notes('invoice'); bind_notes_counter();"
+                                                    style="cursor:pointer;"><img
+                                                        style="padding-left:3px;vertical-align:bottom;margin-bottom:1px;"
+                                                        src="images/edit_customer.png"></span>
+                                                <span id="edit_notes_msg"
+                                                    style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;">Click
+                                                    here to edit the default notes. The default notes are automatically
+                                                    added to all new
+                                                    invoices.</span>
+                                                <span id="edit_notes_msg_save"
+                                                    style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;">Click
+                                                    outside the field to save the default notes</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="padding-top:3px;">
+                                                <textarea id="invoice_notes" name="invoice_notes"
+                                                    class="invoiceForm_fromNameTD"
+                                                    onfocus="this.className='invoiceForm_fromNameTD_onFocus';"
+                                                    onblur="this.className='invoiceForm_fromNameTD';" rows="6" cols="60"
+                                                    style="width:430px; overflow:auto; outline:none; padding:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"></textarea><br
+                                                    style="font-size: 10px; font-family: Arial; color: silver; text-align: right; width: 440px;"><span
+                                                    class="jqEasyCounterMsg"
+                                                    style="font-size: 10px; font-family: Arial; color: silver; text-align: right; width: 440px;"></span>
+    
+                                            </td>
+    
+    
+    
+                                        </tr>
+    
+                                        <!-- TB 5 -->
+    
+                                    </tbody>
+                                </table>
+    
+                            </td>
+    
+                            <td style="width:1px;">
+    
+                                &nbsp;
+    
+                            </td>
+    
+    
+    
+                            <td style="vertical-align:top;">
+    
+                                <!-- TB 5 -->
+    
+                                <table id="table_sums" border="0" cellpadding="0" cellspacing="0">
+    
+    
+    
+                                    <tbody>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+    
+    
+    
+    
+                                        <tr>
+    
+                                            <td style="width:15px; border-top:2px solid #eaedee;">&nbsp;</td>
+    
+                                            <td id="subtotal_label"
+                                                style="width:200px; border-top:2px solid #eaedee;font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;padding-top:6px;padding-bottom:3px;">
+    
+                                                Subtotal
+                                            </td>
+    
+                                            <td
+                                                style="text-align:right;padding-right:4px;border-right:1px solid white;border-top:2px solid #eaedee;border-left:1px solid white;padding-top:6px;padding-bottom:3px;">
+    
+                                                <input id="sum_subtotal"
+                                                    onclick="alert('The subtotal is calculated automatically as soon as you have entered something into both the unit price and the quantity field in the lines above.\n\nExample: If you wish to invoice a service for $100.00, you should enter 100.00 in the unit price field and 1.00 in the quantity field.')"
+                                                    style="border:0px solid white;text-align:right; width:100px; padding-right:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    readonly="" type="text" name="sum_subtotal" value="0.00">
+    
+                                            </td>
+    
+                                        </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+                                        <tr id="sum_blankSubtotalTR" style="height:3px;display:none;">
+                                            <td></td>
+                                        </tr>
+    
+    
+    
+                                        <tr id="sum_discountTR" style="display:none;">
+    
+                                            <td style="width:0px;"></td>
+    
+                                            <td id="discount_label"
+                                                style="width:200px; font-family:verdana; font-size:11px; color:#3c3c3c; padding-left:10px;padding-bottom:1px;">
+                                                - Discount </td>
+                                            <td align="right">
+                                                <table border="0" cellpadding="0" cellspacing="0" style="width:70px;">
+    
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td class="invoiceForm_fromNameTD" id="sum_discountTD"
+                                                                style="border:0px solid white; text-align:right;padding-right:4px;padding-bottom:1px;"
+                                                                onclick="alert('The discount is calculated automatically as the sum of all amounts from invoice lines with item discount above.')">
+    
+    
+                                                                <input id="sum_discount" autocomplete="nope"
+                                                                    style="outline:none; border:1px solid white;text-align:right; width:70px; padding-right:5px; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                                    type="text" name="sum_discount"
+                                                                    onkeyup="sanitizeInvoiceLineValues(this);" readonly=""
+                                                                    value="0.00">
+    
+                                                            </td>
+    
+                                                        </tr>
+    
+                                                    </tbody>
+                                                </table>
+    
+                                            </td>
+    
+                                        </tr>
+    
+    
+    
+                                        <tr id="sum_blankAfterDiscountOrTaxTR" style="height:7px;">
+                                            <td></td>
+                                        </tr>
+    
+    
+                                        <tr>
+    
+                                            <td style="width:15px; border-top:2px solid #eaedee;">&nbsp;</td>
+    
+                                            <td id="total_label"
+                                                style="border-top:2px solid #eaedee;font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;padding-top:7px;">
+    
+                                                Total
+                                            </td>
+    
+                                            <td
+                                                style="padding-top:7px; text-align:right;padding-right:4px;border-right:1px solid white;border-top:2px solid #eaedee;border-left:1px solid white;">
+    
+                                                <input
+                                                    onclick="alert('The total is calculated automatically as soon as you have entered something into both the unit price and the quantity field in the lines above.\n\nExample: If you wish to invoice a service for $100.00, you should enter 100.00 in the unit price field and 1.00 in the quantity field.')"
+                                                    style="border:0px solid white;text-align:right; width:100px; padding-right:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    readonly="" type="text" name="sum_total" id="sum_total" value="0.00">
+    
+                                            </td>
+    
+                                        </tr>
+    
+    
+    
+    
+                                        <tr>
+    
+                                            <td style="width:15px; border-top:0px solid #eaedee;">&nbsp;</td>
+    
+                                            <td id="amount_paid_label"
+                                                style="border-top:0px solid #eaedee;font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;">
+    
+                                                Amount Paid
+                                            </td>
+    
+                                            <td
+                                                style="padding-bottom:7px;text-align:right;padding-right:4px;border-right:1px solid white;border-top:0px solid #eaedee;border-left:1px solid white;">
+                                                <input
+                                                    onclick="alert('To enter the amount paid, first save your invoice. Thereafter click the button [Mark as Paid] directly above the invoice form.')"
+                                                    style="border:0px solid white;text-align:right; width:100px; padding-right:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    readonly="" type="text" name="amount_paid" id="amount_paid"
+                                                    value="0.00">
+                                            </td>
+    
+                                        </tr>
+    
+    
+    
+    
+                                        <tr style="background-color:#FBFF9E;">
+    
+                                            <td style="background-color:#FBFF9E;width:15px; border-top:2px solid #eaedee;">
+                                                &nbsp;</td>
+    
+                                            <td id="balance_due_label"
+                                                style="background-color:#FBFF9E;width:200px; border-top:2px solid #eaedee;font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;padding-top:7px;padding-bottom:7px;">
+                                                Balance Due&nbsp;<span id="currency_code_output"
+                                                    style="font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:normal;"></span>
+                                            </td>
+    
+                                            <td
+                                                style="background-color:#FBFF9E;text-align:right;padding-right:4px;border-right:1px solid white;border-top:2px solid #eaedee;border-left:1px solid #FBFF9E;">
+    
+                                                <input
+                                                    onclick="alert('The balance due is calculated automatically as soon as you have entered something into both the unit price and the quantity field in the lines above.\n\nExample: If you wish to invoice a service for $100.00, you should enter 100.00 in the unit price field and 1.00 in the quantity field.')"
+                                                    style="background-color:#FBFF9E;border:0px solid white;text-align:right; width:100px; padding-right:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    readonly="" type="text" name="balance_due" id="balance_due" value="$">
+    
+                                            </td>
+    
+                                        </tr>
+                                        <!-- TB 5 -->
+    
+                                    </tbody>
+                                </table>
+    
+                            </td>
+    
+                        </tr>
+    
+    
+    
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+    
+    
+    
+                        <!-- TB 4 -->
+    
+                    </tbody>
+                </table>
+    
+            </td>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        </tr>
+        <!-- TB 3 -->
+    </tbody>
+    <script type="text/javascript">
+        var logoBrowseExperiment29 = false; var itemExpenseOpened = null;
+        var initialExpensesLoaded = false;
+        var jsonItemList = '{"":"","Days":"Days","Hours":"Hours","Product":"Product","Service":"Service","Expense":"Expense","Discount_aynax":"Discount"}';
+        jsonItemList = (jsonItemList) ? $.parseJSON(jsonItemList) : {};
+
+        $(function () {
+
+
+            //Hide tax-dropdown upon event-click elsewhere:
+            $(document).on("click", function (event) {
+                if (!$(event.target).closest('.currentTax').length && !$(event.target).closest('.tax_dropdown').length && !$(event.target).closest('#salesTaxModal').length && !$(event.target).closest('.autocomplete-suggestions').length) {
+
+                    $('.dropdown-sel').hide();
+                    $('.currentTax').css('background-color', '#FFFFFF');
+
+
+                }
+            });
+
+
+
+            bindExpenseDialog();
+
+            $(document).mouseup(function (e) {
+                var container = $(".drop-down-line");
+                var containerUl = $(".drop-down-line ul");
+
+                if (!$(e.target).hasClass('dropdown-label') && container.has(e.target).length == 0 && (containerUl.has(e.target).length === 0 && container.hasClass('show-menu'))) {
+
+                    container.removeClass('show-menu');
+                    $('.submenu-expense-dropdown').hide();
+
+                }
+
+            });
+
+
+
+
+        });
+
+        function customization_toggleTax(obj) {
+
+
+            /* save value inside the invoice form */
+            if (document.getElementById('customization_save_tax') != null && obj.checked) document.getElementById('customization_save_tax').value = 'on';
+            if (document.getElementById('customization_save_tax') != null && !obj.checked) document.getElementById('customization_save_tax').value = '';
+
+            //Toggle tax column
+            $.each($('.tax1'), function (i, obj) {
+
+                if ($(obj).hasClass('invoiceDataTax_visible')) $(obj).removeClass('invoiceDataTax_visible').addClass('invoiceDataTax_hidden');
+                else if ($(obj).hasClass('invoiceDataTax_hidden')) $(obj).removeClass('invoiceDataTax_hidden').addClass('invoiceDataTax_visible');
+
+                $(obj).find('.NoTax').click().attr('checked', true);;
+
+            });
+
+            //Toggle description classes
+            $.each($('.invoiceDataDescription'), function (i, obj) {
+
+                cell = $(obj).find("textarea");
+                if (cell.hasClass('inputInvoiceDataDescription')) cell.removeClass('inputInvoiceDataDescription').addClass('inputInvoiceDataDescription_wTAX');
+                else if (cell.hasClass('inputInvoiceDataDescription_wTAX')) cell.removeClass('inputInvoiceDataDescription_wTAX').addClass('inputInvoiceDataDescription');
+
+            });
+
+            //Toggle unit price and qty classes
+            $.each($('.invoiceDataPriceOrQty'), function (i, obj) {
+
+                cell = $(obj).find("input");
+                if (cell.hasClass('inputInvoiceDataPriceOrQty')) cell.removeClass('inputInvoiceDataPriceOrQty').addClass('inputInvoiceDataPriceOrQty_wTAX');
+                else if (cell.hasClass('inputInvoiceDataPriceOrQty_wTAX')) cell.removeClass('inputInvoiceDataPriceOrQty_wTAX').addClass('inputInvoiceDataPriceOrQty');
+
+            });
+
+            //Toggle amount classes
+            $.each($('.invoiceDataAmount'), function (i, obj) {
+
+                cell = $(obj).find("input");
+                if (cell.hasClass('inputInvoiceDataAmount')) cell.removeClass('inputInvoiceDataAmount').addClass('inputInvoiceDataAmount_wTAX');
+                else if (cell.hasClass('inputInvoiceDataAmount_wTAX')) cell.removeClass('inputInvoiceDataAmount_wTAX').addClass('inputInvoiceDataAmount');
+
+            });
+
+            //Toggle tax column header
+            if ($('#topRowTax').css('display') == "none") $('#topRowTax').css('display', '');
+            else $('#topRowTax').css('display', 'none');
+
+            //Toggle show tax column on invoice template. 
+            if (obj.checked) $('.showTaxColumn').css('display', '');
+            else $('.showTaxColumn').css('display', 'none');
+
+            reCalculateTax('dataTable');
+
+        }
+
+        function bindExpenseDialog() {
+            $('select.inputInvoiceDataItem').change(function () {
+
+                var self = $(this);
+                var selectedOption = self.find(":selected");
+
+
+
+                if (selectedOption.val() == 'Expense' && !selectedOption.data('invoiced')) {
+
+                    $("#addNewExpenseModal").show();
+
+                    itemExpenseOpened = self;
+
+                    if (!initialExpensesLoaded) {
+
+                        loadListExpenses();
+
+                        initialExpensesLoaded = true;
+                    }
+
+                    $('#listExpensesModal').show();
+
+                    $('#listNoExpensesModal').hide();
+
+                }
+
+
+
+
+                if (selectedOption.val() == 'Discount_aynax') {
+
+                    //Recalculate totals						
+                    id = $(this).closest("tr").index() - 1;
+                    new_unit_price = (-1) * Math.abs(parseFloat(document.getElementsByName("unit_price[]")[id].value));
+                    new_qty = Math.abs(parseFloat(document.getElementsByName("qty[]")[id].value));
+
+                    //Set tax to No tax. 
+                    NoTaxSelector = self.closest("tr").find(".tax_dropdown :input").first();
+                    NoTaxSelector.click(); //NOTE: This will run reCalculate and remove any tax from the totals.
+                    NoTaxSelector.attr("checked", true);
+
+                    //Zero the line and recalculate the totals before inserting Discount line:
+                    self.val("");
+                    document.getElementsByName("unit_price[]")[id].value = "0.00";
+                    reCalculate(this, 'dataTable', '0.00')
+
+                    //Insert Discount line:
+                    self.val("Discount_aynax");
+                    document.getElementsByName("unit_price[]")[id].value = new_unit_price.toFixed(2);
+                    document.getElementsByName("qty[]")[id].value = new_qty.toFixed(2);
+
+                    //Make tax inactive
+                    self.closest('tr').find('.currentTax').removeClass("currentTax").removeAttr("onclick");
+                    self.closest('tr').find('img.jActiveTax').hide();
+                    self.closest('tr').find('img.jInactiveTax').show();
+
+                    reCalculate(this, 'dataTable', '0.00')
+
+                    //Lock items for this line to Discount:
+                    self.html('<option value="Discount_aynax">Discount</option>')
+
+                    //Display total discount field:				
+                    var obj = Object();
+                    obj.id = "customization_discount";
+                    obj.fromInvoiceLine = true;
+                    obj.checked = true;
+                    customization_toggleFields(obj);
+
+
+                }
+
+
+
+            });
+
+        }
+
+
+        function restoreExpenseLine(node) {
+
+            var expenseId = $(node).data('expense_id') || 0;
+
+            $('.expense-row-' + expenseId).show().addClass('expense-available');
+
+
+
+        }
+
+        function updateItemList(selObj) {
+
+            selObj.find('option').remove();
+
+            $.each(jsonItemList, function (value, text) {
+                var opt = new Option(text, value);
+                selObj.get(0).add(opt);
+            });
+
+        }
+
+        function addProductsClick() {
+
+            $("#invoice_form").submit(function (e) {
+
+                var url = "listProducts.php"; // the script where you handle the form input.
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    //data: $("#idForm").serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        alert(data); // show response from the php script.
+                    }
+                });
+
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+            });
+        }
+
+        function newLineClick() {
+
+            addRow('dataTable');
+            //Last row is recently added
+            updateItemList($('#dataTable').find('tbody tr:last-child').find('td.invoiceDataItem select'));
+            bindEnterKey();
+            bind_description_counter();
+            rebindRows();
+            bindExpenseDialog();
+
+            //Make sure to remove readonly (in case copied row has item Payment_aynax):
+            $('#dataTable').find('tbody tr:last-child').find('.invoiceDataPriceOrQty input').attr("readonly", false);
+
+            //Make sure to Activate tax (in case row copied has item Discount_aynax):
+            $('#dataTable').find('tbody tr:last-child').find('div.downarrow').addClass("currentTax");
+            $('#dataTable').find('tbody tr:last-child').find('div.downarrow').attr("onclick", "focusTaxSelect(this)");
+            $('#dataTable').find('tbody tr:last-child').find('img.jActiveTax').show();
+            $('#dataTable').find('tbody tr:last-child').find('img.jInactiveTax').hide();
+
+            //Add pricelist dropdown			
+
+
+
+        }
+
+        function bindEnterKey() {
+            $('input,.inputInvoiceDataItem,#to_name,#invoice_heading_copy').unbind('keydown').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    if (e.target.id == 'from_name') $('#from_address').focus();
+                    else if (e.target.id == 'to_name') {
+                        if ($('#to_new_customer').is(":visible")) $('#to_new_customer').focus();
+                        else $('#to_address').focus();
+                    } else if (e.target.id == 'to_new_customer') $('#to_address').focus();
+                    else if (e.target.id == 'sum_discount') { $('#invoice_notes').focus(); }
+                    else if (e.target.id == 'invoice_heading_copy') {
+                        $('#invoice_number').focus();
+                    } else if (e.target.id == 'invoice_number') {
+                        if ($('#po_number').is(":visible")) $('#po_number').focus();
+                        else $('#invoice_date').focus();
+                    } else if (e.target.id == 'po_number') {
+                        $('#invoice_date').focus();
+                    } else if (e.target.id == 'invoice_date') {
+                        if ($('#payment_due_date').is(":visible")) $('#payment_due_date').focus();
+                        else {
+                            $('#item\\[\\]:first').focus();
+                            $('#ui-datepicker-div').remove();
+                        }
+                    } else if (e.target.id == 'payment_due_date') {
+                        $("#payment_due_date").datepicker("hide");
+                        $('#ui-datepicker-div').remove();
+                        $('#item\\[\\]:first').focus();
+                    } else if (e.target.id == 'item[]') {
+                        $(e.target).closest('tr').find('#description\\[\\]').focus();
+                    } else if (e.target.id == 'unit_price[]') {
+                        $(e.target).closest('tr').find('#qty\\[\\]').focus();
+                    } else if (e.target.id == 'qty[]') {
+                        if ($(e.target).closest('tr').find('#tax\\[\\]').parent().css('display') == 'none'
+                            && $(e.target)[0] == $('.inputInvoiceDataPriceOrQty:visible:last')[0]
+                            && $('#sum_discountTR').css('display') != 'none') {
+                            $('#sum_discount').focus();
+                        } else if ($(e.target).closest('tr').find('#tax\\[\\]').parent().css('display') == 'none'
+                            && $(e.target)[0] == $('.inputInvoiceDataPriceOrQty:visible:last')[0]) {
+                            $('#invoice_notes').focus();
+                        } else if ($(e.target).closest('tr').find('#tax\\[\\]').parent().css('display') == 'none') {
+                            $(e.target).closest('tr').next('tr').find('#item\\[\\]').focus();
+                        } else {
+                            $(e.target).closest('tr').find('#tax\\[\\]').focus();
+                        }
+                    } else if (e.target.id == 'tax[]') {
+                        if ($(e.target).closest('tr').find('#tax2\\[\\]').parent().css('display') == 'none'
+                            && $(e.target)[0] == $('.inputInvoiceDataTax:visible:last')[0]
+                            && $('#sum_discountTR').css('display') != 'none') {
+                            $('#sum_discount').focus();
+                        } else if ($(e.target).closest('tr').find('#tax2\\[\\]').parent().css('display') == 'none'
+                            && $(e.target)[0] == $('.inputInvoiceDataTax:visible:last')[0]) {
+                            $('#invoice_notes').focus();
+                        } else if ($(e.target).closest('tr').find('#tax2\\[\\]').parent().css('display') == 'none') {
+                            $(e.target).closest('tr').next('tr').find('#item\\[\\]').focus();
+                        } else {
+                            $(e.target).closest('tr').find('#tax2\\[\\]').focus();
+                        }
+                    } else if (e.target.id == 'tax2[]') {
+                        if ($(e.target)[0] == $('.inputInvoiceDataTax:last')[0]
+                            && $('#sum_discountTR').css('display') != 'none') {
+                            $('#sum_discount').focus();
+                        } else if ($(e.target)[0] == $('.inputInvoiceDataTax:visible:last')[0]) {
+                            $('#invoice_notes').focus();
+                        }
+                        else $(e.target).closest('tr').next('tr').find('#item\\[\\]').focus();
+                    }
+                    else return true;
+
+                    e.preventDefault();
+
+                    return false;
+                }
+            });
+        }
+
+        function dueAfterInvoice() {
+            var format = $('#customization_date_format').val().toUpperCase();
+            if (format == 'YY-MM-DD') format = "YY" + format;
+            else format += "YY";
+            var startmoment = moment($('#invoice_date').val(), format);
+            var endmoment = moment($('#payment_due_date').val(), format);
+
+            if (startmoment > endmoment) {
+                $('#payment_due_date').attr("disabled", "disabled").val($('#invoice_date').val()).removeAttr("disabled");
+            }
+        }
+
+        function invoiceBeforeDue() {
+            var format = $('#customization_date_format').val().toUpperCase();
+            if (format == 'YY-MM-DD') format = "YY" + format;
+            else format += "YY";
+            var startmoment = moment($('#invoice_date').val(), format);
+            var endmoment = moment($('#payment_due_date').val(), format);
+
+            if (startmoment > endmoment) {
+                $('#invoice_date').attr("disabled", "disabled").val($('#payment_due_date').val()).removeAttr("disabled");
+            }
+        }
+
+        function valueItemFocus(obj) {
+            $(obj).css('background-color', '#FFFADC');
+            $(obj).closest('td').css('background-color', '#FFFADC');
+            if (obj.value == '0.00') {
+                obj.value = '';
+                obj.style.color = '#3c3c3c';
+            }
+        }
+
+        function deleteCurrentRow() {
+            zapthisrow($(currentSwapRow)[0], 'dataTable');
+
+            // append to list
+            var lineid = $(currentSwapRow).find('input#lineid\\[\\]').val();
+            $('#deletedRowIdList').val(function (i, val) {
+                return val + (!val ? '' : ', ') + lineid;
+            });
+        }
+
+        var rowSelected = '';
+        var colSelected = '';
+
+        var mouseIsDown = false;
+        function startHighlightRow() {
+            if (rowDragging) return;
+            highlightStopped = false;
+            checkFocusSelection();
+            $('.invoiceDataHeadRow').find('td,input,select,textarea').css('background-color', 'white');
+            $(currentSwapRow).find('.invoiceDataAmount, #total\\[\\]').css('background-image', 'none');
+            $(currentSwapRow).find('td,input,select,textarea').css('background-color', 'rgb(255, 250, 220)');
+        }
+
+        var highlightStopped = false;
+        function stopHighlightRow() {
+            if (highlightStopped) return;
+            highlightStopped = true;
+            $('.invoiceDataHeadRow').find('td,input,select,textarea').css('background-color', 'white');
+            $('.invoiceDataAmount').css('background-color', '#eaedee').css('background-color', 'url(images/grey.png)');
+            $('.invoiceDataHeadRow').find('.invoiceDataAmount, #total\\[\\]').attr('style', '');
+            returnSelectedItem();
+        }
+
+        function getSelectedItem() {
+            var adjcol = colSelected.replace(/\[\]/g, "\\[\\]");
+            var focusId = null;
+            $('.invoiceDataHeadRow #lineid\\[\\]').each(function () {
+                if ($(this).val() == rowSelected) {
+                    focusId = $(this);
+                }
+            });
+
+            var searchRow = $(focusId).closest('tr');
+            return searchRow.find('#' + adjcol);
+        }
+
+        var selectedIsDifferentRow = false;
+        function checkFocusSelection() {
+            if (rowSelected == '' || colSelected == '') return;
+            var sel = getSelectedItem();
+            selectedIsDifferentRow = $(sel).closest('tr').find('#lineid\\[\\]').val() != $(currentSwapRow).find('#lineid\\[\\]').val();
+            var color = sel.css('background-color');
+            if (color != "rgb(255, 250, 220)") {
+                rowSelected = '';
+                colSelected = '';
+            }
+        }
+
+        function returnSelectedItem() {
+            if (rowSelected == '' || colSelected == '') return;
+            var sel = getSelectedItem();
+            if (selectedIsDifferentRow) {
+                $(':focus').focus();
+            } else {
+                sel.focus();
+            }
+        }
+
+        var currentSwapRow = null;
+        var rowDragging = false;
+
+
+        var lineIconTimeoutId = null;
+
+        function rebindRows() {
+        }
+        rebindRows();
+
+
+        function hidelineIcons() {
+            window.clearTimeout(lineIconTimeoutId);
+            $('#deleteLine').css('background-image', 'none');
+            $('#swapLine').css('background-image', 'none');
+        }
+
+        function swapRows(element, goingUp) {
+
+            $('#swapOccurred').val(1);
+
+            var rowElement = $(currentSwapRow);
+
+            var lineElementSrc = $(rowElement).find('#lineid\\[\\]');
+
+            var lineElementDest = $(rowElement).next().find('#lineid\\[\\]');
+            if (goingUp)
+                lineElementDest = $(rowElement).prev().find('#lineid\\[\\]');
+
+            if (lineElementDest.length > 0) {
+                if (goingUp) {
+                    jQuery(rowElement).prev().before(jQuery(rowElement));
+                    $(rowElement).find('textarea,input,tr,td,select').css('background-color', 'rgb(255, 250, 220)');
+                    $(rowElement).next().find('textarea,input,tr,td,select').css('background-color', 'white');
+                } else {
+                    jQuery(rowElement).next().after(jQuery(rowElement));
+                    $(rowElement).find('textarea,input,tr,td,select').css('background-color', 'rgb(255, 250, 220)');
+                    $(rowElement).prev().find('textarea,input,tr,td,select').css('background-color', 'white');
+                }
+
+                var temp = lineElementDest.val();
+                lineElementDest.val(lineElementSrc.val());
+                lineElementSrc.val(temp);
+                rowSelected = temp;
+            }
+        }
+
+
+
+        $('#default_notes_textarea, #to_address, #from_address').jqEasyCounter({
+            'maxChars': 1000,
+            'maxCharsWarning': 980,
+            'msgFontSize': '10px',
+            'msgFontColor': 'silver',
+            'msgFontFamily': 'Arial',
+            'msgTextAlign': 'right',
+            'msgWarningColor': 'red',
+            'msgAppendMethod': 'insertAfter',
+            'allocateSpace': false,
+            'showWarning': true
+        });
+
+        function bind_description_counter() {
+            $('.invoiceDataHeadRow #description\\[\\]').jqEasyCounter({
+                'maxChars': 10000,
+                'maxCharsWarning': 9800,
+                'msgFontSize': '10px',
+                'msgFontColor': 'silver',
+                'msgFontFamily': 'Arial',
+                'msgTextAlign': 'right',
+                'msgWarningColor': 'red',
+                'msgAppendMethod': 'insertAfter',
+                'allocateSpace': true,
+                'showWarning': false,
+                'alertText': "You have reached the maximum number of characters this field can hold (MAXCHAR characters).\n\nYou can enter the rest of the description in the line\nbelow (you don't have to enter anything in the unit price and quantity fields)."
+            });
+        }
+        bind_description_counter();
+
+        function bind_notes_counter() {
+            $('#invoice_notes,#default_notes_textarea').jqEasyCounter({
+                'maxChars': 10000,
+                'maxCharsWarning': 9800,
+                'msgFontSize': '10px',
+                'msgFontColor': 'silver',
+                'msgFontFamily': 'Arial',
+                'msgTextAlign': 'right',
+                'msgWarningColor': 'red',
+                'msgAppendMethod': 'insertAfter',
+                'allocateSpace': false,
+                'showWarning': true
+            });
+        }
+        bind_notes_counter();
+
+        reCalculate(document.getElementById('sum_discount'), 'dataTable', '0.00');
+
+
+        function loadReceiptLayer(obj) {
+            var to_id = $('#to_name').val();
+
+            if (obj.checked) {
+                $('#receipts_layer').show(100, function () {
+                    if (!$(this).attr('rloaded')) {
+                        $(this).attr('rloaded', 'true');
+                        $('#receipts_layer').html('<img src="images/loadingsmall.gif">');
+                        $.ajax({
+                            url: "showExpenses.php?action=displayReceiptList&customer_id=" + to_id + "&list=",
+                            type: 'GET',
+                            cache: false,
+                            async: true,
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response && response.success)
+                                    $('#receipts_layer').html(response.html);
+                                else
+                                    $('#receipts_layer').html('Fail to load. Try Again');
+                            },
+                            error: function () {
+                                $('#receipts_layer').html('There was an error. Try Again');
+                            }
+                        });
+                    }
+                });
+            }
+            else {
+                $('#receipts_layer').hide();
+            }
+        }
+
+
+        $('#receipts_include').click(function () {
+
+
+            var obj = $('#receipts_layer');
+            if (document.getElementById('receipts_include').checked) {
+
+
+                if (obj.attr('rloaded') == 'true') {
+                    obj.show();
+                }
+                else {
+                    loadReceiptLayer(document.getElementById('receipts_include'));
+                }
+            } else {
+                obj.hide();
+            }
+
+
+
+        });
+
+
+        function show_numbering_overlay() {
+            var boxdata = '';
+
+            $.ajax({
+                url: "invoiceNumbers2.php",
+                type: "GET",
+                async: false,
+                success: function (data) {
+                    boxdata = data;
+                }
+            });
+
+            $.fancybox({
+                content: boxdata,
+                autoSize: false,
+                autoDimensions: false,
+                width: 620,
+                height: 320,
+                fitToView: false,
+                scrolling: 'no',
+                padding: 0,
+                type: 'inline'
+            });
+
+        }
+
+        function close_numbering_overlay() {
+            $('.fancybox-close').click()
+        }
+
+
+    </script>
+    
+    
+    
+    <style type="text/css">
+        #addNewExpenseModal * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            line-height: 14px !important;
+        }
+    
+        .modal-body label {
+            display: block;
+            width: 100%;
+            padding-bottom: 4px;
+        }
+    
+        .close {
+            float: right;
+            font-size: 21px;
+            font-weight: bold;
+            line-height: 1;
+            color: #000;
+            text-shadow: 0 1px 0 #fff;
+            filter: alpha(opacity=20);
+            opacity: .2;
+        }
+    
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            filter: alpha(opacity=50);
+            opacity: .5;
+        }
+    
+        button.close {
+            -webkit-appearance: none;
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+        }
+    
+        .modal-open {
+            overflow: hidden;
+        }
+    
+        .modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1050;
+            -webkit-overflow-scrolling: touch;
+            outline: 0;
+        }
+    
+        .modal.fade .modal-dialog {
+            -webkit-transition: -webkit-transform .3s ease-out;
+            -moz-transition: -moz-transform .3s ease-out;
+            -o-transition: -o-transform .3s ease-out;
+            transition: transform .3s ease-out;
+            -webkit-transform: translate(0, -25%);
+            -ms-transform: translate(0, -25%);
+            transform: translate(0, -25%);
+        }
+    
+        .modal.in .modal-dialog {
+            -webkit-transform: translate(0, 0);
+            -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+    
+        .modal-dialog {
+            position: relative;
+            width: auto;
+            margin: 10px;
+        }
+    
+        .modal-content {
+            position: relative;
+            font-size: 13px;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #999;
+            border: 1px solid rgba(0, 0, 0, .2);
+            border-radius: 6px;
+            outline: none;
+            -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+            box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+        }
+    
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1040;
+            background-color: #000;
+        }
+    
+        .modal-backdrop.fade {
+            filter: alpha(opacity=0);
+            opacity: 0;
+        }
+    
+        .modal-backdrop.in {
+            filter: alpha(opacity=70);
+            opacity: .7;
+        }
+    
+        .modal-header {
+            min-height: 16px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+    
+        .modal-header .close {
+            margin-top: -2px;
+        }
+    
+        .modal-title {
+            margin: 0;
+            line-height: 1.5em;
+        }
+    
+        .modal-body {
+            position: relative;
+            padding: 20px 50px;
+            max-height: 100%;
+            overflow: auto;
+        }
+    
+        .modal-footer {
+            padding: 20px;
+            margin-top: 15px;
+            text-align: left;
+            /*tom*/
+            border-top: 1px solid #e5e5e5;
+        }
+    
+        @media (min-width: 768px) {
+            .modal-dialog {
+                width: 600px;
+                margin: 80px auto;
+            }
+    
+            .modal-content {
+                -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            }
+    
+            .modal-sm,
+            .modal-sm .modal-content {
+                width: 300px;
+            }
+    
+            .modal-med .modal-footer {
+                padding-left: 45px;
+            }
+        }
+    
+    
+        .modal .alert {
+            margin: 0px 0px 25px 0px;
+        }
+    
+        .modal-title {
+            margin: 0;
+            line-height: 18px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    
+        .modal-footer:before,
+        .modal-footer:after {
+            display: table;
+            content: " ";
+        }
+    
+        .modal-footer:after {
+            clear: both;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        .row {
+            margin-right: -10px;
+            margin-left: -10px;
+        }
+    
+        .col-50 {
+            width: 50%;
+            float: left;
+            position: relative;
+            min-height: 1px;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+    
+        .modal-footer button {
+            padding: 8px 16px !important;
+            font-family: sans-serif;
+            min-width: 90px !important;
+        }
+    
+        #addNewExpenseModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 9999;
+            background: rgba(0, 0, 0, .75);
+        }
+    
+        #newExpenseModal,
+        #addNewAccountModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 9999;
+            background: rgba(0, 0, 0, .75);
+        }
+    
+        #addNewAccountModal .modal input,
+        #addNewAccountModal .modal select {
+            width: 100%;
+            height: 28px;
+        }
+    
+        .alert {
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            width: 100%;
+            line-height: 1.5em;
+        }
+    
+        .alert-dismissable {
+            padding-right: 35px;
+        }
+    
+        .alert-dismissable .close {
+            position: relative;
+            top: -2px;
+            right: -21px;
+            color: inherit;
+        }
+    
+        .close {
+            float: right;
+            font-size: 21px;
+            font-weight: bold;
+            line-height: 1;
+            color: #000;
+            text-shadow: 0 1px 0 #fff;
+            filter: alpha(opacity=20);
+            opacity: .2;
+            width: 24px;
+        }
+    
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            filter: alpha(opacity=50);
+            opacity: .5;
+        }
+    
+        button.close {
+            -webkit-appearance: none;
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+        }
+    
+        .alert-success,
+        .alert-warning,
+        .alert-danger {
+            padding: 10px 24px 10px 42px;
+            margin-top: 15px;
+            border: 2px solid #FCF5CD;
+        }
+    
+        .alert-danger,
+        .bg-danger {
+            background: #FFFADC url('../../images/red_error_25.gif') 6px 6px no-repeat;
+        }
+    
+        .alert-info {
+            padding: 10px 24px;
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+    
+        /*
+                .multicheck { width:100%; }
+                .multicheck td { vertical-align:top; }
+                .odd { padding:.5em 2em .1em 2em; color: #888888;}
+                .even { padding:.1em 2em .5em 2em; border-bottom:1px solid #c0c0c0; }
+                hr.or { display:block; height: 1px; color: #aaa; background: #aaa; font-size: 0; border: 0; position:relative; margin:25px 0;}
+                hr.or:after {content:"or"; font-family:Verdana, sans-serif; font-size:12px; color:#999; font-style:italic; text-align:center;
+                    width:2em; background:#fff; position:absolute; top:-6px; left:50%; margin-left:-1em;  }
+            	*/
+    
+        .expscroll {
+            max-height: 280px;
+            overflow-y: scroll;
+            border: 1px solid #c0c0c0;
+            margin-top: 15px;
+        }
+    
+        .expcheck {
+            width: 100%;
+        }
+    
+        .expcheck td {
+            vertical-align: top;
+            padding: 8px;
+            border-bottom: 1px solid #d2d2d2;
+        }
+    
+        .expcheck tr:last-of-type td {
+            border-bottom-color: #e2e2e2;
+        }
+    
+        .expcat,
+        .expdate {
+            color: #888888;
+        }
+    
+        .td-checkbox {
+            width: 6%;
+        }
+    
+        /* lgwt: changed from 1% to make checkbox fully visible (Safari) and tickable in iOS Chrome/Safari */
+    </style>
+</body>
+</html>

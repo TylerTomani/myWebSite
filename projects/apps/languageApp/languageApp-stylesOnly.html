@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language App</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script type="module" src="js/letterFocus.js" defer></script>
+    <script type="module" src="js/translate.js" defer></script>
+</head>
+<body>
+    <!-- gb_jd is the name google using for its header -->
+    <header class="gb_jd-header">
+        <div class="title-homelink">
+            <h1>Learn a lang</h1>
+            <a tabindex="0" id="homelink" href="../../../index.html">home</a>
+            <h1>
+                DO NOT push this repo
+            </h1>
+        </div>
+            <!-- gb_a is name google uses for a element containing user icon -->
+            <a tabindex="0" class="gb_a-google-user-icon">
+                <img src="https://lh3.googleusercontent.com/a/ACg8ocLZPhqwAVlmXdv_L5Aj64uqp_9DC8D16UtAjRzIzaumisubDx1d=s576-c-no" alt="">
+            </a>
+    </header>
+    <main>
+        <div class="translation-container">
+            <div class="translate-sentence">
+                <textarea  tabindex="0" name="" id="" class="blinking-textarea"
+                 placeholder="tengo que terminar esta pagina web, (translate-sentence)"></textarea>
+                <button  id="pasteBtn" class='bx bx-copy '>
+                    Paste
+                </button>
+                <button tabindex="0" id="translateBtn" class='bx bx-right-arrow-alt'></button>
+            </div>
+            <div class="translation">
+                <textarea class="" tabindex="0"  name="" id=""placeholder="(..translation) - hide for now" ></textarea>
+            </div>
+            
+            <div class="change-lang-container">
+                <select class="dropdown" name="options">
+                    <option value="english">english</option>
+                    <option value="chinese">chinese</option>
+                    <option value="russian">russian</option>
+                    <option selected value="spanish">spanish</option>
+                </select>
+                <div tabindex="0" id="change-lang-icons">
+                    <i class='bx bx-left-arrow-alt'></i>
+                    <i class='bx bx-right-arrow-alt'></i>
+                </div>
+                <select class="dropdown" name="options">
+                    <option value="english">english</option>
+                    <option value="chinese">chinese</option>
+                    <option value="russian">russian</option>
+                    <option value="spanish">spanish</option>
+                </select>
+            
+            </div>
+            <div class="play-container">
+                <button tabindex="0" >.5</button>
+                <button tabindex="0" >.75</button>
+                <button id="playBtn" class='bx bx-play'></button>
+                <button tabindex="0" >x 1.25</button>
+                <button tabindex="0" >x 1.5</button>
+            </div>
+        </div>
+        
+        <div class="saved-sentences">
+            <div class="category-sentences">
+                <header>
+                    <h2>Saved Sentences</h2>
+                    <h3>(sort by category)</h3>
+                </header>
+                <div class="categories-container">
+                    <div class="category">
+                        <h4><a href="#">Cleaning</a></h4>
+                        <div class="sentences-container">
+                            <div class="sentence">
+                                <p>
+                                    mi apartamento es sucio y muy disorginizado
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+            <div class="date-sentences">
+                <header>
+                    <h3>(sort by date)</h3>
+                </header>
+                <div class="weeks-container">
+                    <div class="week">
+                        <h4><a href="#">Week 1</a></h4>
+                        <div class="sentences-container">
+                            <div class="sentence">
+                                <p>
+                                    Tengo que limpiar mi apartmento
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        
+        </div>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+body > header {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 2.5%; */
+    border-bottom: 1px solid black;
+    align-items: center;
+    padding:  0 2.5%;
+}
+body > header > h1{
+    font-size: 100%;
+    
+}
+body > header > .img-container > img {
+    height: 50%;
+    width: 60%;
+}
+#mainLinks {
+    
+    flex-basis: 14%;
+    display: flex;
+    flex-direction: column;
+}
+#homelink,
+#backlink {
+    margin: 2% 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: inline-block;
+    /* padding: 5% 5%; */
+    padding-right:25%;
+    text-wrap: nowrap;
+    /* white-space: none; */
+    /* width: fit-content; */
+    width: 100%;
+    text-decoration: none;
+    font-size: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+header>.img-container {
+    max-height: 100px;
+    flex-basis: 20%;
+}
+body>header>.img-container img,
+body>header>.page-logo img {
+    /* flex-basis: 5%; */
+    /* max-width: 200px; */
+    max-height: 100px !important;
+    align-self: center;
+    /* max-height: 124px; */
+    max-height: 50px;
+}
+.page-title {
+    display: flex ;
+    flex-direction: column;
+    align-items: center;
+}
+.page-title > img{
+    max-height: 50px;
+
+}

@@ -1,0 +1,41 @@
+Chat history
+Open sidebar
+
+ChatGPT
+
+You said:
+is there a way to target .step in css from .step-float in the following html using css 
+
+ class="step">
+        &lt;div tabindex="0" class="step-txt step-float">
+    &lt;/div>
+    &lt;/div>
+ChatGPT said:
+No, you cannot directly target .step from .step-float using only CSS because CSS selectors work in a parent-to-child direction, not the other way around (child-to-parent).
+
+However, if you control the HTML structure, you can use the :has() pseudo-class (which is supported in modern browsers) to achieve this:
+
+.step:has(.step-float) {
+    /* Your styles for .step */
+}
+This will apply styles to .step only if it contains an element with the .step-float class.
+
+If :has() is not an option due to browser support, you'd need JavaScript to achieve this. Let me know if you need a JS solution! 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+Search
+
+Reason
+
+ChatGPT can make mistakes. Check important info.
+?

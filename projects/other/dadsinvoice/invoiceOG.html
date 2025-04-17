@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my_invoice</title>
+    <!-- <link rel="stylesheet" href="css/bordersBackgrounds.css"> -->
+    <link rel="stylesheet" href="css/invoice.css">
+    <link rel="stylesheet" href="css/dataTable.css">
+
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/letterFocus-invoice.js" defer></script>
+    <!-- <script type="module" src="js/letterfocus-index.js" defer></script> -->
+</head>
+<body>
+    <main>
+        <div class="invoice-container">
+            <div id="invoiceHeading">
+                <div id="invoiceHeadlineNoLogo" >
+                    <!-- onchange="document.getElementById('invoice_heading_copy').value=this.value" -->
+                    <!-- onfocus="this.className='invoiceForm_fromNameTD_onFocus';"
+                    onblur="this.className='invoiceForm_fromNameTD';"  -->
+                    <input class="bb1" id="invoice_heading"
+                        class="invoiceForm_fromNameTD" 
+                        type="text" name="invoice_heading" 
+                        value="INVOICE">
+                </div>
+            </div>
+            <div class="to-from-container ">
+                <div  id="to">
+                    <h3 >To</h3>
+                    <!-- New Customer -->
+                    <div class="invoiceForm_fromNameTD b2" id="to_nameTD" >
+                        <!-- <input autocomplete="nope" id="customer_name"    
+                            type="text" > -->
+                        <!-- <input id="customer_id" style="display:none;"> -->
+                        <!-- <select id="to_name" name="to_id" 
+                        onfocusin="field_onfocus(this,'');"
+                         onfocus="field_onfocus(this,'');"
+                            onblur="field_onblur(this,'');"
+                             onchange="getCustomerAddress(this.value);"
+                             > -->
+                        <select tabindex="0" id="to_name" name="to_id" 
+                             >
+                            <option value="17455125">Brian Mintz</option>
+                            <option value="27506549">Daniel &amp; Jeanne Pavlina</option>
+                            <option value="18476866">Ed Ziegler</option>
+                            <option value="17297983">ELAINE RALLO</option>
+                            <option value="28756044">Eric Loose</option>
+                            <option value="25448396">Hezekiah Simmons</option>
+                            <option value="20632129">Joel and Marilyn Greenberg</option>
+                            <option value="28538793">John Tarricone</option>
+                            <option value="27304347">Leslie Kramer</option>
+                            <option value="16958654">Madonna Ob Gyn</option>
+                            <option value="20879410">Owners of Property</option>
+                            <option value="28193623">Radha Godugu</option>
+                            <option value="28602683">Ray Siena</option>
+                            <option value="23388628">Ron Markese</option>
+                            <option value="20488166">Sheril Johnson</option>
+                            <option value="20488244">Sheril Johnson</option>
+                            <option value="17353820">TEST</option>
+                            <option value="21031380">Vilas Savant</option>
+                            <optgroup label="-----------------------------">
+                                <option   value="0" selected="">New Customer</option>
+                        
+                            </optgroup>
+                        </select>                
+                        <!-- <script>function edit_this_name() {
+
+                                var customer_name = document.getElementById('to_name').options[document.getElementById('to_name').selectedIndex].text;
+                                var customer_id = document.getElementById('to_name').options[document.getElementById('to_name').selectedIndex].value;
+                                document.getElementById('to_name').style.display = 'none';
+                                document.getElementById('edit_customer_name').style.display = 'none';
+                                document.getElementById('edit_customer_msg_save').style.display = '';
+
+                                document.getElementById('customer_name').style.display = '';
+                                document.getElementById('customer_name').focus();
+                                document.getElementById('customer_name').value = customer_name;
+                                document.getElementById('customer_id').value = customer_id;
+
+                            }
+                        </script> -->
+                        <!-- onmouseout="document.getElementById('edit_customer_msg').style.display='none';"
+                        onmouseover="document.getElementById('edit_customer_msg').style.display='';" onclick="edit_this_name();" -->
+                        <button type="button" id="edit_customer_name"
+                            style="background:none; padding:0; position:relative; top:2px; float:right; margin:0 1px 0 0; border:0; cursor:pointer;display:none;"><img
+                                >
+                        </button>
+                        <span id="edit_customer_msg"
+                            style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;left:100%;top:0;">Click
+                            here to edit the name of this customer.<br><br>To create a new customer,select "New Customer" at the bottom of the drop-down to the left.
+                        </span>
+                        <span id="edit_customer_msg_save" 
+                        style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;left:100%; top:0;"
+                        >Click
+                            outside the field to save the customer's name
+                        </span>
+                        </td>
+                        <!-- onmouseout="document.getElementById('edit_customer_msg').style.display='none';"
+                        onmouseover="document.getElementById('edit_customer_msg').style.display='';" onclick="edit_this_name();" -->
+                        <button type="button" id="edit_customer_name"
+                            style="background:none; padding:0; position:relative; top:2px; float:right; margin:0 1px 0 0; border:0; cursor:pointer;display:none;">
+                            <img
+                                style="padding-left:3px;vertical-align:bottom;margin-bottom:1px;"
+                                src="images/edit_customer.png">
+                        </button>
+                        <span id="edit_customer_msg"
+                            style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;left:100%;top:0;">Click
+                            here to edit the name of this customer.<br><br>To create a new customer,
+                            select "New Customer" at the bottom of the drop-down to the left.
+                        </span>
+                        <span id="edit_customer_msg_save"
+                            style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;left:100%; top:0;">Click
+                            outside the field to save the customer's name
+                        </span>
+                    </div>
+                    <!-- Customer name -->
+                    <div id="to_new_customerTR" style=>
+                        <td   class="invoiceForm_fromNameTD" id="to_new_customerTD">
+                            <!-- onblur="field_onblur(this,'Customer name');"  -->
+                            <!-- onfocus="field_onfocus(this,'Customer name');" -->
+                            <input  id="to_new_customer" autocomplete="nope"
+                                type="text" name="to_new_customer" 
+                                value="Customer name">
+                            </td>
+                    </div>
+                    
+                    <div id="to_new_customerBlankTR" style="">
+                        <td style="height:5px;"></td>
+                    </div>
+                    <!-- Customer address -->
+                    <!-- onfocus="field_onfocus(this,'Customer address');" 
+                    onblur="field_onblur(this,'Customer address');" -->
+                    <!-- onkeyup="sz(this,4);" -->
+                    <textarea  name="to_address" id="to_address" rows="4" cols="40" class="invoiceForm_fromNameTD"
+                        >Customer address
+                    </textarea>
+
+                </div>
+                <div  id="from">
+                    <h3>From</h3>
+                    <!-- onfocus="field_onfocus(this,'Your name');"
+                    onblur="field_onblur(this,'Your name');"  -->
+                    <div class="invoiceForm_fromNameTD b1" id="from_nameTD">
+                        <input id="from_name"
+                            autocomplete="nope" type="text" name="from_name" 
+                            value="Hidden Oaks Contracting">
+                    </div>
+                    <!-- onfocus="field_onfocus(this,'Your address');" 
+                    onblur="field_onblur(this,'Your address');"  -->
+                    <!-- onkeyup="sz(this,4);" -->
+                    <textarea name="from_address" id="from_address" rows="4" cols="40" class="invoiceForm_fromNameTD"
+                        data-last-active-input="">
+1390 Jenks Place
+Farmington, NY 14425
+Mike Tomani 585-203-6767</textarea>
+                </div>
+            </div>
+            <!-- (mediumspringgreen background) -->
+            <div id="invoice_num_container" class="bmsg">
+                <!-- Invoice # -->
+                <div id="invoice_num">
+                    <!-- Invoice # -->
+                    <div  id="number_label">Invoice #</div>
+                    <!-- # -->
+                    <div class="invoiceForm_fromNameTD" id="invoice_numberTD" style="position:relative">
+                        <input id="invoice_number" type="text"
+                        type="text" name="invoice_number"
+                        value="0000019"
+                        >
+                        <!-- <input id="invoice_number"
+                            type="text" name="invoice_number" onfocus="field_onfocus(this,'');"
+                            onkeyup="onlyNumbersLettersOrDashes(this)"
+                            onblur="field_onblur(this,'');isUniqueInvoiceNumber(this,'newInvoice','invoice','')"
+                            value="0000019">
+                        <a onclick="show_numbering_overlay()"
+                            title="Click this link to change the invoice numbering scheme"
+                            style="position:absolute; top:4px; right:14px">
+                            <img style="cursor:pointer; border: 0;" src="/images/edit_customer.png">
+                        </a> -->
+                    </div>
+                </div>
+                <!-- Invoice Date -->
+                <div id="invoice_date">
+                    <div id="date_label">
+                        Invoice Date
+                    </div>
+                    <!-- Date -->
+                    <div  class="invoiceForm_fromNameTD" id="invoice_dateTD">
+                        <!-- onfocus="field_onfocus(this,'');" 
+                        onblur="field_onblur(this,'');"
+                        onchange="dueAfterInvoice()"  -->
+                        <input tabindex="0" id="invoice_date"
+                            type="text"
+                             name="invoice_date" value="10/30/2024" class="hasDatepicker">
+                    </div>
+                </div>
+                <!-- Due Date -->
+                <div id="invoice_due_date">
+                    <div id="due_date_label"
+                        style="padding-right:8px;text-align:right;font-weight:bold;font-family:verdana;font-size:13px;color:#3c3c3c;">
+                        Due Date 
+                    </div>
+                    <div class="invoiceForm_fromNameTD" id="payment_due_dateTD">
+                        <!-- onfocus="field_onfocus(this,'');" onblur="field_onblur(this,'');"
+                        onchange="invoiceBeforeDue()" -->
+                        <input
+                             type="text" name="payment_due_date"
+                            id="payment_due_date" 
+                             value="10/30/2024" class="hasDatepicker">
+                    </div>
+                </div>
+            </div>
+            <!-- Item / Description / Unit Price / Quantiy Amount (royalblue background)-->
+            <!-- 'New Line' is below ????? weird reason  -->
+            <div id="items-container">
+                
+                <table class="brb" id="dataTable" cellpadding="0" cellspacing="0" >
+                    <tbody>
+                        <tr id="topRow">
+                            <th id="deleteItem" class="hide">x</th>
+                            <th id="item_headline">Item</th>
+                            <th id="description_headline">Description</th>
+                            <th id="unit_price_headline">Unit Price</th>
+                            <th id="quantity_headline">Quantity</th>
+                            <th id="amount_headline">Amount</th>
+                        </tr>
+                    
+                        <!-- First Original item -->
+                        <tr class="invoiceDataHeadRow">
+                            <input type="hidden" name="lineid[]" id="lineid[]" value="0">
+                            <input type="hidden" name="isdirty[]" id="isdirty[]" value="0">
+                            <input type="hidden" name="numRows" id="numRows" value="2">
+                            <td class="invoiceDataDelete">
+                                <!-- <img style="" onclick="zapthisrow(this,'dataTable');" border="0" title="Delete Line"
+                                    src="images/delete_item.gif"> -->
+                            </td>
+                            <!-- Item -->
+                            <td class="invoiceDataItem">
+                                <!-- <select onfocus="invoiceForm_changeBackground(this,'#FFFADC');"
+                                    onfocusin="objSelected=this; invoiceForm_changeBackground(this,'#FFFADC');"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');" name="item[]" id="itemSelect0"
+                                    class="inputInvoiceDataItem "> -->
+                                <select
+                                  name="item[]" id="itemSelect0"
+                                    class="inputInvoiceDataItem ">
+                                    <option value="" selected="selected"></option>
+                                    <option value="Days">Days</option>
+                                    <option value="Hours">Hours</option>
+                                    <option value="Product">Product</option>
+                                    <option value="Service">Service</option>
+                                    <option value="Expense">Expense</option>
+                                    <option value="Discount_aynax">Discount</option>
+                                </select>
+                                <input type="hidden" name="expense_category[]" value="Other Expenses">
+                            </td>
+                            <!-- Description -->
+                            <td class="invoiceDataDescription">
+                                <!-- <textarea name="description[]" id="description[]" rows="1" cols="40"
+                                    class="inputInvoiceDataDescription"
+                                    onfocus="invoiceForm_changeBackground(this,'#FFFADC');"
+                                    onblur="invoiceForm_changeBackground(this,'#FFFFFF');" onkeyup="sz(this);"></textarea> -->
+                                <textarea name="description[]" id="description[]" rows="1" cols="40"
+                                    class="inputInvoiceDataDescription"
+                                    ></textarea>
+                                <input type="hidden" name="expense_id[]" value="">
+                                <input type="hidden" name="project_id[]" value="0">
+                                <input type="hidden" name="hour_id[]" value="0">
+                                <input type="hidden" class="jPaymentId" name="payment_id[]" value="0">
+                            </td>
+                            <!-- Unit Price -->
+                            <td class="invoiceDataPriceOrQty">
+                                <!-- onkeyup="sanitizeInvoiceLineValues(this);" -->
+                                <!-- onblur="invoiceForm_changeBackground(this,'#FFFFFF');forceDiscountNegative(this);checkIfEmpty(this);reCalculate(this, 'dataTable', this.value);"
+                                onfocus="valueItemFocus(this)" value="0.00" -->
+                                <input name="unit_price[]" id="unit_price[]" type="text" autocomplete="nope"
+                                    class="inputInvoiceDataPriceOrQty" value="0.00"
+                                    >
+                            </td>
+                            <!-- Quantity -->
+                            <td class="invoiceDataPriceOrQty">        
+                                <!-- onkeyup="sanitizeInvoiceLineValues(this);"
+                                onblur="invoiceForm_changeBackground(this,'#FFFFFF');checkIfEmpty(this);reCalculate(this, 'dataTable', this.value);"
+                                onfocus="valueItemFocus(this)"  -->
+                                <input name="qty[]" id="qty[]" type="text" autocomplete="nope"
+                                    class="inputInvoiceDataPriceOrQty" value="0.">
+                            </td>
+                            <!-- Amount -->
+                            <td class="invoiceDataAmount">
+                                <!-- onclick="alert('The amount is calculated automatically as soon as you have entered
+                                  something into both the unit
+                                  price and the quantity field.\n\nExample: If you wish to invoice a service for $100.00, you should enter 100.00 in the unit price field and 1.00 in the quantity field.')" -->
+                                <div style=""
+                                    >
+                                </div>
+                                <input name="total[]" id="total[]" type="text" autocomplete="nope" readonly=""
+                                    class="inputInvoiceDataAmount" value="0.00">
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                <!-- TB 4 -->
+                </table>
+                
+            </div>
+        </div>
+    </main>
+
+    <!-- Invoice Notes  ***** FOR SOME REASONE 'New Line' is below-->
+    <tbody>
+        <tr>
+            <td style="padding-top:10px;margin:0px;text-align:left;">
+                <!-- onclick="newLineClick()" -->
+                <button type="button" 
+                    style="display:inline-block; cursor: pointer; padding:3px 11px 4px 5px; font-size:11px; text-align: center; white-space: nowrap; font-family: sans-serif; line-height: 16px; border: 1px solid #aaaaaa; border-radius: 3px; background-color: #ffffff; background-image: linear-gradient(to bottom, #ffffff, #ffffff 33%, #ececec); color: #3c3c3c;">
+                    <!-- <img style="vertical-align:middle" src="images/icons/plus.svg" alt="">  -->
+                    <span
+                        style="line-height: 12px; position: relative; top: 1px;">New Line
+                    </span></button>
+            </td>
+        </tr>
+        <!-- row for padding ? i guess -->
+        <tr class="by">
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="by">
+            <td>&nbsp;</td>
+        </tr>
+        <!-- Invoice Notes -->
+        <tr>
+            <td>
+                <!-- TB 4 -->
+                <table  cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td style="width:500px;vertical-align:top;">
+                                <!-- TB 5 -->
+                                <table  cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td
+                                                style="width:110px;padding-left:2px; font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;">
+                                                Invoice&nbsp;Notes </td>
+                                            <td style="padding-top:5px;">
+                                                <!-- onmouseout="document.getElementById('edit_notes_msg').style.display='none';"
+                                                onmouseover="document.getElementById('edit_notes_msg').style.display='';"
+                                                onclick="edit_default_notes('invoice'); bind_notes_counter();" -->
+                                                <span id="edit_notes_name"
+                                                    style="cursor:pointer;">
+                                                    <!-- <img
+                                                        style="padding-left:3px;vertical-align:bottom;margin-bottom:1px;"
+                                                        src="images/edit_customer.png"> -->
+                                                    </span>
+                                                <span id="edit_notes_msg"
+                                                    style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;">Click
+                                                    here to edit the default notes. The default notes are automatically
+                                                    added to all new
+                                                    invoices.</span>
+                                                <span id="edit_notes_msg_save"
+                                                    style="display:none;font-size:11px;padding:7px; position:absolute;width:190px;background:#EFF7FA; border:1px solid #cccccc; color:black; font-weight:normal;font-family:verdana;">Click
+                                                    outside the field to save the default notes</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="padding-top:3px;">
+                                                <!-- onfocus="this.className='invoiceForm_fromNameTD_onFocus';"
+                                                onblur="this.className='invoiceForm_fromNameTD';"  -->
+                                                <textarea id="invoice_notes" name="invoice_notes"
+                                                    class="invoiceForm_fromNameTD"
+                                                    rows="6" cols="60"
+                                                    style="width:430px; overflow:auto; outline:none; padding:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    placeholder="lkjdsf"></textarea>
+                                                    <br
+                                                    style="font-size: 10px; font-family: Arial; color: silver; text-align: right; width: 440px;"
+                                                    >
+                                                    <span
+                                                    class="jqEasyCounterMsg"
+                                                    style="font-size: 10px; font-family: Arial; color: silver; text-align: right; width: 440px;"></span>
+    
+                                            </td>
+    
+    
+    
+                                        </tr>
+    
+                                        <!-- TB 5 -->
+    
+                                    </tbody>
+                                </table>
+    
+                            </td>
+    
+                            <td style="width:1px;">
+    
+                                &nbsp;
+    
+                            </td>
+    
+    
+    
+                            <td style="vertical-align:top;">
+    
+                                <!-- TB 5 -->
+    
+                                <table id="table_sums" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:15px; border-top:2px solid #eaedee;">&nbsp;</td>
+                                            <td id="subtotal_label"
+                                                style="width:200px; border-top:2px solid #eaedee;font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;padding-top:6px;padding-bottom:3px;">
+                                                Subtotal
+                                            </td>
+                                            <td
+                                                style="text-align:right;padding-right:4px;border-right:1px solid white;border-top:2px solid #eaedee;border-left:1px solid white;padding-top:6px;padding-bottom:3px;">
+    
+                                                <!-- onclick="alert('The subtotal is calculated automatically as soon as you have entered something into both the unit price and the quantity field in the lines above.\n\nExample: If you wish to invoice a service for $100.00, you should enter 100.00 in the unit price field and 1.00 in the quantity field.')" -->
+                                                <input id="sum_subtotal"
+                                                    style="border:0px solid white;text-align:right; width:100px; padding-right:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    readonly="" type="text" name="sum_subtotal" value="0.00">
+    
+                                            </td>
+    
+                                        </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+                                        <tr id="sum_blankSubtotalTR" style="height:3px;display:none;">
+                                            <td></td>
+                                        </tr>
+    
+    
+    
+                                        <tr id="sum_discountTR" style="display:none;">
+    
+                                            <td style="width:0px;"></td>
+    
+                                            <td id="discount_label"
+                                                style="width:200px; font-family:verdana; font-size:11px; color:#3c3c3c; padding-left:10px;padding-bottom:1px;">
+                                                - Discount </td>
+                                            <td >
+                                                <table  cellpadding="0" cellspacing="0" style="width:70px;">
+    
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <!-- onclick="alert('The discount is calculated automatically as the sum of all amounts from invoice lines with item discount above.')" -->
+                                                            <td class="invoiceForm_fromNameTD" id="sum_discountTD"
+                                                                style="border:0px solid white; text-align:right;padding-right:4px;padding-bottom:1px;"
+                                                                >
+                                                                <!-- onkeyup="sanitizeInvoiceLineValues(this);" readonly="" -->
+                                                                <input id="sum_discount" autocomplete="nope"
+                                                                    style="outline:none; border:1px solid white;text-align:right; width:70px; padding-right:5px; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                                    type="text" name="sum_discount"
+                                                                    value="0.00">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+    
+                                        <tr id="sum_blankAfterDiscountOrTaxTR" style="height:7px;">
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:15px; border-top:2px solid #eaedee;">&nbsp;</td>
+                                            <td id="total_label"
+                                                style="border-top:2px solid #eaedee;font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;padding-top:7px;">
+                                                Total
+                                            </td>
+                                            <td
+                                                style="padding-top:7px; text-align:right;padding-right:4px;border-right:1px solid white;border-top:2px solid #eaedee;border-left:1px solid white;">
+                                                <!-- onclick="alert('The total is calculated automatically as soon as you have entered something into both the unit price and the quantity field in the lines above.\n\nExample: If you wish to invoice a service for $100.00, you should enter 100.00 in the unit price field and 1.00 in the quantity field.')" -->
+                                                <input
+                                                    style="border:0px solid white;text-align:right; width:100px; padding-right:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    readonly="" type="text" name="sum_total" id="sum_total" value="0.00">
+    
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:15px; border-top:0px solid #eaedee;">&nbsp;</td>
+                                            <td id="amount_paid_label"
+                                                style="border-top:0px solid #eaedee;font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;">
+                                                Amount Paid
+                                            </td>
+                                            <td
+                                                style="padding-bottom:7px;text-align:right;padding-right:4px;border-right:1px solid white;border-top:0px solid #eaedee;border-left:1px solid white;">
+                                                <!-- onclick="alert('To enter the amount paid, first save your invoice. Thereafter click the button [Mark as Paid] directly above the invoice form.')" -->
+                                                <input
+                                                    style="border:0px solid white;text-align:right; width:100px; padding-right:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    readonly="" type="text" name="amount_paid" id="amount_paid"
+                                                    value="0.00">
+                                            </td>
+                                        </tr>
+                                        <tr style="background-color:#FBFF9E;">
+                                            <td style="background-color:#FBFF9E;width:15px; border-top:2px solid #eaedee;">
+                                                &nbsp;</td>
+                                            <td id="balance_due_label"
+                                                style="background-color:#FBFF9E;width:200px; border-top:2px solid #eaedee;font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:bold;padding-top:7px;padding-bottom:7px;">
+                                                Balance Due&nbsp;<span id="currency_code_output"
+                                                    style="font-family:verdana; font-size:13px; color:#3c3c3c; font-weight:normal;"></span>
+                                            </td>
+                                            <td
+                                                style="background-color:#FBFF9E;text-align:right;padding-right:4px;border-right:1px solid white;border-top:2px solid #eaedee;border-left:1px solid #FBFF9E;">
+                                                <!-- onclick="alert('The balance due is calculated automatically as soon as you have entered something into both the unit price and the quantity field in the lines above.\n\nExample: If you wish to invoice a service for $100.00, you should enter 100.00 in the unit price field and 1.00 in the quantity field.')" -->
+                                                <input
+                                                    style="background-color:#FBFF9E;border:0px solid white;text-align:right; width:100px; padding-right:5px; font-weight:normal; font-family:verdana;font-size:13px;color:#3c3c3c;"
+                                                    readonly="" type="text" name="balance_due" id="balance_due" value="$">
+                                            </td>
+                                        </tr>
+                                        <!-- TB 5 -->
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <!-- TB 4 -->
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <!-- TB 3 -->
+    </tbody>
+</body>
+</html>

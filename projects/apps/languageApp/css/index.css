@@ -1,0 +1,166 @@
+:root {
+    --primary-bg-color: #27282b;
+    --gb_a-user-icon-hw: 52px
+}
+* {
+    /* background-color: yellow; */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+main {
+    display: flex;
+    flex-direction: column;
+}
+main > .translation-container,
+main > .saved-sentences {
+    /* flex-basis: 50%; */
+    padding: 5%;
+}
+main > .translation-container {
+    width: 90%;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-end; */
+    color: white;
+    background-color: var(--primary-bg-color);
+    border: 4px dashed blue;
+    margin: 0 auto;
+}
+.translation-container>.translate-sentence {
+    /* margin-top: 10%; */
+    margin-bottom: 5%;   
+    height: 15vh;
+    position: relative;
+}
+
+.translation-container>.translation-sentence textarea :active,
+.translation-container>.translation textarea :focus {
+    box-shadow: 0 0 3px 3px whitesmoke;
+}
+
+.translation-container>*>textarea {
+    /* border: 2px solid blue; */
+    background-color: var(--primary-bg-color);
+    /* padding-top: 4%; */
+    padding-left: 5%;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1rem;
+}
+.translation-container>.translate-sentence>textarea {
+    padding-top: 5%;
+}
+.translation-container>.translation >textarea {
+    padding-top: 2.5%;
+    display: none
+}
+.translation-container>.translation >textarea.active {
+    display: block;
+    border: 2px solid blue;
+}
+#pasteBtn.active {
+    background-color: rgb(11, 104, 128);
+    color: white;
+    border: 2px solid blue;
+    position: absolute;
+    bottom: -2.5%;
+    left: 4.95%;
+    z-index: 1;
+    border-radius: 10px;
+    font-size: 125%;
+    display: block;
+}
+
+
+#pasteBtn,
+#translateBtn{
+    display: none;
+}
+#translateBtn:active,#translateBtn:focus,#translateBtn:hover{
+    box-shadow: 0 0 3px 3px whitesmoke;
+}
+#translateBtn.active {
+    position: absolute;
+    top: 35%;
+    right: -1.5%;
+    z-index: 1;
+    border-radius: 10px;
+    font-size: 150%;
+    color: white;
+    background-color: blue;
+    border: 2px solid blue;
+    display: block;
+}
+
+#translateBtn.active {
+    position: absolute;
+    top: 35%;
+    right: -1.5%;
+    z-index: 1;
+    border-radius: 10px;
+    font-size: 150%;
+    color: white;
+    background-color: blue;
+    border: 2px solid blue;
+    display: block;
+}
+
+.change-lang-container,
+.play-container {
+    display: flex;
+    align-self: center;
+    justify-content: space-evenly;
+    padding: 2.5%;
+    width: 90%;
+    
+}
+.change-lang-container > *:active,.change-lang-container > *:focus,
+.play-container > *:active,.play-container > *:focus{
+    box-shadow: 0 0 2px 3px navy;
+}
+.change-lang-container i {
+    color: white;
+}
+.change-lang-container #change-lang-icons {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+.play-container button {
+    padding: 1% 2%;
+    font-size: 90%;
+}
+.saved-sentences {
+    /* border: 1px solid black; */
+    /* padding:5%; */
+}
+
+.saved-sentences>.category-sentences,
+.saved-sentences>.date-sentences {
+    /* border: 1px solid black; */
+    /* padding:5%; */
+}
+.categories-container>.category,
+.weeks-container>.week {
+    /* border: 1px solid black; */
+}
+.sentence {
+    border: 1px solid black;
+}
+@media screen and (max-width:650px) {
+    .translation-container {
+        width: 100%;
+    }
+
+    .languages-container {
+        flex-direction: column;
+    }
+
+}
+
+
+
