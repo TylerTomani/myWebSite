@@ -25,8 +25,9 @@ body > header > .img-container > img {
     display: flex;
     flex-direction: column;
 }
-#homelink,
-#backlink {
+.home-links-container > a{
+
+
     margin: 2% 0;
     border: 1px solid black;
     border-radius: 5px;

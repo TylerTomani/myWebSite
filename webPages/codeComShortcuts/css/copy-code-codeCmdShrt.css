@@ -1,0 +1,33 @@
+.code-cmd {
+    position: relative;
+    z-index: 0;
+    overflow: scroll;
+    /* overflow: visible; */
+}
+
+.copy-code {
+    position: relative;
+    z-index: 0;
+}
+
+.copied {
+    z-index: 100;
+}
+.copied {
+    position: relative;
+    z-index: 10;
+    border: 1px solid whitesmoke;
+    box-shadow: 0 0 3px 2px lightskyblue;
+    background-color: whitesmoke;
+    transform: scale(1.15);
+    transition: all .15s;
+}
+.decopied {
+    position: static;
+    border: 1px solid whitesmoke;
+    box-shadow: none;
+    transform: scale(1.0);
+    transition: all .33s;
+    z-index: 0;
+}
+

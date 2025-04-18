@@ -1,34 +1,62 @@
 const allIdEls = document.querySelectorAll('[id]')
 const sectionTitles = document.querySelectorAll('.section-title')
+const subSections = document.querySelectorAll('.sub-section')
 export const allSubSectionChildren = document.querySelectorAll('.sub-section > *')
 let currentSection 
+let clicked = false
 const keys = {
     meta :{
         pressed: false
     }
 }
+function hideAllSubSections(){
+    subSections.forEach(el => {
+        if(!el.classList.contains('show')){
+            el.classList.add('hide')
+        } 
+    })
+}
+hideAllSubSections()
+function openInNewTab(url) {
+    const newTab = window.open(url, '_blank');
+    if (newTab) {
+        newTab.blur();              // Move focus away from the new tab
+        window.focus();             // Return focus to the current page
+    }
+}
 sectionTitles.forEach(el => {
-    el.addEventListener('click', e => {
-        e.preventDefault()
-        const section = getSection(e.target.parentElement)
-        const subSection = section.querySelector('.sub-section')
-        toggleShow(subSection)
-        currentSection = section
-
+    
+    el.addEventListener('focusout', e => {
+        clicked = false
     })
     el.addEventListener('focus', e => {
         const section = getSection(e.target.parentElement)
         const subSection = section.querySelector('.sub-section')
-        if(!subSection.classList.contains('hide')){
+        clicked = false
+        if (!subSection.classList.contains('hide')) {
             currentSection = section
 
         }
     })
+    el.addEventListener('click', e => {
+        e.preventDefault()
+        
+        const section = getSection(e.target.parentElement)
+        const subSection = section.querySelector('.sub-section')
+        toggleSubSection(subSection)
+        console.log(clicked)
+        clicked = true
+        if(subSection.classList.contains('show') && clicked){
+            openInNewTab(e.target.href)
+            // toggleSubSection(subSection)
+        }
+        currentSection = section
+    })
+    
 })
 
-function toggleShow(el){
-    console.log(el)
-    if(!el.classList.contains('hide')){
+function toggleSubSection(el){
+    if(!el.classList.contains('hide') && !el.classList.contains('show')){
         el.classList.add('hide')
     } else {
         el.classList.remove('hide')
