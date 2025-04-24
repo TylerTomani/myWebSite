@@ -21,7 +21,7 @@ function openInNewTab(url) {
     const newTab = window.open(url, '_blank');
     if (newTab) {
         newTab.blur();              // Move focus away from the new tab
-        window.focus();             // Return focus to the current page
+        // window.focus();             // Return focus to the current page
     }
 }
 sectionTitles.forEach(el => {

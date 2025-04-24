@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript-code</title>
+    <link rel="stylesheet" href="../../css/drop-topic-codeCmdShort.css">
+    <link rel="stylesheet" href="../../css/copy-code-codeCmdShrt.css">
+
+    <script type="module" src="../../js/drop-topic-codeCmdShrt.js" defer></script>    
+    <script type="module" src="../../js/copy-code-codeCmdShrt.js" defer></script>    
+</head>
+<body>
+    <header>
+        <div class="home-links-container">
+            <a tabindex="0" id="codehomelink" href="../../codeComShortcuts.html">codeCommandsShortcuts</a>
+            <!-- <a tabindex="0" id="backlink" href="../index.html">&larr;back (Shorcuts & Commands)</a> -->
+        </div>
+        <h1>Javascript - Code</h1>
+        <div class="home-links-container">
+            <a tabindex="0" id="homelink" href="../../index.html">home</a>
+        </div>
+    </header>
+    <main>
+        <div class="topics-container">
+            <!-- Javascript - Code -->
+            <div class="topic">
+                <header>
+                    <h3><a id="letterFocus" href="#" class="topic-title">Letter Focus</a></h3>
+                </header>
+                <div class="topic-snips show">
+                    <div class="code-cmd">
+                        <h4>Incrementing / Decrements Letter Focus</h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+// This page has really good letter focus cycle
+if(letter == 'c' && !e.metaKey){
+    if(!e.shiftKey){
+    copyCodes[iCopyCodes].focus()
+    iCopyCodes = (iCopyCodes + 1) % copyCodes.length
+    } else{
+        iCopyCodes = (iCopyCodes - 1 + copyCodes.length) % copyCodes.length
+    }
+    copyCodes[iCopyCodes].focus()
+    console.log(iLetter)
+}</pre>
+                        </div>
+                    </div>
+                    <div class="code-cmd">
+                        <h4>CamelCase function</h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+function toCamelCase(str) {
+    return str
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Drop Downs -->
+            <div class="topic">
+                <header>
+                    <h3><a id="dropDowns" href="#" class="topic-title">Drop downs</a></h3>
+                </header>
+                <div class="topic-snips show">
+                    <div class="code-cmd">
+                        <h4>Incrementing / Decrements Letter Focus</h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+function hideTopics(){
+
+}</pre>
+                        </div>
+                    </div>
+                    <div class="code-cmd">
+                        <h4>CamelCase function</h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+function toCamelCase(str) {
+    return str
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>        
+    </main>
+</body>

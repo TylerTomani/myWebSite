@@ -31,15 +31,57 @@
     </header>
     <main>
         <div class="sections-container">
+            <!-- Javascript - Code -->
+            <section class="section">
+                <header>
+                </header>
+                <header>
+                    <h3><a id="javascriptCode" href="topics/javascript-code/javascript-code.html"
+                         class="section-title">Javascript - code</a>
+                    </h3>
+                </header>
+                <section class="sub-section show">
+                    <div class="code-cmd">
+                        <h4>Incrementing / Decrements Letter Focus</h4>
+                        <p style="color:red;font-size: 120%;" class="r">ironically this page also need this function</p>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    // This page has really good letter focus cycle
+    if(letter == 'c' && !e.metaKey){
+        if(!e.shiftKey){
+        copyCodes[iCopyCodes].focus()
+            iCopyCodes = (iCopyCodes + 1) % copyCodes.length
+        } else{
+            iCopyCodes = (iCopyCodes - 1 + copyCodes.length) % copyCodes.length
+    
+        }
+        copyCodes[iCopyCodes].focus()
+        console.log(iLetter)
+    }</pre>
+                        </div>
+                    </div>
+                    <div class="code-cmd">
+                        <h4>CamelCase function</h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    function toCamelCase(str) {
+    return str
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
+    }</pre>
+                        </div>
+                    </div>
+                </section>
+            </section>
             <!-- Terminal linux -->
             <section class="section">
-                <!-- <header><h3><a id="terminalUnix" href="topics/terminal-unix-cmds/terminal-unix-cmds.html" 
+                <header><h3><a id="terminalUnix" href="topics/terminal-unix-cmds/terminal-unix-cmds.html" 
                     target="_blank"
                     class="section-title">Terminal Unix</a></h3>
-                </header> -->
-                <header><h3><a id="terminalUnix" href="#" 
+                </header>
+                <!-- <header><h3><a id="terminalUnix" href="#"  
                     
-                    class="section-title">Terminal Unix</a></h3>
+                    class="section-title">Terminal Unix</a></h3>-->
                 </header>
                 <section class="sub-section show">
                     <!-- -->
@@ -109,69 +151,10 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat libero nobis cu
                     
                 </section>
             </section>
-            <!-- Code Most used -->
-            <section class="section">
-                <header>
-                    <h3><a id="codeMostUsed" href="#" class="section-title">Code Most Used</a></h3>
-                </header>
-                <section class="sub-section">
-                    <div class="code-cmd">
-                        <h4>Incrementing / Decrements Letter Focus</h4>
-                        <p style="color:red;font-size: 120%;" class="r">ironically this page also need this function</p>
-                        <div class="code-container">
-                            <pre tabindex="0" class="copy-code">
-// This page has really good letter focus cycle
-if(letter == 'c' && !e.metaKey){
-    if(!e.shiftKey){
-        copyCodes[iCopyCodes].focus()
-        iCopyCodes = (iCopyCodes + 1) % copyCodes.length
-
-    } else{
-        iCopyCodes = (iCopyCodes - 1 + copyCodes.length) % copyCodes.length
-        
-    }
-    copyCodes[iCopyCodes].focus()
-    console.log(iLetter)
-}
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam
-aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam
-aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam
-aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam
-aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam
-aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam
-aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam
-aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam
-aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, harum optio provident molestiae fugit cum qui sit ullam
-aspernatur magnam ipsam libero quaerat! Consequatur quaerat, architecto sint iure numquam similique?</pre>
-                        </div>
-                    </div>
-                    <div class="code-cmd">
-                        <h4>CamelCase function</h4>
-                        <div class="code-container">
-                            <pre tabindex="0" class="copy-code">
-function toCamelCase(str) {
-    return str
-        .toLowerCase()
-        .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
-}</pre>
-                        </div>
-                    </div>
-                </section>
-            </section>
+            
             <!-- command-shortcuts -->
             <section class="section">
-                <header><h3><a id="" href="#" class="section-title">command shortcuts</a></h3></header>
+                <header><h3><a id="commandShortcuts" href="#" class="section-title">command shortcuts</a></h3></header>
                 <section class="sub-section ">
                     <div class="shortcut">
                         <h4>Select same variable in scope</h4>

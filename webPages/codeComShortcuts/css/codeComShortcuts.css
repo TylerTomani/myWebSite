@@ -7,7 +7,7 @@ body {
     /* background: linear-gradient(to bottom, #0e162b, #192752, #26376c, #34478a); */
     height: 100vh;
 }
-.section {
+.section{
     margin-bottom: 1.5%;
 }
 
@@ -32,7 +32,7 @@ body {
     max-width: 100%;
     /* prevent overflow */
     box-sizing: border-box;
-    max-height: 90vh;
+    max-height: 80vh;
 
 }
 
