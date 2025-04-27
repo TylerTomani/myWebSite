@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../../css/drop-topic-codeCmdShort.css">
     <link rel="stylesheet" href="../../css/copy-code-codeCmdShrt.css">
 
+    <link rel="stylesheet" href="../../../../css/colors.css">
+
     <script type="module" src="../../js/drop-topic-codeCmdShrt.js" defer></script>    
     <script type="module" src="../../js/copy-code-codeCmdShrt.js" defer></script>    
 </head>
@@ -16,6 +18,7 @@
             <a tabindex="0" id="codehomelink" href="../../codeComShortcuts.html">codeCommandsShortcuts</a>
             <!-- <a tabindex="0" id="backlink" href="../index.html">&larr;back (Shorcuts & Commands)</a> -->
         </div>
+        <h2 style="color:red">incrementing letter focus is not working on this page</h2>
         <h1>Javascript - Code</h1>
         <div class="home-links-container">
             <a tabindex="0" id="homelink" href="../../index.html">home</a>
@@ -23,12 +26,82 @@
     </header>
     <main>
         <div class="topics-container">
-            <!-- Javascript - Code -->
+            <!-- Letter Focus Code -->
             <div class="topic">
                 <header>
                     <h3><a id="letterFocus" href="#" class="topic-title">Letter Focus</a></h3>
                 </header>
+                <!-- Letter Focus Code -->
                 <div class="topic-snips show">
+                    <div class="code-cmd">
+                        <a id="letterFocusCode" href="#"><h4>Letter Focus</h4></a>
+                        <p>
+                            create pop up with extra info on <code>filter()</code> and <code>findIndex()</code>
+                        </p>
+                        <p>
+
+does filter() work the same?
+
+ChatGPT said:
+Awesome question — filter is similar to findIndex, but with one big difference in what it returns.
+
+✅ Both:
+* Take a <span class="m">callback</span> function that checks a condition.
+* Go through the array element by element.
+* Use the callback to test each item.
+
+🔍 Difference:
+Method	Returns
+findIndex	The index of the first matching item
+filter	A new array of all matching items
+
+                        </p>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+// Function to update idElsArr dynamically
+export function <span class="b">updateIdElsArr</span>() {
+    idElsArr = Array.from(document.querySelectorAll('[id]')); // Refresh the array
+}
+updateIdElsArr();
+document.addEventListener("keydown", (e) => {
+    if (inputBoxFocused) return; // Ignore if typing in input box
+    let letter = e.key.toLowerCase();
+    if (letter === "i") e.preventDefault(); // Prevent unwanted behavior for "i"
+    // Filter elements that start with the pressed letter    
+    let letteredArr = idElsArr.<span class="y">filter(</span><span class="m">(el) => el.id.toLowerCase().startsWith(letter)</span><span class="y">
+        )</span> <span class="l">// creates new array</span>;
+    // No matching elements
+    if (letteredArr.length === 0 ) {    
+        return
+    } 
+    else {        
+        let focusedEl = document.activeElement;
+        let focusedIndex = idElsArr.indexOf(focusedEl);
+        // console.log(iLetter, letteredArr[iLetter])
+        // If pressing a different letter, find the closest match below
+        if (lastPressedLetter !== letter) {
+            let closestIndex = letteredArr.<span class="y">findIndex(</span><span class="m">el => idElsArr.indexOf(el) > focusedIndex</span>
+            <span class="y">)</span> <span class="l">// takes callback and returns whatever that callback returns</span>;
+            iLetter = closestIndex !== -1 ? closestIndex : 0; // If none found below,
+            //  start from first
+        } else {
+            // If pressing the same letter, cycle forward
+            iLetter = (letteredArr.indexOf(focusedEl) + 1) % letteredArr.length;
+        }
+        // Handle Shift + Letter for backwards cycling
+        if (e.shiftKey) {
+            iLetter = (letteredArr.indexOf(focusedEl) - 1 + letteredArr.length) % letteredArr.length;
+        }
+        // Focus the selected element
+        letteredArr[iLetter].focus();  
+        lastPressedLetter = letter;
+        
+    }
+});</pre>
+                        </div>
+                        
+                    </div>
+                    <div class="code-cmd">
                     <div class="code-cmd">
                         <h4>Incrementing / Decrements Letter Focus</h4>
                         <div class="code-container">

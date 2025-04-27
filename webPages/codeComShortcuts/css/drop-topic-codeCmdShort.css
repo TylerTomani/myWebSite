@@ -65,23 +65,23 @@ body>header>.page-logo img {
 .page-title>img {max-height: 50px;}
 /* Main topics */
 main {
-    background-color: var(--bg-prime);
+    /* background-color: var(--bg-prime); */
     height: 100vh;
 }
 .topic {
     margin-top: 1.5%;
 }
 .topic-title {
-    color: white;
+    /* color: white; */
 }
 .topics-container {
-    margin: 0 2.5%;
+    margin: 0 2%;
 }
 
 .topic-snips {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: .5rem;
     /* optional: adds space between boxes */
 }
 
@@ -92,29 +92,32 @@ main {
     padding: 0.5rem;
     /* key part ↓ */
     width: fit-content;
-    color: white;
+    /* color: white; */
     max-width: 100%;
     font-weight: 990;
-    line-height: 1.3;
-    font-size: 130%;
+    /* line-height: 1.3; */
     /* prevent overflow */
     box-sizing: border-box;
     max-height: 80vh;
 
 }
+.code-cmd > p {
+    font-size: 80%;
+}
 
 .code-container {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     border: 1px solid black;
     margin: 0.5rem;
     margin-top: 0.5rem;
-    background-color: var(--bg-code);
+    /* background-color: var(--bg-code); */
     /* overflow-x: auto; */
     max-width: 100%;
 }
 
 .code-container .copy-code {
     width: 100%;
+    white-space: none;
     height: 100%;
     padding: 0.5rem;
     padding-bottom: .55rem;
