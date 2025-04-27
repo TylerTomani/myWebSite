@@ -98,7 +98,7 @@ main {
     /* line-height: 1.3; */
     /* prevent overflow */
     box-sizing: border-box;
-    max-height: 80vh;
+    max-height: 98vh;
 
 }
 .code-cmd > p {
@@ -106,7 +106,6 @@ main {
 }
 
 .code-container {
-    font-size: 0.8rem;
     border: 1px solid black;
     margin: 0.5rem;
     margin-top: 0.5rem;
@@ -116,6 +115,7 @@ main {
 }
 
 .code-container .copy-code {
+    font-size: 0.74rem;
     width: 100%;
     white-space: none;
     height: 100%;

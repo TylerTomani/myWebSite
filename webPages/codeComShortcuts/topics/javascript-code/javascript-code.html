@@ -58,11 +58,6 @@ filter	A new array of all matching items
                         </p>
                         <div class="code-container">
                             <pre tabindex="0" class="copy-code">
-// Function to update idElsArr dynamically
-// export function <span class="b">updateIdElsArr</span>() {
-//     idElsArr = Array.from(document.querySelectorAll('[id]')); // Refresh the array
-// }
-// updateIdElsArr();
 document.addEventListener("keydown", (e) => {
     if (inputBoxFocused) return; // Ignore if typing in input box
     let letter = e.key.toLowerCase();
