@@ -35,26 +35,28 @@
                 <div class="topic-snips show">
                     <div class="code-cmd">
                         <a id="letterFocusCode" href="#"><h4>Letter Focus</h4></a>
+                        <sup class="r">
+                            **create pop up with extra info on <code>filter()</code> and <code>findIndex()</code>
+                        </sup>
                         <p>
-                            create pop up with extra info on <code>filter()</code> and <code>findIndex()</code>
+                            <strong>Chat Question: does filter() work the same?</strong>
+                            <br>
+                            ChatGPT said:
+                            Awesome question filter is similar to findIndex, but with one big difference in what it returns.
+                            <br>
+                            ✅ Both:
                         </p>
+                        <ul>
+                            <li>* Take a <span class="mcy">callback</span> function that checks a condition.</li>
+                            <li>* Go through the array element by element.</li>
+                            <li>* Use the callback to test each item.</li>
+                        </ul>
+                        
                         <p>
-
-does filter() work the same?
-
-ChatGPT said:
-Awesome question — filter is similar to findIndex, but with one big difference in what it returns.
-
-✅ Both:
-* Take a <span class="m">callback</span> function that checks a condition.
-* Go through the array element by element.
-* Use the callback to test each item.
-
-🔍 Difference:
-Method	Returns
-findIndex	The index of the first matching item
-filter	A new array of all matching items
-
+                            🔍 Difference:
+                            Method Returns
+                            findIndex The index of the first matching item
+                            filter A new array of all matching items
                         </p>
                         <div class="code-container">
                             <pre tabindex="0" class="copy-code">
@@ -63,7 +65,7 @@ document.addEventListener("keydown", (e) => {
     let letter = e.key.toLowerCase();
     if (letter === "i") e.preventDefault(); // Prevent unwanted behavior for "i"
     // Filter elements that start with the pressed letter    
-    let letteredArr = idElsArr.<span class="y">filter(</span><span class="m">(el) => el.id.toLowerCase().startsWith(letter)</span><span class="y">
+    let letteredArr = idElsArr.<span class="y">filter(</span><span class="mcy">(el) => el.id.toLowerCase().startsWith(letter)</span><span class="y">
         )</span> <span class="l">// creates new array</span>;
     // No matching elements
     if (letteredArr.length === 0 ) {    
@@ -75,7 +77,7 @@ document.addEventListener("keydown", (e) => {
         // console.log(iLetter, letteredArr[iLetter])
         // If pressing a different letter, find the closest match below
         if (lastPressedLetter !== letter) {
-            let closestIndex = letteredArr.<span class="y">findIndex(</span><span class="m">el => idElsArr.indexOf(el) > focusedIndex</span>
+            let closestIndex = letteredArr.<span class="y">findIndex(</span><span class="mcy">el => idElsArr.indexOf(el) > focusedIndex</span>
             <span class="y">)</span> <span class="l">// takes callback and returns whatever that callback returns</span>;
             iLetter = closestIndex !== -1 ? closestIndex : 0; // If none found below,
             //  start from first

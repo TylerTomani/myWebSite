@@ -105,6 +105,11 @@ main {
 .code-cmd > p {
     font-size: 80%;
 }
+.code-cmd > ul {
+    font-size: 80%;
+    align-self: center;
+    margin-bottom: 1%;
+}
 
 .code-cmd .code-container {
     border: 1px solid black;
@@ -120,12 +125,12 @@ main {
     color: var(--bg-codeClr);
     width: 100%;
     font-weight: 999;
-    white-space: none;
     height: 100%;
     padding: 0.5rem;
     padding-bottom: .55rem;
-    white-space: pre-wrap;
+    line-height: 1.5;
     /* or pre-line if you prefer */
+    white-space: pre-wrap;
     word-break: break-word;
 }
 

@@ -1,8 +1,15 @@
 .b {color: blue;}
 .r {color: tomato;}
 .l {color: lime;}
-.m {color: magenta;}
+.mcy {color: rgb(0, 242, 255);}
+/* .m {color: magenta;} */
 .y {color: yellow;}
 .strike {
     text-decoration: line-through;
+}
+
+/* paragraphy code colors */
+p>.mcy {
+    font-weight: 900;
+    color: rgb(18, 149, 149);
 }
