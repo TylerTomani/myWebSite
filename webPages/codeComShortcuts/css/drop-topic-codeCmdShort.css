@@ -1,6 +1,7 @@
 :root {
     --bg-prime: rgb(20,20,20);
-    --bg-code: rgb(108, 95, 95);
+    --bg-code: rgb(73, 75, 68);
+    --bg-codeClr: rgb(246, 247, 246);
 }
 * {
     margin: 0;
@@ -105,18 +106,20 @@ main {
     font-size: 80%;
 }
 
-.code-container {
+.code-cmd .code-container {
     border: 1px solid black;
     margin: 0.5rem;
     margin-top: 0.5rem;
-    /* background-color: var(--bg-code); */
+    background-color: var(--bg-code);
     /* overflow-x: auto; */
     max-width: 100%;
 }
 
 .code-container .copy-code {
     font-size: 0.74rem;
+    color: var(--bg-codeClr);
     width: 100%;
+    font-weight: 999;
     white-space: none;
     height: 100%;
     padding: 0.5rem;
