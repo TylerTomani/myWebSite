@@ -12,7 +12,7 @@ export function letterFocus() {
             // Let the browser handle copy natively
             return;
         }
-        if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'c') {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'c') {
             return; // don't move focus, don't trigger letterFocus or anything else
         }
 
