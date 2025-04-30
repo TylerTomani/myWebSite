@@ -105,6 +105,7 @@ main {
 .code-cmd > p {
     font-size: 80%;
 }
+
 .code-cmd > ul {
     font-size: 80%;
     align-self: center;
@@ -137,3 +138,16 @@ main {
 .hide {
     display: none;
 }
+
+/* Color */
+ul .mcy,
+.code-cmd p .mcy,
+ul .y,
+.code-cmd p .y {
+    font-weight: 990;
+}
+
+ul .mcy,
+.code-cmd p .mcy{color: rgb(82, 142, 142);}
+ul .y,
+.code-cmd p .y{color: rgb(159, 165, 82);}

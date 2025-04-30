@@ -1,8 +1,9 @@
-const allIdEls = document.querySelectorAll('[id]')
+// const allIdEls = document.querySelectorAll('[id]') // 
+const allAs = document.querySelectorAll('a') // 
 const topicTitles = document.querySelectorAll('.topic-title')
 const topicSnips = document.querySelectorAll('.topic-snips')
-export const allSubTopicChildren = document.querySelectorAll('.topic-snips > *')
-let currentTopic 
+ const allSubTopicChildren = document.querySelectorAll('.topic-snips > *')
+export let currentTopic 
 let clicked = false
 const keys = {
     meta :{
@@ -49,7 +50,6 @@ function getTopic(parent){
         return null
     }
 }
-
 addEventListener('keyup', e => {
     let letter = e.key.toLowerCase()
     if(letter == 'meta'){
@@ -63,21 +63,21 @@ addEventListener('keydown', e => {
         keys.meta.pressed = true
 
     }
-    if(!keys.meta.pressed){
-
-        allIdEls.forEach(el => {
-            if (letter == el.id[0]) {
+    if(!e.metaKey){
+        topicTitles.forEach(el => {
+            console.log(el)
+            if (letter == el.innerText[0].toLowerCase()) {
                 el.focus()
             }
         })
     }
-        if(currentTopic){
-            if(!isNaN(letter)){
-                const intLetter = parseInt(letter)
-                const topicChildren = currentTopic.querySelectorAll('.topic-snips > *')
-                numFocus(topicChildren, intLetter)
-            }
-        } else {
+    if(currentTopic){
+        if(!isNaN(letter)){
+            const intLetter = parseInt(letter)
+            const topicChildren = currentTopic.querySelectorAll('.topic-snips > *')
+            numFocus(topicChildren, intLetter)
+        }
+    } else {
         if(!isNaN(letter)){
             const intLetter = parseInt(letter)
             allSubTopicChildren.forEach(el => {
