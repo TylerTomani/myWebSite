@@ -9,18 +9,18 @@ export function ToggleTopicQuestions(){
     mainTargetDiv.addEventListener('focusout', e => {
         mainTargetDivFocused = false
     })
-    addEventListener('keydown', e => {
-        let letter = e.key.toLowerCase()        
-        if (mainTargetDivFocused){
-            dropTopics.forEach(el => {
-                if(!e.metaKey || !e.ctrlKey){
-                    if (letter == el.innerText[0].toLowerCase()) {
-                        // el.focus()
-                    }
-                }
-            })
-        }
-    })
+    // addEventListener('keydown', e => {
+    //     let letter = e.key.toLowerCase()        
+    //     if (mainTargetDivFocused){
+    //         dropTopics.forEach(el => {
+    //             if(!e.metaKey || !e.ctrlKey){
+    //                 if (letter == el.innerText[0].toLowerCase()) {
+    //                     // el.focus()
+    //                 }
+    //             }
+    //         })
+    //     }
+    // })
     dropTopics.forEach(el => {
         el.addEventListener('click', e => {
             e.preventDefault()
