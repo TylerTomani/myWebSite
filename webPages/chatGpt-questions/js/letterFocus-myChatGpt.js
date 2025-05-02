@@ -2,19 +2,12 @@ export function letterFocus() {
     let letteredEls = [];
     let iLetter = 0;
     let currentLetter = '';
-
+    let cmdCEl 
+    
     addEventListener('keydown', (e) => {
         const isCopyCodeFocused = e.target.classList.contains('copy-code');
         const letter = e.key.toLowerCase();
-
-        // Special case: allow Cmd+C for copying inside .copy-code elements
-        if (isCopyCodeFocused && e.metaKey && letter === 'c') {
-            // Let the browser handle copy natively
-            return;
-        }
-        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'c') {
-            return; // don't move focus, don't trigger letterFocus or anything else
-        }
+        
 
         // Special case: scroll to top if 'm' is pressed while mainTargetDiv is focused
         if (letter === 'm' && e.target.id === 'mainTargetDiv') {
@@ -22,11 +15,6 @@ export function letterFocus() {
             return;
         }
 
-        // Skip handling if meta key is held (except for Cmd+C above)
-        if (e.metaKey) {
-            e.preventDefault();
-            return;
-        }
 
         // Build the list of elements with ids starting with the pressed letter
         const allFocusEls = document.querySelectorAll('[id]');
@@ -47,7 +35,10 @@ export function letterFocus() {
         letteredEls[iLetter].focus();
 
         currentLetter = letter;
+        if (cmdCEl != null) {
+            cmdCEl.focus()
+        }
     });
 }
 
-letterFocus();
+// letterFocus();

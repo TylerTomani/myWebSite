@@ -157,7 +157,7 @@ if (!hasAutoFocus) {
                             <div class="whitespace-pre-wrap">
                                 <pre tabindex="0" class="copy-code drop-question">
     no thank you right now this is working alot better
-    i don't understand it but i will practice it once we get it 100% correct, but the same logic we use going down the page
+    <br>i don't understand it but i will practice it once we get it 100% correct, but the same logic we use going down the page
     should be applied going up, right now when i press the same letter twice and like "L" then my focus is on the second h4
     > a.drop-code-cmd Letter Focus Code then press shift + c it should go up to the page and html DOM tree, in this case the
     a tag codeCommandsShortcuts but right now it is going down to the a tag with innerText CamelCase in the following code
@@ -274,8 +274,7 @@ addEventListener('keydown', (e) => {
                 <!-- I'm keeping the html the same but adding the classes:
                        questions-answer, question-txt, answer-txt-->
                 <div class="answer question-answer">
-                    <article class="text-token-text-primary question-txt">
-                        
+                    <article class="text-token-text-primary question-txt">                        
                         <div class="text-base">
                             <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
                                              it to a pre so i can copy it  -->
@@ -288,8 +287,15 @@ letteredAs[iLetter]?.focus()
                         </div>
                     </article>
                     <article class="text-token-text-primary answer-txt">
-                        <h6 class="sr-only">Chat Gpt Said: </h6>
-                        <div class="text-base">
+                           <div class="whitespace-pre-wrap">
+                            <div class="whitespace-pre-wrap">
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code drop-question">
+                                        </pre>
+                                </div>
+                                
+                            </div>
+                           </div>
                             <!-- .markdown .prose is 5th inner child of the 2nd child element 
                                                             '.group/conversation-turn' of .text-base   -->
                             <div class="markdown prose">

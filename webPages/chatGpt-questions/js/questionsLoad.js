@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.text())
             .then(html => {
                 mainTargetDiv.innerHTML = html
-                addCopyCodes()
                 handleQuestions()
                 ToggleTopicQuestions()
                 MarginDropQuestions()
                 letterFocus()
+                addCopyCodes()
             })
             .catch(error => console.log('Error fetching content.html:', error))
     }

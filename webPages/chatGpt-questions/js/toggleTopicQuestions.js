@@ -13,8 +13,10 @@ export function ToggleTopicQuestions(){
         let letter = e.key.toLowerCase()        
         if (mainTargetDivFocused){
             dropTopics.forEach(el => {
-                if (letter == el.innerText[0].toLowerCase()) {
-                    el.focus()
+                if(!e.metaKey || !e.ctrlKey){
+                    if (letter == el.innerText[0].toLowerCase()) {
+                        // el.focus()
+                    }
                 }
             })
         }
