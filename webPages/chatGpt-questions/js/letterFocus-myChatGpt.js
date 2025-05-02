@@ -7,7 +7,10 @@ export function letterFocus() {
     addEventListener('keydown', (e) => {
         const isCopyCodeFocused = e.target.classList.contains('copy-code');
         const letter = e.key.toLowerCase();
-        
+        if ((e.metaKey || e.ctrlKey) && letter === 'c') {
+            
+            return; // don't move focus, don't trigger letterFocus or anything else
+        }
 
         // Special case: scroll to top if 'm' is pressed while mainTargetDiv is focused
         if (letter === 'm' && e.target.id === 'mainTargetDiv') {
