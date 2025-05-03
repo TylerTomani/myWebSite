@@ -4,5 +4,6 @@
     text-decoration: line-through;
 }
 .markdown .code-container .copy-code{
-    background-color: white;
+    background-color: lightgray;
+    color: black;
 }

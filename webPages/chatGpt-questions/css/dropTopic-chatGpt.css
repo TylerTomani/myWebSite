@@ -60,7 +60,11 @@
     /* text-wrap: wrap; */
     /* white-space: wrap; */
     /* max-height: 200px; */
+    /* overflow: hidden; */
     overflow-y: scroll;
+}
+.answer .code-container .copy-code {
+    overflow-x: scroll;
 }
 .hide {
     display: none;

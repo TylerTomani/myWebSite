@@ -87,7 +87,7 @@ topics.forEach(el => {
                                 </ul>
                                 <h3>Then yes — using .some() is more efficient and semantically clearer.</h3></h3>
                                 <div class="code-container">
-                                    <pre tabindex="0" class="">
+                                    <pre tabindex="0" class="copy-code">
 const hasAutoFocus = Array.from(topics).some(el => {
     if (el.hasAttribute('autofocus')) {
         fetchLessonHref(el.href)
@@ -195,7 +195,7 @@ if (!hasAutoFocus) {
                                 </ul>
                                 </ul>
                                 <div class="code-container">
-                                    <pre tabindex="0" class="">
+                                    <pre tabindex="0" class="copy-code">
 const allAs = Array.from(document.querySelectorAll('a'))
 let lastLetterPressed = ''
 let iLetter = 0
@@ -534,7 +534,7 @@ stepTxtsFocus()</pre>
                                     js
                                 </p>
                                 <div class="code-container">
-                                    <pre tabindex="0" class="">
+                                    <pre tabindex="0" class="copy-code">
 tabIndexElements.forEach(el => {
     el.addEventListener('keydown', e => {
         let letter = e.key.toLowerCase()
@@ -545,7 +545,7 @@ tabIndexElements.forEach(el => {
 })</pre>
                                 </div>
                                 <div class="code-container">
-                                    <pre tabindex="0" class="">
+                                    <pre tabindex="0" class="copy-code">
 addEventListener('keydown', e => {
     let letter = e.key.toLowerCase()
     if (letter == 'enter') {
@@ -658,7 +658,7 @@ i'm trying make an extension to add to chrome that will apply my letter focus sc
                                     json
                                 </p>
                                 <div class="code-container">
-                                    <pre tabindex="0" class="">
+                                    <pre tabindex="0" class="copy-code">
 {
   "manifest_version": 3,
   "name": "Google Search Letter Focus",
