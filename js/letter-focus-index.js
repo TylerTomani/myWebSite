@@ -1,6 +1,6 @@
 const allAs = Array.from(document.querySelectorAll('a'))
 let lastLetterPressed
-let iLetter
+let iLetter = 0
 
 addEventListener('keydown', e => {
     let letter = e.key.toLowerCase()

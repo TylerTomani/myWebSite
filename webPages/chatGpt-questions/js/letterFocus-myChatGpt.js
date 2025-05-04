@@ -1,31 +1,38 @@
+
+function updateDropTopics(){
+    return document.querySelectorAll('.drop-topics')
+}
 export function letterFocus() {
     let letteredEls = [];
     let iLetter = 0;
     let currentLetter = '';
     let cmdCEl 
+    let dropTopics = updateDropTopics()
+    const dropQuestions = document.querySelectorAll('.drop-question')
+    let questionsFocused = false
+    dropQuestions.forEach(el => {
+        el.addEventListener('focus', e => {
+            console.log('in')
+            
+        })
+        el.addEventListener('focusout', e => {
+            console.log('out')
+        })
+    })
     
     addEventListener('keydown', (e) => {
+        dropTopics.forEach(el => console.log(el))
         const isCopyCodeFocused = e.target.classList.contains('copy-code');
         const letter = e.key.toLowerCase();
 
-        if ((e.metaKey || e.ctrlKey) && letter === 'c') {
-            
-            
+        if ((e.metaKey || e.ctrlKey) && letter === 'c') {   
             return; // don't move focus, don't trigger letterFocus or anything else
         }
-
         // Special case: scroll to top if 'm' is pressed while mainTargetDiv is focused
         if (letter === 'm' && e.target.id === 'mainTargetDiv') {
             scrollTo(0, 0);
             return;
         }
-
-        // // Skip handling if meta key is held (except for Cmd+C above)
-        // if (e.metaKey) {
-        //     e.preventDefault();
-        //     return;
-        // }
-
         // Build the list of elements with ids starting with the pressed letter
         const allFocusEls = document.querySelectorAll('[id]');
         letteredEls = Array.from(allFocusEls).filter(el => el.id[0].toLowerCase() === letter);
