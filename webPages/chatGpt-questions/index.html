@@ -14,10 +14,12 @@
     <!-- <script type="module" src="../chatGpt-questions/js/copy-code-export.js" defer></script> -->
     <!-- <script type="module" src="js/margin-drop-questions.js" defer></script> -->
     <!-- <script type="module" src="js/letterFocus-myChatGptOg.js" defer></script> -->
-    <script type="module" src="js/toggleSideBar.js" defer></script>
-    <script type="module" src="js/questionsLoad.js" defer></script>
-    <!-- <script type="module" src="js/toggleTopicQuestions.js" defer></script> -->
+    <!-- <script type="module" src="js/questionsLoad.js" defer></script> -->
     
+    <script type="module" src="js/toggleSideBar.js" defer></script>
+    <script type="module" src="js/inject-html.js" defer></script>
+        
+    <!-- <script type="module" src="js/toggleTopicQuestions.js" defer></script> -->
     <!-- <script type="module" src="js/dropdown.js" defer></script> -->
     <!-- This is for questions inside topic's page -->
     <!-- <script type="module" src="js/toggleQuestions.js" defer></script> -->
@@ -25,7 +27,11 @@
 </head>
 <body>
     <header>
-        <a id="homelink" href="../../index.html">home</a>
+        <div class="main-links">
+            <a id="homelink" href="../../index.html">Home (main)</a>
+            <a tabindex="0" id="codeCmdShrtCutsLink" href="../codeComShortcuts/codeComShortcuts.html">codeCmdShrtCutsLink</a>
+            
+        </div>
         <h1>My Chat Gpt Questions</h1>
     </header>
     <nav class="chatgpt-nav-icons">
@@ -66,7 +72,8 @@
         </div>
     </nav>
     <main>
-        <!-- ChatHistory side bar topics -->
+        <!-- ChatHistory side bar Topics (NOT drop-topic) drop-topic is in 
+         Topics pages loaded by clicking topic in side bar-->
         <aside class="draggable active">
             <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-2/3 w-2/3"><text
                     x="-9000" y="-9000"></text>
@@ -79,12 +86,12 @@
                 <li><a id="github" href="topics/github/github.html">Github</a>
         
                 </li>
-                <li><a autofocus  id="javascript" href="topics/javascript/javascript.html">Javascript
+                <li><a class="show"  id="javascript" href="topics/javascript/javascript.html">Javascript
                     </a>
                     <!-- NOT SURE if  want drop down here with sub section or have sub sections appear 
                      in javascript, github, css.html .... -->
                     <ul>
-                        <li><a href="#" id="injectJavascript" class="topic">Inject Javascript into HTML</a></li>
+                        <li><a href="#" id="injectJavascript" >Inject Javascript into HTML</a></li>
                     </ul>
                 </li>
                 <li><a   id="css" href="topics/css/css.html">css</a>

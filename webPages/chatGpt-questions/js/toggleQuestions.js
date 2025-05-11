@@ -14,6 +14,7 @@ export function handleQuestions(){
     function hideAnswers() {
         answersTxt.forEach((el => {
             if(!el.classList.contains('show')){
+                
                 el.classList.add('hide')
             }
         }))

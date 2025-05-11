@@ -19,7 +19,7 @@ body > header > .img-container > img {
     height: 50%;
     width: 60%;
 }
-#homelink {
+header > .main-links a{
     border: 1px solid black;
     border-radius: 5px;
     display: inline-block;

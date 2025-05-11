@@ -1,61 +1,85 @@
-
+/** propbably don't need all sideBarTopic, only 
+ the last clicked side bar*/
+import { sideBarTopics } from "./toggleSidebar-topic.js"
 function updateDropTopics(){
-    return document.querySelectorAll('.drop-topics')
+    return document.querySelectorAll('.drop-topic')
 }
 export function letterFocus() {
     let letteredEls = [];
     let iLetter = 0;
     let currentLetter = '';
-    let cmdCEl 
-    let dropTopics = updateDropTopics()
-    const dropQuestions = document.querySelectorAll('.drop-question')
-    let questionsFocused = false
-    dropQuestions.forEach(el => {
-        el.addEventListener('focus', e => {
-            console.log('in')
-            
-        })
-        el.addEventListener('focusout', e => {
-            console.log('out')
-        })
+    /** since drop-topics are changed when loaded we need to get them all here */
+    /** NOT sure if this is a waste ofYour Wi-Fi now back to Dr. Phil $50 million definition no traffic traffic gas station yeah try to come Parton court sorry dude apologize but I will see you bhad Bhabie famous computer space */
+    const dropTopics = updateDropTopics()
+    let dropTopicsFocused = false
+    dropTopics.forEach(el => {
+        addEventListener('focusin',  e => {dropTopicsFocused = true});
+        addEventListener('focusout',  e => {dropTopicsFocused = false});
     })
-    
-    addEventListener('keydown', (e) => {
-        dropTopics.forEach(el => console.log(el))
-        const isCopyCodeFocused = e.target.classList.contains('copy-code');
-        const letter = e.key.toLowerCase();
-
-        if ((e.metaKey || e.ctrlKey) && letter === 'c') {   
-            return; // don't move focus, don't trigger letterFocus or anything else
-        }
-        // Special case: scroll to top if 'm' is pressed while mainTargetDiv is focused
-        if (letter === 'm' && e.target.id === 'mainTargetDiv') {
-            scrollTo(0, 0);
-            return;
-        }
-        // Build the list of elements with ids starting with the pressed letter
+    addEventListener('keydown', e => {
         const allFocusEls = document.querySelectorAll('[id]');
-        letteredEls = Array.from(allFocusEls).filter(el => el.id[0].toLowerCase() === letter);
+        let letter = e.key.toLowerCase();
+        if(!isNaN(letter)){
+            numFocusCodeSnips(e,letter)
+        } else if(!e.metaKey){
+            if (letter == 'm' && e.target.id == 'mainTargetDiv') {
+                scrollTo(0, 0)
+            }
+            // Rebuild the array of elements matching the first letter
+            letteredEls = [];
+            allFocusEls.forEach(el => {
+                if (el.id[0].toLowerCase() === letter) {
+                    letteredEls.push(el);
+                }
+            });
 
-        if (letteredEls.length === 0) return;
+            if (letteredEls.length === 0) return; // Exit if no elements match
 
-        // If a new letter is pressed, reset index
-        if (letter !== currentLetter) {
-            iLetter = 0;
-        } else {
-            iLetter = e.shiftKey
-                ? (iLetter - 1 + letteredEls.length) % letteredEls.length // Move back
-                : (iLetter + 1) % letteredEls.length; // Move forward
+            // If pressing a different letter, reset the index
+            if (letter !== currentLetter) {
+                iLetter = 0;
+            } else {
+                if (!e.shiftKey) {
+                    // Move forward
+                    iLetter = (iLetter + 1) % letteredEls.length;
+                } else {
+                    // Move backward correctly
+                    iLetter = (iLetter - 1 + letteredEls.length) % letteredEls.length;
+                }
+            }
+
+            // Focus on the correct element
+            letteredEls[iLetter].focus();
+
+            // Update current letter for next key press
         }
-
-        // Focus the target element
-        letteredEls[iLetter].focus();
-
         currentLetter = letter;
-        if (cmdCEl != null) {
-            cmdCEl.focus()
-        }
     });
 }
+function numFocusCodeSnips(e,letter){
+    const questionAnswer = getQuestionAnswer(e.target.parentElement)
+    const answerTxt = questionAnswer.querySelector('.answer-txt')
+    if(answerTxt.classList.contains('hide'))return
+    
+    let intLet = parseInt(letter)
+    let codeSnips = answerTxt.querySelectorAll('.copy-code')
+    console.log(codeSnips.length)
+    if(intLet <= codeSnips.length){
+        codeSnips[intLet - 1].focus()
+    }
 
-letterFocus();
+
+
+}
+
+
+function getQuestionAnswer(parent){
+    if(parent.classList.contains('question-answer')){
+        return parent
+    } else if (parent.parentElement){
+        return getQuestionAnswer(parent.parentElement)
+    } else {
+        return null
+    }
+}
+// letterFocus();

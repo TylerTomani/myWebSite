@@ -64,6 +64,7 @@
     overflow-y: scroll;
 }
 .answer .code-container .copy-code {
+    /* white-space: pre-line; */
     overflow-x: scroll;
 }
 .hide {

@@ -1,9 +1,13 @@
+import { letterFocus } from "./letterFocus-myChatGpt.js"
+// import { letterFocus } from "./letterFocus-myChatGptOg.js"
+
+
+
 export const mainTargetDiv = document.getElementById('mainTargetDiv')
 import { addCopyCodes } from "./copy-code-export.js"
 import { handleQuestions } from "./toggleQuestions.js"
 import { ToggleTopicQuestions } from "./toggleTopicQuestions.js"
 import { MarginDropQuestions } from "./margin-drop-questions.js"
-import { letterFocus } from "./letterFocus-myChatGpt.js"
 
 document.addEventListener('DOMContentLoaded', () => {
     const topics = document.querySelectorAll('.sidebar-topics-container > li > a')
@@ -12,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     topics.forEach(el => {
         // If any <a> has autofocus, fetch its href first and only once
-        if (!loaded && el.hasAttribute('autofocus')) {
+        // if (!loaded && el.hasAttribute('autofocus')) {
+        if (!loaded && el.classList.contains('show')) {
             fetchLessonHref(el.href)
             loaded = true
         }

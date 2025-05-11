@@ -2,7 +2,460 @@
 <div class="topics-questions">
     <!-- Letter Focus Perfect -->
     <div class="topic">
-        <a id="autofocusSomeForLoop " tabindex="0" href="#" class="drop-topic questions-topic">autofocus some() vs forLoop() ..
+        <a id="letterFocus" tabindex="0" href="#" class="drop-topic ">letterFocus perfect
+        </a>
+        <div class="questions-container show">
+            <div class="question-container">
+                <!-- Below in the the articles are the same format is chatgpt -->
+                <!-- I'm keeping the html the same but adding the classes:
+                           questions-answer, question-txt, answer-txt-->
+                <div class="answer question-answer ">
+                    <article class="text-token-text-primary question-txt">
+                        <h6 class="sr-only">Letter focus navigation fix</h6>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                                 it to a pre so i can copy it  -->
+                            <p class="r">ironically this page doesn't have this feature yet</p>
+                            <div class="whitespace-pre-wrap">
+                                <pre autofocus  tabindex="0" class="copy-code drop-question">
+                                    no thank you right now this is working alot better
+                                    <br>i don't understand it but i will practice it once we get it 100% correct, but the
+                                    same logic we use going down the page
+                                    should be applied going up, right now when i press the same letter twice and like "L"
+                                    then my focus is on the second h4
+                                    > a.drop-code-cmd Letter Focus Code then press shift + c it should go up to the page and
+                                    html DOM tree, in this case the
+                                    a tag codeCommandsShortcuts but right now it is going down to the a tag with innerText
+                                    CamelCase in the following code
+    
+                                    Okay this is working alot better, i don't understand it but i will practice it once we
+                                    get it 100% correct, but the same
+                                    logic we use going down the page should be applied going up, right now
+                                </pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt show">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                                '.group/conversation-turn' of .text-base   -->
+                            <div class="markdown prose">
+                                <div class="txt-container">
+                                    <p>
+                                        Perfect — we're very close, and you’re asking the exact right question.
+                                    </p>
+                                    <h2>🔁 The Issue You're Seeing:</h2>
+                                    <p>
+                                        When pressing Shift + a new letter, like Shift + C, the script treats it like a new
+                                        letter press and starts from the
+                                        bottom again instead of going upward from your current location.
+                                    </p>
+                                    <h2>🧠 What Should Happen Instead:</h2>
+                                    <p>On a new letter press:</p>
+                                    <ul>
+                                        <li>If Shift is not held, go down the page from the current focused element.</li>
+                                        <li>If Shift is held, go up the page from the current focused element.
+                                        </li>
+                                    </ul>
+                                    <p>On repeated same letter:</p>
+                                    <ul>
+                                        <li>If no Shift, go forward (down the list).</li>
+                                        <li>If Shift, go backward (up the list).</li>
+                                    </ul>
+                                    </ul>
+                                </div>
+                                <div class="code-container">
+                                    <pre    tabindex="0" class="copy-code">
+const allAs = Array.from(document.querySelectorAll('a'))
+let lastLetterPressed = ''
+let iLetter = 0
+
+addEventListener('keydown', (e) => {
+    const key = e.key
+    if (key.length > 1 || <span class="m">!/[a-zA-Z]/.test(key))</span> return <span class="l">// Ignore non-letter keys</span>
+
+    const letter = key.toLowerCase()
+    const activeEl = document.activeElement
+    const iActiveA = allAs.indexOf(activeEl)
+
+    const letteredAs = allAs.filter(a => a.innerText.trim()[0]?.toLowerCase() === letter)
+    if (!letteredAs.length) return
+
+    const currentIndexInFiltered = letteredAs.indexOf(activeEl)
+
+    if (letter !== lastLetterPressed) {
+        // New letter key pressed
+        if (e.shiftKey) {
+            // Go up the page from current position
+            const previous = [...letteredAs].reverse().find(a => allAs.indexOf(a) &lt; iActiveA) iLetter=letteredAs.indexOf(previous)
+            if (iLetter===-1) iLetter=letteredAs.length - 1 // fallback to last match 
+            } else { // Go down the page from current
+                position const next=letteredAs.find(a=> allAs.indexOf(a) > iActiveA)
+                iLetter = letteredAs.indexOf(next)
+            if (iLetter === -1) iLetter = 0 // fallback to first match
+        }
+        } else {
+        // Same letter key pressed again
+        if (e.shiftKey) {
+        iLetter = (currentIndexInFiltered - 1 + letteredAs.length) % letteredAs.length
+        } else {
+        iLetter = (currentIndexInFiltered + 1) % letteredAs.length
+        }
+        }
+
+        <span class="y">letteredAs[iLetter]?.focus()</span>
+        lastLetterPressed = letter
+})</pre>
+                                </div>
+                                <h2>🔍 Summary of Behavior</h2>
+                                <table>
+                                    <tr>
+                                        <th>pressed</th>
+                                        <th>Behavior</th>
+                                    </tr>
+                                    <tr>
+                                        <td>L "any letter"</td>
+                                        <td>Goes Down to first <code>&lt;a></code> starting with "L" <sup>'any letter'</sup>
+                                            below
+                                            current focus</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Shift + L "any letter"</td>
+                                        <td>Goes up to previous "L" <code>&lt;a></code> above current focus</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Repeat L "any letter"</td>
+                                        <td>Cycles down through other "L" <sup>'any letter'</sup> <code>&lt;a></code></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Repeat Shift + L</td>
+                                        <td>Cycles up through other "L" <sup>'any letter'</sup> <code>&lt;a></code></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- ------------------------------------------------------- -->
+            </div>
+            <div class="question-container">
+                <!-- Below in the the articles are the same format is chatgpt -->
+                <!-- I'm keeping the html the same but adding the classes:
+                           questions-answer, question-txt, answer-txt-->
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                                 it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code drop-question">
+                                    what is this line doing
+                                    letteredAs[iLetter]?.focus()
+                                </pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        
+                        <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                                '.group/conversation-turn' of .text-base   -->
+                        <div class="markdown prose">
+                            <div class="code-container">
+                                <pre tabindex="0" class="copy-code">
+letteredAs[iLetter]?.focus()</pre>
+                            </div>
+                            <h2>✅ What it means:</h2>
+                            <p>
+                                This line is exactly equivalent to:
+                            </p>
+                            <div class="code-container">
+                                <pre tabindex="0" class="copy-code">
+if (letteredAs[iLetter]) {
+    letteredAs[iLetter].focus()
+}</pre>
+                            </div>
+    
+                        </div>
+                </div>
+                </article>
+            </div>
+            <!-- ------------------------------------------------------- -->
+        </div>
+    </div>
+     <!-- autofcus some() vs forLoop() -->
+    <div class="topic">
+        <a id="removeOldListeners " tabindex="0" href="#" class="drop-topic">remove old listeners (stop duplicated console.log)
+        </a>
+        <div class="questions-container">
+            <div class="question-container">
+                <!-- Below in the the articles are the same format is chatgpt -->
+                <!-- I'm keeping the html the same but adding the classes:
+                       questions-answer, question-txt, answer-txt-->
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h6 class="sr-only">Enter key focus issue</h6>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                             it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code drop-question">
+i'm reasking in a new convo disregard all information on other question for the following question: 
+
+
+&LT;aside class="draggable active">
+            &LT;h2> ChatHistory&LT;/h2>
+            &LT;h3>Topics&LT;/h3>
+            &LT;ul class="sidebar-topics-container">
+                &LT;li>&LT;a id="github" href="topics/github/github.html">Github&LT;/a>
+        
+                &LT;/li>
+                &LT;li>&LT;a autofocus  id="javascript" href="topics/javascript/javascript.html">Javascript
+                    &LT;/a>
+                    &LT;!-- NOT SURE if  want drop down here with sub section or have sub sections appear 
+                     in javascript, github, css.html .... -->
+                    &LT;ul>
+                        &LT;li>&LT;a href="#" id="injectJavascript" >Inject Javascript into HTML&LT;/a>&LT;/li>
+                    &LT;/ul>
+                &LT;/li>
+                &LT;li>&LT;a   id="css" href="topics/css/css.html">css&LT;/a>
+                    
+                &LT;/li>
+                &LT;h2>&LT;a id="favorites" href="#" >Favorites 
+                    &LT;br>&LT;sup>make 
+                     &LT;br>  *drop?? &LT;/sup> &LT;/a>&LT;/h2>
+                &LT;ul class="topic-container">
+                    &LT;li>1&LT;/li>
+                    &LT;li>2&LT;/li>
+                    &LT;li>3&LT;/li>
+            
+                &LT;/ul>
+                &LT;h2>&LT;a id="dates" href="#">Dates&LT;/a>&LT;/h2>
+                &LT;div class="topic-container">
+                    make this part link to your chat gpt account
+            
+                &LT;/div>
+            &LT;/ul>
+        &LT;/aside>
+        &LT;div tabindex="0" id="mainTargetDiv">
+            &LT;h3>Keep most recent Question here&LT;/h3>
+        &LT;/div>        
+
+right now i'm trying to debug this weird thing happening in my script, the html file is big but above is the html that when the 'topic' (.sidebar-topics-container > li > a)  in the side bar is clicked fetchLessonHref() gets its href and loads it into the id="mainTargetDiv". The letterFocus() function gets injected inside fetchLessonHref() when the 'topic' in the side bar is click and also should intially load when the page is open. the first script below injects the html when a 'topic' is clicked, and the second script is  a letter focusing script i'm working on but as of now there is a weird bug, i'm just trying to console log the keyCode or key when pressed right now, i need this to work when the page loads before any 'topic' is clicked and also when a 'topic' is clicked and the html is inject, but right now all of the keys are working except the 'enter' key will not console.log until the mainTargetDiv has focus and then it console.logs it twice and shows that it has been consoled logged 2 times prior, i need the letterFocus() function to run immediately  when the page open but also run again when a 'topic' is clicked to update the allEls array but right now the console.log doesn't show 'enter' when it is pressed but shows all the other keys,numbers, ... etc. But also, when a button is pressed is console.logs it twice but i know that's because i am invoking letterFocus() and the bottom of the the letterFocus.js script below ( 2.) and then invoking it again when a '.topic' in the html above is clicked and invoking fetchLessonHref() in the first script below (1.) . what is happening why is the enter key not console logging. 
+
+1. 
+import { letterFocus } from "./letterFocus-myChatGpt.js"
+// import { letterFocus } from "./letterFocus-myChatGptOg.js"
+
+export const mainTargetDiv = document.getElementById('mainTargetDiv')
+import { addCopyCodes } from "./copy-code-export.js"
+import { handleQuestions } from "./toggleQuestions.js"
+import { ToggleTopicQuestions } from "./toggleTopicQuestions.js"
+import { MarginDropQuestions } from "./margin-drop-questions.js"
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const topics = document.querySelectorAll('.sidebar-topics-container > li > a')
+    let clicked = false
+    let loaded = false
+
+    topics.forEach(el => {
+        // If any &LT;a> has autofocus, fetch its href first and only once
+        if (!loaded && el.hasAttribute('autofocus')) {
+            fetchLessonHref(el.href)
+            loaded = true
+        }
+
+        el.addEventListener('focusout', () => {
+            clicked = false
+        })
+
+        el.addEventListener('click', e => {
+            e.preventDefault()
+            e.stopPropagation()
+            if (!clicked) {
+                clicked = true
+            } else {
+                mainTargetDiv.focus()
+            }
+        })
+
+        el.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                e.preventDefault()
+                e.stopPropagation()
+                fetchLessonHref(el.href)
+                if (!clicked) {
+                    clicked = true
+                } else {
+                    mainTargetDiv.focus()
+                }
+            }
+        })
+    })
+
+    // If no element had autofocus, load home.html by default
+    if (!loaded) {
+        fetchLessonHref('home.html')
+    }
+
+    function fetchLessonHref(href) {
+        fetch(href)
+            .then(response => response.text())
+            .then(html => {
+                mainTargetDiv.innerHTML = html
+                handleQuestions()
+                ToggleTopicQuestions()
+                MarginDropQuestions()
+                letterFocus()
+                addCopyCodes()
+            })
+            .catch(error => console.log('Error fetching content:', error))
+    }
+})
+
+2.
+// remember to make the 'B' and 'H' button go to home
+// when 
+function updateAlEls(){
+    return Array.from(document.querySelectorAll('a, .drop-question, .answer .code-container .copy-code'))
+}
+export function letterFocus() {
+    const allEls = updateAlEls()
+    
+    addEventListener('keydown', e => {
+        let letter = e.key.toLowerCase()
+        console.log(e.keyCode)
+        
+        
+        
+    })
+    
+}
+
+    letterFocus()</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                            '.group/conversation-turn' of .text-base   -->
+                            <div class="markdown prose">
+                                <div class="txt-container">
+                                    <p>
+                                        The problem you're seeing with the Enter key not logging until #mainTargetDiv is focused, and then logging multiple
+                                        times, is due to a mix of:
+                                    </p>
+                                    <ol>
+                                        <li>Event listener duplication, causing keys (like Enter) to be registered more than once.</li>
+                                        <li>Focus-sensitive key behavior, where some keys like Enter behave differently depending on what DOM element is focused.</li>
+                                        <li>DOMContentLoaded not being the right trigger in some cases, especially if you're dynamically injecting new content and
+                                        trying to re-bind events.</li>
+                                    </ol>
+                                    <h2>⚠️ Why Enter is not console logging at first:</h2>
+                                    <ul>
+                                        <li>By default, the Enter key press might be handled by the browser, especially if an element like &lt;a> or a button is
+                                        focused, and you're not actively listening at the document level or for the focused element.</li>
+                                        <li>If mainTargetDiv doesn’t have focus or no global keydown listener is catching the event before any topic is clicked,
+                                        Enter might not trigger your listener.</li>
+                                        <li>Once mainTargetDiv receives focus and if you've added keydown listener(s) to it, then Enter starts getting captured
+                                        — and if you’ve re-invoked letterFocus() multiple times, it logs twice.</li>
+                                    </ul>
+                                    <h2>✅ Fix Suggestions</h2>
+                                    <p>
+                                        Here's how to reliably log key presses, including Enter, once and without duplication:
+                                    </p>    
+                                </div>
+                                <h2>✅ Step 1: Update <code>letterFocus()</code> to remove and rebind listener</h2>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+let keydownHandler = null;
+export function letterFocus() {
+    const allEls = document.querySelectorAll('#mainTargetDiv *');
+
+    // Clear previous keydown listener
+    if (keydownHandler) {
+        document.removeEventListener('keydown', keydownHandler);
+    }
+
+    keydownHandler = (e) => {
+        console.log('Pressed:', e.key, '| keyCode:', e.keyCode);
+    };
+
+    document.addEventListener('keydown', keydownHandler);
+}</pre>
+                                </div>
+                                <div class="txt-container">
+                                    <p>This avoids the double event listener problem by removing the old listener every time letterFocus() is called.</p>
+                                </div>
+                                <h2>✅ Step 2: Make sure letterFocus() is called at page load AND after HTML injection</h2>
+                                <p>In your DOMContentLoaded and your fetchLessonHref() or topic click logic, make sure you do this:</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+document.addEventListener('DOMContentLoaded', () => {
+    letterFocus(); // &lt;-- immediately binds to capture Enter from the beginning
+});
+</pre>
+                                </div>
+                                <p>
+                                    Also after dynamic HTML is injected:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+el.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    fetchLessonHref(el.href).then(() => {
+        letterFocus(); // &lt;-- rebind after loading content
+    });
+});
+</pre>
+                                </div>
+                                <h2>✅ Step 3: Ensure mainTargetDiv or some element is focusable</h2>
+                                <p>Add this to your main div if not already:</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+&lt;div id="mainTargetDiv" tabindex="0">
+</pre>
+                                </div>
+                                <p>
+                                    Also consider focusing it explicity:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+mainTargetDiv.focus();
+</pre>
+                                </div>
+                                <h2>🧪 Optional Debug Tip</h2>                                
+                                <p>
+                                    You can temporarily log activeElement like this:
+                                </p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+console.log('Active element:', document.activeElement);</pre>
+                                </div>
+                                <p>
+                                    This can help confirm which element has focus when Enter doesn't work.
+                                </p>
+                                
+                                
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </article>
+                </div>    
+                <!-- ------------------------------------------------------- -->
+            </div>
+        </div>
+    </div>
+     <!-- autofcus some() vs forLoop() -->
+    <div class="topic">
+        <a id="autofocusSomeForLoop " tabindex="0" href="#" class="drop-topic ">autofocus some() vs forLoop() ..
         </a>
         <div class="questions-container">
             <div class="question-container">
@@ -138,193 +591,10 @@ if (!hasAutoFocus) {
                 <!-- ------------------------------------------------------- -->
             </div>
         </div>
-    </div>
-    <div class="topic">
-        <a id="letterFocus" tabindex="0" href="#" class="drop-topic questions-topic">letterFocus perfect
-        </a>
-        <div class="questions-container show">
-            <div class="question-container">
-                <!-- Below in the the articles are the same format is chatgpt -->
-                <!-- I'm keeping the html the same but adding the classes:
-                       questions-answer, question-txt, answer-txt-->
-                <div class="answer question-answer">
-                    <article class="text-token-text-primary question-txt">
-                        <h6 class="sr-only">Letter focus navigation fix</h6>
-                        <div class="text-base">
-                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
-                                             it to a pre so i can copy it  -->
-                            <p class="r">ironically this page doesn't have this feature yet</p>
-                            <div class="whitespace-pre-wrap">
-                                <pre tabindex="0" class="copy-code drop-question">
-    no thank you right now this is working alot better
-    <br>i don't understand it but i will practice it once we get it 100% correct, but the same logic we use going down the page
-    should be applied going up, right now when i press the same letter twice and like "L" then my focus is on the second h4
-    > a.drop-code-cmd Letter Focus Code then press shift + c it should go up to the page and html DOM tree, in this case the
-    a tag codeCommandsShortcuts but right now it is going down to the a tag with innerText CamelCase in the following code
-    
-    Okay this is working alot better, i don't understand it but i will practice it once we get it 100% correct, but the same
-    logic we use going down the page should be applied going up, right now</pre>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="text-token-text-primary answer-txt">
-                        <h6 class="sr-only">Chat Gpt Said: </h6>
-                        <div class="text-base">
-                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
-                                                            '.group/conversation-turn' of .text-base   -->
-                            <div class="markdown prose">
-                                <p>
-                                    Perfect — we're very close, and you’re asking the exact right question.
-                                </p>
-                                <h2>🔁 The Issue You're Seeing:</h2>
-                                <p>
-                                    When pressing Shift + a new letter, like Shift + C, the script treats it like a new letter press and starts from the
-                                    bottom again instead of going upward from your current location.
-                                </p>
-                                <h2>🧠 What Should Happen Instead:</h2>
-                                <p>On a new letter press:</p>
-                                <ul>
-                                    <li>If Shift is not held, go down the page from the current focused element.</li>
-                                    <li>If Shift is held, go up the page from the current focused element.
-                                    </li>
-                                </ul>
-                                <p>On repeated same letter:</p>
-                                <ul>
-                                    <li>If no Shift, go forward (down the list).</li>
-                                    <li>If Shift, go backward (up the list).</li>
-                                </ul>
-                                </ul>
-                                <div class="code-container">
-                                    <pre tabindex="0" class="copy-code">
-const allAs = Array.from(document.querySelectorAll('a'))
-let lastLetterPressed = ''
-let iLetter = 0
-
-addEventListener('keydown', (e) => {
-    const key = e.key
-    if (key.length > 1 || <span class="m">!/[a-zA-Z]/.test(key))</span> return  // Ignore non-letter keys
-
-    const letter = key.toLowerCase()
-    const activeEl = document.activeElement
-    const iActiveA = allAs.indexOf(activeEl)
-
-    const letteredAs = allAs.filter(a => a.innerText.trim()[0]?.toLowerCase() === letter)
-    if (!letteredAs.length) return
-
-    const currentIndexInFiltered = letteredAs.indexOf(activeEl)
-
-    if (letter !== lastLetterPressed) {
-        // New letter key pressed
-        if (e.shiftKey) {
-            // Go up the page from current position
-            const previous = [...letteredAs].reverse().find(a => allAs.indexOf(a) < iActiveA)
-            iLetter = letteredAs.indexOf(previous)
-            if (iLetter === -1) iLetter = letteredAs.length - 1 // fallback to last match
-        } else {
-            // Go down the page from current position
-            const next = letteredAs.find(a => allAs.indexOf(a) > iActiveA)
-            iLetter = letteredAs.indexOf(next)
-            if (iLetter === -1) iLetter = 0 // fallback to first match
-        }
-    } else {
-        // Same letter key pressed again
-        if (e.shiftKey) {
-            iLetter = (currentIndexInFiltered - 1 + letteredAs.length) % letteredAs.length
-        } else {
-            iLetter = (currentIndexInFiltered + 1) % letteredAs.length
-        }
-    }
-
-    <span class="y">letteredAs[iLetter]?.focus()</span>
-    lastLetterPressed = letter
-})</pre>
-                                </div>
-                                <h2>🔍 Summary of Behavior</h2>
-                                <table>
-                                    <tr>
-                                        <th>pressed</th>
-                                        <th>Behavior</th>
-                                    </tr>
-                                    <tr>
-                                        <td>L "any letter"</td>
-                                        <td>Goes Down to first <code>&lt;a></code> starting with "L" <sup>'any letter'</sup> below
-                                        current focus</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shift + L "any letter"</td>
-                                        <td>Goes up to previous "L" <code>&lt;a></code> above current focus</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Repeat L "any letter"</td>
-                                        <td>Cycles down through other "L" <sup>'any letter'</sup> <code>&lt;a></code></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Repeat Shift + L</td>
-                                        <td>Cycles up through other "L" <sup>'any letter'</sup> <code>&lt;a></code></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </article>
-                </div>    
-                <!-- ------------------------------------------------------- -->
-            </div>
-            <div class="question-container">
-                <!-- Below in the the articles are the same format is chatgpt -->
-                <!-- I'm keeping the html the same but adding the classes:
-                       questions-answer, question-txt, answer-txt-->
-                <div class="answer question-answer">
-                    <article class="text-token-text-primary question-txt">                        
-                        <div class="text-base">
-                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
-                                             it to a pre so i can copy it  -->
-                            <div class="whitespace-pre-wrap">
-                                <pre tabindex="0" class="copy-code drop-question">
-what is this line doing
-letteredAs[iLetter]?.focus()
-                                </pre>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="text-token-text-primary answer-txt">
-                           <div class="whitespace-pre-wrap">
-                            <div class="whitespace-pre-wrap">
-                                <div class="code-container">
-                                    <pre tabindex="0" class="copy-code drop-question">
-                                        </pre>
-                                </div>
-                                
-                            </div>
-                           </div>
-                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
-                                                            '.group/conversation-turn' of .text-base   -->
-                            <div class="markdown prose">
-                                <div class="code-container">
-                                    <pre tabindex="0" class="copy-code">
-letteredAs[iLetter]?.focus()</pre>
-                                </div>
-                                <h2>✅ What it means:</h2>
-                                <p>
-                                    This line is exactly equivalent to:
-                                </p>
-                                <div class="code-container">
-                                    <pre tabindex="0" class="copy-code">
-if (letteredAs[iLetter]) {
-    letteredAs[iLetter].focus()
-}</pre>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </article>
-                </div>    
-                <!-- ------------------------------------------------------- -->
-            </div>
-        </div>
-    </div>
+    </div>    
     <!-- Catch and Display Error -->
     <div class="topic">
-        <a id="catchAndDisplayError" tabindex="0" href="#" class="drop-topic questions-topic">Catch and Display Error
+        <a id="catchAndDisplayError" tabindex="0" href="#" class="drop-topic ">Catch and Display Error
         </a>
         <div class="questions-container">
             <div class="question-container">
@@ -415,7 +685,7 @@ try {
     </div>
     <!-- Event Listener Duplication Debug -->
     <div class="topic">
-        <a id="eventListenerDuplicationDebug" tabindex="0" href="#" class="drop-topic questions-topic">Event Listener Duplication Debug
+        <a id="eventListenerDuplicationDebug" tabindex="0" href="#" class="drop-topic ">Event Listener Duplication Debug
         </a>
         <div class="questions-container">
             <div class="question-container">
@@ -612,7 +882,7 @@ document.addEventListener('keydown', e => {
     </div>
     <h5>Chrome Extension</h5>
     <div class="topic">
-        <a id="implementChromeExtensionLetterFocus" tabindex="0" href="#" class="drop-topic questions-topic">implement Chrome extension - Google Letter Focus
+        <a id="implementChromeExtensionLetterFocus" tabindex="0" href="#" class="drop-topic ">implement Chrome extension - Google Letter Focus
         </a>
         <div class="questions-container">
             <div class="question-container">

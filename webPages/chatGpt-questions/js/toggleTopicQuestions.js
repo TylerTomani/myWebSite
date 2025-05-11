@@ -1,4 +1,5 @@
-import { mainTargetDiv } from "./questionsLoad.js";
+// import { mainTargetDiv } from "./questionsLoad.js";
+import { mainTargetDiv } from "./inject-html.js";
 
 
 export function ToggleTopicQuestions(){

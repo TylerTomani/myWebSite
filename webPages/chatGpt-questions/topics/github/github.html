@@ -1,138 +1,138 @@
-<h4>Github</h4>
-<div class="topics-questions">
-    <!-- Installing Git for Visual Studio code (pull error) -->   
-    <div class="topic">
-        <a id="installingGitForVisualStudioCode" tabindex="0" href="#" class="drop-topic questions-topic questions-topic questions-topic">Installing Git for Visual Studio code
-        <br>(pull error)
-        </a>
-        <div class="questions-container">
-            <div class="question-container">
-                <!-- Below in the the articles are the same format is chatgpt -->
-                <!-- I'm keeping the html the same but adding the classes:
-                       questions-answer, question-txt, answer-txt-->
-                <!-- Push and Pull Error -->
-                <div class="question-answer">
-                    <article class="text-token-text-primary question-txt">
-                        <h6 class="sr-only">Push and Pull Error</h6>
-                        <div class="text-base">
-                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
-                                             it to a pre so i can copy it  -->
-                            <div class="whitespace-pre-wrap">
-                                <pre tabindex="0" class="copy-code drop-question">
-i dont want to keep the local changes and i getting the folllowing message when trying to use the
-3rd option,
-git checkout -- javascript-youtube/chrisCourses/chrisCourses.html
-git pull origin main
-(base) /bin/zsh:$ git pull origin main
-From https://github.com/TylerTomani/youtube-resources
-* branch main -> FETCH_HEAD
-Auto-merging javascript-youtube/chrisCourses/02-pacman/js/lesson-temp.js
-hint: Waiting for your editor to close the file... atom --wait: atom: command not found
-error: There was a problem with the editor 'atom --wait'.
-Not committing merge; use 'git commit' to complete the merge.</pre>
+    <h4>Github</h4>
+    <div class="topics-questions">
+        <!-- Installing Git for Visual Studio code (pull error) -->   
+        <div class="topic">
+            <a id="installingGitForVisualStudioCode" tabindex="0" href="#" class="drop-topic">Installing Git for Visual Studio code
+            <br>(pull error)
+            </a>
+            <div class="questions-container">
+                <div class="question-container">
+                    <!-- Below in the the articles are the same format is chatgpt -->
+                    <!-- I'm keeping the html the same but adding the classes:
+                        questions-answer, question-txt, answer-txt-->
+                    <!-- Push and Pull Error -->
+                    <div class="question-answer">
+                        <article class="text-token-text-primary question-txt">
+                            <h6 class="sr-only">Push and Pull Error</h6>
+                            <div class="text-base">
+                                <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                                it to a pre so i can copy it  -->
+                                <div class="whitespace-pre-wrap">
+                                    <pre tabindex="0" class="copy-code drop-question">
+    i dont want to keep the local changes and i getting the folllowing message when trying to use the
+    3rd option,
+    git checkout -- javascript-youtube/chrisCourses/chrisCourses.html
+    git pull origin main
+    (base) /bin/zsh:$ git pull origin main
+    From https://github.com/TylerTomani/youtube-resources
+    * branch main -> FETCH_HEAD
+    Auto-merging javascript-youtube/chrisCourses/02-pacman/js/lesson-temp.js
+    hint: Waiting for your editor to close the file... atom --wait: atom: command not found
+    error: There was a problem with the editor 'atom --wait'.
+    Not committing merge; use 'git commit' to complete the merge.</pre>
+                                </div>
                             </div>
-                        </div>
-                    </article>
-                    <article class="text-token-text-primary answer-txt">
-                        <h6 class="sr-only">Chat Gpt Said: </h6>
-                        <div class="text-base">
-                            <!-- .markdown .prose is 5th inner child of the 2nd child element 
-                                                            '.group/conversation-turn' of .text-base   -->
-                            <div class="markdown prose">
-                                <p>
-                                    The reason why the code at line 47 (i.e., toggleImgVid(e)) is executing twice could be
-                                    due to multiple event listeners
-                                    triggering it. Here are possible reasons:
-                                </p>
-                                <h3>1. Multiple Event Listeners Firing</h3>
-                                <p>
-                                    There are two separate places where toggleImgVid(e) is being called:
-                                    Inside the keydown event listener for .copy-code elements:
-                                    js
-                                </p>
-                                <div class="code-container">
-                                    <pre tabindex="0" class="">
-tabIndexElements.forEach(el => {
-    el.addEventListener('keydown', e => {
+                        </article>
+                        <article class="text-token-text-primary answer-txt">
+                            <h6 class="sr-only">Chat Gpt Said: </h6>
+                            <div class="text-base">
+                                <!-- .markdown .prose is 5th inner child of the 2nd child element 
+                                                                '.group/conversation-turn' of .text-base   -->
+                                <div class="markdown prose">
+                                    <p>
+                                        The reason why the code at line 47 (i.e., toggleImgVid(e)) is executing twice could be
+                                        due to multiple event listeners
+                                        triggering it. Here are possible reasons:
+                                    </p>
+                                    <h3>1. Multiple Event Listeners Firing</h3>
+                                    <p>
+                                        There are two separate places where toggleImgVid(e) is being called:
+                                        Inside the keydown event listener for .copy-code elements:
+                                        js
+                                    </p>
+                                    <div class="code-container">
+                                        <pre tabindex="0" class="">
+    tabIndexElements.forEach(el => {
+        el.addEventListener('keydown', e => {
+            let letter = e.key.toLowerCase()
+            if (letter == 'enter') {
+            <span class="r">toggleImgVid(e) // Call 1</span>
+            }
+        })
+    })
+                                        </pre>
+                                    </div>
+                                    <div class="code-container">
+                                        <pre tabindex="0" class="">
+    addEventListener('keydown', e => {
         let letter = e.key.toLowerCase()
         if (letter == 'enter') {
-        <span class="r">toggleImgVid(e) // Call 1</span>
-        }
+    <span class="r">toggleImgVid(e) // Call 2</span>
+        addTabIndexes(e)
+    }
     })
-})
-                                    </pre>
+                                        </pre>
+                                    </div>
+                                    <h3>2. Event Bubbling</h3>
+                                    <p>
+                                        If the keydown event is triggered inside a .copy-code element, it will first fire in the
+                                        individual element's event
+                                        listener (inside the tabIndexElements.forEach(...) loop).
+                                        Then, because keydown events bubble up, it also triggers the global keydown event
+                                        listener.
+                                        This results in toggleImgVid(e) executing twice—once from the .copy-code element
+                                        listener and once from the global
+                                        listener.
+                                    </p>
+                                    <h3>Solution</h3>
+                                    <p>
+                                        To prevent duplicate execution, you can stop event propagation inside the .copy-code
+                                        event listener:
+                                    </p>
+                                    <div class="code-container">
+                                        <pre tabindex="0" class="copy-code">
+                                            tabIndexElements.forEach(el => {
+                                            el.addEventListener('keydown', e => {
+                                            let letter = e.key.toLowerCase()
+                                            if (letter == 'enter') {
+                                            <span class="m">e.stopPropagation() // Prevent event from reaching the global
+                                                listener</span>
+                                            toggleImgVid(e)
+                                            }
+                                            })
+                                            })
+                                        </pre>
+                                    </div>
+        
+                                    <p>
+                                        <strong>Alternative Fix:</strong> Using a Single Event Listener
+                                        Instead of attaching an event listener to each .copy-code element, delegate it to the
+                                        document:
+                                    </p>
+                                    <div class="code-container">
+                                        <pre tabindex="0" class="copy-code">
+                                            document.addEventListener('keydown', e => {
+                                            let letter = e.key.toLowerCase()
+                                            if (letter == 'enter') {
+                                            if (e.target.classList.contains('copy-code')) {
+                                            e.preventDefault()
+                                            toggleImgVid(e)
+                                            return // Prevent further execution
+                                            }
+                                            toggleImgVid(e)
+                                            addTabIndexes(e)
+                                            }
+                                            })</pre>
+                                    </div>
+                                    <p>
+                                        This avoids multiple event listeners and prevents duplicate execution.
+                                    </p>
                                 </div>
-                                <div class="code-container">
-                                    <pre tabindex="0" class="">
-addEventListener('keydown', e => {
-    let letter = e.key.toLowerCase()
-    if (letter == 'enter') {
-<span class="r">toggleImgVid(e) // Call 2</span>
-    addTabIndexes(e)
-}
-})
-                                    </pre>
-                                </div>
-                                <h3>2. Event Bubbling</h3>
-                                <p>
-                                    If the keydown event is triggered inside a .copy-code element, it will first fire in the
-                                    individual element's event
-                                    listener (inside the tabIndexElements.forEach(...) loop).
-                                    Then, because keydown events bubble up, it also triggers the global keydown event
-                                    listener.
-                                    This results in toggleImgVid(e) executing twice—once from the .copy-code element
-                                    listener and once from the global
-                                    listener.
-                                </p>
-                                <h3>Solution</h3>
-                                <p>
-                                    To prevent duplicate execution, you can stop event propagation inside the .copy-code
-                                    event listener:
-                                </p>
-                                <div class="code-container">
-                                    <pre tabindex="0" class="copy-code">
-                                        tabIndexElements.forEach(el => {
-                                        el.addEventListener('keydown', e => {
-                                        let letter = e.key.toLowerCase()
-                                        if (letter == 'enter') {
-                                        <span class="m">e.stopPropagation() // Prevent event from reaching the global
-                                            listener</span>
-                                        toggleImgVid(e)
-                                        }
-                                        })
-                                        })
-                                    </pre>
-                                </div>
-    
-                                <p>
-                                    <strong>Alternative Fix:</strong> Using a Single Event Listener
-                                    Instead of attaching an event listener to each .copy-code element, delegate it to the
-                                    document:
-                                </p>
-                                <div class="code-container">
-                                    <pre tabindex="0" class="copy-code">
-                                        document.addEventListener('keydown', e => {
-                                        let letter = e.key.toLowerCase()
-                                        if (letter == 'enter') {
-                                        if (e.target.classList.contains('copy-code')) {
-                                        e.preventDefault()
-                                        toggleImgVid(e)
-                                        return // Prevent further execution
-                                        }
-                                        toggleImgVid(e)
-                                        addTabIndexes(e)
-                                        }
-                                        })</pre>
-                                </div>
-                                <p>
-                                    This avoids multiple event listeners and prevents duplicate execution.
-                                </p>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                    </div>
+                    <!-- ------------------------------------------------------- -->
                 </div>
-                <!-- ------------------------------------------------------- -->
             </div>
         </div>
     </div>
-</div>
