@@ -89,11 +89,7 @@ function numFocusCodeSnips(e,letter){
     if(intLet <= codeSnips.length){
         codeSnips[intLet - 1].focus()
     }
-
-
-
 }
-
 function findTopicsQuestions(parent){
     if(parent.classList.contains('topics-questions')){
         return parent
