@@ -4,10 +4,16 @@ import { sideBarTopics } from "./toggleSidebar-topic.js"
 function updateDropTopics(){
     return document.querySelectorAll('.drop-topic')
 }
+function updateTopicsQuestions(){
+    return document.querySelector('.topics-questions')
+}
 export function letterFocus() {
+    const topicsQuestions = updateTopicsQuestions()
     let letteredEls = [];
     let iLetter = 0;
     let currentLetter = '';
+    let lastFocusedEl 
+    let mainTopicsQuestionsFocued = false
     /** since drop-topics are changed when loaded we need to get them all here */
     /** NOT sure if this is a waste ofYour Wi-Fi now back to Dr. Phil $50 million definition no traffic traffic gas station yeah try to come Parton court sorry dude apologize but I will see you bhad Bhabie famous computer space */
     const dropTopics = updateDropTopics()
@@ -16,9 +22,19 @@ export function letterFocus() {
         addEventListener('focusin',  e => {dropTopicsFocused = true});
         addEventListener('focusout',  e => {dropTopicsFocused = false});
     })
+    topicsQuestions.addEventListener('focusin', e => mainTopicsQuestionsFocued = true)
+    topicsQuestions.addEventListener('focusout', e => mainTopicsQuestionsFocued = false)
     addEventListener('keydown', e => {
         const allFocusEls = document.querySelectorAll('[id]');
         let letter = e.key.toLowerCase();
+        let topicsQuestions = findTopicsQuestions(e.target.parentElement)
+        if (topicsQuestions) {
+            lastFocusedEl = e.target
+            if(!mainTopicsQuestionsFocued && lastFocusedEl && letter == 'm'){
+                // console.log(mainTopicsQuestionsFocued)
+                console.log(lastFocusedEl)
+            }
+        }
         if(!isNaN(letter)){
             numFocusCodeSnips(e,letter)
         } else if(!e.metaKey){
@@ -51,10 +67,16 @@ export function letterFocus() {
             // Focus on the correct element
             letteredEls[iLetter].focus();
 
-            // Update current letter for next key press
+            // special case 'm'
+            if (lastFocusedEl && e.target.id == 'mainTargetDiv' && letter == 'm') {
+                lastFocusedEl.focus()
+                console.log(lastFocusedEl)
+            }
         }
+        // Update current letter for next key press
         currentLetter = letter;
     });
+
 }
 function numFocusCodeSnips(e,letter){
     const questionAnswer = getQuestionAnswer(e.target.parentElement)
@@ -72,7 +94,15 @@ function numFocusCodeSnips(e,letter){
 
 }
 
-
+function findTopicsQuestions(parent){
+    if(parent.classList.contains('topics-questions')){
+        return parent
+    } else if (parent.parentElement){
+        return findTopicsQuestions(parent.parentElement)
+    } else {
+        return null
+    }
+}
 function getQuestionAnswer(parent){
     if(parent.classList.contains('question-answer')){
         return parent
