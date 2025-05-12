@@ -10,28 +10,44 @@
                 <!-- Below in the the articles are the same format is chatgpt -->
                 <!-- I'm keeping the html the same but adding the classes:
                            questions-answer, question-txt, answer-txt-->
-                <div class="answer question-answer ">
+                <div class="answer question-answer">
                     <article class="text-token-text-primary question-txt">
-                        <h6 class="sr-only">Letter focus navigation fix</h6>
+                        <h6 class="sr-only">Focus issue on first keypress</h6>
                         <div class="text-base">
                             <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
                                                  it to a pre so i can copy it  -->
                             <p class="r">ironically this page doesn't have this feature yet</p>
                             <div class="whitespace-pre-wrap">
                                 <pre autofocus  tabindex="0" class="copy-code drop-question">
-                                    no thank you right now this is working alot better
-                                    <br>i don't understand it but i will practice it once we get it 100% correct, but the
-                                    same logic we use going down the page
-                                    should be applied going up, right now when i press the same letter twice and like "L"
-                                    then my focus is on the second h4
-                                    > a.drop-code-cmd Letter Focus Code then press shift + c it should go up to the page and
-                                    html DOM tree, in this case the
-                                    a tag codeCommandsShortcuts but right now it is going down to the a tag with innerText
-                                    CamelCase in the following code
-    
-                                    Okay this is working alot better, i don't understand it but i will practice it once we
-                                    get it 100% correct, but the same
-                                    logic we use going down the page should be applied going up, right now
+                                    dang it it's not perfect i thought it was, i need the original functionality which goes to the next element further down the dom tree if the letter is different for example if the focus is on 
+&LT;a class="drop-sub-topic " href="#">&LT;h3>Web Pages&LT;/h3>&LT;/a>
+and the letter "c" is pressed it should go the 
+&LT;a class="project" href="webPages/chatGpt-questions/index.html">
+                            &LT;h3>ChatGpt Questiong - web page or extension?? 
+                            non-extension&LT;/h3>
+                        &LT;/a>
+
+and not back up to the chat gpt under extensions, i originally fixed this logic with the 
+if (letter !== lastLetterPressed) {
+    // New letter key pressed
+    if (e.shiftKey) {
+        // Go up the page from current position
+        const previous = [...letteredAs].reverse().find(a => allAs.indexOf(a) &lt; iActiveA)
+        iLetter=letteredAs.indexOf(previous)
+        if (iLetter===-1) iLetter=letteredAs.length - 1 // fallback to last match 
+        } else { // Go down the page from current position
+            const next=letteredAs.find(a=> allAs.indexOf(a) > iActiveA)
+            iLetter = letteredAs.indexOf(next)
+        if (iLetter === -1) iLetter = 0 // fallback to first match
+    }
+    } else {
+    // Same letter key pressed again
+    if (e.shiftKey) {
+        iLetter = (currentIndexInFiltered - 1 + letteredAs.length) % letteredAs.length
+    } else {
+        iLetter = (currentIndexInFiltered + 1) % letteredAs.length
+    }
+}
                                 </pre>
                             </div>
                         </div>
@@ -44,72 +60,75 @@
                             <div class="markdown prose">
                                 <div class="txt-container">
                                     <p>
-                                        Perfect — we're very close, and you’re asking the exact right question.
+                                        Ah, I see what you're going for now — you want keyboard navigation that:
                                     </p>
-                                    <span>🔁 The Issue You're Seeing:</span>
+                                    <ul>
+                                        <li>Skips hidden elements ✅</li>
+                                        <li>Matches a pressed letter ✅</li>
+                                        <li>Moves forward from the current position when a new letter is pressed ❗</li>
+                                        <li>Cycles through matches when the same letter is pressed again ✅</li>
+                                    </ul>
                                     <p>
-                                        When pressing Shift + a new letter, like Shift + C, the script treats it like a new
-                                        letter press and starts from the
-                                        bottom again instead of going upward from your current location.
+                                        Here’s the corrected, working version of your script:
                                     </p>
-                                    <span>🧠 What Should Happen Instead:</span>
-                                    <p>On a new letter press:</p>
-                                    <ul>
-                                        <li>If Shift is not held, go down the page from the current focused element.</li>
-                                        <li>If Shift is held, go up the page from the current focused element.
-                                        </li>
-                                    </ul>
-                                    <p>On repeated same letter:</p>
-                                    <ul>
-                                        <li>If no Shift, go forward (down the list).</li>
-                                        <li>If Shift, go backward (up the list).</li>
-                                    </ul>
-                                    </ul>
                                 </div>
                                 <div class="code-container">
-                                    <pre    tabindex="0" class="copy-code">
-const allAs = Array.from(document.querySelectorAll('a'))
-let lastLetterPressed = ''
-let iLetter = 0
+                                    <pre tabindex="0" class="copy-code">
+document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-addEventListener('keydown', (e) => {
-    const key = e.key
-    if (key.length > 1 || <span class="m">!/[a-zA-Z]/.test(key))</span> return <span class="l">// Ignore non-letter keys</span>
+    const key = e.key.toLowerCase();
+    if (key.length !== 1 || <span class="m">!/^[a-z0-9]$/.test(key)</span>)return;
 
-    const letter = key.toLowerCase()
-    const activeEl = document.activeElement
-    const iActiveA = allAs.indexOf(activeEl)
+    <span class="dc">const allAs = [...document.querySelectorAll('a')].<span class="dgr">filter(</span>a => {
+        const rect = a.getBoundingClientRect();
+        return a.offsetParent !== null && rect.width > 0 && rect.height > 0;
+    }<span class="dgr">)</span>;</span>
 
-    const letteredAs = allAs.filter(a => a.innerText.trim()[0]?.toLowerCase() === letter)
-    if (!letteredAs.length) return
+    const letteredAs = allAs.<span class="dgr">filter(</span> a => {
+        const text = a.textContent.trim().toLowerCase();
+        return text.startsWith(key);
+    }<span class="drg">)</span>;
 
-    const currentIndexInFiltered = letteredAs.indexOf(activeEl)
+    if (letteredAs.length === 0) return;
 
-    if (letter !== lastLetterPressed) {
-        // New letter key pressed
+    const active = document.activeElement;
+    const iActiveA = allAs.indexOf(active);
+    const currentIndexInFiltered = letteredAs.indexOf(active);
+
+    if (key !== window.lastLetterPressed) {
+        // New letter pressed
+        let iLetter;
+
         if (e.shiftKey) {
-            // Go up the page from current position
-            const previous = [...letteredAs].reverse().find(a => allAs.indexOf(a) &lt; iActiveA)
-            iLetter=letteredAs.indexOf(previous)
-            if (iLetter===-1) iLetter=letteredAs.length - 1 // fallback to last match 
-            } else { // Go down the page from current position
-                const next=letteredAs.find(a=> allAs.indexOf(a) > iActiveA)
-                iLetter = letteredAs.indexOf(next)
-            if (iLetter === -1) iLetter = 0 // fallback to first match
-        }
+            // Shift + new letter = move UP from current position
+            const prev = [...letteredAs].reverse().find(a => allAs.indexOf(a) &lt; iActiveA);
+            iLetter = letteredAs.indexOf(prev);
+            if (iLetter === -1) iLetter = letteredAs.length - 1;
         } else {
-        // Same letter key pressed again
-        if (e.shiftKey) {
-        iLetter = (currentIndexInFiltered - 1 + letteredAs.length) % letteredAs.length
-        } else {
-        iLetter = (currentIndexInFiltered + 1) % letteredAs.length
-        }
+            // New letter = move DOWN from current position
+            const next = letteredAs.find(a => allAs.indexOf(a) > iActiveA);
+            iLetter = letteredAs.indexOf(next);
+            if (iLetter === -1) iLetter = 0;
         }
 
-        <span class="y">letteredAs[iLetter]?.focus()</span>
-        lastLetterPressed = letter
-})</pre>
+        letteredAs[iLetter]?.focus();
+    } else {
+        // Same letter as last key press
+        let iLetter;
+        if (e.shiftKey) {
+            iLetter = (currentIndexInFiltered - 1 + letteredAs.length) % letteredAs.length;
+        } else {
+            iLetter = (currentIndexInFiltered + 1) % letteredAs.length;
+        }
+        letteredAs[iLetter]?.focus();
+    }
+
+    window.lastLetterPressed = key;
+});
+    </pre>
                                 </div>
+                                
                                 <h2>🔍 Summary of Behavior</h2>
                                 <table>
                                     <tr>
