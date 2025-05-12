@@ -1,40 +1,35 @@
-const allAs = Array.from(document.querySelectorAll('a'))
-let lastLetterPressed = ''
-let iLetter = 0
+const allLinks = Array.from(document.querySelectorAll('a'));
+let lastLetter = '';
+let indexInMatches = 0;
 
-addEventListener('keydown', (e) => {
-    const key = e.key
-    if (key.length > 1 || !/[a-zA-Z]/.test(key)) return // Ignore non - letter keys
+// Helper: returns true if the element or one of its parents is hidden via CSS or not `.show`
+function isVisible(el) {
+    return el.offsetParent !== null;
+}
 
-    const letter = key.toLowerCase()
-    const activeEl = document.activeElement
-    const iActiveA = allAs.indexOf(activeEl)
+document.addEventListener('keydown', (e) => {
+    const key = e.key;
 
-    const letteredAs = allAs.filter(a => a.innerText.trim()[0]?.toLowerCase() ===
-        letter)
-    if (!letteredAs.length) return
+    if (key.length !== 1 || !/[a-zA-Z]/.test(key)) return;
 
-    const currentIndexInFiltered = letteredAs.indexOf(activeEl)
+    const letter = key.toLowerCase();
 
-    if (letter !== lastLetterPressed) {
-        // New letter key pressed
-        if (e.shiftKey) {
-            // Go up the page from current position
-            const previous = [...letteredAs].reverse().find(a => allAs.indexOf(a) < iActiveA) iLetter = letteredAs.indexOf(previous)
-            if (iLetter === -1) iLetter = letteredAs.length - 1 // fallback to last match } else { // Go down the page from current
-        position const next = letteredAs.find(a => allAs.indexOf(a) > iActiveA)
-            iLetter = letteredAs.indexOf(next)
-            if (iLetter === -1) iLetter = 0 // fallback to first match
-        }
+    // Filter visible links with matching first letter
+    const matchingLinks = allLinks.filter(link => {
+        const text = link.innerText.trim();
+        return text[0]?.toLowerCase() === letter && isVisible(link);
+    });
+
+    if (matchingLinks.length === 0) return;
+
+    // New letter? Start fresh
+    if (letter !== lastLetter || document.activeElement.tagName !== 'A') {
+        indexInMatches = e.shiftKey ? matchingLinks.length - 1 : 0;
     } else {
-        // Same letter key pressed again
-        if (e.shiftKey) {
-            iLetter = (currentIndexInFiltered - 1 + letteredAs.length) % letteredAs.length
-        } else {
-            iLetter = (currentIndexInFiltered + 1) % letteredAs.length
-        }
+        // Cycle through
+        indexInMatches = (indexInMatches + (e.shiftKey ? -1 : 1) + matchingLinks.length) % matchingLinks.length;
     }
 
-    letteredAs[iLetter]?.focus()
-    lastLetterPressed = letter
-})
+    matchingLinks[indexInMatches]?.focus();
+    lastLetter = letter;
+});

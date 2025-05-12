@@ -89,10 +89,11 @@ addEventListener('keydown', (e) => {
         // New letter key pressed
         if (e.shiftKey) {
             // Go up the page from current position
-            const previous = [...letteredAs].reverse().find(a => allAs.indexOf(a) &lt; iActiveA) iLetter=letteredAs.indexOf(previous)
+            const previous = [...letteredAs].reverse().find(a => allAs.indexOf(a) &lt; iActiveA)
+            iLetter=letteredAs.indexOf(previous)
             if (iLetter===-1) iLetter=letteredAs.length - 1 // fallback to last match 
-            } else { // Go down the page from current
-                position const next=letteredAs.find(a=> allAs.indexOf(a) > iActiveA)
+            } else { // Go down the page from current position
+                const next=letteredAs.find(a=> allAs.indexOf(a) > iActiveA)
                 iLetter = letteredAs.indexOf(next)
             if (iLetter === -1) iLetter = 0 // fallback to first match
         }
