@@ -279,7 +279,15 @@
                         <div class="code-cmd show">
                             <div class="code-container">
                                 <pre tabindex="0" class="copy-code">
-                                    FetchHref</pre>
+function fetchLessonHref(href) {
+    fetch(href)
+        .then(response => response.text())
+        .then(html => {
+            mainTargetDiv.innerHTML = html
+            // add functions here
+        })
+        .catch(error => console.log('Error fetching content:', error))
+}</pre>
                             </div>
                         </div>
                     </div>
