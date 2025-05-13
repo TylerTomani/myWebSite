@@ -901,6 +901,54 @@ document.addEventListener('keydown', e => {
             </div>
         </div>
     </div>
+    <!-- Ensure Children clicked in Els eventlistener -->
+    <div class="topic">
+        <a id="ensureChildrenClickedInElsEventlistener" tabindex="0" href="#" class="drop-topic ">Ensure Children clicked in Els eventlistener
+        </a>
+        <div class="questions-container">
+            <div class="question-container">
+                <div class="answer question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h6 class="sr-only">Ensure children clicked in element get parent's event listeners</h6>
+                        <div class="text-base">
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code drop-question">
+<span class="r">Do this after color code</span></pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                            <div class="markdown prose">
+<p>get answer</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+document.addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+        if (e.target.classList.contains('copy-code')) {
+            e.preventDefault()
+            toggleImgVid(e)
+            return // Prevent further execution
+        }
+        toggleImgVid(e)
+        addTabIndexes(e)
+    }
+})</pre>
+                                </div>                          
+                                <p>
+                                    This avoids multiple event listeners and prevents duplicate execution.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+           
+                <!-- ------------------------------------------------------- -->
+            </div>
+        </div>
+    </div>
     <h5>Chrome Extension</h5>
     <div class="topic">
         <a id="implementChromeExtensionLetterFocus" tabindex="0" href="#" class="drop-topic ">implement Chrome extension - Google Letter Focus
