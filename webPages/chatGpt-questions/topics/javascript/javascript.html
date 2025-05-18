@@ -128,6 +128,14 @@ document.addEventListener('keydown', function(e) {
 });
     </pre>
                                 </div>
+                                <p class="dc">This simply checks if <code>'a'</code> element is visible</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+ <span class="dc">const allAs = [...document.querySelectorAll('a')].<span class="dgr">filter(</span>a => {
+    const rect = a.getBoundingClientRect();
+    return a.offsetParent !== null && rect.width > 0 && rect.height > 0;
+}<span class="dgr">)</span>;</span></pre>
+                                </div>
                                 
                                 <h2>🔍 Summary of Behavior</h2>
                                 <table>
