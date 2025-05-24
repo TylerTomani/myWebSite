@@ -35,7 +35,9 @@ body {
     max-height: 80vh;
 
 }
-
+.shortcut {
+    border: 1px solid black;
+}
 .code-container {
     font-size: 0.7rem;
     border: 1px solid black;

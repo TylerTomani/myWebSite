@@ -14,6 +14,7 @@ export function letterFocus() {
     let currentLetter = '';
     let lastFocusedEl 
     let mainTopicsQuestionsFocued = false
+    // const 
     /** since drop-topics are changed when loaded we need to get them all here */
     /** NOT sure if this is a waste ofYour Wi-Fi now back to Dr. Phil $50 million definition no traffic traffic gas station yeah try to come Parton court sorry dude apologize but I will see you bhad Bhabie famous computer space */
     const dropTopics = updateDropTopics()
@@ -22,12 +23,17 @@ export function letterFocus() {
         addEventListener('focusin',  e => {dropTopicsFocused = true});
         addEventListener('focusout',  e => {dropTopicsFocused = false});
     })
-    topicsQuestions.addEventListener('focusin', e => mainTopicsQuestionsFocued = true)
-    topicsQuestions.addEventListener('focusout', e => mainTopicsQuestionsFocued = false)
+    // topicsQuestions.addEventListener('focusin', e => mainTopicsQuestionsFocued = true)
+    // topicsQuestions.addEventListener('focusout', e => mainTopicsQuestionsFocued = false)
     addEventListener('keydown', e => {
         const allFocusEls = document.querySelectorAll('[id]');
         let letter = e.key.toLowerCase();
         let topicsQuestions = findTopicsQuestions(e.target.parentElement)
+        if (letter == 'b') {
+            const homelink = document.getElementById("#homelink")
+            letteredEls.push(homelink)
+            letteredEls.forEach(el => console.log(el))
+        }
         if (topicsQuestions) {
             lastFocusedEl = e.target
             if(!mainTopicsQuestionsFocued && lastFocusedEl && letter == 'm'){
@@ -108,4 +114,4 @@ function getQuestionAnswer(parent){
         return null
     }
 }
-// letterFocus();
+letterFocus();

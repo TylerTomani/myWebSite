@@ -46,7 +46,7 @@ sectionTitles.forEach(el => {
         toggleSubSection(subSection)
         console.log(clicked)
         clicked = true
-        if(subSection.classList.contains('show') && clicked){
+        if(subSection.classList.contains('open') && clicked){
             openInNewTab(e.target.href)
             // toggleSubSection(subSection)
         }
@@ -56,11 +56,7 @@ sectionTitles.forEach(el => {
 })
 
 function toggleSubSection(el){
-    if(!el.classList.contains('hide') && !el.classList.contains('show')){
-        el.classList.add('hide')
-    } else {
-        el.classList.remove('hide')
-    }
+    el.classList.toggle('hide')
 }
 function getSection(parent){
     if(parent.classList.contains('section')){
