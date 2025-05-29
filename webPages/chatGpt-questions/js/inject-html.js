@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
             clicked = false
         })
 
+        el.addEventListener('mousedown', e => {
+            fetchLessonHref(e.target.href)
+        })
         el.addEventListener('click', e => {
             e.preventDefault()
             e.stopPropagation()
