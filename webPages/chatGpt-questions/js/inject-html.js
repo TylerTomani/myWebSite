@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation()
             if (!clicked) {
                 clicked = true
+                fetchLessonHref(e.target.href)
             } else {
                 mainTargetDiv.focus()
             }
