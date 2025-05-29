@@ -114,3 +114,8 @@ aside.draggable.active {
 }
 
 
+.highlight{
+    background-color: lightgray;
+    color: black !important;
+    transition: all 4s ease-in-out;
+}

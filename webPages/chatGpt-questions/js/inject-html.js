@@ -13,7 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const topics = document.querySelectorAll('.sidebar-topics-container > li > a')
     let clicked = false
     let loaded = false
-
+    function rmveHighlight(){
+        topics.forEach(el => {
+            el.classList.remove('highlight')
+        })
+    }
     topics.forEach(el => {
         // If any <a> has autofocus, fetch its href first and only once
         // if (!loaded && el.hasAttribute('autofocus')) {
@@ -32,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('click', e => {
             e.preventDefault()
             e.stopPropagation()
+            rmveHighlight()
+            e.target.classList.toggle('highlight')
             if (!clicked) {
                 clicked = true
                 fetchLessonHref(e.target.href)
