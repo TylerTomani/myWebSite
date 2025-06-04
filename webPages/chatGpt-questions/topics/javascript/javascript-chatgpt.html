@@ -102,8 +102,8 @@ document.addEventListener('keydown', function(e) {
 
         if (e.shiftKey) {
             // Shift + new letter = move UP from current position
-            const prev = [...letteredAs].reverse().
-            (a => allAs.indexOf(a) &lt; iActiveA);
+            const prev = [...letteredAs]
+            <span class="dgr">reverse().find(a => allAs.indexOf(a) &lt; iActiveA)</span> ;
             iLetter = letteredAs.indexOf(prev);
             if (iLetter === -1) iLetter = letteredAs.length - 1;
         } else {

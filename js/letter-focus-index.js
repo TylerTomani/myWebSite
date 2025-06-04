@@ -17,13 +17,12 @@ document.addEventListener('keydown', function (e) {
     if (letteredAs.length === 0) return;
 
     const active = document.activeElement;
-    const iActiveA = allAs.indexOf(active);
+    const iActiveA = [...allAs].indexOf(active);
     const currentIndexInFiltered = letteredAs.indexOf(active);
 
     if (key !== window.lastLetterPressed) {
         // New letter pressed
         let iLetter;
-
         if (e.shiftKey) {
             // Shift + new letter = move UP from current position
             const prev = [...letteredAs].reverse().find(a => allAs.indexOf(a) < iActiveA);
