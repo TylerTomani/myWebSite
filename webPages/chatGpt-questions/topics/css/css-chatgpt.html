@@ -109,7 +109,7 @@ document.addEventListener('keydown', e => {
             </div>
         </div>
     </div>
-    <!-- Installing Git for Visual Studio code (pull error) -->   
+    <!-- Align items in flex -->   
     <div class="topic">
         <a id="alignItemsInFlex" tabindex="0" href="#" class="drop-topic ">Align items in flex
         </a>
@@ -218,6 +218,72 @@ why is the following css not placing the .xbox at the end of the .task-container
                                 <p>
                                     Let me know if you need further refinements! 🚀
                                 </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- ------------------------------------------------------- -->
+            </div>
+        </div>
+    </div>
+    <!-- Get rid of scroll-bar overflow-y -->
+    <div class="topic">
+        <a id="'getRidOfScrollBarOverflowY'" tabindexc="0" href="#" class="drop-topic ">Get rid of scroll-bar overflow-y
+        </a>
+        <div class="questions-container">
+            <div class="question-container">
+                <!-- Below in the the articles are the same format is chatgpt -->
+                <!-- I'm keeping the html the same but adding the classes:
+                       questions-answer, question-txt, answer-txt-->
+                <!--  Aligning items in Flex-->
+                <div class="question-answer">
+                    <article class="text-token-text-primary question-txt">
+                        <h6 class="sr-only">Hide Scrollbar with Scroll & clone brance pwd git</h6>
+                        <div class="text-base">
+                            <!-- .whitespace-pre-wrap is 8th inner child of .text-base i'm changing 
+                                                             it to a pre so i can copy it  -->
+                            <div class="whitespace-pre-wrap">
+                                <pre tabindex="0" class="copy-code drop-question">
+<span class="r">... (bottom of question)</span>
+Right now i am debugging, i currently have the following html, and the overflow-x to hidden and overflow-y to scroll on
+#mainTargetDiv, but how do i get rid of the scrollbar for y visibility ?
+
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="text-token-text-primary answer-txt">
+                        <h6 class="sr-only">Chat Gpt Said: </h6>
+                        <div class="text-base">
+                
+                            <div class="markdown prose">
+                                <h3>✅ CSS to hide scrollbar but allow scrolling:</h3>
+                                <p>For WebKit browsers (Chrome, Safari, Edge):</p>
+                                <div class="code-container">
+                                    <pre tabindex="0" class="copy-code">
+#mainTargetDiv {
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+#mainTargetDiv::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+#mainTargetDiv::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}</pre>
+                                </div>
+                                <h4>Explanation:</h4>                               
+                                <ul>
+                                    <li>overflow-y: scroll; — allows vertical scrolling.</li>
+                                    <li>scrollbar-width: none; — hides the scrollbar in Firefox.</li>
+                                    <li>-ms-overflow-style: none; — hides scrollbar in IE/Edge (legacy).</li>
+                                    <li>::-webkit-scrollbar { display: none; } — hides scrollbar in WebKit browsers.
+                                    </li>
+                                </ul>
+                                <h4>Final Result:</h4>
+                                <p>You’ll have a scrollable #mainTargetDiv, but no visible scrollbar.</p>
                             </div>
                         </div>
                     </article>

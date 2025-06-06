@@ -52,25 +52,25 @@
                                     </p>
                                     <div class="code-container">
                                         <pre tabindex="0" class="">
-    tabIndexElements.forEach(el => {
-        el.addEventListener('keydown', e => {
-            let letter = e.key.toLowerCase()
-            if (letter == 'enter') {
-            <span class="r">toggleImgVid(e) // Call 1</span>
-            }
-        })
+tabIndexElements.forEach(el => {
+    el.addEventListener('keydown', e => {
+        let letter = e.key.toLowerCase()
+        if (letter == 'enter') {
+        <span class="r">toggleImgVid(e) // Call 1</span>
+        }
     })
+})
                                         </pre>
                                     </div>
                                     <div class="code-container">
                                         <pre tabindex="0" class="">
-    addEventListener('keydown', e => {
-        let letter = e.key.toLowerCase()
-        if (letter == 'enter') {
-    <span class="r">toggleImgVid(e) // Call 2</span>
-        addTabIndexes(e)
-    }
-    })
+addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+<span class="r">toggleImgVid(e) // Call 2</span>
+    addTabIndexes(e)
+}
+})
                                         </pre>
                                     </div>
                                     <h3>2. Event Bubbling</h3>
@@ -91,16 +91,15 @@
                                     </p>
                                     <div class="code-container">
                                         <pre tabindex="0" class="copy-code">
-                                            tabIndexElements.forEach(el => {
-                                            el.addEventListener('keydown', e => {
-                                            let letter = e.key.toLowerCase()
-                                            if (letter == 'enter') {
-                                            <span class="m">e.stopPropagation() // Prevent event from reaching the global
-                                                listener</span>
-                                            toggleImgVid(e)
-                                            }
-                                            })
-                                            })
+tabIndexElements.forEach(el => {
+    el.addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+    <span class="m">e.stopPropagation() // Prevent event from reaching the global listener</span>
+        toggleImgVid(e)
+    }
+    })
+})
                                         </pre>
                                     </div>
         
@@ -111,18 +110,18 @@
                                     </p>
                                     <div class="code-container">
                                         <pre tabindex="0" class="copy-code">
-                                            document.addEventListener('keydown', e => {
-                                            let letter = e.key.toLowerCase()
-                                            if (letter == 'enter') {
-                                            if (e.target.classList.contains('copy-code')) {
-                                            e.preventDefault()
-                                            toggleImgVid(e)
-                                            return // Prevent further execution
-                                            }
-                                            toggleImgVid(e)
-                                            addTabIndexes(e)
-                                            }
-                                            })</pre>
+document.addEventListener('keydown', e => {
+    let letter = e.key.toLowerCase()
+    if (letter == 'enter') {
+    if (e.target.classList.contains('copy-code')) {
+        e.preventDefault()
+        toggleImgVid(e)
+        return // Prevent further execution
+    }
+    toggleImgVid(e)
+    addTabIndexes(e)
+    }
+})</pre>
                                     </div>
                                     <p>
                                         This avoids multiple event listeners and prevents duplicate execution.
@@ -137,7 +136,7 @@
         </div>
         <!-- Replace current directory with git branch -->   
         <div class="topic">
-            <a id="'replaceCurrentDirectoryWithGitBranch'" tabindex="0" href="#" class="drop-topic">
+            <a id="replaceCurrentDirectoryWithGitBranch" tabindex="0" href="#" class="drop-topic">
                 Replace current directory with git branch
             </a>
             <div class="questions-container">
@@ -166,17 +165,17 @@ hub to replace my current git direcotry saved locally on my computer in vs code
                                     </p>
                                     <h4>1. Make sure you're on the main branch:</h4>
                                     <div class="code-container">
-                                        <pre tabindex="0" class="">
+                                        <pre tabindex="0" class="copy-code">
 git checkout main</pre>
                                     </div>
                                     <h4>2. Fetch the latest from the remote:</h4>
                                     <div class="code-container">
-                                        <pre tabindex="0" class="">
+                                        <pre tabindex="0" class="copy-code">
 git fetch origin</pre>
                                     </div>
                                     <h4>3. Hard reset your local branch to match GitHub’s main branch:</h4>
                                     <div class="code-container">
-                                        <pre tabindex="0" class="">
+                                        <pre tabindex="0" class="copy-code">
 git reset --hard origin/main</pre>
                                     </div>
 
