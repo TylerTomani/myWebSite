@@ -4,6 +4,9 @@ let taskInterval;
 let activeTaskFill = null;
 let currentTaskMeta = null;
 
+const timerDisplay = document.getElementById('taskTimerDisplay');
+timerDisplay.style.display = 'none';
+timerDisplay.textContent = `Task Timer: 00:00`;
 
 function updateHourLabels() {
     const hourBlocks = document.querySelectorAll('.hour-block');
@@ -57,9 +60,6 @@ function createStopUI(hourBlock, taskFill, startMinute, taskKey = null) {
     const stopBtn = document.createElement('button');
     stopBtn.textContent = 'Stop';
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-
     const nameInput = document.createElement('input');
     nameInput.placeholder = 'Task name';
 
@@ -68,6 +68,8 @@ function createStopUI(hourBlock, taskFill, startMinute, taskKey = null) {
 
     const saveBtn = document.createElement('button');
     saveBtn.textContent = 'Enter';
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
 
     stopBtn.addEventListener('click', () => {
         stopUI.appendChild(nameInput);
@@ -82,6 +84,8 @@ function createStopUI(hourBlock, taskFill, startMinute, taskKey = null) {
         if (taskKey) {
             localStorage.removeItem(taskKey);
         }
+        clearInterval(taskInterval);
+        timerDisplay.style.display = 'none';
     });
 
     saveBtn.addEventListener('click', () => {
@@ -106,6 +110,8 @@ function createStopUI(hourBlock, taskFill, startMinute, taskKey = null) {
         stopUI.remove();
         activeTaskFill = null;
         currentTaskMeta = null;
+        clearInterval(taskInterval);
+        timerDisplay.style.display = 'none';
     });
 
     stopUI.appendChild(stopBtn);
@@ -123,8 +129,10 @@ function startTask() {
     const hourBlock = document.querySelector(`.hour-block[data-hour='${currentHour}']`);
 
     const taskFill = document.createElement('div');
+    let percentHeight = (startMinute / 60) * 100;
+
     taskFill.className = 'task-fill';
-    taskFill.style.height = `${(startMinute / 60) * 100}%`;
+    taskFill.style.height = percentHeight < 10 ? '200px' : `${percentHeight}%`;
     taskFill.style.top = 0;
     taskFill.style.left = '60px';
     taskFill.style.width = 'calc(100% - 60px)';
@@ -135,21 +143,36 @@ function startTask() {
 
     hourBlock.appendChild(taskFill);
 
+    
+    const taskStartTime = new Date();
+    timerDisplay.style.display = 'block';
+    timerDisplay.textContent = `Task Timer: 00:00`;
+
     clearInterval(taskInterval);
     taskInterval = setInterval(() => {
         const newNow = new Date();
         const newMinute = newNow.getMinutes();
+        const newHour = newNow.getHours();
+
         taskFill.style.height = `${(newMinute / 60) * 100}%`;
 
-        if (newNow.getHours() !== currentHour) {
+        const elapsedMs = newNow - taskStartTime;
+        const minutes = Math.floor(elapsedMs / 60000);
+        const seconds = Math.floor((elapsedMs % 60000) / 1000);
+        timerDisplay.textContent = `Task Timer: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        if (newHour !== currentHour) {
             clearInterval(taskInterval);
+            timerDisplay.style.display = 'none';
         }
-    }, 10000);
+    }, 1000);
+    console.log(hourBlock)
 }
 
 calendar.addEventListener('click', (e) => {
     if (e.target.classList.contains('task-fill')) {
         clearInterval(taskInterval);
+        timerDisplay.style.display = 'none';
         const hourBlock = e.target.closest('.hour-block');
         const startMinute = parseInt((parseFloat(e.target.style.height) / 100) * 60);
         createStopUI(hourBlock, e.target, startMinute, e.target.dataset.key);
@@ -159,6 +182,7 @@ calendar.addEventListener('click', (e) => {
 calendar.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && document.activeElement.classList.contains('task-fill')) {
         clearInterval(taskInterval);
+        timerDisplay.style.display = 'none';
         const hourBlock = document.activeElement.closest('.hour-block');
         const startMinute = parseInt((parseFloat(document.activeElement.style.height) / 100) * 60);
         createStopUI(hourBlock, document.activeElement, startMinute, document.activeElement.dataset.key);

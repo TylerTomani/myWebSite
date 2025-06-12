@@ -183,7 +183,74 @@ git reset --hard origin/main</pre>
                             </div>
                         </article>
                     </div>
-                    <!-- ------------------------------------------------------- -->
+                </div>
+            </div>
+        </div>
+        <!-- Overwrite main branch with draft branch -->
+        <div class="topic">
+            <a id="OverwriteMainBranchWithDraftBranch" tabindex="0" href="#" class="drop-topic">
+                Overwrite main branch with draft branch
+            </a>
+            <div class="questions-container">
+                <div class="question-container">
+                    <!-- Update tutorial link dynamically -->
+                    <div class="question-answer">
+                        <article class="text-token-text-primary question-txt">
+                            <h6 class="sr-only">Update tutorial link dynamically</h6>
+                            <div class="text-base">
+                                
+                                <div class="whitespace-pre-wrap">
+                                    <pre tabindex="0" class="copy-code drop-question">
+i'm confused, i'm currently in my draft branch, i want to save my draft into my main and overwrite the main
+</pre>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="text-token-text-primary answer-txt">
+                            <h6 class="sr-only">Chat Gpt Said: </h6>
+                            <div class="text-base">
+                                <div class="markdown prose">
+                                    <h3>✅ Steps to overwrite main with your current branch:</h3>                                 
+                                    <h4>1. Make sure all your changes are committed</h4>
+                                    <p>
+                                        If you still have unstaged changes:
+                                    </p>
+
+                                    <div class="code-container">
+                                        <pre tabindex="0" class="copy-code">
+git add .</pre>
+                                    </div>
+                                    <div class="code-container">
+                                        <pre tabindex="0" class="copy-code">
+git commit -m "Final draft version"</pre>
+                                    </div>
+                                   <h4>2. Switch to main branch</h4>                                    
+                                    <div class="code-container">
+                                        <pre tabindex="0" class="copy-code">
+git checkout main</pre>
+                                    </div>
+                                    <h4>3. Overwrite main with the draft using git reset --hard</h4>
+                                    <p>Let’s assume your draft branch is called draft-branch.</p>
+                                    <div class="code-container">
+                                        <pre tabindex="0" class="copy-code">
+                                            git reset --hard draft-branch</pre>
+                                    </div>
+                                    <p>is makes your main branch exactly match your draft-branch.</p>
+                                    <h4>4. Push the updated main to GitHub (force push)</h4>
+                                    <div class="code-container">
+                                        <pre tabindex="0" class="copy-code">
+git push origin main --force</pre>
+                                    </div>
+                                    <p>
+                                        <strong>⚠️ Warning:</strong>This will overwrite the remote main branch on GitHub with your local version — so don’t do this if others
+                                        are also working on the main branch unless you're sure.
+                                    </p>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </div>

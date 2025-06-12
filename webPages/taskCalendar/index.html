@@ -10,10 +10,20 @@
 
 <body>
 
+    <div id="taskTimerDisplay"
+        style="display:none; padding: 10px; font-size: 18px; font-weight: bold; background: #007aff; color: white; text-align: center;">
+        Task Timer: 00:00
+    </div>
+
     <div class="day-time-blocks">
         <div class="header">
             <div class="top-buttons">
-                <button id="toggleFormatBtn">12-hour</button>
+                <button tabindex="0" id="toggleFormatBtn">12-hour</button>
+            </div>
+            <button class="plus-btn" id="floatingPlus">+</button>
+            <div class="options" id="optionsMenu">
+                <button tabindex="0" onclick="startTask()">Start Task</button>
+                <button tabindex="0" onclick="alert('Add Task coming soon!')">Add Task</button>
             </div>
         </div>
 
@@ -23,12 +33,9 @@
     </div>
 
     <!-- Floating + button and dropdown should be outside so they can float over everything -->
-    <button class="plus-btn" id="floatingPlus">+</button>
+    
 
-    <div class="options" id="optionsMenu">
-        <button onclick="startTask()">Start Task</button>
-        <button onclick="alert('Add Task coming soon!')">Add Task</button>
-    </div>
+    
 
 </body>
 
