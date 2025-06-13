@@ -3,6 +3,7 @@
 }
 .versions-container {
     padding: 4%;
+    padding-top: 50%;
     gap: 2%;
     display: flex;
 }

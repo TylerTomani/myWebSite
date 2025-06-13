@@ -82,7 +82,7 @@
 }
 
 #mainContainer{
-    height: 90vh;
+    height: 80vh;
     overflow: hidden;
     overflow-y: scroll;
 }

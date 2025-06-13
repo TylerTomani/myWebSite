@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', e => {
+    /** 
+    Create a function that checks for backlink, if not and "B" is pressed, focus should also cycle to the #homelink a element
+    but only if there is no #backlink a element
+    */
+    // const mainLinks = document.querySelectorAll('.main-links > a')
+    // function checkBacklinkInMainLinks(){
+    //     mainLinks.forEach(el => {
+            
+    //     })
+    // }
     document.addEventListener('keydown', e => {
         const versionArr = [...document.querySelectorAll('.version')]
         const key = e.key.toLowerCase();
@@ -10,10 +20,21 @@ document.addEventListener('DOMContentLoaded', e => {
             return id.offsetParent !== null && rect.width > 0 && rect.height > 0;
         });
 
-        const letteredIds = allIds.filter(a => {
-            const text = a.id.toLowerCase();
-            return text.startsWith(key);
 
+        
+        const backlink = document.querySelector('.main-links > a#backlink');
+        const homelink = document.querySelector('#homelink');
+
+        let letteredIds = allIds.filter(el => {
+            const idText = el.id.toLowerCase();
+            if (key === 'b') {
+                // If 'b' is pressed and there's NO backlink, include homelink in the list
+                if (!backlink && homelink && !idText.startsWith('b')) {
+                    // Temporarily treat homelink as if it starts with "b"
+                    return el === homelink || idText.startsWith('b');
+                }
+            }
+            return idText.startsWith(key);
         });
 
         // if (letteredIds.length === 0) return;
@@ -57,6 +78,7 @@ document.addEventListener('DOMContentLoaded', e => {
         }
 
         window.lastLetterPressed = key;
+        
     });
 
 })
