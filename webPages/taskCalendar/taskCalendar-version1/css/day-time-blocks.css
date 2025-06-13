@@ -9,13 +9,6 @@ body {
     min-height: 100vh;
 }
 
-.header {
-    padding: 20px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    position: relative;
-}
 
 #toggleFormatBtn {
     position: absolute;
