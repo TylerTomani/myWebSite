@@ -8,8 +8,6 @@ body {
     position: relative;
     min-height: 100vh;
 }
-
-
 #toggleFormatBtn {
     position: absolute;
     top: 20px;
@@ -18,7 +16,6 @@ body {
     padding: 8px 12px;
     font-size: 14px;
 }
-
 #plusBtnFloating {
     position: fixed;
     bottom: 30px;
@@ -37,7 +34,6 @@ body {
 #plusBtnFloating:active,#plusBtnFloating:focus{
     box-shadow: 0 0 3px 3px blue;
 }
-
 #optionsMenu {
     display: none;
     flex-direction: column;
@@ -96,7 +92,10 @@ body {
 }
 @media screen and (max-width: 620px){
     .day-time-blocks {
-        background-color: blue;
+        /* background-color: blue; */
         min-height: 500vh;
     }
+        #plusBtnFloating {
+            width: 105px;
+            height: 105px;
 }
