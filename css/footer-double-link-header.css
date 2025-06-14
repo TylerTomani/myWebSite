@@ -3,7 +3,17 @@
     padding:0;
     box-sizing: border-box;
 }
+#mainContainer {
+    height: 80vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
 
+.styles-btns {
+    justify-self: flex-end;
+    align-self: flex-end;
+    padding-right: 5%;
+}
 .page-wrapper > footer.footer-header {
     display: flex;
     border-top: 1px solid black;
@@ -81,8 +91,3 @@
     }
 }
 
-#mainContainer{
-    height: 80vh;
-    overflow: hidden;
-    overflow-y: scroll;
-}

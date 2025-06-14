@@ -23,6 +23,7 @@
 }
 .version strong{
     display: inline-block;
+    font-family: monospace;
     margin-bottom: 5%;
 }
 .version:focus,.version:active{

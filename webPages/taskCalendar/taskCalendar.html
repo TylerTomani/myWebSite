@@ -5,24 +5,34 @@
     <title>Task Calender iPhone Style </title>
     <link rel="stylesheet" href="../../css/footer-double-link-header.css">
     <link rel="stylesheet" href="css/task-calender-versions-page.css">
+    <link rel="stylesheet" href="../../css/darkMode.css">
+    <script src="../../js/dark-mode.js" defer></script>
     <script src="../../js/letter-focus-templates/letter-focus-id-num.js" defer></script>
 </head>
-<body>
+<body class="dark-mode">
 
     <div class="page-wrapper">
         <header class="page-header">
             <div class="page-title">
-                <h1>Task Calander Version 1</h1>
+                <h1>Task Calender Versions</h1>
             </div>
         </header>
         <main tabindex="0"   id="mainContainer">
             <div class="versions-container">
                 <a tabindex="0" id="taskCalendarV1" href="taskCalendar-version1/taskCalendar-v1.html" class="version"><strong>taskCalendar</strong>(iphone style)
                     <br> version 1</a>
-                <a tabindex="0" id="taskCalendarV1" href="taskCalendar-version1/taskCalendar-timer.html" class="version"><strong>taskCalendar</strong> - timer only</a>
+                <a tabindex="0" id="taskCalendarV1" href="timer-taskCalendar/timer-taskCalendar.html" class="version"> timer only
+                    <br><strong>taskCalendar</strong>
+                </a>
             </div>
     
         </main>
+        <nav class="styles-btns">
+            <div class="btn-container">
+                <button id="darkmodeBtn">darkmodeBtn</button>
+                <p>(<span class="lg-txt">⇧</span> + D )</p>
+            </div>
+        </nav>
         <footer class="footer-header">
             <div class="main-links">
                 <a tabindex="0" id="homelink" href="../../index.html">Home (main)</a>
