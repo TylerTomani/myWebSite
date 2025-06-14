@@ -69,10 +69,12 @@
     /* color: whitesmoke;   h */
     
 }
-@media screen and (max-width: 683px){
-    footer > *{
+@media screen and (max-width: 683px) {
+    footer>* {
+        /* background-color: blue; */
         flex-basis: 30%;
     }
+
     .main-links {
         display: flex;
         flex-direction: column;
@@ -84,10 +86,10 @@
         /* flex-direction: column; */
         /* border: 1px solid black; */
     }
+
     .page-title>img {
         /* max-height: 50px;
         max-width: 100px;
         border: 2px solid red; */
     }
 }
-
