@@ -1,8 +1,8 @@
 #mainContainer{
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 .versions-container {
-    
+    border-top: 1px solid black;    
     display: flex;
     align-items: center;
     padding-left: 5%;
@@ -28,7 +28,6 @@
 }
 .version:focus,.version:active{
     box-shadow: 2px 2px 2px 2px lightseagreen;
-    /* border: 2px solid red; */
 }
 @media screen and (max-width: 700px) {
     .versions-container {    
