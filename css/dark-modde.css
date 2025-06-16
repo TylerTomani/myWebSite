@@ -42,7 +42,7 @@ h4 .dark-mode p {
     border: 1px solid whitesmoke;
     color: white;
 }
-.dark-mode .version .main-links a:focus,
-.dark-mode .version .main-links a:active {
+.dark-mode .main-links a:focus,
+.dark-mode .main-links a:active {
     color: white;
 }
