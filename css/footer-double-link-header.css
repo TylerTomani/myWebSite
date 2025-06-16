@@ -95,7 +95,7 @@
     .main-links {
         display: flex;
         flex-direction: column;
-        font-size: 80%;
+        /* font-size: 80%; */
     }
 
     .page-title {
