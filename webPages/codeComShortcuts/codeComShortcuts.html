@@ -8,11 +8,7 @@
     <link rel="stylesheet" href="css/double-link-header.css">
     <link rel="stylesheet" href="css/copy-code-codeCmdShrt.css">
 
-    <script type="module" src="js/copy-code-codeCmdShrt.js" defer></script>    
-    <script type="module" src="js/focusDrops.js" defer></script>    
-    <script type="module" src="js/codeFocusCopy.js" defer></script>    
-<!-- // These css and scripts below are unique to this page     -->
-
+    <script type="module" src="js/letter-focus-codeComShorts.js" defer></script>
 </head>
 <body>
     <header>
@@ -43,26 +39,83 @@
                 </header>
                 <section class="sub-section show open">
                     <div class="code-cmd">
-                        <h4>Incrementing / Decrements Letter Focus</h4>
+                        <h4><a href="#">Incrementing / Decrements Letter Focus</a></h4>
                         <p style="color:red;font-size: 120%;" class="r">ironically this page also need this function</p>
                         <div class="code-container">
                             <pre tabindex="0" class="copy-code">
-    // This page has really good letter focus cycle
-    if(letter == 'c' && !e.metaKey){
-        if(!e.shiftKey){
-        copyCodes[iCopyCodes].focus()
-            iCopyCodes = (iCopyCodes + 1) % copyCodes.length
-        } else{
-            iCopyCodes = (iCopyCodes - 1 + copyCodes.length) % copyCodes.length
-    
-        }
-        copyCodes[iCopyCodes].focus()
-        console.log(iLetter)
-    }</pre>
+// This page has really good letter focus cycle
+if(letter == 'c' && !e.metaKey){
+    if(!e.shiftKey){
+    copyCodes[iCopyCodes].focus()
+        iCopyCodes = (iCopyCodes + 1) % copyCodes.length
+    } else{
+        iCopyCodes = (iCopyCodes - 1 + copyCodes.length) % copyCodes.length
+
+    }
+    copyCodes[iCopyCodes].focus()
+    console.log(iLetter)
+}</pre>
                         </div>
                     </div>
                     <div class="code-cmd">
-                        <h4>CamelCase function</h4>
+                        <h4><a href="#">Letter Focus index</a></h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    const key = e.key.toLowerCase();
+    if (key.length !== 1 || !/^[a-z0-9]$/.test(key)) return;
+
+    const allAs = [...document.querySelectorAll('a')].filter(a => {
+        const rect = a.getBoundingClientRect();
+        return a.offsetParent !== null && rect.width > 0 && rect.height > 0;
+    });
+
+    const letteredAs = allAs.filter(a => {
+        const text = a.textContent.trim().toLowerCase();
+        return text.startsWith(key);
+    });
+
+    if (letteredAs.length === 0) return;
+
+    const active = document.activeElement;
+    const iActiveA = [...allAs].indexOf(active);
+    const currentIndexInFiltered = letteredAs.indexOf(active);
+
+    if (key !== window.lastLetterPressed) {
+        // New letter pressed
+        let iLetter;
+        if (e.shiftKey) {
+            // Shift + new letter = move UP from current position
+            const prev = [...letteredAs].reverse().find(a => allAs.indexOf(a) &lt; iActiveA);
+            iLetter = letteredAs.indexOf(prev);
+            if (iLetter === -1) iLetter = letteredAs.length - 1;
+        } else {
+            // New letter = move DOWN from current position
+            const next = letteredAs.find(a => allAs.indexOf(a) > iActiveA);
+            iLetter = letteredAs.indexOf(next);
+            if (iLetter === -1) iLetter = 0;
+        }
+
+        letteredAs[iLetter]?.focus();
+    } else {
+        // Same letter as last key press
+        let iLetter;
+        if (e.shiftKey) {
+            iLetter = (currentIndexInFiltered - 1 + letteredAs.length) % letteredAs.length;
+        } else {
+            iLetter = (currentIndexInFiltered + 1) % letteredAs.length;
+        }
+        letteredAs[iLetter]?.focus();
+    }
+
+    window.lastLetterPressed = key;
+});</pre>
+                        </div>
+                    </div>
+                    <div class="code-cmd">
+                        <h4><a href="#">CamelCase function</a></h4>
                         <div class="code-container">
                             <pre tabindex="0" class="copy-code">
     function toCamelCase(str) {
@@ -77,7 +130,7 @@
             <!-- VS code -->
             <section class="section">
                 <header>
-                    <h3><a id="vsCode" href="#" class="section-title">VS Code</a></h3>
+                    <h3><a tabindex="0" id="vsCode" href="#" class="section-title">VS Code</a></h3>
                 </header>
                 <section class="sub-section show">
                     <!-- console\.log\([^)]*\)(.*) -->
@@ -85,7 +138,7 @@
                         <h4>01</h4>
                         <p>This will find all the console logs in the script in vs code</p>
                         <div class="code-container">
-                            <pre class="copy-code">
+                            <pre tabindex="0" class="copy-code">
 console\.log\([^)]*\)(.*)</pre>
                         </div>
                     </div>
@@ -94,7 +147,7 @@ console\.log\([^)]*\)(.*)</pre>
                         <h4>02</h4>
                         <p>Comment middle text </p>
                         <div class="code-container">
-                            <pre class="copy-code">
+                            <pre tabindex="0" class="copy-code">
 &lt;!--\s*([\s\S]*?)\s*--&gt;</pre>
                         </div>
                     </div>
@@ -145,7 +198,7 @@ console\.log\([^)]*\)(.*)</pre>
                         <p>Use this is HTML <code>&lt;head></code> if you get 'favicon erro'
                         </p>
                         <div class="code-container">
-                            <pre class="copy-code">
+                            <pre tabindex="0" class="copy-code">
 &lt;link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>&lt;/pre>
                         </div>
                         <p>
@@ -172,7 +225,7 @@ console\.log\([^)]*\)(.*)</pre>
                         <h4>01</h4>
                         <p>Find any path for file</p>
                         <div class="code-container">
-                            <pre class="copy-code">
+                            <pre tabindex="0" class="copy-code">
 mdfind "kMDItemCFBundleIdentifier == 'com.microsoft.VSCode'"</pre>
                         </div>
                     </div>
@@ -181,7 +234,7 @@ mdfind "kMDItemCFBundleIdentifier == 'com.microsoft.VSCode'"</pre>
                         <h4>02</h4>
                         <p>Comment middle text </p>
                         <div class="code-container">
-                            <pre class="copy-code">
+                            <pre tabindex="0" class="copy-code">
 </pre>
                         </div>
                     </div>

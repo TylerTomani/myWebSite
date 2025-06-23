@@ -25,7 +25,7 @@ body {
 .code-cmd {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 0.5rem;
     /* key part ↓ */
     width: fit-content;
