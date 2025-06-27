@@ -9,6 +9,7 @@ function updateTopicsQuestions(){
 }
 export function letterFocus() {
     const topicsQuestions = updateTopicsQuestions()
+    const mainTargetDiv = document.querySelector('#mainTargetDiv')
     let letteredEls = [];
     let iLetter = 0;
     let currentLetter = '';
@@ -17,6 +18,18 @@ export function letterFocus() {
     // const 
     /** since drop-topics are changed when loaded we need to get them all here */
     /** NOT sure if this is a waste ofYour Wi-Fi now back to Dr. Phil $50 million definition no traffic traffic gas station yeah try to come Parton court sorry dude apologize but I will see you bhad Bhabie famous computer space */
+    mainTargetDiv.addEventListener('keydown', e => {
+        let key = e.key
+        if(key === 13){
+            console.log(mainTargetDiv)
+            const dropQuestions = document.querySelectorAll('.dropQuestion, .drop-question')
+            dropQuestions.forEach(el => {
+                console.log(el)
+                el.classList.add('hide')
+            })
+        }
+        
+    })
     const dropTopics = updateDropTopics()
     let dropTopicsFocused = false
     dropTopics.forEach(el => {
