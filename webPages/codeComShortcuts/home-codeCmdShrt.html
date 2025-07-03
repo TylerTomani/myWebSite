@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home-codeCmdShrts</title>
+</head>
+<body>
+    <div id="mainPageContainer" class="page-container">
+        
+        <div class="sections-container">
+            <!-- Javascript - Code -->
+            <section class="section">
+                <header>
+                    <h3><a id="" href="#"
+                        class="section-title">Javascript </a>
+                    </h3>
+                </header>
+                <section class="sub-section show open">
+                    <div class="code-cmd">
+                        <h4><a href="#">Incrementing / Decrements Letter Focus</a></h4>
+                        <p style="color:red;font-size: 120%;" class="r">ironically this page also need this function</p>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    // This page has really good letter focus cycle
+    if(letter == 'c' && !e.metaKey){
+    if(!e.shiftKey){
+    copyCodes[iCopyCodes].focus()
+        iCopyCodes = (iCopyCodes + 1) % copyCodes.length
+    } else{
+        iCopyCodes = (iCopyCodes - 1 + copyCodes.length) % copyCodes.length
+
+    }
+    copyCodes[iCopyCodes].focus()
+    console.log(iLetter)
+    }</pre>
+                        </div>
+                    </div>
+                    <div class="code-cmd">
+                        <h4><a href="#">Letter Focus index</a></h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    const key = e.key.toLowerCase();
+    if (key.length !== 1 || !/^[a-z0-9]$/.test(key)) return;
+
+    const allAs = [...document.querySelectorAll('a')].filter(a => {
+        const rect = a.getBoundingClientRect();
+        return a.offsetParent !== null && rect.width > 0 && rect.height > 0;
+    });
+
+    const letteredAs = allAs.filter(a => {
+        const text = a.textContent.trim().toLowerCase();
+        return text.startsWith(key);
+    });
+
+    if (letteredAs.length === 0) return;
+
+    const active = document.activeElement;
+    const iActiveA = [...allAs].indexOf(active);
+    const currentIndexInFiltered = letteredAs.indexOf(active);
+
+    if (key !== window.lastLetterPressed) {
+        // New letter pressed
+        let iLetter;
+        if (e.shiftKey) {
+            // Shift + new letter = move UP from current position
+            const prev = [...letteredAs].reverse().find(a => allAs.indexOf(a) &lt; iActiveA);
+            iLetter = letteredAs.indexOf(prev);
+            if (iLetter === -1) iLetter = letteredAs.length - 1;
+        } else {
+            // New letter = move DOWN from current position
+            const next = letteredAs.find(a => allAs.indexOf(a) > iActiveA);
+            iLetter = letteredAs.indexOf(next);
+            if (iLetter === -1) iLetter = 0;
+        }
+
+        letteredAs[iLetter]?.focus();
+    } else {
+        // Same letter as last key press
+        let iLetter;
+        if (e.shiftKey) {
+            iLetter = (currentIndexInFiltered - 1 + letteredAs.length) % letteredAs.length;
+        } else {
+            iLetter = (currentIndexInFiltered + 1) % letteredAs.length;
+        }
+        letteredAs[iLetter]?.focus();
+    }
+
+    window.lastLetterPressed = key;
+    });</pre>
+                        </div>
+                    </div>
+                    <div class="code-cmd">
+                        <h4><a href="#">Letter Focus ( number focus children</a></h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    addEventListener('DOMContentLoaded', () => {
+    [...document.querySelectorAll('a')].forEach(el => {
+        el.addEventListener('click', e =>{
+        e.preventDefault()
+        })
+    })
+    });
+    const codeCmdTitles = document.querySelectorAll('.code-cmd > h4 a')
+    codeCmdTitles.forEach(el => {el.addEventListener('click', e =>{e.preventDefault()})})
+    function numChildrenFocus(e,letter){
+    const intLetter = parseInt(letter)
+    const subSection = getSection(e.target) ? getSection(e.target.parentElement) : null
+    console.log(subSection)
+    const codeCmds = subSection.querySelectorAll('.copy-code')
+    codeCmds[intLetter - 1]?.focus()
+    }
+    function getSection(parent){
+    if(parent.classList.contains('section')){
+        return parent
+    } else if (parent.parentElement){
+        return getSection(parent.parentElement)
+    } else {
+        return null
+    }
+    }
+    addEventListener('keydown', e => {
+    const key = e.key.toLowerCase()
+    if (!isNaN(key)) {
+        if(e.target == document.activeElement){
+            numChildrenFocus(e,key)
+        }
+    }
+    const allEls = [...document.querySelectorAll('a, .copy-code')].filter(el => {
+        const rect = el.getBoundingClientRect()
+        return el.offsetParent !== null && rect.width > 0 && rect.height > 0
+    })
+    const letteredEls = allEls.filter(el =>{
+        const text = el.textContent.trim().toLowerCase()
+        return text.startsWith(key)
+    })
+    if(letteredEls.length == 0) return
+
+    let activeEl = document.activeElement
+    let iActiveInAll = [...allEls].indexOf(activeEl)
+    let iInLettered = [...letteredEls].indexOf(activeEl)
+
+    if(key !== window.lastLetterPressed){
+        let newIndex;
+        if (e.shiftKey) {
+            // Shift + new letter = move UP from current position
+            const prev = [...letteredEls].reverse().find(a => allEls.indexOf(a) < iActiveInAll);
+            newIndex = letteredEls.indexOf(prev);
+            if (newIndex === -1) newIndex = letteredEls.length - 1;
+        } else {
+            // New letter = move DOWN from current position
+            const next = letteredEls.find(a => allEls.indexOf(a) > iActiveInAll);
+            newIndex = letteredEls.indexOf(next);
+            if (newIndex === -1) newIndex = 0;
+        }
+        letteredEls[newIndex]?.focus();
+    } else {
+        let newIndex;
+        if (e.shiftKey) {
+            newIndex = (iInLettered - 1 + letteredEls.length) % letteredEls.length;
+        } else {
+            newIndex = (iInLettered + 1) % letteredEls.length;
+        }
+        letteredEls[newIndex]?.focus();
+    }
+    window.lastLetterPressed = key;    
+    });</pre>
+                        </div>
+                    </div>
+                    <div class="code-cmd">
+                        <h4><a href="#">CamelCase function</a></h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    function toCamelCase(str) {
+    return str
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
+    }</pre>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <!-- VS code -->
+            <section class="section">
+                <header>
+                    <h3><a tabindex="0" id="vsCode" href="#" class="section-title">VS Code</a></h3>
+                </header>
+                <section class="sub-section show">
+                    <!-- console\.log\([^)]*\)(.*) -->
+                    <div class="code-cmd">
+                        <h4>01</h4>
+                        <p>This will find all the console logs in the script in vs code</p>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    console\.log\([^)]*\)(.*)</pre>
+                        </div>
+                    </div>
+                    <!-- &lt;!--\s*([\s\S]*?)\s* -->
+                    <div class="code-cmd">
+                        <h4>02</h4>
+                        <p>Comment middle text </p>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    &lt;!--\s*([\s\S]*?)\s*--&gt;</pre>
+                        </div>
+                    </div>
+                    <!-- Collapse all HTML groups -->
+                    <div class="shortcut">
+                        <h4>Collapse all HTML groups </h4>
+                        <p>
+                            (⌘ + K ⌘ + 0 )
+                            <br>or 
+                            ( ⌘ + D ⌘ + 0 ) 
+                        </p>
+                    </div>
+                    <!-- deCollapse all HTML groups -->
+                    <div class="shortcut">
+                        <h4>deCollapse all HTML groups </h4>
+                        <p>
+                            (⌘ + K ⌘ + J )
+                        </p>
+                    </div>
+                    <!-- Collapse Long Link Txt -->
+                    <div class="shortcut">
+                        <h4>Collapse Long Link Txt </h4>
+                        <p>
+                            ⌥ <sup>(alt)</sup> + z
+                        </p>
+                    </div>
+                    <!-- Select same variable in scope -->
+                    <div class="shortcut">
+                        <h4>Select same variable in scope</h4>
+                        <p>
+                            ⌘ + D
+                        </p>
+                    </div>
+
+                </section>
+                
+            </section>
+            <!-- html styles -->
+            <section class="section">
+                <header>
+                    <h3><a id="htmlStyles" href="#" class="section-title">HTML Styles <span><sup style="color:red;">Example of letter focus not working</sup>
+                    <br><sup style="color: red;">doens't go to home link</sup></span></a></h3>
+                </header>
+                <section class="sub-section show">
+                    <!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
+                    <div class="code-cmd">
+                        <h4>01</h4>
+                        <p>Use this is HTML <code>&lt;head></code> if you get 'favicon erro'
+                        </p>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    &lt;link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>&lt;/pre>
+                        </div>
+                        <p>
+                            Make sure internet is connected
+                        </p>
+                    </div>
+                    
+                </section>
+                
+            </section>
+            <!-- Terminal linux -->
+            <section class="section">
+                <header><h3><a id="terminalUnix" href="topics/terminal-unix-cmds/terminal-unix-cmds.html" 
+                    target="_blank"
+                    class="section-title">Terminal Unix</a></h3>
+                </header>
+                <!-- <header><h3><a id="terminalUnix" href="#"  
+                    
+                    class="section-title">Terminal Unix</a></h3>-->
+                </header>
+                <section class="sub-section ">
+                    <!-- -->
+                    <div class="code-cmd">
+                        <h4>01</h4>
+                        <p>Find any path for file</p>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    mdfind "kMDItemCFBundleIdentifier == 'com.microsoft.VSCode'"</pre>
+                        </div>
+                    </div>
+                    <!-- &lt;!--\s*([\s\S]*?)\s* -->
+                    <div class="code-cmd">
+                        <h4>02</h4>
+                        <p>Comment middle text </p>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    </pre>
+                        </div>
+                    </div>
+                    
+                </section>
+            </section>
+            <!-- git-commands -->
+            <section class="section">
+                <header>
+                    <h3><a id="gitCommands" href="#" class="section-title">git-commands</a></h3>
+                </header>
+                <section class="sub-section ">
+                    <div class="shortcut">
+                        <h4>reset and pull branch (replaces local changes)</h4>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    git reset --hard</pre>
+                        </div>
+                        <div class="code-container">
+                            <pre tabindex="0" class="copy-code">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat libero nobis cum odio esse accusamus autem velit ad expedita sequi at totam ea quaerat, natus animi iusto aspernatur commodi mollitia!</pre>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </section>
+            </section>
+            
+            
+        </div>        
+    </div>
+</body>
+</html>

@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', e => {
+export function letterFocus(){
+    document.addEventListener('DOMContentLoaded', e => {
     /** 
     Create a function that checks for backlink, if not and "B" is pressed, focus should also cycle to the #homelink a element
     but only if there is no #backlink a element
@@ -72,3 +73,5 @@ document.addEventListener('DOMContentLoaded', e => {
     });
 
 })
+}
+letterFocus()

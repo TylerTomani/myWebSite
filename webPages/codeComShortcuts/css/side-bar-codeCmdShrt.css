@@ -1,0 +1,73 @@
+:root {
+    --width-sidebar: 12vw;
+    --width-sidebar-collapsed: 10vw;
+}
+*{margin: 0;padding: 0;box-sizing: border-box;}
+.page-wrapper {
+    display: flex;
+}
+
+.page-wrapper > .side-bar {
+    position: sticky;
+    top: 0;
+    border-right: 1px solid black;
+    width: var(--width-sidebar);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.page-wrapper > .side-bar.collapsed {
+    width: var(--width-sidebar-collapsed);
+}
+.page-wrapper > .side-bar > header {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid blue;
+    justify-content: flex-start;
+}
+.page-wrapper > .side-bar > header img {
+    width: 100%;
+    height: 100%;
+    border: 4px solid red
+}   
+#sideBarBtn{
+    position: absolute;
+    display: block;
+    color: black;
+    font-size: 3rem;
+    bottom: 0;
+}
+.page-wrapper > .side-bar > .side-bar-ul-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-top: 100%;
+    justify-content: center;
+    /* Keep it inside the sidebar */
+    width: 100%;
+    box-sizing: border-box;
+    
+    /* Use padding instead of margin to avoid overflow */
+    padding-left: 5%;
+    margin-top: auto;
+    
+    border: 5px solid green;
+}
+.side-bar-ul-container > ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.side-bar-ul-container > ul> li {
+}
+.side-bar-ul-container > ul> li > a{
+    text-decoration: none;
+}
+.side-bar-ul-container > ul> li > ul {
+    margin-left: 10%;
+    list-style: none;
+     display: flex;
+     flex-direction: column;
+     gap: .5rem;
+}

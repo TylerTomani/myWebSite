@@ -1,0 +1,18 @@
+.page-wrapper > .main-content {
+    flex-grow: 1;
+    width: calc(100% - var(--width-sidebar)) 
+    /* or if needed */ 
+    /* width: auto; */
+}
+.main-content > nav,
+.main-content > header {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+.main-content > header h2{
+    position: absolute;
+    left: 0;
+    margin-top: 1%;
+    margin-left: 2%;
+}
