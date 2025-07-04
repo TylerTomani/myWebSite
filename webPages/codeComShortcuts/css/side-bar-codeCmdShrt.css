@@ -52,7 +52,7 @@
     height: 100%;
 }   
 #sideBarBtn{
-    position: absolute;
+    position: fixed;
     display: block;
     color: black;
     font-size: 3rem;
