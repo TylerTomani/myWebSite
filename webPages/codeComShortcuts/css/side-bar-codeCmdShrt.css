@@ -32,7 +32,6 @@
     border: 1px solid blue;
     justify-content: flex-start;
     align-items: flex-start;
-    border: 4px solid red;
     width: 100%;
 }
 .page-wrapper > .side-bar > header > .page-links-container {
@@ -82,26 +81,30 @@
     display: inline-block;
     position: relative;
     text-decoration: none;
-    
+
     color: black;
-    padding: 10% 10%;
+    /* padding: 10% 10%; */
     width: 90%;
+    width: fit-content;
     
 }
 
 .side-bar-ul-container > ul> li > a:active,
 .side-bar-ul-container > ul> li > a:focus{
-    background-color: rgba(216, 213, 21, 0.5);
-    background-color: lightblue;
-    color: white;
+    /* background-color: lightblue; */
     font-weight: 999;
-    margin-left:7%;
+    margin-left:3%;
     transition: all 200ms;
-    color: blue;
+    /* color: blue; */
+    color: black;
+    text-shadow: 1px 1px 1px whitesmoke;
+    border: 1px solid black !important;
+    border: none;
+    font-style: bold;
 }
 
 .side-bar-ul-container > ul> li > a > sub{
-    display: inline-block;
+    /* display: inline-block; */
     padding-bottom: 10%;
     transform: translate(0,-20%);
     /* border: 2px solid black; */
@@ -110,10 +113,26 @@
 .side-bar-ul-container > ul> li > ul {
     /* margin-left: 10%; */
     list-style: none;
-    display: flex;
-    flex-direction: column;
-     gap: .5rem;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* gap: 0; */
+    /* line-height: 0px; */
+    margin-bottom: 50%;
+    /* border: 2px solid yellow; */
 }
+.side-bar-ul-container > ul> li > ul {
+    font-size: 86%;
+    
+}
+.side-bar-ul-container > ul> li > ul > li{
+    /* margin: 10% 0; */
+}
+.side-bar-ul-container ul li ul li a{
+        /* font-size: 2rem; */
+        text-decoration: none;
+        margin-left: 10%;
+        color: blue;
+    }
 @media screen and (min-width: 1250px) {
     .page-wrapper > .side-bar > .side-bar-ul-container {
         margin-top: 100%;
@@ -135,10 +154,11 @@
         margin-top: 75%;
     }
     .page-wrapper > .side-bar > .side-bar-ul-container > ul{
-        line-height: 0;
+        
     }
     .page-wrapper > .side-bar > .side-bar-ul-container > ul > li > ul{
         line-height: 20px;
+
     }
 }
 @media screen and (min-width:1770px) {
@@ -148,5 +168,24 @@
     }
     .side-bar-ul-container ul li a {
         font-size: 2rem;
+    }
+}
+@media screen and (max-width:520px) {
+    
+    .page-wrapper > .side-bar > .side-bar-ul-container {
+        margin-top: 60%;
+    }
+    .side-bar-ul-container,
+    .side-bar-ul-container ul {
+        margin-left: 0;
+    }
+    .side-bar-ul-container ul li a {
+        /* font-size: 2rem; */
+        margin-left: 0;
+    }
+    
+    :root {
+    --width-sidebar: 22vw;
+    --width-sidebar-collapsed: 20vw;
     }
 }

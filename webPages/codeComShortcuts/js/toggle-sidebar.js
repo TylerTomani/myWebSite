@@ -3,6 +3,7 @@ const sideBarBtn = document.querySelector('#sideBarBtn')
 
 function toggleSidebar(e) {
     e.preventDefault()
+    // if(innerWidth > )
     sideBar.classList.toggle('collapsed')
 }
 
