@@ -25,11 +25,12 @@
     flex-direction: column;
     border: 1px solid blue;
     justify-content: flex-start;
+    border: 4px solid red;
+    width: 100%;
 }
 .page-wrapper > .side-bar > header img {
     width: 100%;
     height: 100%;
-    border: 4px solid red
 }   
 #sideBarBtn{
     position: absolute;
@@ -43,8 +44,7 @@
     display: flex;
     flex-direction: column;
     /* flex-grow: 1; */
-    margin-top: 80%;
-    margin-left: 10%;
+    margin-top: 150%;
     /* justify-content: center; */
     /* Keep it inside the sidebar */
     width: 100%;
@@ -60,34 +60,7 @@
 }
 .side-bar-ul-container > ul> li > a{
     text-decoration: none;
-}
-.side-bar-ul-container > ul> li > ul {
-    margin-left: 10%;
-    list-style: none;
-     display: flex;
-     flex-direction: column;
-     gap: .5rem;
-}
-.page-wrapper > .side-bar > .side-bar-ul-container {
-    display: flex;
-    flex-direction: column;
-    /* flex-grow: 1; */
-    margin-top: 80%;
-    /* justify-content: center; */
-    /* Keep it inside the sidebar */
-    width: 100%;
-}
-.side-bar-ul-container > ul {
-    margin-left: 5%;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-.side-bar-ul-container > ul> li {
-}
-.side-bar-ul-container > ul> li > a{
-    text-decoration: none;
+    font-size: 1.2rem;
 }
 .side-bar-ul-container > ul> li > ul {
     margin-left: 10%;

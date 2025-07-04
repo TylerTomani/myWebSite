@@ -19,6 +19,7 @@ export function letterFocus() {
     // Find the closest next/prev match relative to current position
     let target;
 
+    
     if (e.shiftKey) {
       // Go backward through DOM order
       for (let i = allEls.length - 1; i >= 0; i--) {
