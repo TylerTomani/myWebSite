@@ -1,3 +1,4 @@
+
 .main-content > header{
     background: linear-gradient(300deg,
   #a0b1cc 0%,       /* Deepest night/navy */
@@ -25,4 +26,7 @@
     left: 0;
     margin-top: 1%;
     margin-left: 2%;
+}
+.hide {
+    display: none;
 }

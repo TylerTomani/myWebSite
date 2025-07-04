@@ -5,18 +5,22 @@ function toggleSidebar(e) {
     e.preventDefault()
     sideBar.classList.toggle('collapsed')
 }
-
+sideBar.addEventListener('click', e => {
+    if(!e.target.tagName != 'ASIDE') return
+    toggleSidebar(e)
+})
 
 
 sideBarBtn.addEventListener('click', e => {
-    if(!e.target.tagName != 'ASIDE') return
+    
     hideSideBar()
 })
+
 sideBarBtn.addEventListener('keydown', e => {
     console.log(e.target)
-    if (e.key === 'Enter') toggleSidebar(e)
+    if (e.key === 'Enter') hideSideBar(e)
 })
 
-function hideSideBar(){
+function hideSideBar(e){
     sideBar.classList.toggle('hidden')
 }

@@ -67,6 +67,7 @@ body>header>.page-logo img {
 /* Main topics */
 main {
     /* background-color: var(--bg-prime); */
+    
     height: 100vh;
 }
 .topic {
@@ -77,6 +78,7 @@ main {
 }
 .topics-container {
     margin: 0 2%;
+    
 }
 
 .topic-snips {
@@ -103,9 +105,8 @@ main {
 
 }
 .code-cmd > p {
-    font-size: 80%;
+    font-size: 80%;   
 }
-
 .code-cmd > ul {
     font-size: 80%;
     align-self: center;
@@ -123,7 +124,7 @@ main {
 
 .code-container .copy-code {
     font-size: 0.74rem;
-    color: var(--bg-codeClr);
+    /* color: var(--bg-codeClr); */
     width: 100%;
     font-weight: 999;
     height: 100%;
