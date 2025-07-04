@@ -117,7 +117,7 @@
     /* flex-direction: column; */
     /* gap: 0; */
     /* line-height: 0px; */
-    margin-bottom: 50%;
+    /* margin-bottom: 50%; */
     /* border: 2px solid yellow; */
 }
 .side-bar-ul-container > ul> li > ul {
@@ -191,6 +191,6 @@
     --width-sidebar-collapsed: 20vw;
     }
     #sideBarBtn{
-        bottom: 6%;
+        bottom: 8%;
     }    
 }

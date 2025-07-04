@@ -7,15 +7,16 @@ let loaded = false;
 sideBarTopicsAs.forEach(a => {
     if (!loaded && a.hasAttribute('autofocus')) {
         injectPage(a.href)
-    loaded = true
+        loaded = true
     }
     a.addEventListener('click', e => {
         e.preventDefault()
         e.stopPropagation()
-        injectPage(e.target.href)
+ const link = e.currentTarget // Always the <a>, even on mobile
+        injectPage(link.href)
+
         const innerPageTitle = document.querySelector('.main-content-title')
-        console.log(innerPageTitle)
-        innerPageTitle.innerHTML = e.target.innerHTML
+        innerPageTitle.innerHTML = link.innerHTML
     })
 })
 if (!loaded) injectPage(homeHref)
