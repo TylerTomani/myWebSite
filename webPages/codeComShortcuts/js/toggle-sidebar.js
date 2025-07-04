@@ -8,7 +8,10 @@ function toggleSidebar(e) {
 
 
 
-sideBarBtn.addEventListener('click', hideSideBar)
+sideBarBtn.addEventListener('click', e => {
+    if(!e.target.tagName != 'ASIDE') return
+    hideSideBar()
+})
 sideBarBtn.addEventListener('keydown', e => {
     console.log(e.target)
     if (e.key === 'Enter') toggleSidebar(e)
