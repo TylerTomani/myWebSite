@@ -151,3 +151,25 @@ ul .mcy,
 .code-cmd p .mcy{color: rgb(82, 142, 142);}
 ul .y,
 .code-cmd p .y{color: rgb(159, 165, 82);}
+
+
+.snip {
+    font-size: 120%;
+}
+.snip .code-container .copy-code {
+    font-size: 1.01rem;
+}
+@media screen and (max-width: 420px){
+    .snip {
+        font-size: 90%;
+    }
+    
+    .snip .code-container {
+        padding-top: 0;
+    }
+    .snip .code-container .copy-code {
+        margin: 0;
+        font-size: .7rem;
+    }
+
+}

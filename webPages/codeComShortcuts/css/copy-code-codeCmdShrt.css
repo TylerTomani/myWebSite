@@ -13,7 +13,7 @@
 
 .copied {
     position: relative;
-    /* position: absolute; */
+    position: absolute;
     z-index: 50;
     border: 1px solid whitesmoke;
     box-shadow: 0 0 3px 2px lightskyblue;

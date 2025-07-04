@@ -89,8 +89,8 @@
     
 }
 
-.side-bar-ul-container > ul> li > a:active,
-.side-bar-ul-container > ul> li > a:focus{
+.side-bar  a:active,
+.side-bar  a:focus{
     /* background-color: lightblue; */
     font-weight: 999;
     margin-left:3%;

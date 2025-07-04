@@ -1,0 +1,16 @@
+
+.side-bar {
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+}
+
+.side-bar.hidden {
+  transform: translateX(-100%) !important;
+  opacity: 0;
+  /* transition:  ease-out opacity 2000ms; */
+}
+
+.side-bar.hidden ~ .main-content{
+    flex-basis: 100% !important;
+    width: 100% !important;
+}

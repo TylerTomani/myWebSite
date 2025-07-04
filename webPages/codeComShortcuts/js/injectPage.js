@@ -1,4 +1,4 @@
-import { letterFocus } from "../../../js/letter-focus-perfect.JS"
+import { letterFocus } from "./letter-focus-codeCmdShorts.js";
 const sideBarTopicsAs = document.querySelectorAll('.side-bar-topics a')
 const mainLandingPage = document.querySelector('#mainLandingPage')
 const homeHref = './home-codeCmdShrt.html'
