@@ -12,7 +12,7 @@ sideBarTopicsAs.forEach(a => {
     a.addEventListener('click', e => {
         e.preventDefault()
         e.stopPropagation()
- const link = e.currentTarget // Always the <a>, even on mobile
+        const link = e.currentTarget // Always the <a>, even on mobile
         injectPage(link.href)
 
         const innerPageTitle = document.querySelector('.main-content-title')
