@@ -1,3 +1,7 @@
+.side-bar.hidden ~ .main-content{
+    /* flex-basis: 100% !important;
+    width: 100% !important; */
+}
 
 .side-bar {
   transition: transform 0.3s ease;
@@ -7,7 +11,11 @@
 .side-bar.hidden {
   transform: translateX(-100%) !important;
   opacity: 0;
-  /* transition:  ease-out opacity 2000ms; */
+  display: none;
+  transition:  ease-out opacity 2000ms;
+}
+.side-bar.hidden #sideBarBtn {
+  display: none;
 }
 
 .side-bar.hidden ~ .main-content{

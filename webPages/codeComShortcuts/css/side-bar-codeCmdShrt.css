@@ -56,16 +56,22 @@
     color: black;
     font-size: 3rem;
     bottom: 2%;
-    left: 5%;
+    left: 2%;
+    z-index: 1
 }
+
 .page-wrapper > .side-bar > .side-bar-ul-container {
     /* padding-left: 3%; */
     display: flex;
     flex-direction: column;
-    margin-top: 180%;
+    margin-top: 140%;
     /* flex-grow: 1; */
     /* Keep it inside the sidebar */
     width: 100%;
+}
+.page-wrapper > .side-bar.collapsed > .side-bar-ul-container {
+    margin-top: 180%;
+    
 }
 .side-bar-ul-container > ul {
     margin-left: 5%;

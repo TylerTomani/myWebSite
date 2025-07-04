@@ -13,7 +13,7 @@ document.addEventListener('touchend', (e) => {
 
    if (swipeDistance < -50 && !sidebar.classList.contains('hidden')) {
     //  if(sideBar.classList.contains('active')){
-    //    sidebar.classList.toggle('active')
+      //  sidebar.classList.toggle('active')
     //   }
       sidebar.classList.toggle('hidden');
   }
