@@ -1,5 +1,10 @@
-body{
-    /* background-color: rgb(109, 104, 79); */
+.main-content > header{
+    background: linear-gradient(300deg,
+  #a0b1cc 0%,       /* Deepest night/navy */
+  #616992 85%,      /* Smoky dark gray-blue */
+  #746b58 98%,      /* 2% calm muted purple-magenta */
+  #e9d8b4 100%      /* Soft beige star-glow hint */
+);
 }
 .page-wrapper > .main-content {
     flex-grow: 1;
