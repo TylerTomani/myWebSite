@@ -183,7 +183,9 @@
         /* font-size: 2rem; */
         margin-left: 0;
     }
-    
+    h1{
+        font-size: 50%;
+    }    
     :root {
     --width-sidebar: 22vw;
     --width-sidebar-collapsed: 20vw;

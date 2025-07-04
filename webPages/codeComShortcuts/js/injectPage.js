@@ -13,6 +13,9 @@ sideBarTopicsAs.forEach(a => {
         e.preventDefault()
         e.stopPropagation()
         injectPage(e.target.href)
+        const innerPageTitle = document.querySelector('.main-content-title')
+        console.log(innerPageTitle)
+        innerPageTitle.innerHTML = e.target.innerHTML
     })
 })
 if (!loaded) injectPage(homeHref)
