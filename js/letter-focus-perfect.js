@@ -1,55 +1,52 @@
-export function letterFocus(){
-    document.addEventListener('keydown', function (e) {
+export function letterFocus() {
+  document.addEventListener('keydown', function (e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
     const key = e.key.toLowerCase();
-    if (key.length !== 1 || !/^[a-z0-9]$/.test(key)) return;
+    if (!/^[a-z0-9]$/.test(key)) return;
 
-    const allEls = [...document.querySelectorAll('a')].filter(a => {
-        const rect = a.getBoundingClientRect();
-        return a.offsetParent !== null && rect.width > 0 && rect.height > 0;
+    const allEls = [...document.querySelectorAll('[id]')].filter(el => {
+      const rect = el.getBoundingClientRect();
+      return el.offsetParent !== null && rect.width > 0 && rect.height > 0;
     });
 
-    const letteredELs = allEls.filter(a => {
-        const text = a.textContent.trim().toLowerCase();
-        console.log(a)
-        return text.startsWith(key);
-    });
-
-    if (letteredELs.length === 0) return;
+    const matchingEls = allEls.filter(el => el.id.toLowerCase().startsWith(key));
+    if (matchingEls.length === 0) return;
 
     const active = document.activeElement;
-    const iActiveA = [...allEls].indexOf(active);
-    const currentIndexInFiltered = letteredELs.indexOf(active);
+    const activeIndex = allEls.indexOf(active);
 
-    if (key !== window.lastLetterPressed) {
-        // New letter pressed
-        let iLetter;
-        if (e.shiftKey) {
-            // Shift + new letter = move UP from current position
-            const prev = [...letteredELs].reverse().find(a => allEls.indexOf(a) < iActiveA);
-            iLetter = letteredELs.indexOf(prev);
-            if (iLetter === -1) iLetter = letteredELs.length - 1;
-        } else {
-            // New letter = move DOWN from current position
-            const next = letteredELs.find(a => allEls.indexOf(a) > iActiveA);
-            iLetter = letteredELs.indexOf(next);
-            if (iLetter === -1) iLetter = 0;
+    // Find the closest next/prev match relative to current position
+    let target;
+
+    if (e.shiftKey) {
+      // Go backward through DOM order
+      for (let i = allEls.length - 1; i >= 0; i--) {
+        if (
+          allEls[i].id.toLowerCase().startsWith(key) &&
+          allEls.indexOf(allEls[i]) < activeIndex
+        ) {
+          target = allEls[i];
+          break;
         }
-
-        letteredELs[iLetter]?.focus();
+      }
+      // Wrap to last match if none before
+      if (!target) target = matchingEls[matchingEls.length - 1];
     } else {
-        // Same letter as last key press
-        let iLetter;
-        if (e.shiftKey) {
-            iLetter = (currentIndexInFiltered - 1 + letteredELs.length) % letteredELs.length;
-        } else {
-            iLetter = (currentIndexInFiltered + 1) % letteredELs.length;
+      // Go forward through DOM order
+      for (let i = 0; i < allEls.length; i++) {
+        if (
+          allEls[i].id.toLowerCase().startsWith(key) &&
+          allEls.indexOf(allEls[i]) > activeIndex
+        ) {
+          target = allEls[i];
+          break;
         }
-        letteredELs[iLetter]?.focus();
+      }
+      // Wrap to first match if none after
+      if (!target) target = matchingEls[0];
     }
 
-    window.lastLetterPressed = key;
-});
-
+    target?.focus();
+  });
 }

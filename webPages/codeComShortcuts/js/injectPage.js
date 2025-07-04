@@ -1,24 +1,23 @@
-import { letterFocus } from "../../../js/letter-focus-perfect.js"
+import { letterFocus } from "../../../js/letter-focus-perfect.JS"
 const sideBarTopicsAs = document.querySelectorAll('.side-bar-topics a')
 const mainLandingPage = document.querySelector('#mainLandingPage')
 const homeHref = './home-codeCmdShrt.html'
-sideBarTopicsAs.forEach(el => {
-    if(el.hasAttribute('autofocus')){
-        injectPage(el.href)
-        console.log(el.href)
-    } else {
-        injectPage(homeHref)
+let loaded = false;
 
+sideBarTopicsAs.forEach(a => {
+    if (!loaded && a.hasAttribute('autofocus')) {
+        injectPage(a.href)
+    loaded = true
     }
-    el.addEventListener('click', e => {
+    a.addEventListener('click', e => {
         e.preventDefault()
-        e.stopPropagation()
-        console.log(e.target)
         injectPage(e.target.href)
-    });
+    })
 })
+if (!loaded) injectPage(homeHref)
 
 function injectPage(href){
+    console.log(href)
     fetch(href)
     .then(response => {
         return response.text()
