@@ -190,4 +190,7 @@
     --width-sidebar: 22vw;
     --width-sidebar-collapsed: 20vw;
     }
+    #sideBarBtn{
+    bottom: 5%;
+    }
 }
