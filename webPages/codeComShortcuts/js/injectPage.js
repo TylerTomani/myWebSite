@@ -11,6 +11,7 @@ sideBarTopicsAs.forEach(a => {
     }
     a.addEventListener('click', e => {
         e.preventDefault()
+        e.stopPropagation()
         injectPage(e.target.href)
     })
 })
