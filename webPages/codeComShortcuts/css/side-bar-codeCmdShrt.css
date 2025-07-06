@@ -52,11 +52,11 @@
     height: 100%;
 }   
 #sideBarBtn{
-    position: fixed;
+    position:fixed;
     display: block;
     color: black;
     font-size: 3rem;
-    bottom: 2%;
+    bottom: 4%;
     left: 2%;
     z-index: 1
 }

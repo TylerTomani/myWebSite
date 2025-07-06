@@ -53,3 +53,4 @@ export function letterFocus() {
     window.lastPressedKey = key
   });
 }
+// letterFocus()
