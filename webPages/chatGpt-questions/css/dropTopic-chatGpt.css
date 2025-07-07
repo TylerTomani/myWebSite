@@ -56,7 +56,8 @@
 }
 
 .question-txt >.text-base>.whitespace-pre-wrap> .copy-code {
-    white-space: normal;
+    /* white-space: none; */
+    text-indent: 0;
     /* width: 100%; */
     /* padding: 1% 2%; */
     /* text-wrap: wrap; */

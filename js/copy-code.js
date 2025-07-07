@@ -36,8 +36,15 @@ function animate(e){
         el.classList.remove('copied')
         el.classList.add('decopied')
     },250)
-    let txt = e.target.innerText
-    copyToClip(txt)
+    if(e.target.tagName == 'TEXTAREA'){
+        let txt = e.target.value
+        copyToClip(txt)
+
+    } else {
+        let txt = e.target.innerText
+        copyToClip(txt)
+    }
+    
 }
 function copyToClip(txt){ 
     async function copyTextToClipboard(text) {
