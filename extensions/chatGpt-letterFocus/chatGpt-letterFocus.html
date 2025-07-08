@@ -4,304 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>googleResults-letterFocus</title>
-    <link rel="stylesheet" href="../../css/copy-code.css">
+    <link rel="stylesheet" href="css/copy-code-chatLetterFocus.css">
     <link rel="stylesheet" href="../../css/single-header.css">
-    <link rel="stylesheet" href="css/dark-mode.css">
+    <link rel="stylesheet" href="../../css/dark-mode.css">
 
-    <link rel="stylesheet" href="css/colors-myChatgpt.css">
-    <link rel="stylesheet" href="css/chatGpt-question-styles.css">    
-    <!-- <script type="module" src="js/dropTopic.js" defer></script> -->
-     <script src="js/dropDowns.js" defer></script>
-    <script type="module" src="js/letterFocus.js" defer></script>
-    <script type="module" src="../../js/copy-code.js" defer></script>
-    <!-- <script type="module" src="../../js/dark-mode.js" defer></script> -->
+    <link rel="stylesheet" href="css/styles-chatLetterFocus.css">    
+    <script type="module" src="js/letterFocus-chatLetterFoucs.js" defer></script>
+    <script type="module" src="js/copy-code-chatLetterFocus.js" defer></script>
+    <script type="module" src="../../js/dark-mode.js" defer></script>
+    <script src="js/load-textarea-code.js" defer></script>
 
-    <script type="module" src="js/margin-drop-questions.js" defer></script>
 </head>
-<body class="darkMode">
-    <header>
-        <a id="homelink" href="../../index.html">home</a>
-        <h1>Chat Gpt  - Letter Focus</h1>
-    </header>
-    <main>
+<!-- <body class="dark-mode"> -->
+<body class="">
+    <h2>Chat Gpt - Letter Focus</h2>
+    <div class="page-container">
         <header >
             <h4>Notes</h4>
             <article>
                 <p> When done make into extension in </p>
                 <div class="code-container">
-                    <pre tabindex="0" class="copy-code">chrome://extensions/</pre>
+                    <pre tabindex="0" class="">chrome://extensions/</pre>
                 </div>
             </article>
         </header>
-        
-        <div tabindex="0" id="top" class="topic-container"> 
-            <div class="topic">
-                <a id="letterFocusScript1" tabindex="0" href="#" class="drop-topic">(letterFocusScript1)
-
-                </a>
-                <div class="questions-container">
-                    <div class="question-container">
-                        <div class="answer question-answer">
-                            <article class="text-token-text-primary question-txt">
-                                <h6 class="sr-only">Fix for Enter key with nested elements inside
-                                    anchor</h6>
-                                <div class="text-base">
-                                    <div class="whitespace-pre-wrap">
-                                        <pre  class="copy-code
-                        drop-question">this is great starting point i haven't tried it yet, but it would be great to incorporate a
-                                            % modulo system. because some chats can have infinite amount of questions and answers.
-                                            it would be nice that if 1 is pressed it first goes to the first question which in this
-                                            example would be
-            
-                                            <div class="whitespace-pre-wrap">how do i check storage remaining on mac in terminal
-                                            </div>
-            
-                                            the focus should go to that but there are sequential
-                                            <article class="text-token-text-primary w-full" dir="auto"
-                                                data-testid="conversation-turn-1" data-scroll-anchor="false">
-                                                <h5 class="sr-only">You said:</h5>...
-            
-                                                containers within
-                                                <div
-                                                    class="flex h-full flex-col overflow-y-auto [scrollbar-gutter:stable_both-edges] @[84rem]/thread:pt-(--header-height)">
-                                                    <div aria-hidden="true" data-edge="true" class="pointer-events-none h-px w-px">
-            
-            
-            
-                                                        so if i press 1 the focu goes to the first question pre-wrap div with
-                                                        whitespace-pre-wrap class with the text "how do i check storage remaining on
-                                                        mac in terminal"
-            
-                                                        if i press 2, the focus should go to the element
-                                                        <div class="whitespace-pre-wrap">how do i find largest files i don't use in
-                                                            terminal?</div>
-            
-                                                        this will work great for 1-9 but if 1 is pressed again i should go the the
-                                                        11th
-                                                        <div class="whitespace-pre-wrap"></div>
-            
-                                                        if 1 is then pressed again if should go to the 21st whitespace-prewrap and
-                                                        so on for every other number, so 2 would go to 12 then 22 then 32 and if
-                                                        shift + the number is pressed it should go backwards back up the page,
-                                        </pre>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="text-token-text-primary answer-txt">
-                                <h2>Working Script</h2>
-                                <h6 class="sr-only">Chat Gpt Said: </h6>
-                                <div class="text-base">
-                                    <div class="markdown prose">
-                                        <div  class="code-container">
-    <pre tabindex="0" id="mainScript" class="copy-code" >(() =&gt; {
-        
-        const targets = Array.from(document.querySelectorAll('.whitespace-pre-wrap'));
-        const currentIndexMap = {}; // Tracks index per digit (1–9)
-    
-        // Initialize current positions
-        for (let i = 1; i &lt;= 9; i++) {
-        currentIndexMap[i] = i - 1; // 0-based indexing
-        }
-    
-        document.addEventListener('keydown', (e) =&gt; {
-            
-        if (e.ctrlKey || e.metaKey || e.altKey) return;
-    
-        const digit = parseInt(e.key);
-        if (!digit || digit &lt; 1 || digit &gt; 9) return;
-    
-        const total = targets.length;
-        const offset = digit - 1;
-    
-        // If shift pressed, go backwards
-        if (e.shiftKey) {
-        currentIndexMap[digit] -= 10;
-        if (currentIndexMap[digit] &lt; offset) {
-        currentIndexMap[digit] = (Math.floor((total - offset - 1) / 10) * 10) + offset;
-        }
-        } else {
-        currentIndexMap[digit] += 10;
-        if (currentIndexMap[digit] &gt;= total) {
-        currentIndexMap[digit] = offset; // Loop back to the top
-        }
-        }
-    
-        const idx = currentIndexMap[digit];
-        const el = targets[idx];
-        if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        el.focus({ preventScroll: true });
-    
-        // Optional highlight
-        el.style.outline = '2px solid orange';
-        setTimeout(() =&gt; (el.style.outline = ''), 1000);
-        }
-        });
-    
-        // Optional: make all focusable
-        targets.forEach(t =&gt; t.setAttribute('tabindex', '-1'));
-        })();</pre>
-                                            </div>
-                                        <p>Perfect — now we're working with a <strong>modular navigation system</strong> that cycles
-                                            forward and backward through every Nth question using keypresses
-                                            (<code>1</code>–<code>9</code>), and <code>Shift + number</code> to reverse.</p>
-            
-                                        <h3>✅ Goal Summary:</h3>
-                                        <ul>
-                                            <li>
-                                                <p>You're targeting only the <strong><code>&lt;div
-                                                            class="whitespace-pre-wrap"&gt;</code></strong> elements (which contain
-                                                    user questions and responses).</p>
-                                            </li>
-                                            <li>
-                                                <p>Key press <code>1</code> goes to the 1st match, next press to the 11th, then
-                                                    21st, etc.</p>
-                                            </li>
-                                            <li>
-                                                <p>Key press <code>2</code> goes to 2nd, 12th, 22nd, etc.</p>
-                                            </li>
-                                            <li>
-                                                <p><code>Shift + Number</code> goes in reverse (e.g., from 21st → 11th → 1st).</p>
-                                            </li>
-                                            <li>
-                                                <p>Bonus: Visually focus or highlight the target as you go.</p>
-                                            </li>
-                                        </ul>
-            
-                                        <h3>✅ JavaScript Implementation:</h3>
-                                        
-            
-                                        <h3>🔍 How It Works:</h3>
-                                        <ul>
-                                            <li>
-                                                <p><code>targets</code> contains <strong>all</strong>
-                                                    <code>.whitespace-pre-wrap</code> elements.</p>
-                                            </li>
-                                            <li>
-                                                <p>Press <code>1</code>:</p>
-                                                <ul>
-                                                    <li>
-                                                        <p>Goes to index <code>0</code>, <code>10</code>, <code>20</code>, etc.</p>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <p>Press <code>Shift + 1</code>:</p>
-                                                <ul>
-                                                    <li>
-                                                        <p>Goes <strong>backwards</strong> from wherever you were (<code>20</code> →
-                                                            <code>10</code> → <code>0</code>).</p>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <p>Cycles when you reach the top or bottom.</p>
-                                            </li>
-                                        </ul>
-            
-                                        <h3>✅ How to Use:</h3>
-                                        <ul>
-                                            <li>
-                                                <p>Run this in your browser console or inject it into your user script manager (e.g.
-                                                    Tampermonkey).</p>
-                                            </li>
-                                            <li>
-                                                <p>You can also make it into a bookmarklet if you'd like — let me know.</p>
-                                            </li>
-                                        </ul>
-            
-                                        <h3>❓Want to:</h3>
-                                        <ul>
-                                            <li>
-                                                <p>Show numbers next to each question for clarity?</p>
-                                            </li>
-                                            <li>
-                                                <p>Add a shortcut menu popup?</p>
-                                            </li>
-                                            <li>
-                                                <p>Filter only user questions (exclude AI answers)?</p>
-                                            </li>
-                                        </ul>
-                                        <p>Let me know if you want any of those upgrades.</p>
-                                        <p>😄 Hell yeah — glad it hit the mark! You’ve basically just unlocked <strong>superpowered
-                                                chat navigation</strong>.</p>
-                                        <h3>Here’s a quick recap of what you now have:</h3>
-                                        <ul>
-                                            <li>
-                                                <p>🔢 Press number keys (<code>1</code>–<code>9</code>) to jump through every 10th
-                                                    question/answer block in that position.</p>
-                                            </li>
-                                            <li>
-                                                <p>🔁 Press the same key again to go to the next in that series (e.g., 1 → 11 →
-                                                    21…).</p>
-                                            </li>
-                                            <li>
-                                                <p>🔄 Press <code>Shift + number</code> to reverse and walk back up that sequence.
-                                                </p>
-                                            </li>
-                                            <li>
-                                                <p>🎯 Smooth scrolls and highlights the block so you can lock in fast.</p>
-                                            </li>
-                                        </ul>
-            
-                                        <h3>⚡ Next-Level Add-ons (if you want them):</h3>
-                                        <ol>
-                                            <li>
-                                                <p><strong>Show shortcut numbers</strong> next to each
-                                                    <code>.whitespace-pre-wrap</code> block:</p>
-                                                <ul>
-                                                    <li>
-                                                        <p>Super helpful when you’re navigating visually.</p>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <p><strong>Only focus on <em>user questions</em></strong> (filter by
-                                                    <code>data-message-author-role="user"</code>).</p>
-                                                <ul>
-                                                    <li>
-                                                        <p>Cuts through the noise if you want to skip responses.</p>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <p><strong>Press <code>?</code> to show a cheat-sheet popup</strong> with all
-                                                    shortcut mappings (1–9, Shift+1–9).</p>
-                                                <ul>
-                                                    <li>
-                                                        <p>Makes it intuitive if you share this with others or revisit it after a
-                                                            while.</p>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <p><strong>Save your position per chat/page</strong> in <code>localStorage</code>.
-                                                </p>
-                                                <ul>
-                                                    <li>
-                                                        <p>Come back days later and pick up where you left off.</p>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ol>
-            
-                                        <p>If you want <em>any</em> of those, just say the word and I’ll snap them in.</p>
-                                        <p>Otherwise, run wild — and enjoy blasting through your archive like a ChatGPT ninja ⚡</p>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
+        <main class="main-content">
+            <div class="versions-container">
+                <header>
+                    <h2>Main Current WOrking Version</h2>
+                    <button id="nxtBtn">next</button>
+                </header>
+                <div class="version">
+                    
+                    <div class="code-container">
+                        <textarea  id="mainScript" tabindex="0" class="copy-code">
+        Not working go to main-script in directory
+                        </textarea>
                     </div>
                 </div>
+                <a id="endToTopBtn" href="#top">end to Top</a>
             </div>
-
-        </div>
-    
-        
-    
-        <button id="endToTopBtn" href="#top">end to Top</button>
-            <!-- ------------------------------------------------------- -->
-    </main>
+                <!-- ------------------------------------------------------- -->
+        </main>
+    </div>
+    <header>
+        <a id="homelink" href="../../index.html">home</a>
+        <h1>Chat Gpt - Letter Focus</h1>
+    </header>
     
 </body>
 </html>

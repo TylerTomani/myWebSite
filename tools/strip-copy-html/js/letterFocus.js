@@ -4,8 +4,9 @@ addEventListener('keydown', e => {
     let key = e.key.toLowerCase()
     if(key === 'm'){
         console.log(mainScript)
-        e.preventDefault()
-        
+        // if(!mainScript.){
+            // mainScript.setAttribute('tabindex','0')
+        // }
         mainScript.focus()
     }
     if(key === 'h'){

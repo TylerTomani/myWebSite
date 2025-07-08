@@ -3,34 +3,34 @@
     --font-primary: whitesmoke;
 }
 
-.darkMode {
+.dark-mode {
     background-color: var(--bg-primary);
     color: var(--font-primary)
 }
 
-.darkMode h3,.darkMode #due_date_label{
+.dark-mode h3,.dark-mode #due_date_label{
     color: var(--font-primary) !important;
 
 }
-.darkMode nav#nav-section-lesson-titles {
+.dark-mode nav#nav-section-lesson-titles {
     background-color: var(--bg-primary)
 }
 
-.darkMode a {
+.dark-mode a {
     color: white;
 }
 
-.darkMode,
-h4 .darkMode p {
+.dark-mode,
+h4 .dark-mode p {
     color: whitesmoke;
 }
 
-.darkMode #nav-section-lesson-titles {
+.dark-mode #nav-section-lesson-titles {
     border-top: 1px solid whitesmoke;
     border-bottom: 1px solid whitesmoke;
 
 }
 
-.darkMode main>aside {
+.dark-mode main>aside {
     border-right: 1px solid whitesmoke;
 }

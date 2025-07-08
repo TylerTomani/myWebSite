@@ -1,5 +1,5 @@
 document.getElementById('stripCopyBtn').addEventListener('click', () => {
-    const htmlString = document.getElementById('htmlInput').value;
+    const htmlString = document.getElementById('mainScript').value;
     const resultHtml = document.querySelector('#resultHtml')
     if (!htmlString.trim()) {
         showMessage('Please paste some HTML first.', true);
