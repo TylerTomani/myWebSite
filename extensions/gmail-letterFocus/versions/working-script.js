@@ -1,10 +1,10 @@
-// draft - script
+// working - script
 (() => {
     // === [REUSABLE] State & Setup ===
     let navMode = false;
     let targets = [];
     const currentIndexMap = {};
-    for (let i = 0; i <= 9; i++) currentIndexMap[i] = -10 + i;
+    for (let i = 1; i <= 9; i++) currentIndexMap[i] = i - 1;
 
     // === [REUSABLE] Get navigable elements (targets) ===
     const getTargets = () =>
@@ -48,10 +48,9 @@
         if (navMode) {
             updateTargets();
             if (targets.length) {
-                const lastIndex = targets.length - 1;
-                scrollToTarget(lastIndex);
-                scrollStates.set(targets[lastIndex], 1);
-                showQuestionBanner(lastIndex + 1);
+                scrollToTarget(0);
+                scrollStates.set(targets[0], 1);
+                showQuestionBanner(1);
             }
             showPopup('Navigation mode ON');
         } else {
@@ -148,15 +147,10 @@
     function showQuestionBanner(number) {
         questionBanner.textContent = `Question #${number}`;
         questionBanner.style.opacity = 1;
-        // if (questionBannerTimeout) clearTimeout(questionBannerTimeout);
-        // questionBannerTimeout = setTimeout(() => {
-        //     questionBanner.style.opacity = 0;
-        // }, 2000);
-        function showQuestionBanner(number) {
-            questionBanner.textContent = `Question #${number}`;
-            questionBanner.style.opacity = 1;
-        }
-        
+        if (questionBannerTimeout) clearTimeout(questionBannerTimeout);
+        questionBannerTimeout = setTimeout(() => {
+            questionBanner.style.opacity = 0;
+        }, 2000);
     }
 
     // === [REUSABLE] MutationObserver to detect chat updates ===

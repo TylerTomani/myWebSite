@@ -1,4 +1,4 @@
-// draft - script
+// main - script - chatGpt-LetterFocus
 (() => {
     // === [REUSABLE] State & Setup ===
     let navMode = false;

@@ -2,7 +2,7 @@ export const nxtBtn = document.querySelector('#nxtBtn')
 const mainScript = document.querySelector('#mainScript')
 const versionTitle = document.querySelector('#versionTitle')
 
-const mainScriptJsFile = 'main-script-chat-letterFocus.js'
+const mainScriptJsFile = 'main-script.js'
 const draftScriptJsFile = 'versions/draft-script.js'
 const workingScript = 'versions/working-script.js'
 const filesArr = [mainScriptJsFile,draftScriptJsFile,workingScript]
@@ -11,7 +11,6 @@ let iFile = 0
 let filePath = filesArr[iFile]
 
 nxtBtn.addEventListener('click', e => {
-    e.preventDefault()
     changeScript()   
 })
 nxtBtn.addEventListener('keydown', e => {
@@ -20,34 +19,27 @@ nxtBtn.addEventListener('keydown', e => {
         changeScript()
     }
 })
-
 function changeScript(){
-    console.log(filesArr[iFile],iFile)
-    if(iFile > 0){
-        let r = Math.floor(Math.random() * 50)
-        let g = Math.floor(Math.random() * 50)
-        let b = Math.floor(Math.random() * 50)
-        mainScript.style.background = `rgb(${r},${g},${b},.5)`
-    }
     iFile = (iFile + 1) % filesArr.length
     loadTextAreaCode(filesArr[iFile])
-    switchTitleScript()
+    let r = Math.floor(Math.random() * 50)
+    let g = Math.floor(Math.random() * 50)
+    let b = Math.floor(Math.random() * 50)
+    // console.log(`rgb(${r},${g},${b},.5)`)
+    // mainScript.style.background = `rgb(${r},${g},${b},.5)`
+    // switchBackground(r,g,b)
     
 }
-function switchTitleScript(){
+function switchBackground(r,g,b){
     switch (iFile){
         case 0 :
-            versionTitle.innerHTML = 'draft'
+            mainScriptJsFile.style.background = `rgb(5,35,47,.5)`
             break
         case 1 :
-            versionTitle.innerText = 'main'
-            break
-        case 2 :
-            versionTitle.innerText = 'working backup'
+            mainScriptJsFile.style.background = `rgb(32,27,5,.5)`
             break
     }
 }
-switchTitleScript()
 function loadTextAreaCode(filePath){
     fetch(filePath)
     .then(response => response.text())
@@ -58,4 +50,4 @@ function loadTextAreaCode(filePath){
         console.log('failed ot load code', err)
     })
 }
-loadTextAreaCode(filesArr[iFile])
+loadTextAreaCode(draftScriptJsFile)
