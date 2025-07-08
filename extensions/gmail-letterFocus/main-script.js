@@ -2,8 +2,8 @@
 (() => {
     let navMode = false;
     let targets = [];
-    const currentIndexMap = {};
-    for (let i = 1; i <= 9; i++) currentIndexMap[i] = i - 1;
+    let lastKeyPressed = null;
+    let currentOffset = 0;
 
     const getTargets = () =>
         Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"] .whitespace-pre-wrap')).filter(Boolean);
@@ -25,33 +25,21 @@
         }
     }
 
-    function scrollToBottom() {
-        const chatContainer = document.querySelector('main');
-        if (chatContainer) {
-            chatContainer.scrollTo({
-                top: chatContainer.scrollHeight,
-                behavior: 'smooth',
-            });
-            showPopup('Scrolled to bottom');
-        }
-    }
-
     function toggleNavMode() {
         navMode = !navMode;
         console.log(`[NAV MODE] ${navMode ? 'Activated' : 'Deactivated'}`);
         if (navMode) {
             updateTargets();
             if (targets.length) {
-                scrollToTarget(0);
-                scrollStates.set(targets[0], 1);
-                showQuestionBanner(1);
+                const lastIndex = targets.length - 1;
+                scrollToTarget(lastIndex);
+                scrollStates.set(targets[lastIndex], 1);
+                showQuestionBanner(lastIndex + 1);
             }
             showPopup('Navigation mode ON');
         } else {
             const prompt = document.getElementById('prompt-textarea');
-            if (prompt) {
-                prompt.focus();
-            }
+            if (prompt) prompt.focus();
             showPopup('Navigation mode OFF');
         }
     }
@@ -82,135 +70,9 @@
         }, 2000);
     }
 
-    function togglePopup() {
-        let popup = document.getElementById('nav-help-popup-info');
-        if (popup) {
-            popup.remove();
-            return;
-        }
-
-        popup = document.createElement('div');
-        popup.id = 'nav-help-popup-info';
-        popup.style.position = 'fixed';
-        popup.style.bottom = '60px';
-        popup.style.right = '20px';
-        popup.style.padding = '15px 20px';
-        popup.style.background = 'rgba(0,0,0,0.9)';
-        popup.style.color = 'white';
-        popup.style.borderRadius = '8px';
-        popup.style.zIndex = 9999;
-        popup.style.fontFamily = 'Arial, sans-serif';
-        popup.style.fontSize = '14px';
-        popup.style.boxShadow = '0 0 15px rgba(0,0,0,0.7)';
-        popup.style.maxWidth = '280px';
-        popup.style.lineHeight = '1.4';
-        popup.style.userSelect = 'text';
-        popup.innerHTML = `
-        <strong>🔢 Navigation Shortcuts</strong><br><br>
-        Press <kbd>1</kbd>–<kbd>9</kbd>: Jump to every 10th .whitespace-pre-wrap<br>
-        Press <kbd>Shift + 1</kbd>–<kbd>Shift + 9</kbd>: Jump backward<br>
-        Press <kbd>?</kbd>: Toggle this help popup<br>
-        Press <kbd>Cmd/Ctrl + Shift + X</kbd>: Toggle Navigation Mode<br>
-        Press <kbd>E</kbd>: Scroll to bottom (when nav mode is ON)<br>
-        Press <kbd>Enter</kbd>: Cycle scroll position on focused question
-        `;
-        document.body.appendChild(popup);
-    }
-
     const scrollCycleOrder = ['start', 'center', 'end'];
     const scrollStates = new WeakMap();
 
-    document.addEventListener('keydown', (e) => {
-        const key = e.key.toLowerCase();
-
-        // Cmd/Ctrl + Shift + X toggles nav mode
-        if ((e.metaKey || e.ctrlKey) && e.shiftKey && key === 'x') {
-            e.preventDefault();
-            toggleNavMode();
-            return;
-        }
-
-        // Toggle help popup
-        if (key === '?') {
-            e.preventDefault();
-            togglePopup();
-            return;
-        }
-
-        // Do not interfere if nav mode is off
-        if (!navMode) return;
-
-        // Allow Tab
-        if (key === 'tab') return;
-
-        // Scroll to bottom
-        if (key === 'e') {
-            e.preventDefault();
-            if (!targets.length) updateTargets();
-            const lastIndex = targets.length - 1;
-            if (lastIndex >= 0) {
-                scrollToTarget(lastIndex);
-                scrollStates.set(targets[lastIndex], 1);
-                showPopup('Last question');
-                showQuestionBanner(lastIndex + 1);
-            }
-            return;
-        }
-
-        // Digit navigation
-        const digitMatch = e.code.match(/^Digit([1-9])$/);
-        if (digitMatch) {
-            const digit = parseInt(digitMatch[1]);
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (!targets.length) updateTargets();
-
-            const offset = digit - 1;
-            const total = targets.length;
-
-            if (e.shiftKey) {
-                currentIndexMap[digit] -= 10;
-                if (currentIndexMap[digit] < offset) {
-                    currentIndexMap[digit] = Math.floor((total - offset - 1) / 10) * 10 + offset;
-                }
-            } else {
-                currentIndexMap[digit] += 10;
-                if (currentIndexMap[digit] >= total) {
-                    currentIndexMap[digit] = offset;
-                }
-            }
-
-            scrollToTarget(currentIndexMap[digit]);
-            scrollStates.set(targets[currentIndexMap[digit]], 1);
-            showPopup(`Jumped to question #${currentIndexMap[digit] + 1}`);
-            showQuestionBanner(currentIndexMap[digit] + 1);
-            return;
-        }
-
-        // Cycle scroll position on Enter
-        if (key === 'enter') {
-            const active = document.activeElement;
-            if (targets.includes(active)) {
-                e.preventDefault();
-                e.stopPropagation();
-                const currentState = scrollStates.get(active) ?? 0;
-                const nextState = (currentState + 1) % scrollCycleOrder.length;
-                scrollStates.set(active, nextState);
-                active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
-            }
-        }
-
-        // Prevent typing in question boxes
-        if (/^[a-z0-9]$/i.test(key)) {
-            const active = document.activeElement;
-            if (active && active.classList.contains('whitespace-pre-wrap')) {
-                e.preventDefault();
-            }
-        }
-    }, true);
-
-    // Question banner setup
     const questionBanner = document.createElement('div');
     questionBanner.style.position = 'fixed';
     questionBanner.style.top = '40px';
@@ -230,22 +92,19 @@
     function showQuestionBanner(number) {
         questionBanner.textContent = `Question #${number}`;
         questionBanner.style.opacity = 1;
-        if (questionBannerTimeout) clearTimeout(questionBannerTimeout);
+        clearTimeout(questionBannerTimeout);
         questionBannerTimeout = setTimeout(() => {
             questionBanner.style.opacity = 0;
         }, 2000);
     }
 
-    // Auto-update targets on DOM change
     const observer = new MutationObserver((mutations) => {
         const hasNewTurns = mutations.some(m =>
             Array.from(m.addedNodes).some(n =>
                 n.nodeType === 1 && n.querySelector?.('.whitespace-pre-wrap')
             )
         );
-        if (hasNewTurns) {
-            updateTargets();
-        }
+        if (hasNewTurns) updateTargets();
     });
 
     const chatContainer = document.querySelector('main');
@@ -255,4 +114,99 @@
     } else {
         console.warn("Could not find chat container to observe.");
     }
+
+    document.addEventListener('keydown', (e) => {
+        const key = e.key.toLowerCase();
+
+        if ((e.metaKey || e.ctrlKey) && e.shiftKey && key === 'x') {
+            e.preventDefault();
+            toggleNavMode();
+            return;
+        }
+
+        if (key === '?') {
+            e.preventDefault();
+            togglePopup();
+            return;
+        }
+
+        if (!navMode) return;
+        if (key === 'tab') return;
+
+        if (key === 'e') {
+            e.preventDefault();
+            if (!targets.length) updateTargets();
+            const lastIndex = targets.length - 1;
+            if (lastIndex >= 0) {
+                scrollToTarget(lastIndex);
+                scrollStates.set(targets[lastIndex], 1);
+                showPopup('Last question');
+                showQuestionBanner(lastIndex + 1);
+            }
+            return;
+        }
+
+        const digitMatch = e.code.match(/^Digit([0-9])$/);
+        if (digitMatch) {
+            const digit = parseInt(digitMatch[1]);
+            e.preventDefault();
+            e.stopPropagation();
+            if (!targets.length) updateTargets();
+            const total = targets.length;
+
+            const positionInRange = digit === 0 ? 9 : digit - 1;
+
+            if (e.shiftKey) {
+                // SHIFT + digit: move back 10 items, cycling if needed
+                currentOffset -= 10;
+                if (currentOffset < 0) {
+                    // cycle to last block that has the digit position
+                    const maxOffset = Math.floor((total - 1 - positionInRange) / 10) * 10;
+                    currentOffset = Math.max(0, maxOffset);
+                }
+                lastKeyPressed = digit; // keep last key for consistency
+            } else if (lastKeyPressed === digit) {
+                // same digit pressed again → move forward 10 items, cycling if needed
+                currentOffset += 10;
+                // Wrap around to start if beyond total
+                if (currentOffset + positionInRange >= total) {
+                    currentOffset = 0;
+                }
+            } else {
+                // Different digit pressed → stay in current block, just move to that digit index
+                // Calculate current block start:
+                const blockStart = Math.floor(currentOffset / 10) * 10;
+                currentOffset = blockStart;
+                lastKeyPressed = digit;
+            }
+
+            let finalIndex = currentOffset + positionInRange;
+            if (finalIndex >= total) {
+                finalIndex = total - 1;
+            }
+
+            scrollToTarget(finalIndex);
+            scrollStates.set(targets[finalIndex], 1);
+            showPopup(`Jumped to question #${finalIndex + 1}`);
+            showQuestionBanner(finalIndex + 1);
+            return;
+        }
+
+        if (key === 'enter') {
+            const active = document.activeElement;
+            if (targets.includes(active)) {
+                e.preventDefault();
+                e.stopPropagation();
+                const currentState = scrollStates.get(active) ?? 0;
+                const nextState = (currentState + 1) % scrollCycleOrder.length;
+                scrollStates.set(active, nextState);
+                active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
+            }
+        }
+
+        if (/^[a-z0-9]$/i.test(key)) {
+            const active = document.activeElement;
+            if (active && active.classList.contains('whitespace-pre-wrap')) e.preventDefault();
+        }
+    }, true);
 })();
