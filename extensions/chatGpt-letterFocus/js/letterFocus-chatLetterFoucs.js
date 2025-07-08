@@ -2,7 +2,7 @@ const mainScript = document.querySelector('#mainScript')
 const homelink = document.querySelector('#homelink')
 const endToTopBtn = document.querySelector('#endToTopBtn')
 const copyCodes = document.querySelectorAll('.copy-code')
-const nxtBtn = document.querySelector('#nxtBtn')
+import { nxtBtn } from "./load-textarea-code.js"
 let focusedMainScript = false
 mainScript.addEventListener('focus', () =>{
     
@@ -11,16 +11,16 @@ mainScript.addEventListener('focus', () =>{
 mainScript.addEventListener('focusout', () =>{
     focusedMainScript = false
 })
+let elsArr = [nxtBtn, endToTopBtn, homelink]
+let iEl = 0
 addEventListener('keydown', e => {
     let key = e.key.toLowerCase()
     if((e.metaKey || e.ctrlKey) && e.shiftKey && e.key == 'x'){
         focusedMainScript = false
-        console.log(nxtBtn)
-        nxtBtn.focus()
-        scrollTo(0,0)
-
+        elsArr[iEl].focus()
+        
+        iEl = (iEl + 1) % elsArr.length
     }
-    console.log(focusedMainScript)
     if(focusedMainScript) return
     if (key === 'm') {
         e.preventDefault()
