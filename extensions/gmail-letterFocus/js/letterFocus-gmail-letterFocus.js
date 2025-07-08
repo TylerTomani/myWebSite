@@ -2,6 +2,8 @@ const mainScript = document.querySelector('#mainScript')
 const homelink = document.querySelector('#homelink')
 const endToTopBtn = document.querySelector('#endToTopBtn')
 const copyCodes = document.querySelectorAll('.copy-code')
+let iElCopyCodes = 0
+const elCopyCodes = document.querySelectorAll('.code-elements-container > .code-container .copy-code')
 import { nxtBtn } from "./load-textarea-code.js"
 let focusedMainScript = false
 mainScript.addEventListener('focus', () =>{
@@ -42,13 +44,16 @@ addEventListener('keydown', e => {
         }
         endToTopBtn.focus()
     }
-    // if(!isNaN(key)){
-    //     let intlet = parseInt(key)
-    //     copyCodes[intlet -1]?.focus()
-    // }
     if(!isNaN(key)){
         let intlet = parseInt(key)
         copyCodes[intlet - 1]?.focus()
+    }
+
+    if(key == 'c'){
+        console.log(elCopyCodes[iElCopyCodes])
+        elCopyCodes[iElCopyCodes].focus()
+        iElCopyCodes = (iElCopyCodes + 1) % elCopyCodes.length
+        
     }
 });
 
@@ -59,7 +64,4 @@ endToTopBtn.addEventListener('keydown', e => {
         endToTopBtn.click()
     }
 })
-
-copyCodes.forEach(el => {
-    el.addEventListener('focus', e =>{e.target.scrollIntoView({behavior:'smooth', block: 'start'})})
-})
+copyCodes.forEach(el => {el.addEventListener('focus', e =>{e.target.scrollIntoView({behavior:'smooth', block: 'start'})})})

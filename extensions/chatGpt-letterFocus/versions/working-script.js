@@ -1,10 +1,10 @@
-// working - script
+// draft - script
 (() => {
     // === [REUSABLE] State & Setup ===
     let navMode = false;
     let targets = [];
     const currentIndexMap = {};
-    for (let i = 1; i <= 9; i++) currentIndexMap[i] = i - 1;
+    for (let i = 0; i <= 9; i++) currentIndexMap[i] = null;
 
     // === [REUSABLE] Get navigable elements (targets) ===
     const getTargets = () =>
@@ -48,9 +48,10 @@
         if (navMode) {
             updateTargets();
             if (targets.length) {
-                scrollToTarget(0);
-                scrollStates.set(targets[0], 1);
-                showQuestionBanner(1);
+                const lastIndex = targets.length - 1;
+                scrollToTarget(lastIndex);
+                scrollStates.set(targets[lastIndex], 1);
+                showQuestionBanner(lastIndex + 1);
             }
             showPopup('Navigation mode ON');
         } else {
@@ -147,10 +148,15 @@
     function showQuestionBanner(number) {
         questionBanner.textContent = `Question #${number}`;
         questionBanner.style.opacity = 1;
-        if (questionBannerTimeout) clearTimeout(questionBannerTimeout);
-        questionBannerTimeout = setTimeout(() => {
-            questionBanner.style.opacity = 0;
-        }, 2000);
+        // if (questionBannerTimeout) clearTimeout(questionBannerTimeout);
+        // questionBannerTimeout = setTimeout(() => {
+        //     questionBanner.style.opacity = 0;
+        // }, 2000);
+        function showQuestionBanner(number) {
+            questionBanner.textContent = `Question #${number}`;
+            questionBanner.style.opacity = 1;
+        }
+
     }
 
     // === [REUSABLE] MutationObserver to detect chat updates ===
@@ -207,34 +213,40 @@
         }
 
         // Number key navigation with +/- 10 offset
-        const digitMatch = e.code.match(/^Digit([1-9])$/);
+        const digitMatch = e.code.match(/^Digit([0-9])$/);
         if (digitMatch) {
             const digit = parseInt(digitMatch[1]);
             e.preventDefault();
             e.stopPropagation();
             if (!targets.length) updateTargets();
-
-            const offset = digit - 1;
             const total = targets.length;
 
-            if (e.shiftKey) {
-                currentIndexMap[digit] -= 10;
-                if (currentIndexMap[digit] < offset) {
-                    currentIndexMap[digit] = Math.floor((total - offset - 1) / 10) * 10 + offset;
-                }
+            // Set base index for each digit (e.g., Digit1 = index 0, Digit2 = index 1, ..., Digit0 = index 10)
+            const baseIndex = digit === 0 ? 10 : digit - 1;
+
+            // First press? Set to base
+            if (currentIndexMap[digit] == null) {
+                currentIndexMap[digit] = baseIndex;
             } else {
-                currentIndexMap[digit] += 10;
+                currentIndexMap[digit] += e.shiftKey ? -10 : 10;
+
+                // Wrap or reset if out of bounds
+                if (currentIndexMap[digit] < baseIndex) {
+                    currentIndexMap[digit] = Math.floor((total - baseIndex - 1) / 10) * 10 + baseIndex;
+                }
                 if (currentIndexMap[digit] >= total) {
-                    currentIndexMap[digit] = offset;
+                    currentIndexMap[digit] = baseIndex;
                 }
             }
 
-            scrollToTarget(currentIndexMap[digit]);
-            scrollStates.set(targets[currentIndexMap[digit]], 1);
-            showPopup(`Jumped to question #${currentIndexMap[digit] + 1}`);
-            showQuestionBanner(currentIndexMap[digit] + 1);
+            const idx = currentIndexMap[digit];
+            scrollToTarget(idx);
+            scrollStates.set(targets[idx], 1);
+            showPopup(`Jumped to question #${idx + 1}`);
+            showQuestionBanner(idx + 1);
             return;
         }
+
 
         if (key === 'enter') {
             const active = document.activeElement;
@@ -255,4 +267,3 @@
         }
     }, true);
 })();
-  

@@ -40,3 +40,6 @@
 
 
 
+.code-elements-container textarea{
+    height: 50vh;
+}
