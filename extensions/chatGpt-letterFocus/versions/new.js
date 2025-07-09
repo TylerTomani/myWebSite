@@ -1,5 +1,6 @@
-// Draft Script
+// new Script
 (() => {
+    let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
     let targets = [];
     let lastKeyPressed = null;
@@ -196,14 +197,11 @@
             const active = document.activeElement;
             if (targets.includes(active)) {
                 e.preventDefault();
-                // const scrollCycleOrder = ['start','center', 'end'];
                 e.stopPropagation();
                 const currentState = scrollStates.get(active) ?? 0;
                 const nextState = (currentState + 1) % scrollCycleOrder.length;
-                // active.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
                 scrollStates.set(active, nextState);
-                console.log(scrollStates.get(active))
             }
         }
 
@@ -214,7 +212,7 @@
             }
         }
     }, true);
-    const scrollCycleOrder = ['start', 'center', 'end'];
+
     function scrollToTarget(index) {
         const el = targets[index];
         if (!el) return;
@@ -243,18 +241,22 @@
 
         if (parentRect.height > viewportHeight) {
             // Manual scroll to parent's top
-            // window.scrollTo({ top: scrollY, behavior: 'instant', block: 'start' });
+
 
             // Set scroll state to 0 (top) manually
             // scrollStates.set(el, 0);
 
             // Delay focus just slightly for scroll
-            // setTimeout(() => el.focus(), 200);
+            const scrollBlock = scrollStates.get(el) ?? 'start';
+            scrollCycleOrder = ['start', 'center', 'end'];
+            el.focus();
+            el.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[scrollBlock] || 'start' });
+            // window.scrollTo({ top: scrollY, behavior: 'instant', block: 'start' });
+            window.scrollTo({ top: scrollY, behavior: 'instant' });
         } else {
+            scrollCycleOrder = ['end', 'start', 'center'];
+            el.focus();
         }
-        const scrollBlock = scrollStates.get(el) ?? 'start';
-        console.log(scrollCycleOrder[scrollBlock])
-        el.focus();
-        el.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[scrollBlock] || 'start' });
+
     }
 })();
