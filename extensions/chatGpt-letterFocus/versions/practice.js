@@ -13,53 +13,6 @@
         targets.forEach(t => t.setAttribute('tabindex', '-1'));
         console.log(`[NAV MODE] Updated targets: ${targets.length}`);
     }
-
-    function scrollToTarget(index) {
-        const el = targets[index];
-        if (!el) return;
-
-        // Reset outlines
-        targets.forEach(target => {
-            target.style.outline = 'none';
-            const parent = target.closest('div.relative');
-            if (parent) parent.style.outline = '';
-        });
-
-        const parent = el.closest('div.relative');
-        if (parent) {
-            parent.style.outline = '3px solid #00ffff';
-            parent.style.outlineOffset = '2px';
-            setTimeout(() => {
-                parent.style.outline = '';
-            }, 1500);
-        }
-
-        // If parent is taller than viewport, scroll to top of parent minus offset
-        const parentRect = parent.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const scrollY = window.scrollY + parentRect.top - 2000;
-        // const scrollY =  parentRect.top - 2000;
-
-        if (parentRect.height > viewportHeight) {
-            // Manual scroll to parent's top
-            window.scrollTo({ top: scrollY, behavior: 'instant', block: 'start' });
-
-            // Set scroll state to 0 (top) manually
-            scrollStates.set(el, 0);
-
-            // Delay focus just slightly for scroll
-            setTimeout(() => el.focus(), 200);
-        } else {
-            const scrollBlock = scrollStates.get(el) ?? 'center';
-            el.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[scrollBlock] || 'center' });
-            el.focus();
-        }
-    }
-
-
-
-
-
     function toggleNavMode() {
         navMode = !navMode;
         console.log(`[NAV MODE] ${navMode ? 'Activated' : 'Deactivated'}`);
@@ -105,7 +58,6 @@
         }, 2000);
     }
 
-    const scrollCycleOrder = ['end', 'center', 'start'];
     const scrollStates = new WeakMap();
 
     const questionBanner = document.createElement('div');
@@ -201,6 +153,7 @@
 
 
         const digitMatch = e.code.match(/^Digit([0-9])$/);
+        
         if (digitMatch) {
             e.preventDefault();
             e.stopPropagation();
@@ -227,12 +180,12 @@
                 currentOffset = blockStart;
                 lastKeyPressed = digit;
             }
-            console.log('yes')
+
             let finalIndex = currentOffset + positionInRange;
             if (finalIndex >= total) finalIndex = total - 1;
 
             scrollToTarget(finalIndex);
-            scrollStates.set(targets[finalIndex], 1);
+            scrollStates.set(targets[finalIndex], 0);
             showPopup(`Jumped to question #${finalIndex + 1}`);
             showQuestionBanner(finalIndex + 1);
             return;
@@ -243,11 +196,14 @@
             const active = document.activeElement;
             if (targets.includes(active)) {
                 e.preventDefault();
+                // const scrollCycleOrder = ['start','center', 'end'];
                 e.stopPropagation();
                 const currentState = scrollStates.get(active) ?? 0;
                 const nextState = (currentState + 1) % scrollCycleOrder.length;
-                scrollStates.set(active, nextState);
+                // active.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
+                scrollStates.set(active, nextState);
+                console.log(scrollStates.get(active))
             }
         }
 
@@ -258,4 +214,47 @@
             }
         }
     }, true);
+    const scrollCycleOrder = ['start', 'center', 'end'];
+    function scrollToTarget(index) {
+        const el = targets[index];
+        if (!el) return;
+
+        // Reset outlines
+        targets.forEach(target => {
+            target.style.outline = 'none';
+            const parent = target.closest('div.relative');
+            if (parent) parent.style.outline = '';
+        });
+
+        const parent = el.closest('div.relative');
+        if (parent) {
+            parent.style.outline = '3px solid #00ffff';
+            parent.style.outlineOffset = '2px';
+            setTimeout(() => {
+                parent.style.outline = '';
+            }, 1500);
+        }
+
+        // If parent is taller than viewport, scroll to top of parent minus offset
+        const parentRect = parent.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const scrollY = window.scrollY + parentRect.top - 2000;
+        // const scrollY =  parentRect.top - 2000;
+
+        if (parentRect.height > viewportHeight) {
+            // Manual scroll to parent's top
+            // window.scrollTo({ top: scrollY, behavior: 'instant', block: 'start' });
+
+            // Set scroll state to 0 (top) manually
+            // scrollStates.set(el, 0);
+
+            // Delay focus just slightly for scroll
+            // setTimeout(() => el.focus(), 200);
+        } else {
+        }
+        const scrollBlock = scrollStates.get(el) ?? 'start';
+        console.log(scrollCycleOrder[scrollBlock])
+        el.focus();
+        el.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[scrollBlock] || 'start' });
+    }
 })();
