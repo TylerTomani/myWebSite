@@ -1,4 +1,5 @@
 export const nxtBtn = document.querySelector('#nxtBtn')
+const body = document.querySelector('body')
 const mainScript = document.querySelector('#mainScript')
 const versionTitle = document.querySelector('#versionTitle')
 
@@ -7,7 +8,7 @@ const draftScriptJsFile = 'versions/draft-script.js'
 const workingScript = 'versions/working-script.js'
 const filesArr = [mainScriptJsFile,draftScriptJsFile,workingScript]
 // Change this for default script on home
-let iFile = 0
+let iFile = 1
 let filePath = filesArr[iFile]
 
 nxtBtn.addEventListener('click', e => {
@@ -22,28 +23,35 @@ nxtBtn.addEventListener('keydown', e => {
 })
 
 function changeScript(){
-    console.log(filesArr[iFile],iFile)
     if(iFile > 0){
         let r = Math.floor(Math.random() * 50)
         let g = Math.floor(Math.random() * 50)
         let b = Math.floor(Math.random() * 50)
+        if(body.classList.contains('dark-mode')){
+            console.log(body)
+            mainScript.style.background = `rgb(${r},${g},${b},.05)`
+        }
         mainScript.style.background = `rgb(${r},${g},${b},.5)`
+        console.log(`rgb(${r},${g},${b},.05)`)
     }
     iFile = (iFile + 1) % filesArr.length
     loadTextAreaCode(filesArr[iFile])
-    switchTitleScript()
-    
+    switchTitleScript()    
 }
+
 function switchTitleScript(){
     switch (iFile){
         case 0 :
-            versionTitle.innerHTML = 'draft'
+            versionTitle.innerText = 'main version working script'
+            versionTitle.id = 'mainScript'
             break
         case 1 :
-            versionTitle.innerText = 'main'
+            versionTitle.innerHTML = 'draft script'
+            versionTitle.id = 'draftScript'
             break
         case 2 :
             versionTitle.innerText = 'working backup'
+            versionTitle.id = 'wokingBackupScript'
             break
     }
 }

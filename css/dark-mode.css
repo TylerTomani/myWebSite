@@ -46,3 +46,6 @@ h4 .dark-mode p {
 .dark-mode .main-links a:active {
     color: white;
 }
+.dark-mode .code-container textarea {
+    color: white ;
+}

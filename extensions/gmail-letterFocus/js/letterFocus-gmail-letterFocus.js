@@ -2,27 +2,25 @@ const mainScript = document.querySelector('#mainScript')
 const homelink = document.querySelector('#homelink')
 const endToTopBtn = document.querySelector('#endToTopBtn')
 const copyCodes = document.querySelectorAll('.copy-code')
-let iElCopyCodes = 0
-const elCopyCodes = document.querySelectorAll('.code-elements-container > .code-container .copy-code')
+let elsArr = [nxtBtn, endToTopBtn]
+let iEl = 0
 import { nxtBtn } from "./load-textarea-code.js"
 let focusedMainScript = false
-mainScript.addEventListener('focus', () =>{
-    
+mainScript.addEventListener('focus', () => {
+
     focusedMainScript = true
 })
-mainScript.addEventListener('focusout', () =>{
+mainScript.addEventListener('focusout', () => {
     focusedMainScript = false
 })
-let elsArr = [nxtBtn, endToTopBtn, homelink]
-let iEl = 0
 addEventListener('keydown', e => {
     let key = e.key.toLowerCase()
-    if((e.metaKey || e.ctrlKey) && e.shiftKey && e.key == 'x'){
+    if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key == 'x') {
         focusedMainScript = false
         elsArr[iEl].focus()
         iEl = (iEl + 1) % elsArr.length
     }
-    if(focusedMainScript) return
+    if (focusedMainScript) return
     if (key === 'm') {
         e.preventDefault()
         mainScript.focus()
@@ -44,24 +42,24 @@ addEventListener('keydown', e => {
         }
         endToTopBtn.focus()
     }
-    if(!isNaN(key)){
+    // if(!isNaN(key)){
+    //     let intlet = parseInt(key)
+    //     copyCodes[intlet -1]?.focus()
+    // }
+    if (!isNaN(key)) {
         let intlet = parseInt(key)
         copyCodes[intlet - 1]?.focus()
-    }
-
-    if(key == 'c'){
-        console.log(elCopyCodes[iElCopyCodes])
-        elCopyCodes[iElCopyCodes].focus()
-        iElCopyCodes = (iElCopyCodes + 1) % elCopyCodes.length
-        
     }
 });
 
 endToTopBtn.addEventListener('keydown', e => {
     let key = e.keyCode
-    if(key === 13){
+    if (key === 13) {
         console.log(endToTopBtn)
         endToTopBtn.click()
     }
 })
-copyCodes.forEach(el => {el.addEventListener('focus', e =>{e.target.scrollIntoView({behavior:'smooth', block: 'start'})})})
+
+copyCodes.forEach(el => {
+    el.addEventListener('focus', e => { e.target.scrollIntoView({ behavior: 'smooth', block: 'start' }) })
+})

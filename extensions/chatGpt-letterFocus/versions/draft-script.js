@@ -1,4 +1,4 @@
-// draft - script
+// Draft Script
 (() => {
     let navMode = false;
     let targets = [];
@@ -16,25 +16,49 @@
 
     function scrollToTarget(index) {
         const el = targets[index];
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            el.focus({ preventScroll: true });
-            const originalOutline = el.style.outline;
-            el.style.outline = '3px solid orange';
-            setTimeout(() => (el.style.outline = originalOutline), 1500);
-        }
-    }
+        if (!el) return;
 
-    function scrollToBottom() {
-        const chatContainer = document.querySelector('main');
-        if (chatContainer) {
-            chatContainer.scrollTo({
-                top: chatContainer.scrollHeight,
-                behavior: 'smooth',
-            });
-            showPopup('Scrolled to bottom');
+        // Reset outlines
+        targets.forEach(target => {
+            target.style.outline = 'none';
+            const parent = target.closest('div.relative');
+            if (parent) parent.style.outline = '';
+        });
+
+        const parent = el.closest('div.relative');
+        if (parent) {
+            parent.style.outline = '3px solid #00ffff';
+            parent.style.outlineOffset = '2px';
+            setTimeout(() => {
+                parent.style.outline = '';
+            }, 1500);
+        }
+
+        // If parent is taller than viewport, scroll to top of parent minus offset
+        const parentRect = parent.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const scrollY = window.scrollY + parentRect.top - 2000;
+        // const scrollY =  parentRect.top - 2000;
+
+        if (parentRect.height > viewportHeight) {
+            // Manual scroll to parent's top
+            window.scrollTo({ top: scrollY, behavior: 'instant', block: 'start' });
+
+            // Set scroll state to 0 (top) manually
+            scrollStates.set(el, 0);
+
+            // Delay focus just slightly for scroll
+            setTimeout(() => el.focus(), 200);
+        } else {
+            const scrollBlock = scrollStates.get(el) ?? 'center';
+            el.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[scrollBlock] || 'center' });
+            el.focus();
         }
     }
+    
+    
+    
+
 
     function toggleNavMode() {
         navMode = !navMode;
@@ -81,32 +105,35 @@
         }, 2000);
     }
 
-    const scrollCycleOrder = ['start', 'center', 'end'];
+    const scrollCycleOrder = ['end', 'center', 'start'];
     const scrollStates = new WeakMap();
 
     const questionBanner = document.createElement('div');
-    questionBanner.style.position = 'fixed';
-    questionBanner.style.top = '40px';
-    questionBanner.style.right = '10px';
-    questionBanner.style.background = '#444';
-    questionBanner.style.color = 'white';
-    questionBanner.style.padding = '5px 10px';
-    questionBanner.style.borderRadius = '6px';
-    questionBanner.style.fontSize = '13px';
-    questionBanner.style.zIndex = 9999;
-    questionBanner.style.opacity = 0;
-    questionBanner.style.transition = 'opacity 0.2s ease';
-    questionBanner.style.pointerEvents = 'none';
-    document.body.appendChild(questionBanner);
+    function questionBannerAttributes(){
+        questionBanner.style.position = 'fixed';
+        questionBanner.style.top = '40px';
+        questionBanner.style.right = '10px';
+        questionBanner.style.background = '#444';
+        questionBanner.style.color = 'white';
+        questionBanner.style.padding = '5px 10px';
+        questionBanner.style.borderRadius = '6px';
+        questionBanner.style.fontSize = '13px';
+        questionBanner.style.zIndex = 9999;
+        questionBanner.style.opacity = 0;
+        questionBanner.style.transition = 'opacity 0.2s ease';
+        questionBanner.style.pointerEvents = 'none';
+        document.body.appendChild(questionBanner);
+    }
+    questionBannerAttributes()
 
     let questionBannerTimeout;
     function showQuestionBanner(number) {
         questionBanner.textContent = `Question #${number}`;
         questionBanner.style.opacity = 1;
         clearTimeout(questionBannerTimeout);
-        questionBannerTimeout = setTimeout(() => {
-            questionBanner.style.opacity = 0;
-        }, 2000);
+        // questionBannerTimeout = setTimeout(() => {
+        //     questionBanner.style.opacity = 0;
+        // }, 2000);
     }
 
     const observer = new MutationObserver((mutations) => {
@@ -144,6 +171,21 @@
         if (!navMode) return;
         if (key === 'tab') return;
 
+        // **ALLOW default browser shortcuts like Cmd/Ctrl+R, Cmd/Ctrl+T, Cmd/Ctrl+W, etc**
+        // If metaKey or ctrlKey pressed with a key that is NOT handled below, allow default
+        // For refresh, key is 'r'
+        if ((e.metaKey || e.ctrlKey) && !e.shiftKey) {
+            // List of keys you want to allow default for
+            const allowedKeys = ['r', 't', 'w', 'n', 'p', 'f', 's', 'd', 'e', 'l', 'm'];
+            // (Add/remove keys as needed)
+            if (allowedKeys.includes(key)) {
+                // Don't preventDefault, allow browser to handle these shortcuts normally
+                return;
+            }
+        }
+
+        // Now handle navMode shortcuts below...
+
         if (key === 'e') {
             e.preventDefault();
             if (!targets.length) updateTargets();
@@ -156,39 +198,38 @@
             }
             return;
         }
+    
 
         const digitMatch = e.code.match(/^Digit([0-9])$/);
         if (digitMatch) {
-            const digit = parseInt(digitMatch[1]);
             e.preventDefault();
             e.stopPropagation();
+
             if (!targets.length) updateTargets();
             const total = targets.length;
-
+            const digit = parseInt(digitMatch[1]);
             const positionInRange = digit === 0 ? 9 : digit - 1;
 
-            if (lastKeyPressed === digit) {
-                currentOffset += e.shiftKey ? -10 : 10;
+            if (e.shiftKey) {
+                currentOffset -= 10;
+                if (currentOffset < 0) {
+                    const maxOffset = Math.floor((total - 1 - positionInRange) / 10) * 10;
+                    currentOffset = Math.max(0, maxOffset);
+                }
+                lastKeyPressed = digit;
+            } else if (lastKeyPressed === digit) {
+                currentOffset += 10;
+                if (currentOffset + positionInRange >= total) {
+                    currentOffset = 0;
+                }
             } else {
-                currentOffset = 0;
+                const blockStart = Math.floor(currentOffset / 10) * 10;
+                currentOffset = blockStart;
                 lastKeyPressed = digit;
             }
 
-            if (currentOffset < 0) currentOffset = 0;
-
             let finalIndex = currentOffset + positionInRange;
-
-            if (finalIndex >= total) {
-                const maxValidOffset = Math.floor((total - 1) / 10) * 10;
-                if (currentOffset > maxValidOffset) {
-                    currentOffset = 0;
-                    finalIndex = positionInRange;
-                    showPopup("Looped back to start");
-                } else {
-                    finalIndex = total - 1;
-                    showPopup("Reached last question");
-                }
-            }
+            if (finalIndex >= total) finalIndex = total - 1;
 
             scrollToTarget(finalIndex);
             scrollStates.set(targets[finalIndex], 1);
@@ -196,6 +237,7 @@
             showQuestionBanner(finalIndex + 1);
             return;
         }
+
 
         if (key === 'enter') {
             const active = document.activeElement;
@@ -211,7 +253,9 @@
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
-            if (active && active.classList.contains('whitespace-pre-wrap')) e.preventDefault();
+            if (active && active.classList.contains('whitespace-pre-wrap')) {
+                e.preventDefault();
+            }
         }
     }, true);
 })();

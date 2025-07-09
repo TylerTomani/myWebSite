@@ -39,4 +39,15 @@
 }
 
 
-
+ .dark-mode textarea {
+    background: rgb(40,38,46,.05);
+}
+#mainScript{
+    /* background-color: blue; */
+}
+#draftScript{
+    background-color: red !important;
+}
+#wokingBackupScript{
+    background-color: red !important;
+}

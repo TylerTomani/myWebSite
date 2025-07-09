@@ -1,4 +1,4 @@
-// main - script - chatGpt-LetterFocus
+// Draft Script
 (() => {
     let navMode = false;
     let targets = [];
@@ -37,12 +37,12 @@
         // If parent is taller than viewport, scroll to top of parent minus offset
         const parentRect = parent.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
-        // const scrollY = window.scrollY + parentRect.top - 2000;
-        const scrollY = parentRect.top - 2000;
+        const scrollY = window.scrollY + parentRect.top - 2000;
+        // const scrollY =  parentRect.top - 2000;
 
         if (parentRect.height > viewportHeight) {
             // Manual scroll to parent's top
-            window.scrollTo({ top: scrollY, behavior: 'smooth' });
+            window.scrollTo({ top: scrollY, behavior: 'instant', block: 'start' });
 
             // Set scroll state to 0 (top) manually
             scrollStates.set(el, 0);
@@ -105,32 +105,35 @@
         }, 2000);
     }
 
-    const scrollCycleOrder = ['start', 'center', 'end'];
+    const scrollCycleOrder = ['end', 'center', 'start'];
     const scrollStates = new WeakMap();
 
     const questionBanner = document.createElement('div');
-    questionBanner.style.position = 'fixed';
-    questionBanner.style.top = '40px';
-    questionBanner.style.right = '10px';
-    questionBanner.style.background = '#444';
-    questionBanner.style.color = 'white';
-    questionBanner.style.padding = '5px 10px';
-    questionBanner.style.borderRadius = '6px';
-    questionBanner.style.fontSize = '13px';
-    questionBanner.style.zIndex = 9999;
-    questionBanner.style.opacity = 0;
-    questionBanner.style.transition = 'opacity 0.2s ease';
-    questionBanner.style.pointerEvents = 'none';
-    document.body.appendChild(questionBanner);
+    function questionBannerAttributes() {
+        questionBanner.style.position = 'fixed';
+        questionBanner.style.top = '40px';
+        questionBanner.style.right = '10px';
+        questionBanner.style.background = '#444';
+        questionBanner.style.color = 'white';
+        questionBanner.style.padding = '5px 10px';
+        questionBanner.style.borderRadius = '6px';
+        questionBanner.style.fontSize = '13px';
+        questionBanner.style.zIndex = 9999;
+        questionBanner.style.opacity = 0;
+        questionBanner.style.transition = 'opacity 0.2s ease';
+        questionBanner.style.pointerEvents = 'none';
+        document.body.appendChild(questionBanner);
+    }
+    questionBannerAttributes()
 
     let questionBannerTimeout;
     function showQuestionBanner(number) {
         questionBanner.textContent = `Question #${number}`;
         questionBanner.style.opacity = 1;
         clearTimeout(questionBannerTimeout);
-        questionBannerTimeout = setTimeout(() => {
-            questionBanner.style.opacity = 0;
-        }, 2000);
+        // questionBannerTimeout = setTimeout(() => {
+        //     questionBanner.style.opacity = 0;
+        // }, 2000);
     }
 
     const observer = new MutationObserver((mutations) => {
@@ -224,7 +227,7 @@
                 currentOffset = blockStart;
                 lastKeyPressed = digit;
             }
-
+            console.log('yes')
             let finalIndex = currentOffset + positionInRange;
             if (finalIndex >= total) finalIndex = total - 1;
 
@@ -250,7 +253,9 @@
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
-            if (active && active.classList.contains('whitespace-pre-wrap')) e.preventDefault();
+            if (active && active.classList.contains('whitespace-pre-wrap')) {
+                e.preventDefault();
+            }
         }
     }, true);
 })();

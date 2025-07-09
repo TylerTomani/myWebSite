@@ -1,4 +1,4 @@
-// main - script - chatGpt-LetterFocus
+// Draft Script
 (() => {
     let navMode = false;
     let targets = [];
@@ -34,31 +34,16 @@
             }, 1500);
         }
 
-        // If parent is taller than viewport, scroll to top of parent minus offset
-        const parentRect = parent.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        // const scrollY = window.scrollY + parentRect.top - 2000;
-        const scrollY = parentRect.top - 2000;
+        // Scroll to top of element smoothly
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        if (parentRect.height > viewportHeight) {
-            // Manual scroll to parent's top
-            window.scrollTo({ top: scrollY, behavior: 'smooth' });
+        // Then nudge scroll position up by 50px after a tiny delay to show a bit above
+        // setTimeout(() => {
+        //     window.scrollBy({ top: -50, behavior: 'smooth' });
+        // }, 200);
 
-            // Set scroll state to 0 (top) manually
-            scrollStates.set(el, 0);
-
-            // Delay focus just slightly for scroll
-            setTimeout(() => el.focus(), 200);
-        } else {
-            const scrollBlock = scrollStates.get(el) ?? 'center';
-            el.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[scrollBlock] || 'center' });
-            el.focus();
-        }
+        // el.focus();
     }
-
-
-
-
 
     function toggleNavMode() {
         navMode = !navMode;
@@ -105,23 +90,26 @@
         }, 2000);
     }
 
-    const scrollCycleOrder = ['start', 'center', 'end'];
+    const scrollCycleOrder = ['end', 'center', 'start'];
     const scrollStates = new WeakMap();
 
     const questionBanner = document.createElement('div');
-    questionBanner.style.position = 'fixed';
-    questionBanner.style.top = '40px';
-    questionBanner.style.right = '10px';
-    questionBanner.style.background = '#444';
-    questionBanner.style.color = 'white';
-    questionBanner.style.padding = '5px 10px';
-    questionBanner.style.borderRadius = '6px';
-    questionBanner.style.fontSize = '13px';
-    questionBanner.style.zIndex = 9999;
-    questionBanner.style.opacity = 0;
-    questionBanner.style.transition = 'opacity 0.2s ease';
-    questionBanner.style.pointerEvents = 'none';
-    document.body.appendChild(questionBanner);
+    function bannerAttributes(){
+        questionBanner.style.position = 'fixed';
+        questionBanner.style.top = '40px';
+        questionBanner.style.right = '10px';
+        questionBanner.style.background = '#444';
+        questionBanner.style.color = 'white';
+        questionBanner.style.padding = '5px 10px';
+        questionBanner.style.borderRadius = '6px';
+        questionBanner.style.fontSize = '13px';
+        questionBanner.style.zIndex = 9999;
+        questionBanner.style.opacity = 0;
+        questionBanner.style.transition = 'opacity 0.2s ease';
+        questionBanner.style.pointerEvents = 'none';
+        document.body.appendChild(questionBanner);
+    }
+    bannerAttributes()
 
     let questionBannerTimeout;
     function showQuestionBanner(number) {
@@ -245,12 +233,26 @@
                 const nextState = (currentState + 1) % scrollCycleOrder.length;
                 scrollStates.set(active, nextState);
                 active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
+                close(scrollCycleOrder[currentState])
             }
         }
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
-            if (active && active.classList.contains('whitespace-pre-wrap')) e.preventDefault();
+            if (active && active.classList.contains('whitespace-pre-wrap')) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const index = targets.indexOf(active);
+                if (index >= 0) {
+                    scrollToTarget(index);
+                    const currentState = scrollStates.get(active) ?? 1;
+                    const nextState = (currentState + 1) % scrollCycleOrder.length;
+                    scrollStates.set(active, nextState);
+                }
+                console.log('yes')
+            }
         }
+
     }, true);
 })();

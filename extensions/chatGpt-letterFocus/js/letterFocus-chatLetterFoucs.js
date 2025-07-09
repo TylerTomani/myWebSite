@@ -2,6 +2,8 @@ const mainScript = document.querySelector('#mainScript')
 const homelink = document.querySelector('#homelink')
 const endToTopBtn = document.querySelector('#endToTopBtn')
 const copyCodes = document.querySelectorAll('.copy-code')
+let elsArr = [nxtBtn, endToTopBtn]
+let iEl = 0
 import { nxtBtn } from "./load-textarea-code.js"
 let focusedMainScript = false
 mainScript.addEventListener('focus', () =>{
@@ -11,8 +13,6 @@ mainScript.addEventListener('focus', () =>{
 mainScript.addEventListener('focusout', () =>{
     focusedMainScript = false
 })
-let elsArr = [nxtBtn, endToTopBtn, homelink]
-let iEl = 0
 addEventListener('keydown', e => {
     let key = e.key.toLowerCase()
     if((e.metaKey || e.ctrlKey) && e.shiftKey && e.key == 'x'){
