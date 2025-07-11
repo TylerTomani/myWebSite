@@ -271,10 +271,19 @@
             const positionInRange = digit === 0 ? 9 : digit - 1;
 
             if (e.shiftKey) {
-                currentOffset -= 10;
-                if (currentOffset < 0) {
-                    const maxOffset = Math.floor((total - 1 - positionInRange) / 10) * 10;
-                    currentOffset = Math.max(0, maxOffset);
+                if (lastKeyPressed === digit) {
+                    currentOffset -= 10;
+                    if (currentOffset < 0) {
+                        const maxOffset = Math.floor((total - 1 - positionInRange) / 10) * 10;
+                        currentOffset = Math.max(0, maxOffset);
+                    }
+                } else {
+                    const activeIndex = targets.indexOf(document.activeElement);
+                    if (activeIndex !== -1 && activeIndex % 10 === positionInRange) {
+                        currentOffset = Math.floor(activeIndex / 10) * 10;
+                    } else {
+                        currentOffset = Math.floor((targets.length - 1) / 10) * 10;
+                    }
                 }
                 lastKeyPressed = digit;
             } else if (lastKeyPressed === digit) {
@@ -285,6 +294,7 @@
             } else {
                 lastKeyPressed = digit;
             }
+
 
             let finalIndex = currentOffset + positionInRange;
             if (finalIndex >= total) finalIndex = total - 1;
