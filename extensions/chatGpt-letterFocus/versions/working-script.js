@@ -1,7 +1,6 @@
 // working - script
-// main - script - chatGpt-LetterFocus
-// Draft Script
 (() => {
+    let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
     let targets = [];
     let lastKeyPressed = null;
@@ -15,35 +14,6 @@
         targets.forEach(t => t.setAttribute('tabindex', '-1'));
         console.log(`[NAV MODE] Updated targets: ${targets.length}`);
     }
-
-    function scrollToTarget(index) {
-        const el = targets[index];
-        if (!el) return;
-
-        const scrollBlock = scrollStates.get(el) ?? 'center';
-        el.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[scrollBlock] || 'center' });
-        el.focus({ preventScroll: true });
-
-        // Remove existing outlines from all parents first
-        targets.forEach(target => {
-            target.style.outline = 'none';
-
-            const parent = target.closest('div.relative');
-            if (parent) parent.style.outline = '';
-        });
-
-        // Add neon-blue outline to parent container
-        const parent = el.closest('div.relative');
-        if (parent) {
-            parent.style.outline = '3px solid #00ffff'; // Neon blue
-            parent.style.outlineOffset = '2px';
-            setTimeout(() => {
-                parent.style.outline = '';
-            }, 1500);
-        }
-    }
-
-
     function toggleNavMode() {
         navMode = !navMode;
         console.log(`[NAV MODE] ${navMode ? 'Activated' : 'Deactivated'}`);
@@ -89,32 +59,34 @@
         }, 2000);
     }
 
-    const scrollCycleOrder = ['start', 'center', 'end'];
     const scrollStates = new WeakMap();
 
     const questionBanner = document.createElement('div');
-    questionBanner.style.position = 'fixed';
-    questionBanner.style.top = '40px';
-    questionBanner.style.right = '10px';
-    questionBanner.style.background = '#444';
-    questionBanner.style.color = 'white';
-    questionBanner.style.padding = '5px 10px';
-    questionBanner.style.borderRadius = '6px';
-    questionBanner.style.fontSize = '13px';
-    questionBanner.style.zIndex = 9999;
-    questionBanner.style.opacity = 0;
-    questionBanner.style.transition = 'opacity 0.2s ease';
-    questionBanner.style.pointerEvents = 'none';
-    document.body.appendChild(questionBanner);
+    function questionBannerAttributes() {
+        questionBanner.style.position = 'fixed';
+        questionBanner.style.top = '40px';
+        questionBanner.style.right = '10px';
+        questionBanner.style.background = '#444';
+        questionBanner.style.color = 'white';
+        questionBanner.style.padding = '5px 10px';
+        questionBanner.style.borderRadius = '6px';
+        questionBanner.style.fontSize = '13px';
+        questionBanner.style.zIndex = 9999;
+        questionBanner.style.opacity = 0;
+        questionBanner.style.transition = 'opacity 0.2s ease';
+        questionBanner.style.pointerEvents = 'none';
+        document.body.appendChild(questionBanner);
+    }
+    questionBannerAttributes()
 
     let questionBannerTimeout;
     function showQuestionBanner(number) {
         questionBanner.textContent = `Question #${number}`;
         questionBanner.style.opacity = 1;
         clearTimeout(questionBannerTimeout);
-        questionBannerTimeout = setTimeout(() => {
-            questionBanner.style.opacity = 0;
-        }, 2000);
+        // questionBannerTimeout = setTimeout(() => {
+        //     questionBanner.style.opacity = 0;
+        // }, 2000);
     }
 
     const observer = new MutationObserver((mutations) => {
@@ -179,9 +151,10 @@
             }
             return;
         }
-    
+
 
         const digitMatch = e.code.match(/^Digit([0-9])$/);
+
         if (digitMatch) {
             e.preventDefault();
             e.stopPropagation();
@@ -213,7 +186,7 @@
             if (finalIndex >= total) finalIndex = total - 1;
 
             scrollToTarget(finalIndex);
-            scrollStates.set(targets[finalIndex], 1);
+            scrollStates.set(targets[finalIndex], 0);
             showPopup(`Jumped to question #${finalIndex + 1}`);
             showQuestionBanner(finalIndex + 1);
             return;
@@ -225,16 +198,85 @@
             if (targets.includes(active)) {
                 e.preventDefault();
                 e.stopPropagation();
-                const currentState = scrollStates.get(active) ?? 0;
-                const nextState = (currentState + 1) % scrollCycleOrder.length;
-                scrollStates.set(active, nextState);
-                active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
+
+                if (e.shiftKey) {
+                    // Scroll to 'start'
+                    active.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    scrollStates.set(active, 0); // reset scroll state
+
+                    // Apply blue border
+                    const parent = active.closest('div.relative');
+                    if (parent) {
+                        parent.style.outline = '3px solid #00ffff';
+                        parent.style.outlineOffset = '2px';
+                        setTimeout(() => {
+                            parent.style.outline = '';
+                        }, 1500);
+                    }
+
+                } else {
+                    // Cycle through scroll positions
+                    const currentState = scrollStates.get(active) ?? 0;
+                    const nextState = (currentState + 1) % scrollCycleOrder.length;
+                    active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
+                    scrollStates.set(active, nextState);
+                }
             }
         }
 
+
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
-            if (active && active.classList.contains('whitespace-pre-wrap')) e.preventDefault();
+            if (active && active.classList.contains('whitespace-pre-wrap')) {
+                e.preventDefault();
+            }
         }
     }, true);
+
+    function scrollToTarget(index) {
+        const el = targets[index];
+        if (!el) return;
+
+        // Reset outlines
+        targets.forEach(target => {
+            target.style.outline = 'none';
+            const parent = target.closest('div.relative');
+            if (parent) parent.style.outline = '';
+        });
+
+        const parent = el.closest('div.relative');
+        if (parent) {
+            parent.style.outline = '3px solid #00ffff';
+            parent.style.outlineOffset = '2px';
+            setTimeout(() => {
+                parent.style.outline = '';
+            }, 1500);
+        }
+
+        // If parent is taller than viewport, scroll to top of parent minus offset
+        const parentRect = parent.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const scrollY = window.scrollY + parentRect.top - 2000;
+        // const scrollY =  parentRect.top - 2000;
+
+        if (parentRect.height > viewportHeight) {
+            // Manual scroll to parent's top
+
+
+            // Set scroll state to 0 (top) manually
+            // scrollStates.set(el, 0);
+
+            // Delay focus just slightly for scroll
+            const scrollBlock = scrollStates.get(el) ?? 'start';
+            scrollCycleOrder = ['start', 'center', 'end'];
+            el.focus();
+            el.scrollIntoView({ behavior: 'instant', block: scrollCycleOrder[scrollBlock] || 'start' });
+            // window.scrollTo({ top: scrollY, behavior: 'instant', block: 'start' });
+            window.scrollTo({ top: scrollY, behavior: 'instant' });
+        } else {
+            scrollCycleOrder = ['end', 'start', 'center'];
+            el.focus();
+        }
+
+    }
 })();

@@ -3,14 +3,17 @@ const body = document.querySelector('body')
 const mainScript = document.querySelector('#mainScript')
 const versionTitle = document.querySelector('#versionTitle')
 
-const mainScriptJsFile = 'main-script-chat-letterFocus.js'
+const practiceDraftScriptJsFile = 'versions/practice-draft-script.js'
 const draftScriptJsFile = 'versions/draft-script.js'
+const mainScriptJsFile = 'main-script-chat-letterFocus.js'
 const workingScript = 'versions/working-script.js'
-const filesArr = [mainScriptJsFile,draftScriptJsFile,workingScript]
+const filesArr = [practiceDraftScriptJsFile, draftScriptJsFile, workingScript, mainScriptJsFile]
 // Change this for default script on home
-let iFile = 1
+let iFile = 0
 let filePath = filesArr[iFile]
-
+// addEventListener('DOMContentLoaded', () => {
+//     scrollTo(0, 0)
+// });
 nxtBtn.addEventListener('click', e => {
     e.preventDefault()
     changeScript()   
@@ -18,6 +21,7 @@ nxtBtn.addEventListener('click', e => {
 nxtBtn.addEventListener('keydown', e => {
     let key = e.keyCode
     if(key === 13){
+        scrollTo(0,0)
         changeScript()
     }
 })
@@ -42,14 +46,18 @@ function changeScript(){
 function switchTitleScript(){
     switch (iFile){
         case 0 :
-            versionTitle.innerText = 'main version working script'
-            versionTitle.id = 'mainScript'
+            versionTitle.innerText = 'practice draft script'
+            versionTitle.id = 'practiceDraftScriptJsFile'
             break
         case 1 :
             versionTitle.innerHTML = 'draft script'
             versionTitle.id = 'draftScript'
             break
         case 2 :
+            versionTitle.innerText = 'main version working script'
+            versionTitle.id = 'mainScript'
+            break
+        case 3 :
             versionTitle.innerText = 'working backup'
             versionTitle.id = 'wokingBackupScript'
             break

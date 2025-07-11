@@ -1,4 +1,4 @@
-// Draft Script
+// practice
 (() => {
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
@@ -154,7 +154,7 @@
 
 
         const digitMatch = e.code.match(/^Digit([0-9])$/);
-        
+
         if (digitMatch) {
             e.preventDefault();
             e.stopPropagation();
@@ -198,12 +198,32 @@
             if (targets.includes(active)) {
                 e.preventDefault();
                 e.stopPropagation();
-                const currentState = scrollStates.get(active) ?? 0;
-                const nextState = (currentState + 1) % scrollCycleOrder.length;
-                active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
-                scrollStates.set(active, nextState);
+
+                if (e.shiftKey) {
+                    // Scroll to 'start'
+                    active.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    scrollStates.set(active, 0); // reset scroll state
+
+                    // Apply blue border
+                    const parent = active.closest('div.relative');
+                    if (parent) {
+                        parent.style.outline = '3px solid #00ffff';
+                        parent.style.outlineOffset = '2px';
+                        setTimeout(() => {
+                            parent.style.outline = '';
+                        }, 1500);
+                    }
+
+                } else {
+                    // Cycle through scroll positions
+                    const currentState = scrollStates.get(active) ?? 0;
+                    const nextState = (currentState + 1) % scrollCycleOrder.length;
+                    active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
+                    scrollStates.set(active, nextState);
+                }
             }
         }
+
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
@@ -212,7 +232,7 @@
             }
         }
     }, true);
-    
+
     function scrollToTarget(index) {
         const el = targets[index];
         if (!el) return;
@@ -240,9 +260,8 @@
         // const scrollY =  parentRect.top - 2000;
 
         if (parentRect.height > viewportHeight) {
-            console.log('yes')
             // Manual scroll to parent's top
-            
+
 
             // Set scroll state to 0 (top) manually
             // scrollStates.set(el, 0);
@@ -251,13 +270,13 @@
             const scrollBlock = scrollStates.get(el) ?? 'start';
             scrollCycleOrder = ['start', 'center', 'end'];
             el.focus();
-            el.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[scrollBlock] || 'start' });
+            el.scrollIntoView({ behavior: 'instant', block: scrollCycleOrder[scrollBlock] || 'start' });
             // window.scrollTo({ top: scrollY, behavior: 'instant', block: 'start' });
-            window.scrollTo({ top: scrollY, behavior: 'instant'});
+            window.scrollTo({ top: scrollY, behavior: 'instant' });
         } else {
             scrollCycleOrder = ['end', 'start', 'center'];
             el.focus();
         }
-        
+
     }
 })();

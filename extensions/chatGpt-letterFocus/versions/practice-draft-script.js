@@ -1,4 +1,4 @@
-// new working Script
+// practice draft script
 (() => {
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
@@ -223,7 +223,7 @@
                 }
             }
         }
-
+        
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
