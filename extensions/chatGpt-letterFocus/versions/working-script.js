@@ -1,10 +1,12 @@
 // working - script
+// practice draft script
 (() => {
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
     let targets = [];
     let lastKeyPressed = null;
     let currentOffset = 0;
+    let lastFocusedTarget = null;
 
     const getTargets = () =>
         Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"] .whitespace-pre-wrap')).filter(Boolean);
@@ -14,16 +16,26 @@
         targets.forEach(t => t.setAttribute('tabindex', '-1'));
         console.log(`[NAV MODE] Updated targets: ${targets.length}`);
     }
+
     function toggleNavMode() {
         navMode = !navMode;
         console.log(`[NAV MODE] ${navMode ? 'Activated' : 'Deactivated'}`);
         if (navMode) {
             updateTargets();
             if (targets.length) {
-                const lastIndex = targets.length - 1;
-                scrollToTarget(lastIndex);
-                scrollStates.set(targets[lastIndex], 1);
-                showQuestionBanner(lastIndex + 1);
+                if (lastFocusedTarget && targets.includes(lastFocusedTarget)) {
+                    const lastIndex = targets.indexOf(lastFocusedTarget);
+                    scrollToTarget(lastIndex);
+                    scrollStates.set(lastFocusedTarget, 1);
+                    currentOffset = Math.floor(lastIndex / 10) * 10;
+                    showQuestionBanner(lastIndex + 1);
+                } else {
+                    const lastIndex = targets.length - 1;
+                    scrollToTarget(lastIndex);
+                    scrollStates.set(targets[lastIndex], 1);
+                    currentOffset = Math.floor(lastIndex / 10) * 10;
+                    showQuestionBanner(lastIndex + 1);
+                }
             }
             showPopup('Navigation mode ON');
         } else {
@@ -77,16 +89,13 @@
         questionBanner.style.pointerEvents = 'none';
         document.body.appendChild(questionBanner);
     }
-    questionBannerAttributes()
+    questionBannerAttributes();
 
     let questionBannerTimeout;
     function showQuestionBanner(number) {
         questionBanner.textContent = `Question #${number}`;
         questionBanner.style.opacity = 1;
         clearTimeout(questionBannerTimeout);
-        // questionBannerTimeout = setTimeout(() => {
-        //     questionBanner.style.opacity = 0;
-        // }, 2000);
     }
 
     const observer = new MutationObserver((mutations) => {
@@ -106,8 +115,46 @@
         console.warn("Could not find chat container to observe.");
     }
 
+    document.addEventListener('click', (e) => {
+        const prompt = document.getElementById('prompt-textarea');
+        if (prompt && prompt.contains(e.target)) {
+            navMode = false;
+            return;
+        }
+        if (!navMode) return;
+        const el = e.target.closest('.whitespace-pre-wrap');
+        if (!el) return;
+
+        const index = targets.indexOf(el);
+        if (index !== -1) {
+            el.focus();
+            currentOffset = Math.floor(index / 10) * 10;
+            lastKeyPressed = null;
+            lastFocusedTarget = el;
+            showQuestionBanner(index + 1);
+            showPopup(`Selected question #${index + 1}`);
+
+            const parent = el.closest('div.relative');
+            if (parent) {
+                parent.style.outline = '3px solid #00ffff';
+                parent.style.outlineOffset = '2px';
+                setTimeout(() => {
+                    parent.style.outline = '';
+                }, 1500);
+            }
+        }
+    });
+
+    const prompt = document.getElementById('prompt-textarea');
+    if (prompt) {
+        prompt.addEventListener('focus', () => {
+            if (navMode) navMode = false;
+        });
+    }
+
     document.addEventListener('keydown', (e) => {
         const key = e.key.toLowerCase();
+
 
         if ((e.metaKey || e.ctrlKey) && e.shiftKey && key === 'x') {
             e.preventDefault();
@@ -124,20 +171,38 @@
         if (!navMode) return;
         if (key === 'tab') return;
 
-        // **ALLOW default browser shortcuts like Cmd/Ctrl+R, Cmd/Ctrl+T, Cmd/Ctrl+W, etc**
-        // If metaKey or ctrlKey pressed with a key that is NOT handled below, allow default
-        // For refresh, key is 'r'
         if ((e.metaKey || e.ctrlKey) && !e.shiftKey) {
-            // List of keys you want to allow default for
             const allowedKeys = ['r', 't', 'w', 'n', 'p', 'f', 's', 'd', 'e', 'l', 'm'];
-            // (Add/remove keys as needed)
-            if (allowedKeys.includes(key)) {
-                // Don't preventDefault, allow browser to handle these shortcuts normally
-                return;
-            }
+            if (allowedKeys.includes(key)) return;
         }
 
-        // Now handle navMode shortcuts below...
+        if ((e.metaKey || e.ctrlKey) && e.key === 'ArrowDown') {
+            e.preventDefault();
+            const articles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
+            const lastArticle = articles.at(-1);
+            if (lastArticle) {
+                lastArticle.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                showPopup('Scrolled to last response');
+            } else {
+                showPopup('No articles found to scroll to');
+            }
+            return;
+        }
+        if ((e.metaKey || e.ctrlKey) && e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (!targets.length) updateTargets();
+            const firstIndex = 0;
+            scrollToTarget(firstIndex);
+            scrollStates.set(targets[firstIndex], 1);
+            currentOffset = 0;
+            lastFocusedTarget = targets[firstIndex];
+            showPopup('First question (via ⌘↑)');
+            showQuestionBanner(firstIndex + 1);
+            return;
+        }
+
+
+
 
         if (key === 'e') {
             e.preventDefault();
@@ -146,19 +211,60 @@
             if (lastIndex >= 0) {
                 scrollToTarget(lastIndex);
                 scrollStates.set(targets[lastIndex], 1);
+                currentOffset = Math.floor(lastIndex / 10) * 10;
+                lastFocusedTarget = targets[lastIndex];
                 showPopup('Last question');
                 showQuestionBanner(lastIndex + 1);
             }
             return;
         }
 
+        if (key === 's') {
+            e.preventDefault();
+            if (!targets.length) updateTargets();
+            const firstIndex = 0;
+            scrollToTarget(firstIndex);
+            scrollStates.set(targets[firstIndex], 1);
+            currentOffset = 0;
+            lastFocusedTarget = targets[firstIndex];
+            showPopup('First question');
+            showQuestionBanner(firstIndex + 1);
+            return;
+        }
+
+        if (key === 'f' || key === 'd') {
+            e.preventDefault();
+            if (!targets.length) updateTargets();
+
+            let currentIndex = targets.findIndex(el => el === document.activeElement);
+            if (currentIndex === -1 && lastFocusedTarget && targets.includes(lastFocusedTarget)) {
+                currentIndex = targets.indexOf(lastFocusedTarget);
+            }
+
+            const jump = e.shiftKey ? 10 : 1;
+            let nextIndex = currentIndex + (key === 'f' ? jump : -jump);
+
+            // Wrap-around behavior (same as number keys)
+            const total = targets.length;
+            if (nextIndex >= total) nextIndex = 0;
+            if (nextIndex < 0) nextIndex = total - 1;
+
+            scrollToTarget(nextIndex);
+            scrollStates.set(targets[nextIndex], 0);
+            lastFocusedTarget = targets[nextIndex];
+            currentOffset = Math.floor(nextIndex / 10) * 10;
+            lastKeyPressed = null;
+
+            showPopup(`${key.toUpperCase()} moved to question #${nextIndex + 1}`);
+            showQuestionBanner(nextIndex + 1);
+            return;
+        }
+
 
         const digitMatch = e.code.match(/^Digit([0-9])$/);
-
         if (digitMatch) {
             e.preventDefault();
             e.stopPropagation();
-
             if (!targets.length) updateTargets();
             const total = targets.length;
             const digit = parseInt(digitMatch[1]);
@@ -177,8 +283,6 @@
                     currentOffset = 0;
                 }
             } else {
-                const blockStart = Math.floor(currentOffset / 10) * 10;
-                currentOffset = blockStart;
                 lastKeyPressed = digit;
             }
 
@@ -187,11 +291,11 @@
 
             scrollToTarget(finalIndex);
             scrollStates.set(targets[finalIndex], 0);
+            lastFocusedTarget = targets[finalIndex];
             showPopup(`Jumped to question #${finalIndex + 1}`);
             showQuestionBanner(finalIndex + 1);
             return;
         }
-
 
         if (key === 'enter') {
             const active = document.activeElement;
@@ -200,11 +304,8 @@
                 e.stopPropagation();
 
                 if (e.shiftKey) {
-                    // Scroll to 'start'
                     active.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    scrollStates.set(active, 0); // reset scroll state
-
-                    // Apply blue border
+                    scrollStates.set(active, 0);
                     const parent = active.closest('div.relative');
                     if (parent) {
                         parent.style.outline = '3px solid #00ffff';
@@ -213,9 +314,7 @@
                             parent.style.outline = '';
                         }, 1500);
                     }
-
                 } else {
-                    // Cycle through scroll positions
                     const currentState = scrollStates.get(active) ?? 0;
                     const nextState = (currentState + 1) % scrollCycleOrder.length;
                     active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
@@ -223,7 +322,6 @@
                 }
             }
         }
-
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
@@ -237,7 +335,6 @@
         const el = targets[index];
         if (!el) return;
 
-        // Reset outlines
         targets.forEach(target => {
             target.style.outline = 'none';
             const parent = target.closest('div.relative');
@@ -253,30 +350,20 @@
             }, 1500);
         }
 
-        // If parent is taller than viewport, scroll to top of parent minus offset
         const parentRect = parent.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         const scrollY = window.scrollY + parentRect.top - 2000;
-        // const scrollY =  parentRect.top - 2000;
 
         if (parentRect.height > viewportHeight) {
-            // Manual scroll to parent's top
-
-
-            // Set scroll state to 0 (top) manually
-            // scrollStates.set(el, 0);
-
-            // Delay focus just slightly for scroll
             const scrollBlock = scrollStates.get(el) ?? 'start';
             scrollCycleOrder = ['start', 'center', 'end'];
             el.focus();
             el.scrollIntoView({ behavior: 'instant', block: scrollCycleOrder[scrollBlock] || 'start' });
-            // window.scrollTo({ top: scrollY, behavior: 'instant', block: 'start' });
             window.scrollTo({ top: scrollY, behavior: 'instant' });
         } else {
             scrollCycleOrder = ['end', 'start', 'center'];
+            // scrollCycleOrder = ['start', 'center', 'end'];
             el.focus();
         }
-
     }
 })();

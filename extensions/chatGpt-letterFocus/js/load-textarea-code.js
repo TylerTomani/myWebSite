@@ -64,14 +64,27 @@ function switchTitleScript(){
     }
 }
 switchTitleScript()
-function loadTextAreaCode(filePath){
+function loadTextAreaCode(filePath) {
     fetch(filePath)
-    .then(response => response.text())
-    .then(jsCode => {
-        mainScript.innerHTML = jsCode
-    })
-    .catch(err =>{
-        console.log('failed ot load code', err)
-    })
+        .then(response => response.text())
+        .then(jsCode => {
+            // Set full JS code in textarea with line breaks preserved
+            mainScript.value = jsCode;
+
+            // Get first non-empty line and clean it up
+            const firstLine = jsCode.split('\n').find(line => line.trim().length > 0)?.trim();
+
+            // If it's a comment like "// working - script", strip the slashes
+            const displayLine = firstLine?.startsWith('//') ? firstLine.replace(/^\/\/\s*/, '') : firstLine;
+
+            // Set that as the title
+            if (displayLine) {
+                versionTitle.innerText = displayLine;
+            }
+        })
+        .catch(err => {
+            console.log('failed to load code', err);
+        });
 }
+
 loadTextAreaCode(filesArr[iFile])
