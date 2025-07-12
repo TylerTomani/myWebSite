@@ -1,7 +1,4 @@
-// main - script - chatGpt-LetterFocus
-// 🚀 BASELINE NAV SCRIPT — DO NOT TOUCH UNLESS MAKING INTENTIONAL CHANGES
-// Last stable version: July 11, 2025
-// practice draft script
+// draft - working
 (() => {
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;

@@ -12,6 +12,7 @@ document.getElementById('stripCopyBtn').addEventListener('click', () => {
 
     // Remove all <svg> elements
     container.querySelectorAll('svg').forEach(svg => svg.remove());
+    container.querySelectorAll('span').forEach(span => span.remove());
 
     const cleanedHTML = container.innerHTML;
     resultHtml.innerHTML = cleanedHTML

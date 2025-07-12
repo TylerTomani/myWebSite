@@ -1,7 +1,4 @@
-// main - script - chatGpt-LetterFocus
-// 🚀 BASELINE NAV SCRIPT — DO NOT TOUCH UNLESS MAKING INTENTIONAL CHANGES
-// Last stable version: July 11, 2025
-// practice draft script
+// cCopyCodes draft draft script
 (() => {
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
@@ -28,18 +25,19 @@
     function updateTargets() {
         targets = getTargets();
         targets.forEach(t => t.setAttribute('tabindex', '-1'));
-        //console.log(`[NAV MODE] Updated targets: ${targets.length}`);
+        console.log(`[NAV MODE] Updated targets: ${targets.length}`);
     }
 
     function updateEvenPreElements() {
         evenPreElements = getEvenPreElements();
         evenPreElements.forEach(pre => pre.setAttribute('tabindex', '-1'));
+        // Reset cycling index if out of range
         if (currentPreIndex >= evenPreElements.length) currentPreIndex = -1;
     }
 
     function toggleNavMode() {
         navMode = !navMode;
-        //console.log(`[NAV MODE] ${navMode ? 'Activated' : 'Deactivated'}`);
+        console.log(`[NAV MODE] ${navMode ? 'Activated' : 'Deactivated'}`);
         if (navMode) {
             updateTargets();
             updateEvenPreElements();
@@ -63,7 +61,6 @@
             const prompt = document.getElementById('prompt-textarea');
             if (prompt) prompt.focus();
             showPopup('Navigation mode OFF');
-            questionBanner.style.opacity = 0;
         }
     }
 
@@ -114,69 +111,27 @@
     questionBannerAttributes();
 
     let questionBannerTimeout;
-    function showQuestionBanner(number) {
+    let questionBannerPersistent = false;
+
+    function showQuestionBanner(number, persistent = false) {
+        questionBannerPersistent = persistent;
         questionBanner.textContent = `Question #${number}`;
         questionBanner.style.opacity = 1;
         clearTimeout(questionBannerTimeout);
-        questionBannerTimeout = setTimeout(() => {
-            questionBanner.style.opacity = 0;
-        }, 1500);
-    }
 
-    function showQuestionBannerForElement(el) {
-        if (!el) {
-            questionBanner.style.opacity = 0;
-            return;
-        }
-
-        const article = getArticleForElement(el);
-        if (!article) {
-            questionBanner.style.opacity = 0;
-            return;
-        }
-
-        // Determine question number logic:
-        // If article's data-testid ends with even number, show previous article's question number
-        // Else show this article's question number
-
-        const id = article.getAttribute('data-testid');
-        const lastChar = id.slice(-1);
-        const isEvenArticle = !isNaN(lastChar) && parseInt(lastChar) % 2 === 0;
-
-        // Find all articles ordered
-        const allArticles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
-        const index = allArticles.indexOf(article);
-
-        if (isEvenArticle) {
-            // Show previous article question number (if exists)
-            if (index > 0) {
-                const prevArticle = allArticles[index - 1];
-                const prevQuestion = prevArticle.querySelector('.whitespace-pre-wrap');
-                if (prevQuestion) {
-                    const questionIndex = targets.indexOf(prevQuestion);
-                    if (questionIndex !== -1) {
-                        showQuestionBanner(questionIndex + 1);
-                        return;
-                    }
+        if (!persistent) {
+            questionBannerTimeout = setTimeout(() => {
+                if (!questionBannerPersistent) {
+                    questionBanner.style.opacity = 0;
                 }
-            }
-            // fallback: no previous question found
-            questionBanner.style.opacity = 0;
-        } else {
-            // Show current article question number
-            const questionEl = article.querySelector('.whitespace-pre-wrap');
-            if (!questionEl) {
-                questionBanner.style.opacity = 0;
-                return;
-            }
-            const questionIndex = targets.indexOf(questionEl);
-            if (questionIndex === -1) {
-                questionBanner.style.opacity = 0;
-                return;
-            }
-            showQuestionBanner(questionIndex + 1);
+            }, 1500);
         }
     }
+    function hideQuestionBanner() {
+        questionBannerPersistent = false;
+        questionBanner.style.opacity = 0;
+    }
+
 
     const observer = new MutationObserver((mutations) => {
         const hasNewTurns = mutations.some(m =>
@@ -207,7 +162,7 @@
         }
         if (!navMode) return;
 
-        // Click inside question
+        // Check if clicked inside a whitespace-pre-wrap (question)
         const el = e.target.closest('.whitespace-pre-wrap');
         if (el) {
             const index = targets.indexOf(el);
@@ -216,28 +171,32 @@
                 currentOffset = Math.floor(index / 10) * 10;
                 lastKeyPressed = null;
                 lastFocusedTarget = el;
+                showQuestionBanner(index + 1);
                 showPopup(`Selected question #${index + 1}`);
                 const parent = el.closest('div.relative');
                 if (parent) {
                     parent.style.outline = '3px solid #00ffff';
                     parent.style.outlineOffset = '2px';
-                    setTimeout(() => { parent.style.outline = ''; }, 1500);
+                    setTimeout(() => {
+                        parent.style.outline = '';
+                    }, 1500);
                 }
-                showQuestionBannerForElement(el);
             }
             return;
         }
 
-        // Click inside a <pre>
+        // If clicked inside a <pre> inside an article
         const preEl = e.target.closest('pre');
         if (preEl) {
             preEl.focus();
             lastFocusedTarget = null;
             lastKeyPressed = null;
             showPopup('Focused code block');
-            questionBanner.style.opacity = 0; // no question number for code blocks
+            showQuestionBanner('');
             return;
         }
+
+        // If clicked inside any article but not on above elements, do nothing special
     });
 
     const prompt = document.getElementById('prompt-textarea');
@@ -250,16 +209,6 @@
     function getArticleForElement(el) {
         if (!el) return null;
         return el.closest('article[data-testid^="conversation-turn-"]');
-    }
-
-    // Outline focus helper
-    function outlineFocus(el) {
-        if (!el) return;
-        const parent = el.closest('div.relative');
-        if (!parent) return;
-        parent.style.outline = '3px solid #00ffff';
-        parent.style.outlineOffset = '2px';
-        setTimeout(() => { parent.style.outline = ''; }, 1500);
     }
 
     document.addEventListener('keydown', (e) => {
@@ -319,60 +268,56 @@
             }
             return;
         }
+
+        // <-- REPLACED s key behavior START -->
         if (key === 's') {
             e.preventDefault();
             if (!targets.length) updateTargets();
 
             const active = document.activeElement;
             const currentArticle = getArticleForElement(active);
+            if (!currentArticle) return;
 
-            if (currentArticle) {
+            const idAttr = currentArticle.getAttribute('data-testid');
+            const numMatch = idAttr?.match(/\d+$/);
+            if (!numMatch) return;
+
+            const num = parseInt(numMatch[0]);
+
+            if (num % 2 === 0) {
+                // Even => answer. Look for previous odd-numbered article.
                 const allArticles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
                 const currentIndex = allArticles.indexOf(currentArticle);
 
-                // If current article ends in even number, we want to focus the previous question and outline it
-                const id = currentArticle.getAttribute('data-testid');
-                const lastChar = id.slice(-1);
-                const isEvenArticle = !isNaN(lastChar) && parseInt(lastChar) % 2 === 0;
-
-                if (isEvenArticle && currentIndex > 0) {
-                    const prevArticle = allArticles[currentIndex - 1];
-                    const prevQuestion = prevArticle.querySelector('.whitespace-pre-wrap');
-                    if (prevQuestion) {
-                        prevQuestion.focus();
-                        currentOffset = targets.indexOf(prevQuestion);
-                        lastFocusedTarget = prevQuestion;
-                        showPopup(`Focused previous question`);
-                        showQuestionBanner(currentOffset + 1);
-                        outlineFocus(prevQuestion);
-                        return;
-                    }
-                } else if (currentIndex > 0) {
-                    // Normal behavior: focus previous question whitespace-pre-wrap with outline
-                    const prevArticle = allArticles[currentIndex - 1];
-                    const prevQuestion = prevArticle.querySelector('.whitespace-pre-wrap');
-                    if (prevQuestion) {
-                        prevQuestion.focus();
-                        currentOffset = targets.indexOf(prevQuestion);
-                        lastFocusedTarget = prevQuestion;
-                        showPopup(`Focused previous question`);
-                        showQuestionBanner(currentOffset + 1);
-                        outlineFocus(prevQuestion);
-                        return;
+                for (let i = currentIndex - 1; i >= 0; i--) {
+                    const prevId = allArticles[i].getAttribute('data-testid');
+                    const prevNum = parseInt(prevId.match(/\d+$/)[0]);
+                    if (prevNum % 2 === 1) {
+                        const questionEl = allArticles[i].querySelector('.whitespace-pre-wrap');
+                        if (questionEl) {
+                            questionEl.focus();
+                            questionEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            currentOffset = targets.indexOf(questionEl);
+                            lastFocusedTarget = questionEl;
+                            showPopup(`Corresponding question #${currentOffset + 1}`);
+                            showQuestionBanner(currentOffset + 1);
+                            return;
+                        }
                     }
                 }
             }
 
-            // fallback to first question
+            // Fallback — go to first question
             scrollToTarget(0);
             scrollStates.set(targets[0], 1);
             currentOffset = 0;
             lastFocusedTarget = targets[0];
             showPopup('First question');
             showQuestionBanner(1);
-            outlineFocus(targets[0]);
             return;
         }
+        
+        // <-- REPLACED s key behavior END -->
 
         if (key === 'f' || key === 'd') {
             e.preventDefault();
@@ -386,6 +331,7 @@
             const jump = e.shiftKey ? 10 : 1;
             let nextIndex = currentIndex + (key === 'f' ? jump : -jump);
 
+            // Wrap-around behavior (same as number keys)
             const total = targets.length;
             if (nextIndex >= total) nextIndex = 0;
             if (nextIndex < 0) nextIndex = total - 1;
@@ -401,6 +347,7 @@
             return;
         }
 
+        // Number keys 0-9 navigation
         const digitMatch = e.code.match(/^Digit([0-9])$/);
         if (digitMatch) {
             e.preventDefault();
@@ -446,9 +393,15 @@
             return;
         }
 
+        // The new 'c' key behavior — cycle through <pre> elements in even data-testid articles
+
+        // Improved 'c' and 'Shift + c' behavior — cycle through <pre> elements in even data-testid articles
         if (key === 'c') {
             e.preventDefault();
             if (!navMode) return;
+
+            // Make sure targets are up to date
+            if (!targets.length) updateTargets();
 
             const active = document.activeElement;
             let currentArticle = getArticleForElement(active);
@@ -458,8 +411,13 @@
                 currentArticlePres = Array.from(currentArticle.querySelectorAll('pre'));
             }
 
+            // If current article has <pre>, cycle through them, else cycle through all even article <pre>s
             const presToCycle = currentArticlePres.length > 0 ? currentArticlePres : evenPreElements;
-            if (presToCycle.length === 0) return;
+
+            if (presToCycle.length === 0) {
+                showPopup("No code blocks available");
+                return;
+            }
 
             if (e.shiftKey) {
                 currentPreIndex--;
@@ -473,10 +431,20 @@
             el.focus();
             el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-            showPopup(`Code block ${currentPreIndex + 1} (in current article)`);
+            // Find question number for the <pre>
+            let questionNumber = '';
+            const parentArticle = getArticleForElement(el);
+            if (parentArticle) {
+                const questionEl = parentArticle.querySelector('.whitespace-pre-wrap');
+                if (questionEl) {
+                    const questionIndex = targets.indexOf(questionEl);
+                    if (questionIndex !== -1) {
+                        questionNumber = questionIndex + 1;
+                    }
+                }
+            }
 
-            // Show question number from previous article if even article, else current article
-            showQuestionBannerForElement(el);
+            showPopup(`Code block #${currentPreIndex + 1}${questionNumber ? ` in Question #${questionNumber}` : ''}`);
 
             lastKeyPressed = null;
             lastFocusedTarget = null;
@@ -492,7 +460,14 @@
                 if (e.shiftKey) {
                     active.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     scrollStates.set(active, 0);
-                    outlineFocus(active);
+                    const parent = active.closest('div.relative');
+                    if (parent) {
+                        parent.style.outline = '3px solid #00ffff';
+                        parent.style.outlineOffset = '2px';
+                        setTimeout(() => {
+                            parent.style.outline = '';
+                        }, 1500);
+                    }
                 } else {
                     const currentState = scrollStates.get(active) ?? 0;
                     const nextState = (currentState + 1) % scrollCycleOrder.length;
@@ -504,40 +479,18 @@
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
-            if (active && active.classList.contains('whitespace-pre-wrap')) {
-                e.preventDefault();
+
+            if (targets.includes(active)) {
+                lastFocusedTarget = active;
             }
         }
-    }, true);
+                });
 
-    function scrollToTarget(index) {
-        const el = targets[index];
-        if (!el) return;
-
-        targets.forEach(target => {
-            target.style.outline = 'none';
-            const parent = target.closest('div.relative');
-            if (parent) parent.style.outline = '';
-        });
-
-        outlineFocus(el);
-
-        const parent = el.closest('div.relative');
-        if (!parent) return;
-
-        const parentRect = parent.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const scrollY = window.scrollY + parentRect.top - 2000;
-
-        if (parentRect.height > viewportHeight) {
-            const scrollBlock = scrollStates.get(el) ?? 'start';
-            scrollCycleOrder = ['start', 'center', 'end'];
-            el.focus();
-            el.scrollIntoView({ behavior: 'instant', block: scrollCycleOrder[scrollBlock] || 'start' });
-            window.scrollTo({ top: scrollY, behavior: 'instant' });
-        } else {
-            scrollCycleOrder = ['end', 'start', 'center'];
-            el.focus();
-        }
-    }
+            function scrollToTarget(index) {
+                if (targets[index]) {
+                    targets[index].focus();
+                    targets[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+            
 })();

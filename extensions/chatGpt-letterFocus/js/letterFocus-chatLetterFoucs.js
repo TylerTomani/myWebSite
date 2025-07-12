@@ -1,13 +1,24 @@
 const mainScript = document.querySelector('#mainScript')
 const homelink = document.querySelector('#homelink')
 const endToTopBtn = document.querySelector('#endToTopBtn')
-
+const textarea = document.querySelector('textarea')
 const copyCodes = document.querySelectorAll('.code-elements-container .copy-code')
 let iCopyCodes = 0
-let elsArr = [nxtBtn, endToTopBtn]
+let elsArr = [nxtBtn,backBtn, endToTopBtn]
 let iEl = 0
 import { nxtBtn } from "./load-textarea-code.js"
+import { backBtn } from "./load-textarea-code.js"
 let focusedMainScript = false
+textarea.addEventListener('focus', e => {
+    e.target.scrollTop = 0;
+});
+textarea.addEventListener('keydown', e => {
+    let key = e.key.toLowerCase()
+    if(key === 'm'){
+        scrollTo(0,0)
+    }
+})
+
 mainScript.addEventListener('focus', () =>{
     
     focusedMainScript = true
@@ -25,9 +36,13 @@ addEventListener('keydown', e => {
     }
     if(focusedMainScript) return
     if (key === 'm') {
-        e.preventDefault()
+        // e.preventDefault()
         mainScript.focus()
-        scrollTo(0,0)
+        // scrollTo(0,0)
+    }
+    if (key === 'b') {
+        e.preventDefault()
+        backBtn.focus()
     }
     if (key === 'n') {
         e.preventDefault()
@@ -46,6 +61,10 @@ addEventListener('keydown', e => {
         }
         endToTopBtn.focus()
     }
+    if (key === 't') {
+        nxtBtn.focus()
+        
+    }
     if(!isNaN(key)){
         let intlet = parseInt(key)
         copyCodes[intlet -1]?.focus()
@@ -58,7 +77,7 @@ addEventListener('keydown', e => {
     }
     if (key == 'c') {
         // copyCodes[iCopyCodes].focus()
-        // if(e.metaKey)return
+        if(e.metaKey)return
         if (e.shiftKey) {
 
             console.log('shift c')

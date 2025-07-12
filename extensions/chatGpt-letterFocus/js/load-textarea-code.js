@@ -1,69 +1,82 @@
 export const nxtBtn = document.querySelector('#nxtBtn')
+export const backBtn = document.querySelector('#backBtn')
 const body = document.querySelector('body')
 const mainScript = document.querySelector('#mainScript')
 const versionTitle = document.querySelector('#versionTitle')
 
-const practiceDraftScriptJsFile = 'versions/practice-draft-script.js'
-const draftScriptJsFile = 'versions/draft-script.js'
-const mainScriptJsFile = 'main-script-chat-letterFocus.js'
-const workingScript = 'versions/working-script.js'
-const filesArr = [practiceDraftScriptJsFile, draftScriptJsFile, workingScript, mainScriptJsFile]
+const newVersion = 'versions/new.js'
+const workingVersion = 'versions/working-version.js'
+const draft = 'versions/draft.js'
+const nonWorkingVersion = 'versions/nonworking-version.js'
+const filesArr = [workingVersion, draft, newVersion, nonWorkingVersion]
 // Change this for default script on home
 let iFile = 0
 let filePath = filesArr[iFile]
-// addEventListener('DOMContentLoaded', () => {
-//     scrollTo(0, 0)
-// });
+addEventListener('DOMContentLoaded', () => {
+    changeBackground()
+});
 nxtBtn.addEventListener('click', e => {
     e.preventDefault()
-    changeScript()   
+    changeScript(0)   
 })
 nxtBtn.addEventListener('keydown', e => {
     let key = e.keyCode
     if(key === 13){
+        
         scrollTo(0,0)
-        changeScript()
+        changeScript(0)
+    }
+})
+backBtn.addEventListener('click', e => {
+    e.preventDefault()
+    changeScript(1)   
+})
+backBtn.addEventListener('keydown', e => {
+    let key = e.keyCode
+    if(key === 13){
+        
+        scrollTo(0,0)
+        changeScript(1)
     }
 })
 
-function changeScript(){
+function changeScript(reverse){
     if(iFile > 0){
-        let r = Math.floor(Math.random() * 50)
-        let g = Math.floor(Math.random() * 50)
-        let b = Math.floor(Math.random() * 50)
-        if(body.classList.contains('dark-mode')){
-            console.log(body)
-            mainScript.style.background = `rgb(${r},${g},${b},.05)`
-        }
-        mainScript.style.background = `rgb(${r},${g},${b},.5)`
-        console.log(`rgb(${r},${g},${b},.05)`)
     }
-    iFile = (iFile + 1) % filesArr.length
-    loadTextAreaCode(filesArr[iFile])
-    switchTitleScript()    
-}
+    if(!reverse){
+        iFile = (iFile + 1) % filesArr.length
+    } else {
+        iFile = (iFile - 1 + filesArr.length) % filesArr.length
 
-function switchTitleScript(){
-    switch (iFile){
-        case 0 :
-            versionTitle.innerText = 'practice draft script'
-            versionTitle.id = 'practiceDraftScriptJsFile'
-            break
-        case 1 :
-            versionTitle.innerHTML = 'draft script'
-            versionTitle.id = 'draftScript'
-            break
-        case 2 :
-            versionTitle.innerText = 'main version working script'
-            versionTitle.id = 'mainScript'
-            break
-        case 3 :
-            versionTitle.innerText = 'working backup'
-            versionTitle.id = 'wokingBackupScript'
-            break
     }
+    console.log(iFile)
+    loadTextAreaCode(filesArr[iFile])
+    console.log(filesArr[iFile],iFile)
+    let r = Math.floor(Math.random() * 50)
+    let g = Math.floor(Math.random() * 50)
+    let b = Math.floor(Math.random() * 50)
+    if(body.classList.contains('dark-mode')){
+        console.log(body)
+    }
+    // mainScript.style.background = `rgb(${r},${g},${b},.5)`
+    // mainScript.style.background = `rgb(${r},${g},${b},.05)`
+    // console.log(`rgb(${r},${g},${b},.05)`)
+    // switchTitleScript()    
+    console.log(iFile)
+    changeBackground()
 }
-switchTitleScript()
+function changeBackground() {
+    if (iFile == 0) {
+        mainScript.style.background = 'rgb(3,38,22,.5)'
+    }
+    if (iFile == 1) {
+        mainScript.style.background = 'rgb(14,42,47,.5)'
+    }
+    if (iFile == 2) {
+        mainScript.style.background = 'rgb(48,17,17,.5)'
+    }
+
+}
 function loadTextAreaCode(filePath) {
     fetch(filePath)
         .then(response => response.text())
