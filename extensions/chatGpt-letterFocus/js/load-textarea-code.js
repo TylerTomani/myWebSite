@@ -4,11 +4,13 @@ const body = document.querySelector('body')
 const mainScript = document.querySelector('#mainScript')
 const versionTitle = document.querySelector('#versionTitle')
 
+const stepFocusWorking = 'versions/step-focus-working.js'
 const newVersion = 'versions/new.js'
 const workingVersion = 'versions/working-version.js'
 const draft = 'versions/draft.js'
-const nonWorkingVersion = 'versions/nonworking-version.js'
-const filesArr = [workingVersion, draft, newVersion, nonWorkingVersion]
+const draftWorking = 'versions/draft-working.js'
+// const nonWorkingVersion = 'versions/nonworking-version.js'
+const filesArr = [draft, draftWorking, workingVersion, newVersion, stepFocusWorking]
 // Change this for default script on home
 let iFile = 0
 let filePath = filesArr[iFile]
@@ -67,13 +69,13 @@ function changeScript(reverse){
 }
 function changeBackground() {
     if (iFile == 0) {
-        mainScript.style.background = 'rgb(3,38,22,.5)'
+        mainScript.style.background = 'rgb(48,17,17,.5)'
     }
     if (iFile == 1) {
         mainScript.style.background = 'rgb(14,42,47,.5)'
     }
-    if (iFile == 2) {
-        mainScript.style.background = 'rgb(48,17,17,.5)'
+    if (iFile >= 2) {
+        mainScript.style.background = 'rgb(3,38,22,.5)'
     }
 
 }

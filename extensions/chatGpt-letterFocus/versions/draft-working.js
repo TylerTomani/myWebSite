@@ -1,4 +1,4 @@
-// draft
+// draft - working
 (() => {
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
@@ -222,7 +222,7 @@
         }
     });
 
-    
+
 
     function getArticleForElement(el) {
         return el?.closest('article[data-testid^="conversation-turn-"]') ?? null;
@@ -486,8 +486,8 @@
                 }
             }
         }
-        
-        
+
+
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
@@ -531,5 +531,5 @@
             el.focus();
         }
     }
-    
+
 })();

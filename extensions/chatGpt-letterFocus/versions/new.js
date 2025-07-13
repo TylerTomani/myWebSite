@@ -1,44 +1,58 @@
-// New
+// New 
 (() => {
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
     let targets = [];
-    let oddTargets = [];
     let lastKeyPressed = null;
     let currentOffset = 0;
     let lastFocusedTarget = null;
 
-    const scrollStates = new WeakMap();
+    const prompt = document.getElementById('prompt-textarea');
+    if (prompt) {
+        prompt.addEventListener('focus', () => {
+            if (navMode) {
+                navMode = false;
+                showPopup('Navigation mode OFF');
+                questionBanner.style.opacity = 0;
+            }
+        });
+    }
+
+    let lastNonFirstFocused = null;
+    let sToggleOnFirst = false;
+
+    const reservedShortcuts = new Set([
+        'c', 'i', 'j', 'k', 'r', 'w', 't', 'n', 'p', 's', 'f', 'd', 'l', 'm'
+    ]);
 
     const getTargets = () =>
         Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"] .whitespace-pre-wrap')).filter(Boolean);
 
-    const getOddTargets = () => {
-        return getTargets().filter(t => {
-            const article = t.closest('article');
-            if (!article) return false;
-            const id = article.dataset.testid?.match(/\d+/)?.[0];
-            return id && parseInt(id) % 2 === 1;
-        });
-    };
-
     function updateTargets() {
         targets = getTargets();
-        oddTargets = getOddTargets();
         targets.forEach(t => t.setAttribute('tabindex', '-1'));
     }
 
     function toggleNavMode() {
         navMode = !navMode;
-        console.log(`[NAV MODE] ${navMode ? 'Activated' : 'Deactivated'}`);
         if (navMode) {
             updateTargets();
             if (targets.length) {
-                const lastIndex = targets.length - 1;
-                scrollToTarget(targets, lastIndex);
+                const lastIndex = (lastFocusedTarget && targets.includes(lastFocusedTarget))
+                    ? targets.indexOf(lastFocusedTarget)
+                    : targets.length - 1;
+                scrollToTarget(lastIndex);
                 scrollStates.set(targets[lastIndex], 1);
                 currentOffset = Math.floor(lastIndex / 10) * 10;
                 showQuestionBanner(lastIndex + 1);
+
+                if (lastIndex > 0) {
+                    lastNonFirstFocused = targets[lastIndex];
+                    sToggleOnFirst = false;
+                } else {
+                    lastNonFirstFocused = null;
+                    sToggleOnFirst = true;
+                }
             }
             showPopup('Navigation mode ON');
         } else {
@@ -51,54 +65,109 @@
         if (!popup) {
             popup = document.createElement('div');
             popup.id = 'nav-help-popup';
-            Object.assign(popup.style, {
-                position: 'fixed',
-                bottom: '20px',
-                right: '20px',
-                padding: '10px 15px',
-                background: 'rgba(0,0,0,0.8)',
-                color: 'white',
-                borderRadius: '6px',
-                zIndex: 9999,
-                fontFamily: 'Arial, sans-serif',
-                fontSize: '14px',
-                boxShadow: '0 0 10px rgba(0,0,0,0.5)',
-                opacity: '1',
-                transition: 'opacity 0.2s ease'
-            });
+            popup.style.position = 'fixed';
+            popup.style.bottom = '20px';
+            popup.style.right = '20px';
+            popup.style.padding = '10px 15px';
+            popup.style.background = 'rgba(0,0,0,0.8)';
+            popup.style.color = 'white';
+            popup.style.borderRadius = '6px';
+            popup.style.zIndex = 9999;
+            popup.style.fontFamily = 'Arial, sans-serif';
+            popup.style.fontSize = '14px';
+            popup.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)';
             document.body.appendChild(popup);
         }
         popup.textContent = message;
         clearTimeout(popup._timeout);
         popup.style.opacity = '1';
-        popup._timeout = setTimeout(() => popup.style.opacity = '0', 2000);
+        popup._timeout = setTimeout(() => {
+            popup.style.opacity = '0';
+        }, 500);
     }
 
-    const questionBanner = document.createElement('div');
-    Object.assign(questionBanner.style, {
-        position: 'fixed',
-        top: '40px',
-        right: '10px',
-        background: '#444',
-        color: 'white',
-        padding: '5px 10px',
-        borderRadius: '6px',
-        fontSize: '13px',
-        zIndex: 9999,
-        opacity: 0,
-        transition: 'opacity 0.2s ease',
-        pointerEvents: 'none'
-    });
-    document.body.appendChild(questionBanner);
+    const scrollStates = new WeakMap();
 
+    const questionBanner = document.createElement('div');
+    function questionBannerAttributes() {
+        questionBanner.style.position = 'fixed';
+        questionBanner.style.top = '40px';
+        questionBanner.style.right = '10px';
+        questionBanner.style.background = '#444';
+        questionBanner.style.color = 'white';
+        questionBanner.style.padding = '5px 10px';
+        questionBanner.style.borderRadius = '6px';
+        questionBanner.style.fontSize = '13px';
+        questionBanner.style.zIndex = 9999;
+        questionBanner.style.opacity = 0;
+        questionBanner.style.transition = 'opacity 0.2s ease';
+        questionBanner.style.pointerEvents = 'none';
+        document.body.appendChild(questionBanner);
+    }
+    questionBannerAttributes();
+
+    let questionBannerTimeout;
     function showQuestionBanner(number) {
         questionBanner.textContent = `Question #${number}`;
         questionBanner.style.opacity = 1;
-        setTimeout(() => questionBanner.style.opacity = 0, 1500);
+        clearTimeout(questionBannerTimeout);
+        questionBannerTimeout = setTimeout(() => {
+            questionBanner.style.opacity = 0;
+        }, 1500);
     }
 
-    const observer = new MutationObserver(mutations => {
-        if (mutations.some(m => Array.from(m.addedNodes).some(n => n.nodeType === 1 && n.querySelector?.('.whitespace-pre-wrap')))) {
+    function showQuestionBannerForElement(el) {
+        if (!el) {
+            questionBanner.style.opacity = 0;
+            return;
+        }
+
+        const article = getArticleForElement(el);
+        if (!article) {
+            questionBanner.style.opacity = 0;
+            return;
+        }
+
+        const id = article.getAttribute('data-testid');
+        const lastChar = id.slice(-1);
+        const isEvenArticle = !isNaN(lastChar) && parseInt(lastChar) % 2 === 0;
+
+        const allArticles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
+        const index = allArticles.indexOf(article);
+
+        if (isEvenArticle && index > 0) {
+            const prevArticle = allArticles[index - 1];
+            const prevQuestion = prevArticle.querySelector('.whitespace-pre-wrap');
+            if (prevQuestion) {
+                const questionIndex = targets.indexOf(prevQuestion);
+                if (questionIndex !== -1) {
+                    showQuestionBanner(questionIndex + 1);
+                    return;
+                }
+            }
+            questionBanner.style.opacity = 0;
+        } else {
+            const questionEl = article.querySelector('.whitespace-pre-wrap');
+            if (!questionEl) {
+                questionBanner.style.opacity = 0;
+                return;
+            }
+            const questionIndex = targets.indexOf(questionEl);
+            if (questionIndex === -1) {
+                questionBanner.style.opacity = 0;
+                return;
+            }
+            showQuestionBanner(questionIndex + 1);
+        }
+    }
+
+    const observer = new MutationObserver((mutations) => {
+        const hasNewTurns = mutations.some(m =>
+            Array.from(m.addedNodes).some(n =>
+                n.nodeType === 1 && n.querySelector?.('.whitespace-pre-wrap')
+            )
+        );
+        if (hasNewTurns) {
             updateTargets();
         }
     });
@@ -107,60 +176,242 @@
     if (chatContainer) {
         observer.observe(chatContainer, { childList: true, subtree: true });
         updateTargets();
+    } else {
+        console.warn("Could not find chat container to observe.");
     }
 
-    const prompt = document.getElementById('prompt-textarea');
-    function isPromptActive(target) {
-        return prompt && prompt.contains(target);
-    }
+    document.addEventListener('click', (e) => {
+        const prompt = document.getElementById('prompt-textarea');
+        if (prompt && prompt.contains(e.target)) {
+            navMode = false;
+            return;
+        }
+        if (!navMode) return;
 
-    // Disable nav mode on prompt activity
-    ['focusin', 'keydown', 'input', 'click'].forEach(evt => {
-        document.addEventListener(evt, (e) => {
-            if (isPromptActive(e.target)) {
-                if (navMode) {
-                    navMode = false;
-                    showPopup('Navigation mode OFF (prompt activity)');
-                    console.log('[NAV MODE] Deactivated from prompt interaction');
+        const el = e.target.closest('.whitespace-pre-wrap');
+        if (el) {
+            const index = targets.indexOf(el);
+            if (index !== -1) {
+                el.focus();
+                currentOffset = Math.floor(index / 10) * 10;
+                lastKeyPressed = null;
+                lastFocusedTarget = el;
+
+                updateLastNonFirstFocused(el);  // update last non-first question
+
+                showPopup(`Selected question #${index + 1}`);
+                const parent = el.closest('div.relative');
+                if (parent) {
+                    parent.style.outline = '3px solid #00ffff';
+                    parent.style.outlineOffset = '2px';
+                    setTimeout(() => { parent.style.outline = ''; }, 1500);
                 }
+                showQuestionBannerForElement(el);
             }
-        }, true);
-    });
-
-    function scrollToTarget(arr, index) {
-        const el = arr[index];
-        if (!el) return;
-
-        const parent = el.closest('div.relative');
-        el.style.border = 'none';
-        el.style.outline = 'none';
-
-        if (parent) {
-            parent.style.outline = '3px solid #00ffff';
-            parent.style.outlineOffset = '2px';
-            setTimeout(() => parent.style.outline = '', 1500);
+            return;
         }
 
-        el.focus();
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const preEl = e.target.closest('pre');
+        if (preEl) {
+            preEl.focus();
+            lastFocusedTarget = null;
+            lastKeyPressed = null;
+            showPopup('Focused code block');
+            questionBanner.style.opacity = 0;
+            return;
+        }
+    });
+
+
+
+    function getArticleForElement(el) {
+        return el?.closest('article[data-testid^="conversation-turn-"]') ?? null;
+    }
+
+    function outlineFocus(el) {
+        if (!el) return;
+        const parent = el.closest('div.relative');
+        if (!parent) return;
+        parent.style.outline = '3px solid #00ffff';
+        parent.style.outlineOffset = '2px';
+        setTimeout(() => { parent.style.outline = ''; }, 1500);
+    }
+
+    // Update lastNonFirstFocused if el is NOT first question
+    function updateLastNonFirstFocused(el) {
+        const idx = targets.indexOf(el);
+        if (idx > 0) {
+            lastNonFirstFocused = el;
+            sToggleOnFirst = false;
+        }
     }
 
     document.addEventListener('keydown', (e) => {
         const key = e.key.toLowerCase();
+        const isCmdOrCtrl = e.metaKey || e.ctrlKey;
+        const isShift = e.shiftKey;
 
-        // Toggle nav mode
-        if ((e.metaKey || e.ctrlKey) && e.shiftKey && key === 'x') {
+        // Allow default browser shortcuts to pass through without interference
+
+        // Always allow navMode toggle
+        if (isCmdOrCtrl && isShift && key === 'x') {
             e.preventDefault();
             toggleNavMode();
+            const prompt = document.getElementById('prompt-textarea');
+            if (!navMode && prompt) prompt.focus();
             return;
         }
 
-        if (!navMode) return;
+        // Disable all navMode key behavior while typing
 
-        // Number key navigation
+        function isTypingInPrompt() {
+            const prompt = document.getElementById('prompt-textarea');
+            if (!prompt) return false;
+            return prompt === document.activeElement || prompt.contains(document.activeElement);
+        }
+
+        // If typing in prompt textarea, do nothing special, let all keys pass through:
+        if (isTypingInPrompt()) {
+            // Also ensure navMode is off if it was still on (optional but recommended)
+            if (navMode) {
+                navMode = false;
+                showPopup('Navigation mode OFF');
+                questionBanner.style.opacity = 0;
+            }
+            return; // exit keydown handler early
+        }
+
+        // Now handle keys (including '?') only if NOT typing in prompt
+        if (key === '?') {
+            e.preventDefault();
+            togglePopup?.();
+        }
+        if (!navMode) return;
+        if (key === 'tab') return;
+
+        if (isCmdOrCtrl && !isShift) {
+            const allowedKeys = ['r', 't', 'w', 'n', 'p', 'f', 's', 'd', 'e', 'l', 'm'];
+            if (allowedKeys.includes(key)) return;
+        }
+
+        if (isCmdOrCtrl && e.key === 'ArrowDown') {
+            e.preventDefault();
+            const articles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
+            const lastArticle = articles.at(-1);
+            if (lastArticle) {
+                lastArticle.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                showPopup('Scrolled to last response');
+            }
+            return;
+        }
+
+        if (isCmdOrCtrl && e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (!targets.length) updateTargets();
+            const firstIndex = 0;
+            scrollToTarget(firstIndex);
+            scrollStates.set(targets[firstIndex], 1);
+            currentOffset = 0;
+            lastFocusedTarget = targets[firstIndex];
+
+            updateLastNonFirstFocused(targets[firstIndex]);
+
+            showPopup('First question (via ⌘↑)');
+            showQuestionBanner(firstIndex + 1);
+            return;
+        }
+
+        if (key === 'e') {
+            e.preventDefault();
+            if (!targets.length) updateTargets();
+            const lastIndex = targets.length - 1;
+            if (lastIndex >= 0) {
+                scrollToTarget(lastIndex);
+                scrollStates.set(targets[lastIndex], 1);
+                currentOffset = Math.floor(lastIndex / 10) * 10;
+                lastFocusedTarget = targets[lastIndex];
+
+                updateLastNonFirstFocused(targets[lastIndex]);
+
+                showPopup('Last question');
+                showQuestionBanner(lastIndex + 1);
+            }
+            return;
+        }
+
+        if (key === 's') {
+            e.preventDefault();
+            if (!targets.length) updateTargets();
+
+            if (!lastNonFirstFocused) {
+                // No non-first question stored, go to first question
+                scrollToTarget(0);
+                scrollStates.set(targets[0], 1);
+                currentOffset = 0;
+                lastFocusedTarget = targets[0];
+                showPopup('First question');
+                showQuestionBanner(1);
+                outlineFocus(targets[0]);
+                sToggleOnFirst = true;
+                return;
+            }
+
+            if (sToggleOnFirst) {
+                // Currently on first question, go to lastNonFirstFocused
+                lastNonFirstFocused.focus();
+                currentOffset = targets.indexOf(lastNonFirstFocused);
+                lastFocusedTarget = lastNonFirstFocused;
+                showPopup(`Toggled to question #${currentOffset + 1}`);
+                showQuestionBanner(currentOffset + 1);
+                outlineFocus(lastNonFirstFocused);
+                sToggleOnFirst = false;
+            } else {
+                // Currently on lastNonFirstFocused, go to first question
+                scrollToTarget(0);
+                scrollStates.set(targets[0], 1);
+                currentOffset = 0;
+                lastFocusedTarget = targets[0];
+                showPopup('Toggled to first question');
+                showQuestionBanner(1);
+                outlineFocus(targets[0]);
+                sToggleOnFirst = true;
+            }
+            return;
+        }
+
+        if (key === 'f' || key === 'd') {
+            e.preventDefault();
+            if (!targets.length) updateTargets();
+
+            let currentIndex = targets.findIndex(el => el === document.activeElement);
+            if (currentIndex === -1 && lastFocusedTarget && targets.includes(lastFocusedTarget)) {
+                currentIndex = targets.indexOf(lastFocusedTarget);
+            }
+
+            const jump = e.shiftKey ? 10 : 1;
+            let nextIndex = currentIndex + (key === 'f' ? jump : -jump);
+            const total = targets.length;
+            if (nextIndex >= total) nextIndex = 0;
+            if (nextIndex < 0) nextIndex = total - 1;
+
+            scrollToTarget(nextIndex);
+            scrollStates.set(targets[nextIndex], 0);
+            lastFocusedTarget = targets[nextIndex];
+
+            updateLastNonFirstFocused(targets[nextIndex]);
+
+            currentOffset = Math.floor(nextIndex / 10) * 10;
+            lastKeyPressed = null;
+
+            showPopup(`${key.toUpperCase()} moved to question #${nextIndex + 1}`);
+            showQuestionBanner(nextIndex + 1);
+            return;
+        }
+
         const digitMatch = e.code.match(/^Digit([0-9])$/);
         if (digitMatch) {
             e.preventDefault();
+            e.stopPropagation();
             if (!targets.length) updateTargets();
             const total = targets.length;
             const digit = parseInt(digitMatch[1]);
@@ -175,11 +426,9 @@
                     }
                 } else {
                     const activeIndex = targets.indexOf(document.activeElement);
-                    if (activeIndex !== -1 && activeIndex % 10 === positionInRange) {
-                        currentOffset = Math.floor(activeIndex / 10) * 10;
-                    } else {
-                        currentOffset = Math.floor((targets.length - 1) / 10) * 10;
-                    }
+                    currentOffset = activeIndex !== -1
+                        ? Math.floor(activeIndex / 10) * 10
+                        : Math.floor((targets.length - 1) / 10) * 10;
                 }
                 lastKeyPressed = digit;
             } else if (lastKeyPressed === digit) {
@@ -194,33 +443,93 @@
             let finalIndex = currentOffset + positionInRange;
             if (finalIndex >= total) finalIndex = total - 1;
 
-            const target = targets[finalIndex];
-            if (!target) return;
+            scrollToTarget(finalIndex);
+            scrollStates.set(targets[finalIndex], 0);
+            lastFocusedTarget = targets[finalIndex];
 
-            scrollToTarget(targets, finalIndex);
-            scrollStates.set(target, 0);
-            lastFocusedTarget = target;
+            updateLastNonFirstFocused(targets[finalIndex]);
+
             showPopup(`Jumped to question #${finalIndex + 1}`);
             showQuestionBanner(finalIndex + 1);
             return;
         }
 
-        // Odd navigation with f/d
-        if (key === 'f' || key === 'd') {
-            e.preventDefault();
-            if (!oddTargets.length) updateTargets();
+        if (key === 'enter') {
+            const active = document.activeElement;
+            if (targets.includes(active)) {
+                e.preventDefault();
+                e.stopPropagation();
 
-            const dir = key === 'f' ? 1 : -1;
-            const step = e.shiftKey ? 10 : 1;
-            const currentIndex = oddTargets.indexOf(document.activeElement);
-            let nextIndex = currentIndex + dir * step;
+                // SHIFT + ENTER → Toggle between 'start' and 'end'
+                if (e.shiftKey) {
+                    const currentState = scrollStates.get(active) ?? 0;
+                    const nextState = currentState === 0 ? 2 : 0; // Toggle between 'start' (0) and 'end' (2)
+                    const scrollBlock = scrollCycleOrder[nextState];
 
-            if (nextIndex < 0) nextIndex = 0;
-            if (nextIndex >= oddTargets.length) nextIndex = oddTargets.length - 1;
+                    active.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
+                    scrollStates.set(active, nextState);
+                    outlineFocus(active);
 
-            scrollToTarget(oddTargets, nextIndex);
-            showPopup(`Odd question #${nextIndex + 1}`);
-            return;
+                    showPopup(scrollBlock === 'start' ? 'top' : 'bottom');
+                } else {
+                    // Regular Enter → Cycle through 'start', 'center', 'end'
+                    const currentState = scrollStates.get(active) ?? 0;
+                    const nextState = (currentState + 1) % scrollCycleOrder.length;
+                    const scrollBlock = scrollCycleOrder[nextState];
+
+                    active.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
+                    scrollStates.set(active, nextState);
+
+                    if (scrollBlock === 'end') {
+                        showPopup('bottom');
+                    }
+                }
+            }
+        }
+
+
+
+        if (/^[a-z0-9]$/i.test(key)) {
+            const active = document.activeElement;
+            if (active && active.classList.contains('whitespace-pre-wrap')) {
+                e.preventDefault();
+            }
         }
     }, true);
+
+    function scrollToTarget(index) {
+        const el = targets[index];
+        if (!el) return;
+
+        targets.forEach(target => {
+            target.style.outline = 'none';
+            const parent = target.closest('div.relative');
+            if (parent) parent.style.outline = '';
+        });
+
+        outlineFocus(el);
+
+        const parent = el.closest('div.relative');
+        if (!parent) return;
+
+        const parentRect = parent.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const scrollY = window.scrollY + parentRect.top - 2000;
+
+        if (parentRect.height > viewportHeight) {
+            const scrollIndex = scrollStates.get(el) ?? 0; // 0 = start
+            const scrollBlock = scrollCycleOrder[scrollIndex] || 'start';
+            el.focus();
+            el.scrollIntoView({ behavior: 'instant', block: scrollBlock });
+            window.scrollTo({ top: scrollY, behavior: 'instant' });
+
+            if (scrollBlock === 'end') {
+                showPopup('bottom');
+            }
+        } else {
+            // scrollCycleOrder = ['end', 'start', 'center'];
+            el.focus();
+        }
+    }
+
 })();
