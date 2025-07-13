@@ -187,6 +187,7 @@
             return;
         }
         if (!navMode) return;
+        
 
         const el = e.target.closest('.whitespace-pre-wrap');
         if (el) {
@@ -443,49 +444,62 @@
             let finalIndex = currentOffset + positionInRange;
             if (finalIndex >= total) finalIndex = total - 1;
 
-            scrollToTarget(finalIndex);
-            scrollStates.set(targets[finalIndex], 0);
-            lastFocusedTarget = targets[finalIndex];
+            // <-- Fixed scroll state preservation here -->
+            const targetEl = targets[finalIndex];
+            const existingState = scrollStates.get(targetEl);
+            scrollStates.set(targetEl, existingState ?? 0); // Preserve existing scroll state or default to start (0)
 
-            updateLastNonFirstFocused(targets[finalIndex]);
+            scrollToTarget(finalIndex);
+            lastFocusedTarget = targetEl;
+
+            updateLastNonFirstFocused(targetEl);
 
             showPopup(`Jumped to question #${finalIndex + 1}`);
             showQuestionBanner(finalIndex + 1);
             return;
         }
 
+
         if (key === 'enter') {
-            const active = document.activeElement;
-            if (targets.includes(active)) {
-                e.preventDefault();
-                e.stopPropagation();
+    const active = document.activeElement;
+    if (targets.includes(active)) {
+        e.preventDefault();
+        e.stopPropagation();
 
-                // SHIFT + ENTER → Toggle between 'start' and 'end'
-                if (e.shiftKey) {
-                    const currentState = scrollStates.get(active) ?? 0;
-                    const nextState = currentState === 0 ? 2 : 0; // Toggle between 'start' (0) and 'end' (2)
-                    const scrollBlock = scrollCycleOrder[nextState];
+        // Determine if focused element is last question
+        const isLastQuestion = (active === targets[targets.length - 1]);
+        
+        // Use alternate scroll order for last question
+        const cycleOrder = isLastQuestion ? ['end', 'start', 'center'] : scrollCycleOrder;
 
-                    active.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
-                    scrollStates.set(active, nextState);
-                    outlineFocus(active);
+        if (e.shiftKey) {
+            // SHIFT + ENTER → Toggle between first and last in the cycle (adapted for alternate cycle)
+            const currentState = scrollStates.get(active) ?? 0;
+            // For shift + enter, toggle between first and last index of cycleOrder
+            const nextState = currentState === 0 ? cycleOrder.length - 1 : 0;
+            const scrollBlock = cycleOrder[nextState];
 
-                    showPopup(scrollBlock === 'start' ? 'top' : 'bottom');
-                } else {
-                    // Regular Enter → Cycle through 'start', 'center', 'end'
-                    const currentState = scrollStates.get(active) ?? 0;
-                    const nextState = (currentState + 1) % scrollCycleOrder.length;
-                    const scrollBlock = scrollCycleOrder[nextState];
+            active.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
+            scrollStates.set(active, nextState);
+            outlineFocus(active);
 
-                    active.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
-                    scrollStates.set(active, nextState);
+            showPopup(scrollBlock === 'start' ? 'top' : 'bottom');
+        } else {
+            // Regular Enter → Cycle through current cycleOrder
+            const currentState = scrollStates.get(active) ?? 0;
+            const nextState = (currentState + 1) % cycleOrder.length;
+            const scrollBlock = cycleOrder[nextState];
 
-                    if (scrollBlock === 'end') {
-                        showPopup('bottom');
-                    }
-                }
+            active.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
+            scrollStates.set(active, nextState);
+
+            if (scrollBlock === 'end' || scrollBlock === 'bottom') {
+                showPopup('bottom');
             }
         }
+    }
+}
+
         
         
 
@@ -509,27 +523,16 @@
 
         outlineFocus(el);
 
-        const parent = el.closest('div.relative');
-        if (!parent) return;
+        const scrollIndex = scrollStates.get(el) ?? 0; // 0 = start
+        const scrollBlock = scrollCycleOrder[scrollIndex] || 'start';
 
-        const parentRect = parent.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const scrollY = window.scrollY + parentRect.top - 2000;
+        el.focus();
+        el.scrollIntoView({ behavior: 'instant', block: scrollBlock });
 
-        if (parentRect.height > viewportHeight) {
-            const scrollIndex = scrollStates.get(el) ?? 0; // 0 = start
-            const scrollBlock = scrollCycleOrder[scrollIndex] || 'start';
-            el.focus();
-            el.scrollIntoView({ behavior: 'instant', block: scrollBlock });
-            window.scrollTo({ top: scrollY, behavior: 'instant' });
-
-            if (scrollBlock === 'end') {
-                showPopup('bottom');
-            }
-        } else {
-            // scrollCycleOrder = ['end', 'start', 'center'];
-            el.focus();
+        if (scrollBlock === 'end') {
+            showPopup('bottom');
         }
     }
+    
     
 })();

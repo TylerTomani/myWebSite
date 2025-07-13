@@ -188,6 +188,7 @@
         }
         if (!navMode) return;
 
+
         const el = e.target.closest('.whitespace-pre-wrap');
         if (el) {
             const index = targets.indexOf(el);
@@ -443,16 +444,21 @@
             let finalIndex = currentOffset + positionInRange;
             if (finalIndex >= total) finalIndex = total - 1;
 
-            scrollToTarget(finalIndex);
-            scrollStates.set(targets[finalIndex], 0);
-            lastFocusedTarget = targets[finalIndex];
+            // <-- Fixed scroll state preservation here -->
+            const targetEl = targets[finalIndex];
+            const existingState = scrollStates.get(targetEl);
+            scrollStates.set(targetEl, existingState ?? 0); // Preserve existing scroll state or default to start (0)
 
-            updateLastNonFirstFocused(targets[finalIndex]);
+            scrollToTarget(finalIndex);
+            lastFocusedTarget = targetEl;
+
+            updateLastNonFirstFocused(targetEl);
 
             showPopup(`Jumped to question #${finalIndex + 1}`);
             showQuestionBanner(finalIndex + 1);
             return;
         }
+
 
         if (key === 'enter') {
             const active = document.activeElement;
@@ -509,27 +515,16 @@
 
         outlineFocus(el);
 
-        const parent = el.closest('div.relative');
-        if (!parent) return;
+        const scrollIndex = scrollStates.get(el) ?? 0; // 0 = start
+        const scrollBlock = scrollCycleOrder[scrollIndex] || 'start';
 
-        const parentRect = parent.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const scrollY = window.scrollY + parentRect.top - 2000;
+        el.focus();
+        el.scrollIntoView({ behavior: 'instant', block: scrollBlock });
 
-        if (parentRect.height > viewportHeight) {
-            const scrollIndex = scrollStates.get(el) ?? 0; // 0 = start
-            const scrollBlock = scrollCycleOrder[scrollIndex] || 'start';
-            el.focus();
-            el.scrollIntoView({ behavior: 'instant', block: scrollBlock });
-            window.scrollTo({ top: scrollY, behavior: 'instant' });
-
-            if (scrollBlock === 'end') {
-                showPopup('bottom');
-            }
-        } else {
-            // scrollCycleOrder = ['end', 'start', 'center'];
-            el.focus();
+        if (scrollBlock === 'end') {
+            showPopup('bottom');
         }
     }
+
 
 })();
