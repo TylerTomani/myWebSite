@@ -53,7 +53,9 @@ textarea {
 #wokingBackupScript{
     background-color: red !important;
 }
-
+.code-elements-container {
+    margin: 0 5%;
+}
 @media screen and (max-width: 720px){
     .version{
         margin: 0;

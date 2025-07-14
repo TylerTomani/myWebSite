@@ -37,7 +37,7 @@ addEventListener('keydown', e => {
     if (key === 'm') {
         // e.preventDefault()
         mainScript.focus()
-        // scrollTo(0,0)
+        scrollTo(0,0)
     }
     if (key === 'b') {
         e.preventDefault()
