@@ -72,7 +72,7 @@ addEventListener('keydown', e => {
     }
     if (key === 'c') {
         if (e.metaKey) return;
-
+    
         // Always sync index manually based on focused element
         const active = document.activeElement;
         btmPageCopyCodes.forEach((el, idx) => {
@@ -80,13 +80,13 @@ addEventListener('keydown', e => {
                 iCopyCodes = idx;
             }
         });
-
+    
         if (e.shiftKey) {
             iCopyCodes = (iCopyCodes - 1 + btmPageCopyCodes.length) % btmPageCopyCodes.length;
         } else {
             iCopyCodes = (iCopyCodes + 1) % btmPageCopyCodes.length;
         }
-
+    
         btmPageCopyCodes[iCopyCodes].focus();
     }
     
