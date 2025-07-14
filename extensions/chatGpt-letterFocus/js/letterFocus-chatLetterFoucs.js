@@ -106,3 +106,35 @@ btmPageCopyCodes.forEach((el, index) => {
         e.target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const image = document.getElementById("elementImg");
+    let isImgVisible = false;
+
+  document.querySelectorAll(".code-elements-container .copy-code").forEach((el) => {
+        el.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault(); // Prevent any default behavior
+
+                const newSrc = el.dataset.img;
+                if (newSrc) {
+                    image.src = newSrc;
+                }
+
+                isImgVisible = !isImgVisible;
+
+                if (isImgVisible) {
+                    image.style.zIndex = "2";
+                    image.style.transform = "scale(1.5)";
+                    image.style.right = '15%'
+                    image.style.transition = "transform 0.05s ease, z-index 0.3s ease";
+                } else {
+                    image.style.zIndex = "0";
+                    image.style.right = '0'
+                    image.style.transform = "scale(1)";
+                }
+            }
+        });
+  });
+});
+

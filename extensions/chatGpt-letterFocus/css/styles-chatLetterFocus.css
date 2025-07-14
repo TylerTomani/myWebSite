@@ -20,24 +20,21 @@
     margin-bottom: 10%;
 }
 .code-elements-container {
+    position: relative;
     margin: 0 5%;
 }
 .code-container {
     height: 100%;
-}
-.code-elements-container .code-container  {
-    height: 100%;
-    position: relative;
-    
 }
 .code-elements-container .code-container .copy-code {
     position: relative;
     z-index: 1
 
 }
-.code-elements-container .code-container img{
+.code-elements-container img{
     position: absolute;
     z-index: 0;
+    right: 0;
     right: 0;
     width: 50%;
     /* height: 50%; */
