@@ -51,7 +51,6 @@ function changeScript(reverse){
         iFile = (iFile - 1 + filesArr.length) % filesArr.length
 
     }
-    console.log(iFile)
     loadTextAreaCode(filesArr[iFile])
     console.log(filesArr[iFile],iFile)
     let r = Math.floor(Math.random() * 50)

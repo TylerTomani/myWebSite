@@ -1,10 +1,10 @@
 const mainScript = document.querySelector('#mainScript')
 const homelink = document.querySelector('#homelink')
-const endToTopBtn = document.querySelector('#endToTopBtn')
+const backToTopBtn = document.querySelector('#backToTopBtn')
 const textarea = document.querySelector('textarea')
-const copyCodes = document.querySelectorAll('.code-elements-container .copy-code')
+const btmPageCopyCodes = document.querySelectorAll('.code-elements-container .copy-code')
 let iCopyCodes = 0
-let elsArr = [nxtBtn,backBtn, endToTopBtn]
+let elsArr = [nxtBtn,backBtn, backToTopBtn]
 let iEl = 0
 import { nxtBtn } from "./load-textarea-code.js"
 import { backBtn } from "./load-textarea-code.js"
@@ -18,23 +18,22 @@ textarea.addEventListener('keydown', e => {
         scrollTo(0,0)
     }
 })
-
-mainScript.addEventListener('focus', () =>{
-    
+mainScript.addEventListener('focus', (e) =>{
     focusedMainScript = true
+    // console.log(e.target,iCopyCodes)
+    // iCopyCodes = 0
 })
-mainScript.addEventListener('focusout', () =>{
-    focusedMainScript = false
-})
+mainScript.addEventListener('focusout', () =>{focusedMainScript = false})
 addEventListener('keydown', e => {
-
     let key = e.key.toLowerCase()
     if((e.metaKey || e.ctrlKey) && e.shiftKey && e.key == 'x'){
         focusedMainScript = false
         elsArr[iEl].focus()
         iEl = (iEl + 1) % elsArr.length
     }
-    if(focusedMainScript) return
+    if (focusedMainScript && !e.shiftKey) {
+        return
+    }
     if (key === 'm') {
         // e.preventDefault()
         mainScript.focus()
@@ -56,53 +55,54 @@ addEventListener('keydown', e => {
         homelink.focus()
     }
     if (key === 'e') {
-        if (!endToTopBtn.hasAttribute('tabindex')) {
-            endToTopBtn.setAttribute('tabindex', '0')
+        if (!backToTopBtn.hasAttribute('tabindex')) {
+            backToTopBtn.setAttribute('tabindex', '0')
         }
-        endToTopBtn.focus()
+        backToTopBtn.focus()
     }
     if (key === 't') {
         nxtBtn.focus()
         
     }
+    
     if(!isNaN(key)){
         let intlet = parseInt(key)
-        copyCodes[intlet -1]?.focus()
-        let iCopyCodes = intlet - 1 
-    }
-    if(!isNaN(key)){
-        let intlet = parseInt(key)
-        copyCodes[intlet - 1]?.focus()
+        btmPageCopyCodes[intlet - 1]?.focus()
         let iCopyCodes = intlet - 1
     }
-    if (key == 'c') {
-        // copyCodes[iCopyCodes].focus()
-        if(e.metaKey)return
-        if (e.shiftKey) {
+    if (key === 'c') {
+        if (e.metaKey) return;
 
-            console.log('shift c')
-            iCopyCodes = (iCopyCodes - 1 + copyCodes.length) % copyCodes.length
-            copyCodes[iCopyCodes].focus()
-            // if (iCopyCodes === -1) iCopyCodes = copyCodes.length - 1;
-            return
-        } else if (!e.shiftKey) {
-            console.log('c')
-            copyCodes[iCopyCodes].focus()
-            iCopyCodes = (iCopyCodes + 1) % copyCodes.length
-            if (iCopyCodes === -1) iCopyCodes = 0;
+        // Always sync index manually based on focused element
+        const active = document.activeElement;
+        btmPageCopyCodes.forEach((el, idx) => {
+            if (el === active) {
+                iCopyCodes = idx;
+            }
+        });
+
+        if (e.shiftKey) {
+            iCopyCodes = (iCopyCodes - 1 + btmPageCopyCodes.length) % btmPageCopyCodes.length;
+        } else {
+            iCopyCodes = (iCopyCodes + 1) % btmPageCopyCodes.length;
         }
 
+        btmPageCopyCodes[iCopyCodes].focus();
     }
+    
 });
 
-endToTopBtn.addEventListener('keydown', e => {
+backToTopBtn.addEventListener('keydown', e => {
     let key = e.keyCode
     if(key === 13){
-        console.log(endToTopBtn)
-        endToTopBtn.click()
+        console.log(backToTopBtn)
+        backToTopBtn.click()
     }
 })
 
-copyCodes.forEach(el => {
-    el.addEventListener('focus', e =>{e.target.scrollIntoView({behavior:'smooth', block: 'start'})})
-})
+btmPageCopyCodes.forEach((el, index) => {
+    el.addEventListener('focus', e => {
+        iCopyCodes = index; // ✅ Sync the index
+        e.target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
