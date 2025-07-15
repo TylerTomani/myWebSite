@@ -1,13 +1,15 @@
-// working
+// working -version
 // draft
 (() => {
+
+    console.log('✅ ChatGPT Navigator Extension Loaded');
     const style = document.createElement('style');
     style.textContent = `
     .whitespace-pre-wrap:focus {
         outline: none !important;
         scroll-margin-bottom: 100px; /* ✅ Key fix: adds breathing room at bottom */
     }
-  `;
+    `;
     document.head.appendChild(style);
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
@@ -347,16 +349,7 @@
             togglePopup?.();
         }
         if (!navMode) return;
-        if (key === 'escape' && navMode) {
-            e.preventDefault();
-            toggleNavMode();
-            return;
-        }
-        if (key === 'escape' && navMode) {
-            e.preventDefault();
-            toggleNavMode();
-            return;
-        }
+
 
         if (key === 'tab') return;
 
@@ -625,6 +618,8 @@
             }, 50);
         }
     }
+
+
 
 
 

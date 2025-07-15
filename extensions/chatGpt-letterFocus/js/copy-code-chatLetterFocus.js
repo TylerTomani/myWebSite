@@ -1,63 +1,43 @@
-export function addCopyCodes(){
-const codeCopy = document.querySelectorAll('.copy-code')
-const codeContainers = document.querySelectorAll('.code-container')
-let cmdCarray = []
-codeCopy.forEach(copycode => {
-    copycode.addEventListener('keydown' , e => {        
-        cmdCarray.unshift(e.keyCode)
-        if(cmdCarray.length > 3){
-            cmdCarray.pop()
-        }
-        if(cmdCarray[0] === 67 && cmdCarray[1] === 91){
-            animate(e)
-        }
-    })
-    copycode.addEventListener('click', e => {
-        e.preventDefault()
-        animate(e)
-    })
-    copycode.addEventListener('focusin', e  => {
-        if(e.target.classList.contains('long-code')){
-            e.target.scrollIntoView({ block: "end", inline: "nearest" });
-            if(e.target.classList.contains('long-code')){
-                e.target.scrollIntoView({ block: "start", inline: "nearest" });
-            }
+import { nxtBtn, backBtn, mainScript } from "./load-textarea-code.js";
+
+function copyTextToClipboard(text) {
+    return navigator.clipboard.writeText(text).catch(err => {
+        console.error("Unable to copy text to clipboard:", err);
+    });
+}
+
+function animate(element) {
+    element.classList.remove('decopied', 'copied'); // reset classes fast
+    element.classList.add('copied');
+    setTimeout(() => {
+        element.classList.remove('copied');
+        element.classList.add('decopied');
+    }, 250);
+}
+
+function handleCopy() {
+    // Always copy the text from mainScript regardless of source
+    const textToCopy = mainScript.value || mainScript.innerText || "";
+    copyTextToClipboard(textToCopy);
+    animate(mainScript);
+}
+
+function setupCopyShortcut(element) {
+    element.addEventListener('keydown', e => {
+        // Check Command (metaKey) + C (case-insensitive)
+        if (e.metaKey && (e.key === 'c' || e.key === 'C')) {
+            e.preventDefault(); // prevent default copy just to be safe
+            handleCopy();
         }
     });
-})
-function animate(e){
-    let el = e.target
-    if(el.classList.contains('decopied')){
-        el.classList.remove('decopied')
-    }
-    el.classList.add('copied')
-    // console.log(el.parentElement)
-    setTimeout(() =>{
-        el.classList.remove('copied')
-        el.classList.add('decopied')
-    },250)
-    if(e.target.tagName == 'TEXTAREA'){
-        let txt = e.target.value
-        copyToClip(txt)
 
-    } else {
-        let txt = e.target.innerText
-        copyToClip(txt)
-    }
-    
+    // Optional: animate on click for code elements as you had
+    element.addEventListener('click', e => {
+        handleCopy();
+    });
 }
-function copyToClip(txt){ 
-    async function copyTextToClipboard(text) {
-        try {
-          await navigator.clipboard.writeText(text);
-        //   ;
-        } catch (err) {
-          console.error("Unable to copy text to clipboard:", err);
-        }
-      }
-      
-      const textToCopy = txt;
-      copyTextToClipboard(textToCopy);
-}
-}
-addCopyCodes()
+
+// Setup for mainScript and both buttons
+setupCopyShortcut(mainScript);
+setupCopyShortcut(nxtBtn);
+setupCopyShortcut(backBtn);

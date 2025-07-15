@@ -1,13 +1,14 @@
 // New 
-// draft
 (() => {
+
+    console.log('✅ ChatGPT Navigator Extension Loaded');
     const style = document.createElement('style');
     style.textContent = `
     .whitespace-pre-wrap:focus {
         outline: none !important;
         scroll-margin-bottom: 100px; /* ✅ Key fix: adds breathing room at bottom */
     }
-  `;
+    `;
     document.head.appendChild(style);
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
@@ -76,9 +77,16 @@
 
                 const focusIndex = targets.length === 1 ? 0 : lastIndex;
 
-                // 🆕 Do NOT scroll when re-entering navMode — just focus
                 const el = targets[focusIndex];
-                el.focus();
+
+                // Focus without scrolling
+                el.focus({ preventScroll: true });
+
+                // Restore exact scroll position saved on exit
+                if (previousScrollY !== null) {
+                    window.scrollTo({ top: previousScrollY, behavior: 'instant' });
+                }
+
                 outlineFocus(el);
                 scrollStates.set(el, 1);
                 lastFocusedTarget = el;
@@ -94,6 +102,7 @@
                 }
             }
             showPopup('Navigation mode ON');
+
         }
     }
 
@@ -229,27 +238,27 @@
 
         const el = e.target.closest('.whitespace-pre-wrap');
         if (el) {
-            const index = targets.indexOf(el);
-            if (index !== -1) {
-                el.focus();
-                currentOffset = Math.floor(index / 10) * 10;
-                lastKeyPressed = null;
-                lastFocusedTarget = el;
+            el.focus();
 
-                updateLastNonFirstFocused(el);  // update last non-first question
-
-                showPopup(`Selected question #${index + 1}`);
-                const parent = el.closest('div.relative');
-                if (parent) {
-                    el.style.outline = 'none';
-                    parent.style.outline = '3px solid #00ffff';
-                    parent.style.outlineOffset = '2px';
-                    setTimeout(() => { parent.style.outline = ''; }, 1500);
-                }
-                showQuestionBannerForElement(el);
+            if (previousScrollY !== null) {
+                // 🆕 Restore exact scroll position saved on last exit
+                window.scrollTo({ top: previousScrollY, behavior: 'instant' });
             }
-            return;
+
+            outlineFocus(el);
+            lastFocusedTarget = el;
+            currentOffset = Math.floor(focusIndex / 10) * 10;
+            showQuestionBanner(focusIndex + 1);
+
+            if (focusIndex > 0) {
+                lastNonFirstFocused = el;
+                sToggleOnFirst = false;
+            } else {
+                lastNonFirstFocused = null;
+                sToggleOnFirst = true;
+            }
         }
+
 
         const preEl = e.target.closest('pre');
         if (preEl) {
@@ -347,6 +356,8 @@
             togglePopup?.();
         }
         if (!navMode) return;
+
+
         if (key === 'tab') return;
 
         if (isCmdOrCtrl && !isShift) {
@@ -389,8 +400,12 @@
                 const el = targets[lastIndex];
 
                 // Force scroll to 'start' (top) regardless of scrollStates
-                el.focus();
-                el.scrollIntoView({ behavior: 'instant', block: 'start' });
+                el.focus({ preventScroll: true });
+
+                if (previousScrollY !== null) {
+                    window.scrollTo({ top: previousScrollY, behavior: 'instant' });
+                }
+
                 outlineFocus(el);
 
                 lastFocusedTarget = el;
@@ -548,7 +563,7 @@
                     }
 
                     const scrollBlock = scrollCycleOrder[nextState];
-                    active.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
+                    active.scrollIntoView({ behavior: 'instant', block: scrollBlock });
                     scrollStates.set(active, nextState);
                     outlineFocus(active);
                     showPopup(scrollBlock === 'start' ? 'top' : 'bottom');
@@ -614,6 +629,8 @@
             }, 50);
         }
     }
+
+
 
 
 

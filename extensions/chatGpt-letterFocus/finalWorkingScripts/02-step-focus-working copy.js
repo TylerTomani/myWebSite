@@ -1,3 +1,4 @@
+// step-focus-working
 // draft
 (() => {
 
@@ -77,16 +78,9 @@
 
                 const focusIndex = targets.length === 1 ? 0 : lastIndex;
 
+                // 🆕 Do NOT scroll when re-entering navMode — just focus
                 const el = targets[focusIndex];
-
-                // Focus without scrolling
-                el.focus({ preventScroll: true });
-
-                // Restore exact scroll position saved on exit
-                if (previousScrollY !== null) {
-                    window.scrollTo({ top: previousScrollY, behavior: 'instant' });
-                }
-
+                el.focus();
                 outlineFocus(el);
                 scrollStates.set(el, 1);
                 lastFocusedTarget = el;
@@ -102,7 +96,6 @@
                 }
             }
             showPopup('Navigation mode ON');
-
         }
     }
 
@@ -238,27 +231,27 @@
 
         const el = e.target.closest('.whitespace-pre-wrap');
         if (el) {
-            el.focus();
+            const index = targets.indexOf(el);
+            if (index !== -1) {
+                el.focus();
+                currentOffset = Math.floor(index / 10) * 10;
+                lastKeyPressed = null;
+                lastFocusedTarget = el;
 
-            if (previousScrollY !== null) {
-                // 🆕 Restore exact scroll position saved on last exit
-                window.scrollTo({ top: previousScrollY, behavior: 'instant' });
+                updateLastNonFirstFocused(el);  // update last non-first question
+
+                showPopup(`Selected question #${index + 1}`);
+                const parent = el.closest('div.relative');
+                if (parent) {
+                    el.style.outline = 'none';
+                    parent.style.outline = '3px solid #00ffff';
+                    parent.style.outlineOffset = '2px';
+                    setTimeout(() => { parent.style.outline = ''; }, 1500);
+                }
+                showQuestionBannerForElement(el);
             }
-
-            outlineFocus(el);
-            lastFocusedTarget = el;
-            currentOffset = Math.floor(focusIndex / 10) * 10;
-            showQuestionBanner(focusIndex + 1);
-
-            if (focusIndex > 0) {
-                lastNonFirstFocused = el;
-                sToggleOnFirst = false;
-            } else {
-                lastNonFirstFocused = null;
-                sToggleOnFirst = true;
-            }
+            return;
         }
-        
 
         const preEl = e.target.closest('pre');
         if (preEl) {
@@ -399,12 +392,9 @@
             if (lastIndex >= 0) {
                 const el = targets[lastIndex];
 
-                // Focus the last question
-                el.focus({ preventScroll: true });
-
-                // Scroll to the last question with block: 'start' (top)
+                // Force scroll to 'start' (top) regardless of scrollStates
+                el.focus();
                 el.scrollIntoView({ behavior: 'instant', block: 'start' });
-
                 outlineFocus(el);
 
                 lastFocusedTarget = el;
@@ -417,7 +407,6 @@
             }
             return;
         }
-        
 
 
         if (key === 's') {
@@ -439,25 +428,24 @@
 
             if (sToggleOnFirst) {
                 // Currently on first question, go to lastNonFirstFocused
-                const idx = targets.indexOf(lastNonFirstFocused);
-                if (idx !== -1) {
-                    scrollToTarget(idx);
-                    currentOffset = idx;
-                    lastFocusedTarget = lastNonFirstFocused;
-                    showPopup(`Toggled to question #${idx + 1}`);
-                    showQuestionBanner(idx + 1);
-                    sToggleOnFirst = false;
-                }
+                lastNonFirstFocused.focus();
+                currentOffset = targets.indexOf(lastNonFirstFocused);
+                lastFocusedTarget = lastNonFirstFocused;
+                showPopup(`Toggled to question #${currentOffset + 1}`);
+                showQuestionBanner(currentOffset + 1);
+                outlineFocus(lastNonFirstFocused);
+                sToggleOnFirst = false;
             } else {
                 // Currently on lastNonFirstFocused, go to first question
                 scrollToTarget(0);
+                scrollStates.set(targets[0], 1);
                 currentOffset = 0;
                 lastFocusedTarget = targets[0];
                 showPopup('Toggled to first question');
                 showQuestionBanner(1);
+                outlineFocus(targets[0]);
                 sToggleOnFirst = true;
             }
-            
             return;
         }
 

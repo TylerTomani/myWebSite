@@ -1,7 +1,7 @@
 export const nxtBtn = document.querySelector('#nxtBtn')
 export const backBtn = document.querySelector('#backBtn')
 const body = document.querySelector('body')
-const mainScript = document.querySelector('#mainScript')
+export const mainScript = document.querySelector('#mainScript')
 const versionTitle = document.querySelector('#versionTitle')
 
 const stepFocusWorking = 'versions/step-focus-working.js'
