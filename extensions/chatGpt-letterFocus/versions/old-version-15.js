@@ -1,3 +1,6 @@
+// main - script - chatGpt-LetterFocus
+// 🚀 BASELINE NAV SCRIPT — DO NOT TOUCH UNLESS MAKING INTENTIONAL CHANGES
+// Last stable version: July 15, 2025
 // draft
 (() => {
     function getVisibleStopButton() {
@@ -5,7 +8,7 @@
         if (stopBtn && stopBtn.offsetParent !== null) return stopBtn;
         return null;
     }
-    
+
     console.log('✅ ChatGPT Navigator Extension Loaded');
     const style = document.createElement('style');
     style.textContent = `
@@ -263,7 +266,7 @@
                 sToggleOnFirst = true;
             }
         }
-        
+
 
         const preEl = e.target.closest('pre');
         if (preEl) {
@@ -335,8 +338,8 @@
         }
 
         warnIfReservedShortcut(e)
-        
-        
+
+
 
         // Always allow navMode toggle
         if (isCmdOrCtrl && isShift && key === 'x') {
@@ -442,7 +445,7 @@
                 showQuestionBanner(1);
                 sToggleOnFirst = true;
             }
-            
+
             return;
         }
         if (key === 'f' || key === 'd') {

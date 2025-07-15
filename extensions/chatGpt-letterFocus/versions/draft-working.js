@@ -1,6 +1,11 @@
 // draft - working
-// draft 
+// draft
 (() => {
+    function getVisibleStopButton() {
+        const stopBtn = document.querySelector('[data-testid="stop-button"]');
+        if (stopBtn && stopBtn.offsetParent !== null) return stopBtn;
+        return null;
+    }
 
     console.log('✅ ChatGPT Navigator Extension Loaded');
     const style = document.createElement('style');
@@ -342,14 +347,19 @@
 
         // If typing in prompt textarea, do nothing special, let all keys pass through:
         if (isTypingInPrompt()) {
-            // Also ensure navMode is off if it was still on (optional but recommended)
-            if (navMode) {
-                navMode = false;
-                showPopup('Navigation mode OFF');
-                questionBanner.style.opacity = 0;
+            // Turn off navMode if still on
+            const stopBtn = getVisibleStopButton();
+            if (stopBtn && (e.metaKey || e.shiftKey) && key === 'enter') {
+                e.preventDefault();
+                stopBtn.click();
+                showPopup('⛔ Stopped response');
+                return;
             }
-            return; // exit keydown handler early
+
+
+            return;
         }
+
 
         // Now handle keys (including '?') only if NOT typing in prompt
         if (key === '?') {
@@ -530,18 +540,13 @@
             const targetEl = targets[finalIndex];
             const existingState = scrollStates.get(targetEl);
             scrollStates.set(targetEl, existingState ?? 0); // Preserve existing scroll state or default to start (0)
-
             scrollToTarget(finalIndex);
             lastFocusedTarget = targetEl;
-
             updateLastNonFirstFocused(targetEl);
-
             showPopup(`Jumped to question #${finalIndex + 1}`);
             showQuestionBanner(finalIndex + 1);
             return;
         }
-
-
         if (key === 'enter') {
             const active = document.activeElement;
             if (targets.includes(active)) {
@@ -585,17 +590,13 @@
                 }
             }
         }
-
-
-
-
-
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
             if (active && active.classList.contains('whitespace-pre-wrap')) {
                 e.preventDefault();
             }
         }
+
     }, true);
 
     function scrollToTarget(index) {

@@ -1,5 +1,11 @@
 // New 
+// draft
 (() => {
+    function getVisibleStopButton() {
+        const stopBtn = document.querySelector('[data-testid="stop-button"]');
+        if (stopBtn && stopBtn.offsetParent !== null) return stopBtn;
+        return null;
+    }
 
     console.log('✅ ChatGPT Navigator Extension Loaded');
     const style = document.createElement('style');
@@ -319,8 +325,19 @@
         const key = e.key.toLowerCase();
         const isCmdOrCtrl = e.metaKey || e.ctrlKey;
         const isShift = e.shiftKey;
-        warnIfReservedShortcut(e)
+
+        const stopBtn = getVisibleStopButton();
         // Allow default browser shortcuts to pass through without interference
+        if (stopBtn && isShift && key === 'enter') {
+            e.preventDefault();
+            stopBtn.click();
+            showPopup('⛔ Stopped response');
+            return;
+        }
+
+        warnIfReservedShortcut(e)
+
+
 
         // Always allow navMode toggle
         if (isCmdOrCtrl && isShift && key === 'x') {
@@ -333,38 +350,17 @@
 
         // Disable all navMode key behavior while typing
 
-        function isTypingInPrompt() {
-            const prompt = document.getElementById('prompt-textarea');
-            if (!prompt) return false;
-            return prompt === document.activeElement || prompt.contains(document.activeElement);
-        }
-
-        // If typing in prompt textarea, do nothing special, let all keys pass through:
-        if (isTypingInPrompt()) {
-            // Also ensure navMode is off if it was still on (optional but recommended)
-            if (navMode) {
-                navMode = false;
-                showPopup('Navigation mode OFF');
-                questionBanner.style.opacity = 0;
-            }
-            return; // exit keydown handler early
-        }
-
         // Now handle keys (including '?') only if NOT typing in prompt
         if (key === '?') {
             e.preventDefault();
             togglePopup?.();
         }
         if (!navMode) return;
-
-
         if (key === 'tab') return;
-
         if (isCmdOrCtrl && !isShift) {
             const allowedKeys = ['r', 't', 'w', 'n', 'p', 'f', 's', 'd', 'e', 'l', 'm'];
             if (allowedKeys.includes(key)) return;
         }
-
         if (isCmdOrCtrl && e.key === 'ArrowDown') {
             e.preventDefault();
             const articles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
@@ -375,7 +371,6 @@
             }
             return;
         }
-
         if (isCmdOrCtrl && e.key === 'ArrowUp') {
             e.preventDefault();
             if (!targets.length) updateTargets();
@@ -391,7 +386,6 @@
             showQuestionBanner(firstIndex + 1);
             return;
         }
-
         if (key === 'e') {
             e.preventDefault();
             if (!targets.length) updateTargets();
@@ -399,27 +393,19 @@
             if (lastIndex >= 0) {
                 const el = targets[lastIndex];
 
-                // Force scroll to 'start' (top) regardless of scrollStates
+                // Focus the last question
                 el.focus({ preventScroll: true });
 
-                if (previousScrollY !== null) {
-                    window.scrollTo({ top: previousScrollY, behavior: 'instant' });
-                }
-
+                el.scrollIntoView({ behavior: 'instant', block: 'start' });
                 outlineFocus(el);
-
                 lastFocusedTarget = el;
                 currentOffset = Math.floor(lastIndex / 10) * 10;
-
                 updateLastNonFirstFocused(el);
-
                 showPopup('Last question');
                 showQuestionBanner(lastIndex + 1);
             }
             return;
         }
-
-
         if (key === 's') {
             e.preventDefault();
             if (!targets.length) updateTargets();
@@ -439,27 +425,27 @@
 
             if (sToggleOnFirst) {
                 // Currently on first question, go to lastNonFirstFocused
-                lastNonFirstFocused.focus();
-                currentOffset = targets.indexOf(lastNonFirstFocused);
-                lastFocusedTarget = lastNonFirstFocused;
-                showPopup(`Toggled to question #${currentOffset + 1}`);
-                showQuestionBanner(currentOffset + 1);
-                outlineFocus(lastNonFirstFocused);
-                sToggleOnFirst = false;
+                const idx = targets.indexOf(lastNonFirstFocused);
+                if (idx !== -1) {
+                    scrollToTarget(idx);
+                    currentOffset = idx;
+                    lastFocusedTarget = lastNonFirstFocused;
+                    showPopup(`Toggled to question #${idx + 1}`);
+                    showQuestionBanner(idx + 1);
+                    sToggleOnFirst = false;
+                }
             } else {
                 // Currently on lastNonFirstFocused, go to first question
                 scrollToTarget(0);
-                scrollStates.set(targets[0], 1);
                 currentOffset = 0;
                 lastFocusedTarget = targets[0];
                 showPopup('Toggled to first question');
                 showQuestionBanner(1);
-                outlineFocus(targets[0]);
                 sToggleOnFirst = true;
             }
+
             return;
         }
-
         if (key === 'f' || key === 'd') {
             e.preventDefault();
             if (!targets.length) updateTargets();
@@ -488,7 +474,6 @@
             showQuestionBanner(nextIndex + 1);
             return;
         }
-
         const digitMatch = e.code.match(/^Digit([0-9])$/);
         if (digitMatch) {
             e.preventDefault();
@@ -528,18 +513,13 @@
             const targetEl = targets[finalIndex];
             const existingState = scrollStates.get(targetEl);
             scrollStates.set(targetEl, existingState ?? 0); // Preserve existing scroll state or default to start (0)
-
             scrollToTarget(finalIndex);
             lastFocusedTarget = targetEl;
-
             updateLastNonFirstFocused(targetEl);
-
             showPopup(`Jumped to question #${finalIndex + 1}`);
             showQuestionBanner(finalIndex + 1);
             return;
         }
-
-
         if (key === 'enter') {
             const active = document.activeElement;
             if (targets.includes(active)) {
@@ -583,11 +563,6 @@
                 }
             }
         }
-
-
-
-
-
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
             if (active && active.classList.contains('whitespace-pre-wrap')) {
@@ -595,17 +570,14 @@
             }
         }
     }, true);
-
     function scrollToTarget(index) {
         const el = targets[index];
         if (!el) return;
-
         targets.forEach(target => {
             target.style.outline = 'none';
             const parent = target.closest('div.relative');
             if (parent) parent.style.outline = '';
         });
-
         outlineFocus(el);
 
         // If only one question, always scroll to 'start' (top)
