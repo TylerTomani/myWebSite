@@ -1,5 +1,5 @@
 // New 
-// draft - working
+// draft
 (() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -285,12 +285,32 @@
             sToggleOnFirst = false;
         }
     }
+    function warnIfReservedShortcut(e) {
+        const combo = [
+            e.ctrlKey ? 'Ctrl' : '',
+            e.metaKey ? 'Cmd' : '',
+            e.shiftKey ? 'Shift' : '',
+            e.altKey ? 'Alt' : '',
+            e.key.length === 1 ? e.key.toUpperCase() : e.key
+        ].filter(Boolean).join('+');
+
+        const browserShortcuts = new Set([
+            'Cmd+Shift+C', 'Cmd+Option+I', 'Cmd+Option+J', 'Cmd+R', 'Cmd+T', 'Cmd+W', 'Cmd+N',
+            'Ctrl+Shift+C', 'Ctrl+Shift+I', 'Ctrl+Shift+J', 'Ctrl+R', 'Ctrl+T', 'Ctrl+W', 'Ctrl+N',
+            'Cmd+F', 'Cmd+D', 'Cmd+P', 'Cmd+L', 'Cmd+M', 'Ctrl+F', 'Ctrl+D', 'Ctrl+P', 'Ctrl+L', 'Ctrl+M'
+        ]);
+
+        if (browserShortcuts.has(combo)) {
+            console.warn(`⚠️ Interfering with browser shortcut: ${combo}`);
+            showPopup(`⚠️ Overlapping with browser shortcut: ${combo}`);
+        }
+    }
 
     document.addEventListener('keydown', (e) => {
         const key = e.key.toLowerCase();
         const isCmdOrCtrl = e.metaKey || e.ctrlKey;
         const isShift = e.shiftKey;
-
+        warnIfReservedShortcut(e)
         // Allow default browser shortcuts to pass through without interference
 
         // Always allow navMode toggle
@@ -339,7 +359,7 @@
             const articles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
             const lastArticle = articles.at(-1);
             if (lastArticle) {
-                lastArticle.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                lastArticle.scrollIntoView({ behavior: 'instant', block: 'end' });
                 showPopup('Scrolled to last response');
             }
             return;

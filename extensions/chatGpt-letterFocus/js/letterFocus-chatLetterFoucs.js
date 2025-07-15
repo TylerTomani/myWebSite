@@ -127,11 +127,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     image.style.zIndex = "2";
                     image.style.transform = "scale(1.5)";
                     image.style.right = '15%'
-                    image.style.transition = "transform 0.05s ease, z-index 0.3s ease";
+                    image.style.transition = "transform 0.1s ease, z-index 0.1s ease";
                 } else {
                     image.style.zIndex = "0";
                     image.style.right = '0'
                     image.style.transform = "scale(1)";
+                    image.style.transition = "all .005s";
                 }
             }
         });

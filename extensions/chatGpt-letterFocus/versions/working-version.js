@@ -1,5 +1,14 @@
 // working
+// draft
 (() => {
+    const style = document.createElement('style');
+    style.textContent = `
+    .whitespace-pre-wrap:focus {
+        outline: none !important;
+        scroll-margin-bottom: 100px; /* ✅ Key fix: adds breathing room at bottom */
+    }
+  `;
+    document.head.appendChild(style);
     let scrollCycleOrder = ['start', 'center', 'end'];
     let navMode = false;
     let targets = [];
@@ -7,19 +16,20 @@
     let currentOffset = 0;
     let lastFocusedTarget = null;
 
-    document.addEventListener('focusin', (e) => {
-        const prompt = document.getElementById('prompt-textarea');
-        if (prompt && prompt.contains(e.target) && navMode) {
-            navMode = false;
-            showPopup('Navigation mode OFF');
-            questionBanner.style.opacity = 0;
-        }
-    });
-    // For 's' toggle:
-    let lastNonFirstFocused = null;  // Last focused question not the first question
-    let sToggleOnFirst = false;       // True means currently toggled on first question
+    const prompt = document.getElementById('prompt-textarea');
+    if (prompt) {
+        prompt.addEventListener('focus', () => {
+            if (navMode) {
+                navMode = false;
+                showPopup('Navigation mode OFF');
+                questionBanner.style.opacity = 0;
+            }
+        });
+    }
 
-    // Set of keys for browser/system shortcuts you don't want to override
+    let lastNonFirstFocused = null;
+    let sToggleOnFirst = false;
+
     const reservedShortcuts = new Set([
         'c', 'i', 'j', 'k', 'r', 'w', 't', 'n', 'p', 's', 'f', 'd', 'l', 'm'
     ]);
@@ -32,22 +42,51 @@
         targets.forEach(t => t.setAttribute('tabindex', '-1'));
     }
 
+    let previousScrollY = null; // 🆕 Store scroll Y before navMode exits
+
     function toggleNavMode() {
-        navMode = !navMode;
+        const prompt = document.getElementById('prompt-textarea');
+
         if (navMode) {
+            // 🆕 Save current scroll position before exiting navMode
+            previousScrollY = window.scrollY;
+
+            navMode = false;
+            showPopup('Navigation mode OFF');
+            questionBanner.style.opacity = 0;
+
+            if (prompt) {
+                // 🆕 Use requestAnimationFrame to restore scroll after focus
+                requestAnimationFrame(() => {
+                    prompt.focus();
+                    requestAnimationFrame(() => {
+                        if (previousScrollY !== null) {
+                            window.scrollTo({ top: previousScrollY, behavior: 'instant' });
+                        }
+                    });
+                });
+            }
+        } else {
+            navMode = true;
             updateTargets();
             if (targets.length) {
                 const lastIndex = (lastFocusedTarget && targets.includes(lastFocusedTarget))
                     ? targets.indexOf(lastFocusedTarget)
                     : targets.length - 1;
-                scrollToTarget(lastIndex);
-                scrollStates.set(targets[lastIndex], 1);
-                currentOffset = Math.floor(lastIndex / 10) * 10;
-                showQuestionBanner(lastIndex + 1);
 
-                // Add this line:
-                if (lastIndex > 0) {
-                    lastNonFirstFocused = targets[lastIndex];
+                const focusIndex = targets.length === 1 ? 0 : lastIndex;
+
+                // 🆕 Do NOT scroll when re-entering navMode — just focus
+                const el = targets[focusIndex];
+                el.focus();
+                outlineFocus(el);
+                scrollStates.set(el, 1);
+                lastFocusedTarget = el;
+                currentOffset = Math.floor(focusIndex / 10) * 10;
+                showQuestionBanner(focusIndex + 1);
+
+                if (focusIndex > 0) {
+                    lastNonFirstFocused = el;
                     sToggleOnFirst = false;
                 } else {
                     lastNonFirstFocused = null;
@@ -56,19 +95,8 @@
             }
             showPopup('Navigation mode ON');
         }
-        else {
-            const prompt = document.getElementById('prompt-textarea');
-            if (prompt) {
-                prompt.addEventListener('focus', () => {
-                    if (navMode) {
-                        navMode = false;
-                        showPopup('Navigation mode OFF');
-                        questionBanner.style.opacity = 0;
-                    }
-                });
-            }
-        }
     }
+
 
     function showPopup(message) {
         let popup = document.getElementById('nav-help-popup');
@@ -93,7 +121,7 @@
         popup.style.opacity = '1';
         popup._timeout = setTimeout(() => {
             popup.style.opacity = '0';
-        }, 2000);
+        }, 500);
     }
 
     const scrollStates = new WeakMap();
@@ -198,6 +226,7 @@
         }
         if (!navMode) return;
 
+
         const el = e.target.closest('.whitespace-pre-wrap');
         if (el) {
             const index = targets.indexOf(el);
@@ -212,6 +241,7 @@
                 showPopup(`Selected question #${index + 1}`);
                 const parent = el.closest('div.relative');
                 if (parent) {
+                    el.style.outline = 'none';
                     parent.style.outline = '3px solid #00ffff';
                     parent.style.outlineOffset = '2px';
                     setTimeout(() => { parent.style.outline = ''; }, 1500);
@@ -232,12 +262,7 @@
         }
     });
 
-    const prompt = document.getElementById('prompt-textarea');
-    if (prompt) {
-        prompt.addEventListener('focus', () => {
-            if (navMode) navMode = false;
-        });
-    }
+
 
     function getArticleForElement(el) {
         return el?.closest('article[data-testid^="conversation-turn-"]') ?? null;
@@ -260,12 +285,32 @@
             sToggleOnFirst = false;
         }
     }
+    function warnIfReservedShortcut(e) {
+        const combo = [
+            e.ctrlKey ? 'Ctrl' : '',
+            e.metaKey ? 'Cmd' : '',
+            e.shiftKey ? 'Shift' : '',
+            e.altKey ? 'Alt' : '',
+            e.key.length === 1 ? e.key.toUpperCase() : e.key
+        ].filter(Boolean).join('+');
+
+        const browserShortcuts = new Set([
+            'Cmd+Shift+C', 'Cmd+Option+I', 'Cmd+Option+J', 'Cmd+R', 'Cmd+T', 'Cmd+W', 'Cmd+N',
+            'Ctrl+Shift+C', 'Ctrl+Shift+I', 'Ctrl+Shift+J', 'Ctrl+R', 'Ctrl+T', 'Ctrl+W', 'Ctrl+N',
+            'Cmd+F', 'Cmd+D', 'Cmd+P', 'Cmd+L', 'Cmd+M', 'Ctrl+F', 'Ctrl+D', 'Ctrl+P', 'Ctrl+L', 'Ctrl+M'
+        ]);
+
+        if (browserShortcuts.has(combo)) {
+            console.warn(`⚠️ Interfering with browser shortcut: ${combo}`);
+            showPopup(`⚠️ Overlapping with browser shortcut: ${combo}`);
+        }
+    }
 
     document.addEventListener('keydown', (e) => {
         const key = e.key.toLowerCase();
         const isCmdOrCtrl = e.metaKey || e.ctrlKey;
         const isShift = e.shiftKey;
-
+        warnIfReservedShortcut(e)
         // Allow default browser shortcuts to pass through without interference
 
         // Always allow navMode toggle
@@ -302,6 +347,17 @@
             togglePopup?.();
         }
         if (!navMode) return;
+        if (key === 'escape' && navMode) {
+            e.preventDefault();
+            toggleNavMode();
+            return;
+        }
+        if (key === 'escape' && navMode) {
+            e.preventDefault();
+            toggleNavMode();
+            return;
+        }
+
         if (key === 'tab') return;
 
         if (isCmdOrCtrl && !isShift) {
@@ -314,7 +370,7 @@
             const articles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
             const lastArticle = articles.at(-1);
             if (lastArticle) {
-                lastArticle.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                lastArticle.scrollIntoView({ behavior: 'instant', block: 'end' });
                 showPopup('Scrolled to last response');
             }
             return;
@@ -341,18 +397,24 @@
             if (!targets.length) updateTargets();
             const lastIndex = targets.length - 1;
             if (lastIndex >= 0) {
-                scrollToTarget(lastIndex);
-                scrollStates.set(targets[lastIndex], 1);
-                currentOffset = Math.floor(lastIndex / 10) * 10;
-                lastFocusedTarget = targets[lastIndex];
+                const el = targets[lastIndex];
 
-                updateLastNonFirstFocused(targets[lastIndex]);
+                // Force scroll to 'start' (top) regardless of scrollStates
+                el.focus();
+                el.scrollIntoView({ behavior: 'instant', block: 'start' });
+                outlineFocus(el);
+
+                lastFocusedTarget = el;
+                currentOffset = Math.floor(lastIndex / 10) * 10;
+
+                updateLastNonFirstFocused(el);
 
                 showPopup('Last question');
                 showQuestionBanner(lastIndex + 1);
             }
             return;
         }
+
 
         if (key === 's') {
             e.preventDefault();
@@ -458,34 +520,69 @@
             let finalIndex = currentOffset + positionInRange;
             if (finalIndex >= total) finalIndex = total - 1;
 
-            scrollToTarget(finalIndex);
-            scrollStates.set(targets[finalIndex], 0);
-            lastFocusedTarget = targets[finalIndex];
+            // <-- Fixed scroll state preservation here -->
+            const targetEl = targets[finalIndex];
+            const existingState = scrollStates.get(targetEl);
+            scrollStates.set(targetEl, existingState ?? 0); // Preserve existing scroll state or default to start (0)
 
-            updateLastNonFirstFocused(targets[finalIndex]);
+            scrollToTarget(finalIndex);
+            lastFocusedTarget = targetEl;
+
+            updateLastNonFirstFocused(targetEl);
 
             showPopup(`Jumped to question #${finalIndex + 1}`);
             showQuestionBanner(finalIndex + 1);
             return;
         }
 
+
         if (key === 'enter') {
             const active = document.activeElement;
             if (targets.includes(active)) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                const currentState = scrollStates.get(active) ?? 0;
+                const currentScroll = scrollCycleOrder[currentState]; // 'start', 'center', or 'end'
+
                 if (e.shiftKey) {
-                    active.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    scrollStates.set(active, 0);
-                    outlineFocus(active);
-                } else {
-                    const currentState = scrollStates.get(active) ?? 0;
-                    const nextState = (currentState + 1) % scrollCycleOrder.length;
-                    active.scrollIntoView({ behavior: 'smooth', block: scrollCycleOrder[nextState] });
+                    let nextState;
+
+                    // 🧠 If currently centered, go to bottom FIRST
+                    if (currentScroll === 'center') {
+                        nextState = scrollCycleOrder.indexOf('end');
+                    } else {
+                        // After that, toggle between top (start) and bottom (end)
+                        nextState = currentScroll === 'start'
+                            ? scrollCycleOrder.indexOf('end')
+                            : scrollCycleOrder.indexOf('start');
+                    }
+
+                    const scrollBlock = scrollCycleOrder[nextState];
+                    active.scrollIntoView({ behavior: 'instant', block: scrollBlock });
                     scrollStates.set(active, nextState);
+                    outlineFocus(active);
+                    showPopup(scrollBlock === 'start' ? 'top' : 'bottom');
+
+                } else {
+                    // Regular Enter → Cycle forward normally: start → center → end → start...
+                    const nextState = (currentState + 1) % scrollCycleOrder.length;
+                    const scrollBlock = scrollCycleOrder[nextState];
+
+                    active.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
+                    scrollStates.set(active, nextState);
+                    outlineFocus(active);
+
+                    if (scrollBlock === 'end') showPopup('bottom');
+                    else if (scrollBlock === 'start') showPopup('top');
+                    else showPopup('center');
                 }
             }
         }
+
+
+
+
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
@@ -507,22 +604,28 @@
 
         outlineFocus(el);
 
-        const parent = el.closest('div.relative');
-        if (!parent) return;
+        // If only one question, always scroll to 'start' (top)
+        let scrollBlock = 'start';
 
-        const parentRect = parent.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const scrollY = window.scrollY + parentRect.top - 2000;
-
-        if (parentRect.height > viewportHeight) {
-            const scrollBlock = scrollStates.get(el) ?? 'start';
-            scrollCycleOrder = ['start', 'center', 'end'];
-            el.focus();
-            el.scrollIntoView({ behavior: 'instant', block: scrollCycleOrder[scrollBlock] || 'start' });
-            window.scrollTo({ top: scrollY, behavior: 'instant' });
+        if (targets.length > 1) {
+            const scrollIndex = scrollStates.get(el) ?? 0; // 0 = start
+            scrollBlock = scrollCycleOrder[scrollIndex] || 'start';
         } else {
-            scrollCycleOrder = ['end', 'start', 'center'];
-            el.focus();
+            // Clear any scroll state for this single question to keep consistent behavior
+            scrollStates.set(el, 0);
+        }
+
+        el.focus();
+        el.scrollIntoView({ behavior: 'instant', block: scrollBlock });
+
+        // 🧠 Optional tweak for extra space when scrolling to 'end'
+        if (scrollBlock === 'end') {
+            setTimeout(() => {
+                window.scrollBy(0, 150); // push it slightly further down if needed
+            }, 50);
         }
     }
+
+
+
 })();

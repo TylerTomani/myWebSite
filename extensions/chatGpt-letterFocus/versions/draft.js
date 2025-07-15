@@ -224,7 +224,7 @@
             return;
         }
         if (!navMode) return;
-        
+
 
         const el = e.target.closest('.whitespace-pre-wrap');
         if (el) {
@@ -261,7 +261,7 @@
         }
     });
 
-    
+
 
     function getArticleForElement(el) {
         return el?.closest('article[data-testid^="conversation-turn-"]') ?? null;
@@ -304,7 +304,7 @@
             showPopup(`⚠️ Overlapping with browser shortcut: ${combo}`);
         }
     }
-    
+
     document.addEventListener('keydown', (e) => {
         const key = e.key.toLowerCase();
         const isCmdOrCtrl = e.metaKey || e.ctrlKey;
@@ -346,6 +346,17 @@
             togglePopup?.();
         }
         if (!navMode) return;
+        if (key === 'escape' && navMode) {
+            e.preventDefault();
+            toggleNavMode();
+            return;
+        }
+        if (key === 'escape' && navMode) {
+            e.preventDefault();
+            toggleNavMode();
+            return;
+        }
+                
         if (key === 'tab') return;
 
         if (isCmdOrCtrl && !isShift) {
@@ -358,7 +369,7 @@
             const articles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
             const lastArticle = articles.at(-1);
             if (lastArticle) {
-                lastArticle.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                lastArticle.scrollIntoView({ behavior: 'instant', block: 'end' });
                 showPopup('Scrolled to last response');
             }
             return;
@@ -402,7 +413,7 @@
             }
             return;
         }
-        
+
 
         if (key === 's') {
             e.preventDefault();
@@ -547,7 +558,7 @@
                     }
 
                     const scrollBlock = scrollCycleOrder[nextState];
-                    active.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
+                    active.scrollIntoView({ behavior: 'instant', block: scrollBlock });
                     scrollStates.set(active, nextState);
                     outlineFocus(active);
                     showPopup(scrollBlock === 'start' ? 'top' : 'bottom');
@@ -567,10 +578,10 @@
                 }
             }
         }
-        
 
-        
-        
+
+
+
 
         if (/^[a-z0-9]$/i.test(key)) {
             const active = document.activeElement;
@@ -613,7 +624,7 @@
             }, 50);
         }
     }
-    
-    
-    
+
+
+
 })();
