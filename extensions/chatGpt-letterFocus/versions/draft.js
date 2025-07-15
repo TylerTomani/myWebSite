@@ -1,6 +1,11 @@
 // draft
 (() => {
-
+    function getVisibleStopButton() {
+        const stopBtn = document.querySelector('[data-testid="stop-button"]');
+        if (stopBtn && stopBtn.offsetParent !== null) return stopBtn;
+        return null;
+    }
+    
     console.log('✅ ChatGPT Navigator Extension Loaded');
     const style = document.createElement('style');
     style.textContent = `
@@ -341,14 +346,19 @@
 
         // If typing in prompt textarea, do nothing special, let all keys pass through:
         if (isTypingInPrompt()) {
-            // Also ensure navMode is off if it was still on (optional but recommended)
-            if (navMode) {
-                navMode = false;
-                showPopup('Navigation mode OFF');
-                questionBanner.style.opacity = 0;
+            // Turn off navMode if still on
+            const stopBtn = getVisibleStopButton();
+            if (stopBtn && (e.metaKey || e.shiftKey) && key === 'enter') {
+                e.preventDefault();
+                stopBtn.click();
+                showPopup('⛔ Stopped response');
+                return;
             }
-            return; // exit keydown handler early
+
+
+            return;
         }
+        
 
         // Now handle keys (including '?') only if NOT typing in prompt
         if (key === '?') {

@@ -80,14 +80,14 @@ addEventListener('keydown', e => {
                 iCopyCodes = idx;
             }
         });
-    
         if (e.shiftKey) {
             iCopyCodes = (iCopyCodes - 1 + btmPageCopyCodes.length) % btmPageCopyCodes.length;
         } else {
             iCopyCodes = (iCopyCodes + 1) % btmPageCopyCodes.length;
         }
-    
         btmPageCopyCodes[iCopyCodes].focus();
+    
+    
     }
     
 });
@@ -115,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
         el.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 e.preventDefault(); // Prevent any default behavior
-
                 const newSrc = el.dataset.img;
                 if (newSrc) {
                     image.src = newSrc;
@@ -124,18 +123,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 isImgVisible = !isImgVisible;
 
                 if (isImgVisible) {
-                    image.style.zIndex = "2";
-                    image.style.transform = "scale(1.5)";
-                    image.style.right = '15%'
-                    image.style.transition = "transform 0.1s ease, z-index 0.1s ease";
+                    image.classList.add('enlarge')
                 } else {
-                    image.style.zIndex = "0";
-                    image.style.right = '0'
-                    image.style.transform = "scale(1)";
-                    image.style.transition = "all .005s";
+                    image.classList.remove('enlarge')
                 }
             }
         });
+        el.addEventListener("focus", (e) => {
+                e.preventDefault(); // Prevent any default behavior
+                const newSrc = el.dataset.img;
+                if (newSrc) {
+                    image.src = newSrc;
+                }
+
+                if(isImgVisible){
+
+                    denlargeAllImgs()
+                    image.classList.add('enlarge')
+                }
+                
+                
+        });
   });
 });
-
+function denlargeAllImgs(){
+    btmPageCopyCodes.forEach(el => {
+        if (el.classList.contains('enlarge')) {
+            el.classList.remove('enlarge')
+        }
+    })
+}

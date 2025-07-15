@@ -28,19 +28,10 @@
 }
 .code-elements-container .code-container .copy-code {
     min-height: 120px;
-    position: relative;
-    z-index: 1
+    z-index: 0
 
 }
-.code-elements-container img{
-    position: absolute;
-    z-index: 0;
-    right: 0;
-    right: 0;
-    width: 50%;
-    /* height: 50%; */
 
-}
 .copy-code {
     width: 100%;
     /* height: auto; */
@@ -80,4 +71,22 @@ textarea {
     textarea{
         font-size: 90%;
     }
+}
+.code-elements-container img {
+    /* position: absolute; */
+    z-index: 0;
+    right: 0;
+    width: 50%;
+}
+.enlarge {
+    z-index: 9999 !important;
+    position: fixed;
+    top: 25%;
+    /* left: 50%; */
+    transform: translate(-50%, -50%) scale(1.5);
+    max-width: 90vw;
+    max-height: 90vh;
+    transition: transform 0.2s ease;
+    pointer-events: none;
+    /* optional: prevents interaction while enlarged */
 }

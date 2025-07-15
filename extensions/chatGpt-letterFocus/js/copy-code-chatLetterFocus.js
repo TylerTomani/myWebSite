@@ -1,5 +1,5 @@
 import { nxtBtn, backBtn, mainScript } from "./load-textarea-code.js";
-
+const copyCodes = document.querySelectorAll('.copy-code')
 function copyTextToClipboard(text) {
     return navigator.clipboard.writeText(text).catch(err => {
         console.error("Unable to copy text to clipboard:", err);
@@ -15,6 +15,23 @@ function animate(element) {
     }, 250);
 }
 
+copyCodes.forEach(el => {
+    el.addEventListener('keydown', e => {
+        if(e.key == 'c' && e.metaKey){
+            console.log(e.target.value)
+            if(e.target.value){
+                copyTextToClipboard(e.target.value)
+
+            }
+            if(e.target.innerText){
+                copyTextToClipboard(e.target.innerText)
+                animate(e.target)
+
+            }
+            // copyTextToClipboard(e.target.innerText)
+        }
+    })
+})
 function handleCopy() {
     // Always copy the text from mainScript regardless of source
     const textToCopy = mainScript.value || mainScript.innerText || "";
