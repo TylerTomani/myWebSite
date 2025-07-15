@@ -18,16 +18,15 @@ function animate(element) {
 copyCodes.forEach(el => {
     el.addEventListener('keydown', e => {
         if(e.key == 'c' && e.metaKey){
-            console.log(e.target.value)
             if(e.target.value){
                 copyTextToClipboard(e.target.value)
 
             }
             if(e.target.innerText){
                 copyTextToClipboard(e.target.innerText)
-                animate(e.target)
-
+                
             }
+            animate(e.target)
             // copyTextToClipboard(e.target.innerText)
         }
     })
