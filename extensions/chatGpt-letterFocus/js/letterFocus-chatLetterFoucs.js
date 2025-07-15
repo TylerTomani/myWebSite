@@ -1,4 +1,5 @@
 const mainScript = document.querySelector('#mainScript')
+// let elementImg = document.querySelector('#elementImg')
 const homelink = document.querySelector('#homelink')
 const backToTopBtn = document.querySelector('#backToTopBtn')
 const textarea = document.querySelector('textarea')
@@ -99,7 +100,7 @@ backToTopBtn.addEventListener('keydown', e => {
         backToTopBtn.click()
     }
 })
-
+let elementImg; // define globally
 btmPageCopyCodes.forEach((el, index) => {
     el.addEventListener('focus', e => {
         iCopyCodes = index; // ✅ Sync the index
@@ -107,45 +108,61 @@ btmPageCopyCodes.forEach((el, index) => {
     });
 });
 
+
 document.addEventListener("DOMContentLoaded", () => {
-  const image = document.getElementById("elementImg");
+    elementImg = document.getElementById("elementImg"); // assign global
+
     let isImgVisible = false;
 
-  document.querySelectorAll(".code-elements-container .copy-code").forEach((el) => {
+    elementImg.addEventListener('click', e => {
+        e.preventDefault()
+        elementImg.classList.toggle('enlarge')
+        console.log('click') // ✅ should work now
+    });
+
+    document.querySelectorAll(".code-elements-container .copy-code").forEach((el) => {
         el.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
-                e.preventDefault(); // Prevent any default behavior
+                e.preventDefault();
                 const newSrc = el.dataset.img;
                 if (newSrc) {
-                    image.src = newSrc;
+                    elementImg.src = newSrc;
                 }
-
-                isImgVisible = !isImgVisible;
-
-                if (isImgVisible) {
-                    image.classList.add('enlarge')
-                } else {
-                    image.classList.remove('enlarge')
-                }
+                toggleImg(elementImg)
             }
         });
+
         el.addEventListener("focus", (e) => {
-                e.preventDefault(); // Prevent any default behavior
-                const newSrc = el.dataset.img;
-                if (newSrc) {
-                    image.src = newSrc;
-                }
+            e.preventDefault();
+            const newSrc = el.dataset.img;
+            if (newSrc) {
+                elementImg.src = newSrc;
+            }
 
-                if(isImgVisible){
-
-                    denlargeAllImgs()
-                    image.classList.add('enlarge')
-                }
-                
-                
+            if (isImgVisible) {
+                denlargeAllImgs();
+                elementImg.classList.add('enlarge');
+            }
         });
-  });
+    });
 });
+
+
+function toggleImg(img){
+    // isImgVisible = !isImgVisible;
+    img.classList.toggle('enlarge')
+    
+}
+// Add click-to-toggle once, not inside toggleImg()
+if(elementImg){
+
+    elementImg.addEventListener('click', e => {
+        e.preventDefault()
+        elementImg.classList.toggle('enlarge')
+        console.log('click')
+    })
+}
+
 function denlargeAllImgs(){
     btmPageCopyCodes.forEach(el => {
         if (el.classList.contains('enlarge')) {

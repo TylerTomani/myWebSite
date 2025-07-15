@@ -65,6 +65,11 @@ textarea {
 }
 
 @media screen and (max-width: 720px){
+    
+    .versions-container{
+        margin: 0 5%;
+
+    }
     .version{
         margin: 0;
     }
@@ -72,21 +77,28 @@ textarea {
         font-size: 90%;
     }
 }
-.code-elements-container img {
-    /* position: absolute; */
+#elementImg {
     z-index: 0;
     right: 0;
     width: 50%;
+    display: none;
 }
 .enlarge {
+    display: block !important;
     z-index: 9999 !important;
     position: fixed;
     top: 25%;
     /* left: 50%; */
-    transform: translate(-50%, -50%) scale(1.5);
     max-width: 90vw;
     max-height: 90vh;
     transition: transform 0.2s ease;
-    pointer-events: none;
+    /* You can't click when this is on  */
+    /* pointer-events: none; */  
+    transform: translate(-50%, -50%) scale(1.5);
     /* optional: prevents interaction while enlarged */
+}
+@media screen and (max-width: 720px){
+    .enlarge {
+        transform: translate(-50%, -50%) scale(2);
+    }
 }
