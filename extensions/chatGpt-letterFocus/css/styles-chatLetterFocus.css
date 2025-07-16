@@ -64,6 +64,48 @@ textarea {
 #wokingBackupScript{
     background-color: red !important;
 }
+#elementImg {
+    z-index: 0;
+    right: 0;
+    width: 50%;
+    display: none;
+}
+
+.enlarge {
+    display: block !important;
+    z-index: 9999 !important;
+    position: fixed;
+    top: 40%;
+    /* left: 50%; */
+    max-width: 90vw;
+    max-height: 70vh;
+    transition: transform 0.2s ease;
+    /* You can't click when this is on  */
+    /* pointer-events: none; */
+    transform: translate(-50%, -50%) scale(1.5);
+    /* optional: prevents interaction while enlarged */
+}
+
+.popup {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+}
+
+.code-elements-container .code-container {
+    position: relative;
+
+}
+
+.black-click-img-box {
+    display: block;
+    position: absolute;
+    right: 0;
+    background-color: black;
+    height: 20px;
+    width: 20px;
+}
+
 
 @media screen and (max-width: 720px){
     
@@ -77,46 +119,20 @@ textarea {
     textarea{
         font-size: 90%;
     }
-}
-#elementImg {
-    z-index: 0;
-    right: 0;
-    width: 50%;
-    display: none;
-}
-.enlarge {
-    display: block !important;
-    z-index: 9999 !important;
-    position: fixed;
-    top: 40%;
-    /* left: 50%; */
-    max-width: 90vw;
-    max-height: 70vh;
-    transition: transform 0.2s ease;
-    /* You can't click when this is on  */
-    /* pointer-events: none; */  
-    transform: translate(-50%, -50%) scale(1.5);
-    /* optional: prevents interaction while enlarged */
-}
-@media screen and (max-width: 720px){
     .enlarge {
         transform: translate(-50%, -50%) scale(2);
     }
+    .black-click-img-box {
+        height: 25px;
+        width: px;
+        /* padding: 1%; */
+    }
 }
-.popup{
-    position: absolute !important;
-    top:0;
-    right: 0;
+@media screen and (max-width: 420px) {
+    .black-click-img-box {
+        height: 40px;
+        width: 40px;
+        padding: 1%
+    }
 }
-.code-elements-container .code-container {
-    position: relative;
 
-}
-.black-click-img-box{
-    display: block;
-    position: absolute;
-    right: 0;
-    background-color: black;
-    height: 20px ;
-    width:  20px;
-}
