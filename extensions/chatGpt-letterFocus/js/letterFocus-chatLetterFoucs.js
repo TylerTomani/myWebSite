@@ -27,6 +27,14 @@ mainScript.addEventListener('focus', (e) => {
     focusedMainScript = true
 })
 mainScript.addEventListener('focusout', () => { focusedMainScript = false })
+mainScript.addEventListener('keydown', e => { 
+    let key = e.key.toLowerCase()
+    if(e.shiftKey && key === 'b'){
+        focusedMainScript = false
+        backBtn.focus()
+    }
+
+})
 addEventListener('keydown', e => {
     let key = e.key.toLowerCase()
     if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key == 'x') {
@@ -58,7 +66,6 @@ addEventListener('keydown', e => {
         let iCopyCodes = intlet - 1
     }
     // Handles copy-code focus in code-elements-container
-
     if (key === 'c') {
         if (e.metaKey) return;
 
@@ -132,23 +139,17 @@ btmPageCopyCodes.forEach((el, index,arr) => {
         iCopyCodes = index; // ✅ Sync the index
         lastCopyCode = arr[index]
         e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
     });
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
     elementImg = document.getElementById("elementImg"); // assign global
-
     let isImgVisible = false;
-
-
     elementImg.addEventListener('click', e => {
         e.preventDefault()
         elementImg.classList.toggle('enlarge')
         console.log('click') // ✅ should work now
     });
-
     document.querySelectorAll(".code-elements-container .copy-code").forEach((el) => {
         el.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
@@ -175,9 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-function toggleImg(img) {
-    img.classList.toggle('enlarge')
-}
+function toggleImg(img) {img.classList.toggle('enlarge')}
 // Add click-to-toggle once, not inside toggleImg()
 if (elementImg) {
     elementImg.addEventListener('click', e => {
@@ -187,10 +186,11 @@ if (elementImg) {
     })
 }
 codeElementsContainer.addEventListener('focusin', e => { popup = true })
-codeElementsContainer.addEventListener('focusout', e => { popup = false })
+codeElementsContainer.addEventListener('focusout', e => {popup = false })
+
 function denlargeAllImgs() {
     btmPageCopyCodes.forEach(el => {
-        if (el.classList.contains('enlarge')) {
+        if (el.classList.contains('enlarge')){
             el.classList.remove('enlarge')
         }
     })

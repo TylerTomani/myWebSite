@@ -31,10 +31,13 @@ copyCodes.forEach(el => {
         }
     })
 })
-function handleCopy() {
+function handleCopy(el,animateCode) {
     // Always copy the text from mainScript regardless of source
     const textToCopy = mainScript.value || mainScript.innerText || "";
     copyTextToClipboard(textToCopy);
+    if(!animateCode){
+        return 
+    }
     animate(mainScript);
 }
 
@@ -43,13 +46,14 @@ function setupCopyShortcut(element) {
         // Check Command (metaKey) + C (case-insensitive)
         if (e.metaKey && (e.key === 'c' || e.key === 'C')) {
             e.preventDefault(); // prevent default copy just to be safe
-            handleCopy();
+            handleCopy(e.target);
         }
     });
 
     // Optional: animate on click for code elements as you had
     element.addEventListener('click', e => {
-        handleCopy();
+        e.preventDefault()
+        handleCopy(e.taget,false);
     });
 }
 
