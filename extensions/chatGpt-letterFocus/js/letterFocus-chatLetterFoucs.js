@@ -59,7 +59,7 @@ addEventListener('keydown', e => {
         }
     }
 
-    focusKeyToEls(key)
+    focusKeyToEls(e,key)
     if (!isNaN(key)) {
         let intlet = parseInt(key)
         btmPageCopyCodes[intlet - 1]?.focus()
@@ -89,7 +89,7 @@ addEventListener('keydown', e => {
     }
 
 });
-function focusKeyToEls(key) {
+function focusKeyToEls(e,key) {
     if (key === 'm') {
         mainScript.focus()
         scrollTo(0, 0)

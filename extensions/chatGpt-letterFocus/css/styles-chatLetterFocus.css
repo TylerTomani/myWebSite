@@ -26,13 +26,11 @@
 .code-container {
     height: 100%;
 }
-
 .code-elements-container .code-container .copy-code {
     min-height: 120px;
     z-index: 0
 
 }
-
 .copy-code {
     width: 100%;
     /* height: auto; */
@@ -48,10 +46,6 @@
     color: black !important;
     font-weight: 999;
 }
-textarea {
-    
-}
-
  .dark-mode textarea {
     background: rgb(40,38,46,.05);
 }
@@ -108,7 +102,25 @@ textarea {
 
 
 @media screen and (max-width: 720px){
-    
+    .code-elements-container .code-container {
+            position: relative;   
+        }   
+    .code-container {
+    }
+.dark-mode .code-elements-container .code-container .copy-code{
+    color: black !important;
+}
+    .code-elements-container .code-container .copy-code {
+        border: 1px solid black ;
+        
+    }
+
+    .code-elements-container {       
+        margin: 0 0;
+    }
+    .popup {
+        left: 5%; 
+    }                    
     .versions-container{
         margin: 0 5%;
 
