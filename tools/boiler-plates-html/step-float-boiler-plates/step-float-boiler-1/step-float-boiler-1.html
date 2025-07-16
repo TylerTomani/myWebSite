@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01-Javascript Inheritance </title>
+    <!-- tutorial-temp is the original version of sections-temp -->
+    <link rel="stylesheet" href="../css/side-bar-temp.css">
+    <link rel="stylesheet" href="../css/side-bar-header-temp.css">
+    <link rel="stylesheet" href="../css/dark-mode-codeColor.css">
+    <link rel="stylesheet" href="../css/codeColor-colors-fonts.css">
+    <link rel="stylesheet" href="../css/codeColor-lesson.css">
+    <!-- <link rel="stylesheet" href="../css/codeColor-lesson-medias.css"> -->
+
+    <script type="module" src="../../../js/resource-templates/dark-mode.js" defer></script>    
+    <!-- <script type="module" src="../js/sidebar-codeColor.js" defer></script>     -->
+    <!-- <script type="module" src="../js/execute-codeExample.js" defer></script>     -->
+    <script type="module" src="../js/inject-content.js" defer></script>    
+    <script type="module" src="../js/toggle-sidebar.js" defer></script>
+    <script type="module" src="../js/letterFocus-sidebar.js" defer></script>    
+    <script type="module" src="../js/playPauseVideos-colorCode.js" defer></script>    
+    <script type="module" src="../js/stepTxts-codeColor.js" defer></script>    
+    <script type="modele" src="../../../js/copy-code.js" defer></script>    
+    <link rel="stylesheet" href="../../../css/copy-code-fcc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="favicon.ico">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body class="dark-mode">
+    <header class="">
+        <nav id="mainLinksContainer">
+            <div id="mainLinks">
+                <a tabindex="0" id="backlink" href="../../javascript-youtube.html">&larr;back</a>
+                <a tabindex="0" id="homelink" href="https://tylertomani.github.io/myWebSite/index.html">Home (main)</a>
+                <div class="webPageLinks">
+                    <a tabindex="0" id="codeComandShortcuts" target="_blank" href="https://tylertomani.github.io/myWebSite/webPages/codeComShortcuts/codeComShortcuts.html
+                                                    "><sub>code comand shortcuts</sub></a>
+                    <a tabindex="0" id="chatGpt" target="_blank" href="https://tylertomani.github.io/myWebSite/webPages/chatGpt-questions/index.html
+                                        ">chatGpt
+                        <br>Questions</a>
+                </div>
+            </div>        
+        </nav>
+        <div class="img-container">
+            <a tabindex="0" id="tutorialLink" target="_blank" href="https://www.youtube.com/watch?v=jnME98ckDbQ&list=PL1PqvM2UQiMoGNTaxFMSK2cih633lpFKP&index=1
+            ">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMNUHJwrUd_tOiVxh-BpgcabdZsh_SynXIAg&s
+            ">
+            </a>
+            <button id="darkmodeBtn">dark mode</button>
+        </div>
+    </header>
+    <!-- <sup class="r">Dang Near Perfect with the side bar 🥳</sup> -->
+    <nav tabindex="0" class="section-lesson-title" >
+        <h1 id="title">Design Nav Like python - stackoverflow</h1>
+        
+    </nav>
+    <main >
+        <aside class="side-bar ">
+            <div class="sideBarBtn-container">
+                <i id="sideBarBtn" tabindex="0" class="bx bx-menu"></i>
+                <!-- partsTxt is an awful name -->
+            </div>
+            <div class="parts">
+                <h2 tabindex="0" id="partsTxt">Parts</h2>
+                <ul class="txt90">
+                    <li><a   tabindex="0" href="parts/01/01.html">1. Inheritance w/ <code class="b txt80">classes</code>
+                        <br><code>.<span class="r">__proto__</span></code> depreciated
+                        </a>
+                    </li>
+                    <li><a    tabindex="0" href="parts/02/02.html">2. <code class="m">[[Prototype]]</code>
+                    <br><code>.<span class="y">prototype</span></code>
+                    <br>vs</a>
+                    <br><code>.<span class="y">__proto__</span></code>
+                    </li>
+                    <li><a data-video="https://youtu.be/jnME98ckDbQ?list=PL1PqvM2UQiMoGNTaxFMSK2cih633lpFKP&t=497" tabindex="0" 
+                        href="parts/03/03.html">3. Prototypal Inheritance
+                    <sup>creating class <code>function()</code></sup></a></li>
+                    <li><a   data-video="
+                        https://youtu.be/jnME98ckDbQ?list=PL1PqvM2UQiMoGNTaxFMSK2cih633lpFKP&t=638
+                        " tabindex="0"
+                            href="parts/04/04.html">4. <code class="m">this</code> in the class <code>constructor function</code> <code class="b">Person</code></a> 
+                        </li>
+                    <li><a  data-video="
+                        https://youtu.be/jnME98ckDbQ?list=PL1PqvM2UQiMoGNTaxFMSK2cih633lpFKP&t=825
+                        " tabindex="0"
+                            href="parts/05/05.html">5. Add properties to this <br>
+                        add methods to <code class="y">prototype</code> of parent</a> 
+                        </li>
+                    <li><a   data-video="
+                        
+                        " tabindex="0"
+                            href="parts/06/06.html">6. <code class="r">extends</code></a> 
+                        </li>
+                    <li><a   data-video="
+                        https://youtu.be/jnME98ckDbQ?list=PL1PqvM2UQiMoGNTaxFMSK2cih633lpFKP&t=968
+                        " tabindex="0"
+                            href="parts/07/07.html">7. <sup>2 other ways, create objects that inherit</sup>
+                            <br><sup><code>Object.<span class="y">create()</span></code> </sup>
+                            <br> <sup><code>Object.<span class="y">setPrototypeof()</span></code></sup>
+                            </a> 
+                        </li>
+                </ul>
+            </div>
+        </aside>
+        <div tabindex="0" id="mainTargetDiv" class="">
+            <header class="header-codeColor-lesson">
+                <h3 class="">Javascript Inheritance</h3>
+            </header>
+            <div class="main-container-codeColor">
+                <div class="steps-container">
+                    
+                    <div tabindex="0" class="step-float">
+                        <div class="step-img">
+                            <!-- <img src="images/01.png" alt=""> -->
+                            <img src="images/01.png" alt="">
+                        </div>
+                        <div class="step-txt">
+                            <h4>01</h4>
+                            <p>
+                           Re-do this home page
+                            </p>
+                            <div class="code-container txt85">
+                                <pre class="copy-code">
+class Dog {
+    bark(){
+        return 'barking'
+    }
+}
+const fido = new Dog()
+fido</pre>
+                            </div>
+                            <ul>
+                                <li>fido doesn't have a bark method directly on it.</li>
+                                <li>Instead, fido.__proto__ (or Object.getPrototypeOf(fido)) points to
+                                     Dog.prototype, where bark lives.</li>
+                                <li>So fido.bark() works because JavaScript looks up the prototype chain and finds it there.
+                                </li>
+                            </ul>
+                            <p>
+                                ⛓️ Think of It Like a Chain
+                                When you call a method on an object:
+                            </p>
+                            <ul>
+                                <li>JS looks on the object itself.</li>
+                                <li>If it doesn't find it, it goes to the object's prototype.</li>
+                                <li>If still not found, it keeps going up the chain until it hits null.</li>
+                            </ul>
+                            <p>
+                                So you're not seeing methods directly on instances because they're not there — they're on the prototype.
+
+                            </p>
+                    
+                        </div>
+                        <p>
+                            We use promises when we need to wait for information or data
+                        </p>
+                    </div>
+                    
+                    <button tabindex="0" id="endNxtLesson">next lesson</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<div class="relative flex h-full max-w-full flex-1 flex-col">
+  <div
+    class="draggable h-header-height bg-token-bg-primary sticky top-0 z-10 flex items-center justify-center border-transparent ps-0 md:hidden [box-shadow:var(--sharp-edge-top-shadow)]">
+    <div class="no-draggable absolute start-0 top-0 bottom-0 ms-2 inline-flex items-center justify-center"><button
+        type="button"
+        class="hover:text-token-text-primary touch:h-10 touch:w-10 inline-flex h-9 w-9 items-center justify-center rounded-md focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset active:opacity-50"
+        data-testid="open-sidebar-button" aria-expanded="false" aria-controls="stage-popover-sidebar"></button></div>
+    <div class="no-draggable"><button aria-label="" type="button" id="radix-«r4»" aria-haspopup="menu"
+        aria-expanded="false" data-state="closed" data-testid="model-switcher-dropdown-button"
+        class="group flex cursor-pointer justify-center items-center gap-1 rounded-lg min-h-9 touch:min-h-10 px-2.5 text-lg hover:bg-token-surface-hover focus-visible:bg-token-surface-hover font-normal whitespace-nowrap focus-visible:outline-none"
+        style="view-transition-name: var(--vt-thread-model-switcher);">
+        <div>ChatGPT</div>
+      </button></div>
+    <div class="no-draggable absolute end-0 top-0 bottom-0 me-2 inline-flex items-center justify-center"></div>
+  </div>
+  <div class="no-draggable bg-token-bg-primary flex w-full items-center justify-center md:hidden">
+    <div class="flex items-center gap-1 text-sm font-semibold opacity-70">
+      <div>Saved memory full</div>
+    </div>
+  </div>
+  <main class="transition-width relative h-full w-full flex-1 overflow-auto" id="main" z-index="-1">
+    <div id="thread" class="group/thread @container/thread h-full w-full">
+      <div role="presentation" class="composer-parent flex h-full flex-col focus-visible:outline-0 overflow-hidden">
+        <header id="page-header"
+          class="draggable no-draggable-children sticky top-0 p-2 touch:p-2.5 flex items-center justify-between z-20 h-header-height bg-token-main-surface-primary pointer-events-none select-none [view-transition-name:var(--vt-page-header)] *:pointer-events-auto motion-safe:transition max-md:hidden @[84rem]/thread:absolute @[84rem]/thread:start-0 @[84rem]/thread:end-0 @[84rem]/thread:shadow-none! @[84rem]/thread:bg-transparent [box-shadow:var(--sharp-edge-top-shadow)]">
+          <div class="absolute start-1/2 ltr:-translate-x-1/2 rtl:translate-x-1/2">
+            <div class="flex items-center gap-1 text-sm font-semibold opacity-70">
+              <div>Saved memory full</div>
+            </div>
+          </div>
+          <div class="flex items-center"><button aria-label="" type="button" id="radix-«r6»" aria-haspopup="menu"
+              aria-expanded="false" data-state="closed" data-testid="model-switcher-dropdown-button"
+              class="group flex cursor-pointer justify-center items-center gap-1 rounded-lg min-h-9 touch:min-h-10 px-2.5 text-lg hover:bg-token-surface-hover focus-visible:bg-token-surface-hover font-normal whitespace-nowrap focus-visible:outline-none"
+              style="view-transition-name: var(--vt-thread-model-switcher);">
+              <div>ChatGPT</div>
+            </button></div>
+          <div class="flex items-center">
+            <div class="flex items-center" id="conversation-header-actions"><button
+                class="btn relative btn-ghost text-token-text-primary" aria-label="Share"
+                data-testid="share-chat-button" style="view-transition-name:var(--vt_share_chat_wide_button)">
+                <div class="flex w-full items-center justify-center gap-1.5">Share</div>
+              </button>
+              <div class="flex items-center"><button aria-label="Open conversation options"
+                  data-testid="conversation-options-button" type="button" id="radix-«R1rdaj5pjm595j5»"
+                  aria-haspopup="menu" aria-expanded="false" data-state="closed"
+                  class="text-token-text-primary no-draggable hover:bg-token-surface-hover focus-visible:bg-token-surface-hover touch:h-10 touch:w-10 flex h-9 w-9 items-center justify-center rounded-lg focus-visible:outline-0 disabled:opacity-50"></button><button
+                  aria-label="Open profile menu" data-testid="profile-button"
+                  class="group user-select-none ps-2 focus-visible:outline-0" type="button" id="radix-«Rabdaj5pjm595j5»"
+                  aria-haspopup="menu" aria-expanded="false" data-state="closed">
+                  <div
+                    class="group-hover:bg-token-interactive-bg-secondary-selected touch:h-10 touch:w-10 flex h-9 w-9 items-center justify-center rounded-full group-focus-visible:ring-2">
+                    <div class="flex overflow-hidden rounded-full select-none bg-gray-500/30 h-6 w-6 shrink-0"><img
+                        src="https://s.gravatar.com/avatar/2411226e0584a750eef5b766d3ab018c?s=480&amp;r=pg&amp;d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fpr.png"
+                        alt="Profile image" class="h-6 w-6 shrink-0" referrerpolicy="no-referrer"></div>
+                  </div>
+                </button></div>
+            </div>
+          </div>
+        </header>
+        <div
+          class="flex basis-auto flex-col -mb-(--composer-overlap-px) [--composer-overlap-px:55px] grow overflow-hidden">
+          <div class="relative h-full">
+            <div
+              class="flex h-full flex-col overflow-y-auto [scrollbar-gutter:stable_both-edges] @[84rem]/thread:pt-(--header-height)">
+              <div aria-hidden="true" data-edge="true" class="pointer-events-none h-px w-px"></div>
+              <div class="@thread-xl/thread:pt-header-height flex flex-col text-sm pb-25">
+                <article class="text-token-text-primary w-full" dir="auto" data-testid="conversation-turn-1"
+                  data-scroll-anchor="false">
+                  <h5 class="sr-only">You said:</h5>
+                  <div
+                    class="text-base my-auto mx-auto py-5 [--thread-content-margin:--spacing(4)] @[37rem]:[--thread-content-margin:--spacing(6)] @[72rem]:[--thread-content-margin:--spacing(16)] px-(--thread-content-margin)">
+                    <div
+                      class="[--thread-content-max-width:32rem] @[34rem]:[--thread-content-max-width:40rem] @[64rem]:[--thread-content-max-width:48rem] mx-auto flex max-w-(--thread-content-max-width) flex-1 text-base gap-4 md:gap-5 lg:gap-6 group/turn-messages focus-visible:outline-hidden"
+                      tabindex="-1">
+                      <div class="group/conversation-turn relative flex w-full min-w-0 flex-col">
+                        <div class="relative flex-col gap-1 md:gap-3">
+                          <div class="flex max-w-full flex-col grow">
+                            <div data-message-author-role="user" data-message-id="29a56ee7-6903-4cf5-91f0-b2f27173afe6"
+                              dir="auto"
+                              class="min-h-8 text-message relative flex w-full flex-col items-end gap-2 text-start break-words whitespace-normal [.text-message+&amp;]:mt-5">
+                              <div class="flex w-full flex-col gap-1 empty:hidden items-end rtl:items-start">
+                                <div
+                                  class="relative max-w-[var(--user-chat-width,70%)] bg-token-message-surface rounded-3xl px-5 py-2.5">
+                                  <div class="whitespace-pre-wrap" tabindex="-1" style="outline: none;">can you give me
+                                    part to do list with numbers and no code just a random numbered 5 part to do list
+                                    like you usually do with questions using your go to format for breaking down
+                                    questions into parts just as an example </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex justify-end">
+                            <div
+                              class="touch:-me-2 touch:-ms-3.5 -ms-2.5 -me-1 flex flex-wrap items-center gap-y-4 p-1 select-none focus-within:transition-none hover:transition-none duration-300 group-hover/turn-messages:delay-300 pointer-events-none opacity-0 motion-safe:transition-opacity group-hover/turn-messages:pointer-events-auto group-hover/turn-messages:opacity-100 group-focus-within/turn-messages:pointer-events-auto group-focus-within/turn-messages:opacity-100 has-data-[state=open]:pointer-events-auto has-data-[state=open]:opacity-100"
+                              style="mask-position: 0% 0%;"><button
+                                class="text-token-text-secondary hover:bg-token-bg-secondary rounded-lg"
+                                aria-label="Copy" aria-selected="false" data-testid="copy-turn-action-button"
+                                data-state="closed"></button><button
+                                class="text-token-text-secondary hover:bg-token-bg-secondary rounded-lg"
+                                aria-label="Edit message" aria-selected="false" data-state="closed"></button></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <article class="text-token-text-primary w-full" dir="auto" data-testid="conversation-turn-2"
+                  data-scroll-anchor="false">
+                  <h6 class="sr-only">ChatGPT said:</h6>
+                  <div
+                    class="text-base my-auto mx-auto py-5 [--thread-content-margin:--spacing(4)] @[37rem]:[--thread-content-margin:--spacing(6)] @[72rem]:[--thread-content-margin:--spacing(16)] px-(--thread-content-margin)">
+                    <div
+                      class="[--thread-content-max-width:32rem] @[34rem]:[--thread-content-max-width:40rem] @[64rem]:[--thread-content-max-width:48rem] mx-auto flex max-w-(--thread-content-max-width) flex-1 text-base gap-4 md:gap-5 lg:gap-6 group/turn-messages focus-visible:outline-hidden"
+                      tabindex="-1">
+                      <div class="group/conversation-turn relative flex w-full min-w-0 flex-col agent-turn">
+                        <div class="relative flex-col gap-1 md:gap-3">
+                          <div class="flex max-w-full flex-col grow">
+                            <div data-message-author-role="assistant"
+                              data-message-id="4b513ef1-bc15-42e8-8a01-efd6c4f6e59e" dir="auto"
+                              class="min-h-8 text-message relative flex w-full flex-col items-end gap-2 text-start break-words whitespace-normal [.text-message+&amp;]:mt-5"
+                              data-message-model-slug="gpt-4o">
+                              <div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+                                <div class="markdown prose dark:prose-invert w-full break-words dark">
+                                  <p data-start="0" data-end="128">Absolutely! Here's a 5-part numbered to-do list
+                                    example using the same structured breakdown style I typically use for questions:</p>
+                                  <hr data-start="130" data-end="133">
+                                  <p data-start="135" data-end="162"><strong data-start="135" data-end="162">📝 To-Do
+                                      List (Example)</strong></p>
+                                  <ol data-start="164" data-end="887">
+                                    <li data-start="164" data-end="297">
+                                      <p data-start="167" data-end="191"><strong data-start="167"
+                                          data-end="189">Organize workspace</strong></p>
+                                      <ul data-start="195" data-end="297">
+                                        <li data-start="195" data-end="226">
+                                          <p data-start="197" data-end="226">Clear off unnecessary items</p>
+                                        </li>
+                                        <li data-start="230" data-end="252">
+                                          <p data-start="232" data-end="252">Wipe down surfaces</p>
+                                        </li>
+                                        <li data-start="256" data-end="297">
+                                          <p data-start="258" data-end="297">Reposition tools or devices for comfort</p>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <li data-start="299" data-end="446">
+                                      <p data-start="302" data-end="333"><strong data-start="302" data-end="331">Plan
+                                          the day's main focus</strong></p>
+                                      <ul data-start="337" data-end="446">
+                                        <li data-start="337" data-end="372">
+                                          <p data-start="339" data-end="372">Choose <em data-start="346"
+                                              data-end="351">one</em> high-priority task</p>
+                                        </li>
+                                        <li data-start="376" data-end="409">
+                                          <p data-start="378" data-end="409">Break it into 2–3 clear steps</p>
+                                        </li>
+                                        <li data-start="413" data-end="446">
+                                          <p data-start="415" data-end="446">Estimate time required for each</p>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <li data-start="448" data-end="584">
+                                      <p data-start="451" data-end="477"><strong data-start="451" data-end="475">Handle
+                                          communication</strong></p>
+                                      <ul data-start="481" data-end="584">
+                                        <li data-start="481" data-end="505">
+                                          <p data-start="483" data-end="505">Check email/messages</p>
+                                        </li>
+                                        <li data-start="509" data-end="553">
+                                          <p data-start="511" data-end="553">Respond to urgent or important ones only
+                                          </p>
+                                        </li>
+                                        <li data-start="557" data-end="584">
+                                          <p data-start="559" data-end="584">Flag follow-ups for later</p>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <li data-start="586" data-end="755">
+                                      <p data-start="589" data-end="624"><strong data-start="589" data-end="622">Take a
+                                          focused learning block</strong></p>
+                                      <ul data-start="628" data-end="755">
+                                        <li data-start="628" data-end="683">
+                                          <p data-start="630" data-end="683">Choose one topic (e.g., JavaScript,
+                                            language, etc.)</p>
+                                        </li>
+                                        <li data-start="687" data-end="718">
+                                          <p data-start="689" data-end="718">Set timer for 25–30 minutes</p>
+                                        </li>
+                                        <li data-start="722" data-end="755">
+                                          <p data-start="724" data-end="755">No multitasking or distractions</p>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <li data-start="757" data-end="887">
+                                      <p data-start="760" data-end="790"><strong data-start="760" data-end="788">Reflect
+                                          and log progress</strong></p>
+                                      <ul data-start="794" data-end="887">
+                                        <li data-start="794" data-end="819">
+                                          <p data-start="796" data-end="819">What went well today?</p>
+                                        </li>
+                                        <li data-start="823" data-end="850">
+                                          <p data-start="825" data-end="850">What could be improved?</p>
+                                        </li>
+                                        <li data-start="854" data-end="887">
+                                          <p data-start="856" data-end="887">Add notes or tasks for tomorrow</p>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                  </ol>
+                                  <hr data-start="889" data-end="892">
+                                  <p data-start="894" data-end="959" data-is-last-node="" data-is-only-node="">Let me
+                                    know if you want one tailored for your actual goals today.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <article class="text-token-text-primary w-full" dir="auto" data-testid="conversation-turn-3"
+                  data-scroll-anchor="false">
+                  <h5 class="sr-only">You said:</h5>
+                  <div
+                    class="text-base my-auto mx-auto py-5 [--thread-content-margin:--spacing(4)] @[37rem]:[--thread-content-margin:--spacing(6)] @[72rem]:[--thread-content-margin:--spacing(16)] px-(--thread-content-margin)">
+                    <div
+                      class="[--thread-content-max-width:32rem] @[34rem]:[--thread-content-max-width:40rem] @[64rem]:[--thread-content-max-width:48rem] mx-auto flex max-w-(--thread-content-max-width) flex-1 text-base gap-4 md:gap-5 lg:gap-6 group/turn-messages focus-visible:outline-hidden"
+                      tabindex="-1">
+                      <div class="group/conversation-turn relative flex w-full min-w-0 flex-col">
+                        <div class="relative flex-col gap-1 md:gap-3">
+                          <div class="flex max-w-full flex-col grow">
+                            <div data-message-author-role="user" data-message-id="bd0f2aa2-cb44-400f-b74d-b1459aaa7599"
+                              dir="auto"
+                              class="min-h-8 text-message relative flex w-full flex-col items-end gap-2 text-start break-words whitespace-normal [.text-message+&amp;]:mt-5">
+                              <div class="flex w-full flex-col gap-1 empty:hidden items-end rtl:items-start">
+                                <div
+                                  class="relative max-w-[var(--user-chat-width,70%)] bg-token-message-surface rounded-3xl px-5 py-2.5"
+                                  style="outline-offset: 2px;">
+                                  <div class="whitespace-pre-wrap" tabindex="-1" style="outline: none;">perefect now
+                                    could you give me a numbered 3 part response explaining a for loop with example code
+                                    in each part </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <article class="text-token-text-primary w-full" dir="auto" data-testid="conversation-turn-4"
+                  data-scroll-anchor="true">
+                  <h6 class="sr-only">ChatGPT said:</h6>
+                  <div
+                    class="text-base my-auto mx-auto py-5 [--thread-content-margin:--spacing(4)] @[37rem]:[--thread-content-margin:--spacing(6)] @[72rem]:[--thread-content-margin:--spacing(16)] px-(--thread-content-margin)">
+                    <div
+                      class="[--thread-content-max-width:32rem] @[34rem]:[--thread-content-max-width:40rem] @[64rem]:[--thread-content-max-width:48rem] mx-auto flex max-w-(--thread-content-max-width) flex-1 text-base gap-4 md:gap-5 lg:gap-6 group/turn-messages focus-visible:outline-hidden"
+                      tabindex="-1">
+                      <div class="group/conversation-turn relative flex w-full min-w-0 flex-col agent-turn">
+                        <div class="relative flex-col gap-1 md:gap-3">
+                          <div class="flex max-w-full flex-col grow">
+                            <div data-message-author-role="assistant"
+                              data-message-id="09953bc2-8681-468a-83c1-f8cc4f2591e2" dir="auto"
+                              class="min-h-8 text-message relative flex w-full flex-col items-end gap-2 text-start break-words whitespace-normal [.text-message+&amp;]:mt-5"
+                              data-message-model-slug="gpt-4o">
+                              <div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+                                <div class="markdown prose dark:prose-invert w-full break-words dark">
+                                  <p data-start="0" data-end="132">Absolutely — here’s a <strong data-start="22"
+                                      data-end="51">3-part numbered breakdown</strong> explaining a <code
+                                      data-start="65" data-end="70">for</code> loop, with code examples in each step to
+                                    build understanding:</p>
+                                  <hr data-start="134" data-end="137">
+                                  <p data-start="139" data-end="340"><strong data-start="139" data-end="182">1. What is
+                                      a <code data-start="154" data-end="159">for</code> loop and why use
+                                      it?</strong><br data-start="182" data-end="185">
+                                    A <code data-start="187" data-end="192">for</code> loop is used to <strong
+                                      data-start="209" data-end="235">repeat a block of code</strong> a specific number
+                                    of times. It's great when you know <strong data-start="289" data-end="315">exactly
+                                      how many times</strong> something should repeat.</p>
+                                  <pre class="overflow-visible!" data-start="342" data-end="441">
+                                    <div
+                                      class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary">
+                                      <div
+                                        class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl">
+                                        js</div>
+                                      <div class="sticky top-9">
+                                        <div class="absolute end-0 bottom-0 flex h-9 items-center pe-2">
+                                          <div
+                                            class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs">
+                                            <button class="flex gap-1 items-center select-none py-1"
+                                              aria-label="Copy">Copy</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="overflow-y-auto p-4" dir="ltr"><code
+                                          class="whitespace-pre! language-js"></code></div>
+                                    </div>
+                                  </pre>
+                                  

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01-temp</title>
+    <!-- <link rel="stylesheet" href="../../../css/codeColor-colors.css"> -->
+    <!-- <link rel="stylesheet" href="../../../css/codeColor-lesson.css"> -->
+    <!-- <link rel="stylesheet" href="../../../css/dark-mode-codeColor.css"> -->
+    
+    <!-- <script type="module" src="../../../../../js/copy-code.js" defer></script>     -->
+    <!-- <link rel="stylesheet" href="../../../../../css/copy-code-fcc.css"> -->
+    <!-- <script type="module" src="../../../js/stepTxts-codeColor.js" defer></script> -->
+    <!-- <script type="module" src="../../../js/step-focus-codeColor.js" defer></script> -->
+<!--  -->
+    <!-- <script src="../../scripts/getWheather.js" ></script> -->
+    <!-- This prevents zoom when textarea is focused -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+</head>
+<body class="dark-mode">
+    <div id="targetDiv">
+    </div>
+<header class="header-codeColor-lesson">
+    <h3>Basic Example</h3>
+</header>
+<div class="main-container-codeColor">
+    <div class="steps-container">
+        <div tabindex="0" class="step-float">
+            <div class="step-img">
+                <!-- <img src="images/01.png" alt=""> -->
+                <img src="parts/01/images/01.png" alt="">
+            </div>
+            <div  class="step-txt">
+                <h4>01</h4>
+                <p>
+                    <p>
+                        <code class="b">Promise()</code> Takes two functions as arguments,
+                        <code class="o">resolve()</code>, and <code class="r">reject()</code>
+                    </p>
+                <div class="code-container">
+                    <pre class="copy-code">
+function getWeather() {
+return new <span class="b">Promise</span>(function(<span class="o">resolve</span>,<span class="r">reject</span>){
+})
+}
+let promise = getWheather()
+console.log(promise)</pre>
+                </div>
+                
+            </div>
+            <p>
+                We use promises when we need to wait for information or data
+            </p>
+        </div>
+        
+
+        <div tabindex="0" class="step-float">
+            <h4>04</h4>
+            <p>
+                A <code class="b">Promise</code> works well with async code, or data not yet recieved, <span class="r">**Note</span>
+                you can call the function <code>getWeather</code> directly when it returns a promise, <span class="r">and</span>
+                we can pass other <code class="y">functions</code> into <span class="m">then</span> and the argument is automatically passed in
+            </p>
+            <div class="step-txt">
+                <div class="code-container">
+                    <pre class="copy-code">
+function getWeather() {
+return new Promise(function (resolve, reject) {
+console.log('...waiting')
+setTimeout(() => {
+    resolve('Cloudy')
+}, 90)
+})
+}
+function <span class="y">weatherSymbols</span>(weather) {
+if (weather == 'Cloudy') {
+console.log('☁️')
+}
+}
+getWeather().<span class="m">then</span>(<span class="y">checkWeather</span>)
+
+                    </pre>
+                </div>
+            </div>
+            <div class="step-vid">
+                <!-- <video src="images/04.mov" alt=""> -->
+                <img src="parts/01/images/01.png" alt="">
+            </div>
+        </div>
+        <div tabindex="0" class="step-float">
+                <h4>03</h4>
+            <div class="console"></div>
+            <div class="code-container">
+                <pre tabindex="0" class="copy-code">
+console.log('1')</pre>
+            </div>
+            <div class="textarea-code-container">
+                <textarea tabindex="0" class="consoleEntry">
+DO NOT USE THIS  on github, desktop only</textarea>
+                <button tabindex="-1" class="run-btn">Run</button>
+            </div>
+            <div class="step-txt-float">
+            <p>
+                <code class="b">Promise()</code> Takes two functions as arguments,
+                <code class="m">resolve()</code>, and <code class="r">reject()</code>
+            </p>
+            <div class="code-container">
+                <pre class="copy-code">
+<span class="p">function</span> getWeather(){
+<span class="p">return</span> <span class="p">new</span> <span class="b">Promise</span>(<span
+class="p">function</span>(<span class="r">resolve</span>, <span class="r">reject</span> ))
+}
+                </pre>
+            </div>
+        </div>
+        <div tabindex="0" class="step">
+            <h4>04</h4>
+            <div class="step-txt">
+            <p>
+                <code class="b">TBD()</code> <code class="o">TBD()</code>
+            </p>
+            <textarea tabindex='-1' class="copy-code">
+TBD
+            </textarea>
+            <div class="code-container">
+                <pre  class="copy-code">
+<span class="p">TBD</span> 
+<span class="p"></span> 
+                    </pre>
+
+            </div>
+            </div>
+            <div class="step-img">
+            </div>
+        </div>
+    </div>
+        
+    <button tabindex="0" id="endNxtLesson">next lesson</button>
+    </div>
+</body>
+</html>
