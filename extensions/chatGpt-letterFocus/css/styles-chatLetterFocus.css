@@ -69,10 +69,10 @@
     display: block !important;
     z-index: 9999 !important;
     position: fixed;
-    top: 40%;
+    top: 50%;
     /* left: 50%; */
     max-width: 90vw;
-    max-height: 70vh;
+    max-height: 60vh;
     transition: transform 0.2s ease;
     /* You can't click when this is on  */
     /* pointer-events: none; */
@@ -96,20 +96,21 @@
     position: absolute;
     right: 0;
     background-color: black;
-    height: 20px;
-    width: 20px;
+    height: 25px;
+        width: 35px;
+        padding: 1%;
 }
 
 
-@media screen and (max-width: 720px){
+@media screen and (max-width: 801px){
     .code-elements-container .code-container {
             position: relative;   
         }   
     .code-container {
     }
-.dark-mode .code-elements-container .code-container .copy-code{
+    .dark-mode .code-elements-container .code-container .copy-code{
     color: black !important;
-}
+    }
     .code-elements-container .code-container .copy-code {
         border: 1px solid black ;
         
@@ -136,15 +137,16 @@
     }
     .black-click-img-box {
         height: 25px;
-        width: px;
-        /* padding: 1%; */
+        width: 35px;
+        padding: 1%;
+        right: 1%;
+        top: 12%;
     }
 }
 @media screen and (max-width: 420px) {
     .black-click-img-box {
         height: 40px;
         width: 40px;
-        padding: 1%
     }
 }
 
