@@ -1,5 +1,7 @@
 // Script Manager with Input Selection and Persistence
 // File list
+// Load saved index or default to 1
+let iFile = 0
 const workingScriptInputNum = document.querySelector('#workingScriptInputNum')
 const newVersion = 'versions/new.js'
 const workingVersion = 'versions/working-version.js'
@@ -19,17 +21,16 @@ const versionTitle = document.querySelector('#versionTitle')
 const pageHeader = document.querySelector('#pageHeader')
 // export const defaultScriptInputBox = document.querySelector('#defaultScriptInputBox')
 
-// Load saved index or default to 1
-let iFile = 0
+
 let filePath = filesArr[iFile]
 // let defaultScriptIndex
 // DOM Ready
 addEventListener('DOMContentLoaded', () => {
     // Load the script at index
-    if (workingScriptInputNum){
-        loadTextAreaCode(filesArr[0])
-        return
-    }
+    // if (workingScriptInputNum){
+    //     loadTextAreaCode(filesArr[iFile])
+    //     return
+    // }
     loadTextAreaCode(filesArr[iFile])
     changeBackground()
 

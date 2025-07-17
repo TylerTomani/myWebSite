@@ -1,5 +1,5 @@
-import { nxtBtn } from "./load-textarea-code-draft.js"
-import { backBtn } from "./load-textarea-code-draft.js"
+import { nxtBtn } from "./load-textarea-code.js"
+import { backBtn } from "./load-textarea-code.js"
 const mainScript = document.querySelector('#mainScript')
 // let elementImg = document.querySelector('#elementImg')
 const homelink = document.querySelector('#homelink')
