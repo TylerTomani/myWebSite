@@ -78,18 +78,17 @@ function changeScript(reverse) {
 function changeBackground() {
     if (iFile === 0) {
         mainScript.style.background = 'rgb(200,0,2,.75)'
-        // mainScript.style.color = 'lightgrey'
+        mainScript.style.color = 'lightgrey'
     }else {
         mainScript.style.color = 'black'
         
     }
      if (iFile === 1) {
-         mainScript.style.background = 'lightgrey'
-         mainScript.style.background = 'rgb(14,42,47,.35)'
+        mainScript.style.background = 'lightgrey'
     } else if (iFile === 2) {
-         mainScript.style.background = 'lightgrey'
+        mainScript.style.background = 'rgb(14,42,47,.35)'
     } else {
-        mainScript.style.background = 'rgb(3,100,22,.45)'
+        // mainScript.style.background = 'rgb(3,100,22,.45)'
     }
 }
 
