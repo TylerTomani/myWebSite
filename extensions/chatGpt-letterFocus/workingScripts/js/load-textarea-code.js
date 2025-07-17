@@ -77,7 +77,8 @@ function changeScript(reverse) {
 // Color background based on current file
 function changeBackground() {
     if (iFile === 0) {
-        mainScript.style.background = 'rgb(3,100,22,.45)'
+        // mainScript.style.background = 'rgb(3,100,22,.45)'
+        mainScript.style.background = 'lightgrey'
     } else if (iFile === 1) {
         mainScript.style.background = 'lightgrey'
     } else if (iFile === 2) {
