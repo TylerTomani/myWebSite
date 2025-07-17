@@ -64,7 +64,7 @@
     /* resize: vertical; */
     height: 100%;
     display: block;
-    color: black !important;
+    color: black ;
     font-weight: 999;
 }
  .dark-mode textarea {
@@ -130,7 +130,7 @@
     .code-container {
     }
     .dark-mode .code-elements-container .code-container .copy-code{
-    color: black !important;
+    /* color: black; */
     }
     .code-elements-container .code-container .copy-code {
         border: 1px solid black ;

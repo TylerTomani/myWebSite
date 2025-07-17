@@ -5,7 +5,7 @@
         if (stopBtn && stopBtn.offsetParent !== null) return stopBtn;
         return null;
     }
-    
+
     console.log('✅ ChatGPT Navigator Extension Loaded');
     const style = document.createElement('style');
     style.textContent = `
@@ -263,7 +263,7 @@
                 sToggleOnFirst = true;
             }
         }
-        
+
 
         const preEl = e.target.closest('pre');
         if (preEl) {
@@ -324,19 +324,8 @@
         const key = e.key.toLowerCase();
         const isCmdOrCtrl = e.metaKey || e.ctrlKey;
         const isShift = e.shiftKey;
-
-        const stopBtn = getVisibleStopButton();
-        // Allow default browser shortcuts to pass through without interference
-        if (stopBtn && isShift && key === 'enter') {
-            e.preventDefault();
-            stopBtn.click();
-            showPopup('⛔ Stopped response');
-            return;
-        }
-
         warnIfReservedShortcut(e)
-        
-        
+        // Allow default browser shortcuts to pass through without interference
 
         // Always allow navMode toggle
         if (isCmdOrCtrl && isShift && key === 'x') {
@@ -349,17 +338,43 @@
 
         // Disable all navMode key behavior while typing
 
+        function isTypingInPrompt() {
+            const prompt = document.getElementById('prompt-textarea');
+            if (!prompt) return false;
+            return prompt === document.activeElement || prompt.contains(document.activeElement);
+        }
+
+        // If typing in prompt textarea, do nothing special, let all keys pass through:
+        if (isTypingInPrompt()) {
+            // Turn off navMode if still on
+            const stopBtn = getVisibleStopButton();
+            if (stopBtn && (e.metaKey || e.shiftKey) && key === 'enter') {
+                e.preventDefault();
+                stopBtn.click();
+                showPopup('⛔ Stopped response');
+                return;
+            }
+
+
+            return;
+        }
+
+
         // Now handle keys (including '?') only if NOT typing in prompt
         if (key === '?') {
             e.preventDefault();
             togglePopup?.();
         }
         if (!navMode) return;
+
+
         if (key === 'tab') return;
+
         if (isCmdOrCtrl && !isShift) {
             const allowedKeys = ['r', 't', 'w', 'n', 'p', 'f', 's', 'd', 'e', 'l', 'm'];
             if (allowedKeys.includes(key)) return;
         }
+
         if (isCmdOrCtrl && e.key === 'ArrowDown') {
             e.preventDefault();
             const articles = Array.from(document.querySelectorAll('article[data-testid^="conversation-turn-"]'));
@@ -370,6 +385,7 @@
             }
             return;
         }
+
         if (isCmdOrCtrl && e.key === 'ArrowUp') {
             e.preventDefault();
             if (!targets.length) updateTargets();
@@ -385,6 +401,7 @@
             showQuestionBanner(firstIndex + 1);
             return;
         }
+
         if (key === 'e') {
             e.preventDefault();
             if (!targets.length) updateTargets();
@@ -395,16 +412,24 @@
                 // Focus the last question
                 el.focus({ preventScroll: true });
 
+                // Scroll to the last question with block: 'start' (top)
                 el.scrollIntoView({ behavior: 'instant', block: 'start' });
+
                 outlineFocus(el);
+
                 lastFocusedTarget = el;
                 currentOffset = Math.floor(lastIndex / 10) * 10;
+
                 updateLastNonFirstFocused(el);
+
                 showPopup('Last question');
                 showQuestionBanner(lastIndex + 1);
             }
             return;
         }
+
+
+
         if (key === 's') {
             e.preventDefault();
             if (!targets.length) updateTargets();
@@ -442,9 +467,10 @@
                 showQuestionBanner(1);
                 sToggleOnFirst = true;
             }
-            
+
             return;
         }
+
         if (key === 'f' || key === 'd') {
             e.preventDefault();
             if (!targets.length) updateTargets();
@@ -473,6 +499,7 @@
             showQuestionBanner(nextIndex + 1);
             return;
         }
+
         const digitMatch = e.code.match(/^Digit([0-9])$/);
         if (digitMatch) {
             e.preventDefault();
@@ -568,15 +595,19 @@
                 e.preventDefault();
             }
         }
+
     }, true);
+
     function scrollToTarget(index) {
         const el = targets[index];
         if (!el) return;
+
         targets.forEach(target => {
             target.style.outline = 'none';
             const parent = target.closest('div.relative');
             if (parent) parent.style.outline = '';
         });
+
         outlineFocus(el);
 
         // If only one question, always scroll to 'start' (top)
