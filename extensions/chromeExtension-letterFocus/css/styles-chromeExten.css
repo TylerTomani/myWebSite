@@ -42,6 +42,7 @@
 }
 .code-elements-container {
     /* position: relative; */
+    border: 1px dashed black;
     margin: 0 5%;
 }
 .code-container {
@@ -49,7 +50,8 @@
 }
 .code-elements-container .code-container .copy-code {
     min-height: 120px;
-    z-index: 0
+    z-index: 0;
+    min-width: 30vw;
 
 }
 .copy-code {
@@ -174,4 +176,16 @@
 
 .copy-code:active,.copy-code:focus{
     box-shadow: 0 0 3px 3px blue;
+}
+.hide{
+    display: none !important;
+}
+#xBtnPopup{
+    border: 2px solid black;
+    padding: 2%;
+    background-color: white;
+    position: sticky;
+    background-color: whitesmoke;
+    display: block;
+    right: 0;
 }

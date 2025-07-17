@@ -1,3 +1,4 @@
+const xBtnPopup = document.getElementById('xBtnPopup')
 import { nxtBtn } from "./load-textarea-code-draft.js"
 import { backBtn } from "./load-textarea-code-draft.js"
 const mainScript = document.querySelector('#mainScript')
@@ -50,9 +51,8 @@ addEventListener('keydown', e => {
     if (key === 'p' && e.shiftKey) {
         denlargeAllImgs()
         scrollTo(0, 0)
-        codeElementsContainer.classList.toggle('popup')
+        togglePopup()
         
-        console.log(lastCopyCode)
         if (!popup && lastCopyCode) {
             lastCopyCode.focus()
         } else if(!popup){
@@ -216,3 +216,20 @@ blackBoxesToggleImg.forEach(el => {
         }
     });
 });
+xBtnPopup.addEventListener('click', e =>{
+    e.preventDefault()
+    if (codeElementsContainer.classList.contains('popup')) {
+        codeElementsContainer.classList.remove('popup')
+    }
+})
+function togglePopup(){
+    console.log(xBtnPopup)
+    if(codeElementsContainer.classList.contains('popup')){
+        codeElementsContainer.classList.remove('popup')
+        xBtnPopup.classList.add('hide')
+    } else {
+        codeElementsContainer.classList.add('popup')
+        xBtnPopup.classList.remove('hide')
+
+    }
+}
