@@ -1,4 +1,4 @@
-const xBtnPopup = document.getElementById('xBtnPopup')
+
 import { nxtBtn } from "./load-textarea-code-draft.js"
 import { backBtn } from "./load-textarea-code-draft.js"
 const mainScript = document.querySelector('#mainScript')
@@ -9,6 +9,7 @@ const textarea = document.querySelector('textarea')
 const codeElementsContainer = document.querySelector('.code-elements-container')
 const btmPageCopyCodes = document.querySelectorAll('.code-elements-container .copy-code')
 const blackBoxesToggleImg = document.querySelectorAll('.black-click-img-box')
+const xBtnPopup = document.getElementById('xBtnPopup')
 let iCopyCodes = 0
 let elsArr = [nxtBtn, backBtn, backToTopBtn]
 let iEl = 0

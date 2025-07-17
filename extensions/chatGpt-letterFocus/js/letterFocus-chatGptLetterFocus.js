@@ -8,6 +8,7 @@ const textarea = document.querySelector('textarea')
 const codeElementsContainer = document.querySelector('.code-elements-container')
 const btmPageCopyCodes = document.querySelectorAll('.code-elements-container .copy-code')
 const blackBoxesToggleImg = document.querySelectorAll('.black-click-img-box')
+const xBtnPopup = document.getElementById('xBtnPopup')
 let iCopyCodes = 0
 let elsArr = [nxtBtn, backBtn, backToTopBtn]
 let iEl = 0
@@ -50,9 +51,8 @@ addEventListener('keydown', e => {
     if (key === 'p' && e.shiftKey) {
         denlargeAllImgs()
         scrollTo(0, 0)
-        codeElementsContainer.classList.toggle('popup')
+        togglePopup()
         
-        console.log(lastCopyCode)
         if (!popup && lastCopyCode) {
             lastCopyCode.focus()
         } else if(!popup){
@@ -216,3 +216,20 @@ blackBoxesToggleImg.forEach(el => {
         }
     });
 });
+xBtnPopup.addEventListener('click', e =>{
+    e.preventDefault()
+    if (codeElementsContainer.classList.contains('popup')) {
+        codeElementsContainer.classList.remove('popup')
+    }
+})
+function togglePopup(){
+    console.log(xBtnPopup)
+    if(codeElementsContainer.classList.contains('popup')){
+        codeElementsContainer.classList.remove('popup')
+        xBtnPopup.classList.add('hide')
+    } else {
+        codeElementsContainer.classList.add('popup')
+        xBtnPopup.classList.remove('hide')
+
+    }
+}
