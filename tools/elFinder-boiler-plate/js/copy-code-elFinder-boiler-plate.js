@@ -20,9 +20,11 @@ copyCodes.forEach(el => {
         if(e.key == 'c' && e.metaKey){
             if(e.target.value){
                 copyTextToClipboard(e.target.value)
+                animate(e.target)
             }
             if(e.target.innerText){
                 copyTextToClipboard(e.target.innerText)
+                animate(e.target)
                 
             }
             // copyTextToClipboard(e.target.innerText)

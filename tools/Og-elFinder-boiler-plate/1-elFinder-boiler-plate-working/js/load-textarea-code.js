@@ -5,9 +5,11 @@ const newVersion = 'versions/new.js'
 const workingVersion = 'versions/working-version.js'
 const draft = 'versions/draft.js'
 const draftWorking = 'versions/draft-working.js'
+const navToQuestionsFinal = 'finalWorkingScripts/1-nav-to-questions.js'
+const navToQuestionsBookmarkFinal = 'finalWorkingScripts/2-navToQuestions-bookmarks.js'
 
 
-const filesArr = [workingVersion, draft, draftWorking, newVersion]
+const filesArr = [navToQuestionsFinal, navToQuestionsBookmarkFinal, draft, draftWorking, workingVersion, newVersion]
 
 // DOM elements
 export const nxtBtn = document.querySelector('#nxtBtn')
