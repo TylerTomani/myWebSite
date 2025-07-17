@@ -52,7 +52,6 @@ addEventListener('keydown', e => {
         scrollTo(0, 0)
         codeElementsContainer.classList.toggle('popup')
         
-        console.log(lastCopyCode)
         if (!popup && lastCopyCode) {
             lastCopyCode.focus()
         } else if(!popup){
@@ -88,7 +87,7 @@ addEventListener('keydown', e => {
 
 
     }
-    if(e.metaKey && key === 'arrowup'){
+    if(e.metaKey && key === 'arrowup'){  
         focusedMainScript = false 
         e.preventDefault()
         
@@ -112,7 +111,6 @@ function focusKeyToEls(e,key) {
         if (!homelink.hasAttribute('tabindex')) {
             homelink.setAttribute('tabindex', '0')
         }
-        console.log(homelink)
         homelink.focus()
     }
     if (key === 'e') {
@@ -135,7 +133,6 @@ function focusKeyToEls(e,key) {
 backToTopBtn.addEventListener('keydown', e => {
     let key = e.keyCode
     if (key === 13) {
-        console.log(backToTopBtn)
         backToTopBtn.click()
     }
 })
@@ -188,7 +185,7 @@ if (elementImg) {
     elementImg.addEventListener('click', e => {
         e.preventDefault()
         elementImg.classList.toggle('enlarge')
-        console.log('click')
+        
     })
 }
 codeElementsContainer.addEventListener('focusin', e => { popup = true })

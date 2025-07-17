@@ -1,4 +1,4 @@
-import { nxtBtn, backBtn, mainScript } from "./load-textarea-code-draft.js";
+import { nxtBtn, backBtn, mainScript } from "./load-textarea-code.js";
 const copyCodes = document.querySelectorAll('.copy-code')
 function copyTextToClipboard(text) {
     return navigator.clipboard.writeText(text).catch(err => {
@@ -18,13 +18,16 @@ function animate(element) {
 copyCodes.forEach(el => {
     el.addEventListener('keydown', e => {
         if(e.key == 'c' && e.metaKey){
+            console.log('hsjdhf')
             if(e.target.value){
                 copyTextToClipboard(e.target.value)
+
             }
             if(e.target.innerText){
                 copyTextToClipboard(e.target.innerText)
                 
             }
+            animate(e.target)
             // copyTextToClipboard(e.target.innerText)
         }
     })
@@ -33,10 +36,9 @@ function handleCopy(el,animateCode) {
     // Always copy the text from mainScript regardless of source
     const textToCopy = mainScript.value || mainScript.innerText || "";
     copyTextToClipboard(textToCopy);
-    console.log(animateCode)
-    if(!animateCode){
-        return 
-    }
+    // if(!animateCode){
+    //     return 
+    // }
     animate(mainScript);
 }
 
@@ -45,19 +47,15 @@ function setupCopyShortcut(element) {
         // Check Command (metaKey) + C (case-insensitive)
         if (e.metaKey && (e.key === 'c' || e.key === 'C')) {
             e.preventDefault(); // prevent default copy just to be safe
-            handleCopy(e.target,true);
+            handleCopy(e.target);
+            
         }
     });
 
     // Optional: animate on click for code elements as you had
     element.addEventListener('click', e => {
         e.preventDefault()
-        if(e.id == 'mainScript'){
-            handleCopy(e.taget, false);
-            return
-        }
-        // handleCopy(e.taget, true);
-        
+        handleCopy(e.taget,false);
     });
 }
 
