@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-elFinder-boiler-plate-draft</title>
+    <link rel="stylesheet" href="../css/colors-elFinder-boiler-plate.css">
+    <link rel="stylesheet" href="../css/styles-elFinder-boiler-plate.css">
+    <link rel="stylesheet" href="../css/copy-code-elFinder-boiler-plate.css">
+    <link rel="stylesheet" href="../../../css/single-header.css">
+    
+    <link rel="stylesheet" href="../../../../css/dark-mode.css">
+    
+    <script type="module" src="../js/letterFocus-elFinder-boiler-plate.js" defer></script>
+    <script type="module" src="../js/copy-code-elFinder-boiler-plate.js" defer></script>
+    <script type="module" src="../../../js/dark-mode.js" defer></script>
+    <script type="module" src="../js/load-textarea-code-draft.js" defer></script>
+
+</head>
+<!-- <body class="dark-mode"> -->
+<body class="">
+    <div class="page-container">
+        
+        <header>
+            <h2 class="bg-version">1-elFinder-boiler-plate-draft</h2>
+            <article>
+                <p> When done make into extension in </p>
+                <div class="code-container">
+                    <pre tabindex="0" class="">chrome://extensions/</pre>
+                </div>
+            </article>
+        </header>
+        <main class="main-content">
+            <div class="versions-container">
+                <header>
+                    <a tabindex="0" id="backBtn">back</a>
+                    <h2 id="versionTitle">TBD</h2>
+                    <a tabindex="0" id="nxtBtn">next</a>
+                </header>
+                <div class="version">
+
+                    <div class="code-container">
+                        <textarea autofocus readonly id="mainScript" tabindex="0" class="copy-code">
+                            <!-- <textarea readonly   id="mainScript" tabindex="0" class="copy-code"> -->
+                            No scripts are in this project yet, save them in /versions folder in the directory of this
+                            page
+                        </textarea>
+                    </div>
+                </div>
+                <a tabindex="0" id="backToTopBtn" href="#top">end to Top</a>
+            </div>
+            <!-- ------------------------------------------------------- -->
+        </main>
+        <!-- <div class="code-elements-container popup"> -->
+        <div class="code-elements-container ">
+            <a id="xBtnPopup" href="#">X</a>
+            <img id="elementImg" src="images/01.png" alt="">
+            <!-- 1. -->
+            <div class="code-container">
+                <h4>Load Unpack</h4>
+                <p>
+                    
+                </p>
+                <a class="black-click-img-box"></a>
+                <textarea readonly data-img="images/01.png" tabindex="0" class="copy-code">
+<cr-button id="loadUnpacked" role="button" tabindex="0" aria-disabled="false">
+Load unpacked      </cr-button>
+                </textarea>
+            </div>
+            <!-- 2. -->
+            <div class="code-container">
+                <h4>Remove</h4>
+                <a class="black-click-img-box"></a>
+                <pre readonly data-img="images/02.png" tabindex="0" class="copy-code"><span class="r">
+&lt;cr-button id="removeButton" aria-describedby="a11yAssociation" role="button" tabindex="0" aria-disabled="false">
+Remove &lt;/cr-button>             </span></pre>
+            </div>
+            <!-- 3a. -->
+            <div class="code-container">
+                <pre readonly data-img="images/03.png" tabindex="0" class="copy-code">
+<span class="b">items-container</span> <span class="m">extensions-item</span> <span class="r">#removeButton</span>
+                </pre>
+            </div>
+            <!-- 3b. -->
+            <div class="code-container">
+                <h3>3b. get all remove btn</h3>
+                <p>
+                    for now, query all remove button in 
+                </p>
+                
+                <pre readonly data-img="images/03.png" tabindex="0" class="copy-code">
+<span class="b">&lt;div class="items-container"></span>
+&lt;!-- Render only a few items first, to improve initial render time,
+then render the remaining items on a different frame. Value of 6
+was chosen by experimentation, and it is a good trade-off between
+initial render time and total render time. -->
+&lt;!--?lit$961852282$-->&lt;!---->
+<span class="m">&lt;extensions-item</span> id="kknlfbijnepmmcbopnglakkiaiegdbnp" in-dev-mode="">                    
+&lt;div id="card" class="enabled dev-mode">
+  &lt;div id="main">
+    &lt;div id="icon-wrapper">
+      &lt;img id="icon" aria-describedby="a11yAssociation" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACp0lEQVRoge2aMUsjQRiGn529laCeqEEMiaA2sVGuEGIl2FuelYWWCgYLCwtFSJ0/YAqxu0IQFK6wEkJKkcChzQYbwQgWq+BBlOCwV9xmuQPPy5EvN5djn3aH733fndmZnWEsgNXV1ZRt23lgDkjyb3MLFLXWm4VCoWoF5r8AcdPO/hBPa/1BBW++08wDxG3bzqtg2HQqc6oDxvxbJJVpB60SBTBNFMA0UQDTRAFM0/EB3rWrcE9PD+l0mkQiwd3dHZeXl9TrdXEd8QCxWIxsNsvo6CiWZf30rFarsbe3R6VSEdOzM5lMTqqYZVlsb2+TSqVC84+Pj2itcRwHx3HIZDIAXF1diWiK9kA2m2VoaAiA09NTTk5OeH5+BmBwcJCNjQ36+/uZn5/n7OwMz/Na1hT7iGdmZpiYmACgXC5zdHQUmge4v79nZ2cn/A4WFhZEdMUCzM7OAvD09MT+/v6rbXzf5/j4mIeHB3p7e0V0xYZQMvl9X3Rzc/Nmu1KpRKlUkpKV6wHHcQC4vr6WKtkUYgEas061WpUq2RRiAXzfB2BkZESqZFOIBWjMLmNjY1Ilm0IsQGPo/LiIvcbU1BTr6+ssLS2J6IoFKBaLEPxKrKys/LLd8vIy6XSaeFzmLE0sQLlc5uLiAoDJyUkWFxfp6+sLnw8MDJDL5YjFYgAcHByI6Fpra2u+SKWAra2tcE0g+IFTSoXGCXrr8PBQRE98P5DP56lUKuGs1N3dHZqv1Wrs7u6KmacdPdCgq6uL8fFxhoeH8TwP13V5eXkR12nbhqZer+O6Lq7rtksC/octZRTANFEA00QBTBMFME0UwDQquHvQqdwqoGjaRQsUldZ6E2j9kPLv42mtN+3z8/Ov09PTn5RSieDSx3vTzn7DLfBZa/2xUChUvwEXAc2KmBueiQAAAABJRU5ErkJggg==">
+        &lt;div id="source-indicator">
+          &lt;div class="source-icon-wrapper" role="img" aria-describedby="a11yAssociation" aria-label="Unpacked extension">
+            &lt;cr-icon>
+            &lt;/cr-icon>
+          &lt;/div>
+        &lt;/div>
+    &lt;/div>
+      &lt;cr-tooltip id="source-indicator-text" for="source-indicator" position="top" fit-to-visible-bounds="" aria-hidden="true" style="--paper-tooltip-delay-in: 500ms;">
+      &lt;/cr-tooltip>
+    &lt;div id="content">
+      &lt;div>
+        &lt;div id="name-and-version" class="layout-horizontal-center">
+          &lt;div id="name" role="heading" aria-level="3" class="clippable-flex-text">
+          &lt;/div>
+          &lt;span id="version" class="cr-secondary-text">
+          &lt;/span>
+        &lt;/div>
+      &lt;/div>
+      &lt;div id="description" class="cr-secondary-text multiline-clippable-text">
+      &lt;/div>
+        &lt;div id="extension-id" class="bounded-text cr-secondary-text">
+        &lt;/div>
+    &lt;/div>
+  &lt;/div>
+  &lt;div id="button-strip" class="layout-horizontal-center cr-secondary-text">
+    &lt;div class="layout-horizontal-center flex">
+      &lt;cr-button id="detailsButton" aria-describedby="a11yAssociation" role="button" tabindex="0" aria-disabled="false">
+        Details
+      &lt;/cr-button>
+      <span class="r">
+      &lt;cr-button id="removeButton" aria-describedby="a11yAssociation" role="button" tabindex="0" aria-disabled="false">
+        Remove
+      &lt;/cr-button>
+      </span>
+        &lt;cr-button id="errors-button" aria-describedby="a11yAssociation" role="button" tabindex="0" aria-disabled="false">
+          Errors
+        &lt;/cr-button>
+    &lt;/div>
+      &lt;cr-icon-button id="dev-reload-button" class="icon-refresh no-overlap" title="Reload" aria-label="Reload" aria-describedby="a11yAssociation" role="button" tabindex="0" aria-disabled="false">
+      &lt;/cr-icon-button>
+    &lt;cr-tooltip-icon id="parentDisabledPermissionsToolTip" tooltip-text="Your parent has disabled extension permissions" icon-class="cr20:kite" icon-aria-label="Your parent has disabled extension permissions" hidden="">
+    &lt;/cr-tooltip-icon>
+    &lt;cr-tooltip id="enable-toggle-tooltip" for="enableToggle" position="left" aria-hidden="true" animation-delay="0" fit-to-visible-bounds="" style="--paper-tooltip-delay-in: 0ms;">
+    &lt;/cr-tooltip>
+    &lt;cr-toggle id="enableToggle" aria-describedby="a11yAssociation enable-toggle-tooltip" aria-label="On, extension enabled" checked="" role="button" tabindex="0" aria-pressed="true" aria-disabled="false">
+    &lt;/cr-toggle>
+  &lt;/div>
+&lt;/div>
+&lt;/extensions-item>&lt;!&lt;
+&lt;/div> 
+&lt;!--end of items-container  --&gt;
+</pre>
+            </div>
+            
+            
+            
+        </div>
+    </div>
+    <header>
+        <a tabindex="0" id="homelink" href="../chromeExtension-letterFocus.html">home</a>
+        <h1>Chat Gpt - Letter Focus</h1>
+        <!-- I like next here when small on mobile -->
+        <!-- <a tabindex="0" id="nxtBtn">next</a> -->
+    </header>
+
+</body>
+
+</html>

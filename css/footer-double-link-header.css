@@ -5,15 +5,7 @@
 }
 
 
-.page-wrapper main#mainContainer {
-    height: 75vh;
-    margin: 0 2.5%;
-    padding: 0 2.5%;
-    padding-left: 0;
-    scrollbar-width: none;
-    overflow: hidden;
-    overflow-y: scroll;
-}
+  
 
 .page-wrapper>footer.footer-header {
     display: flex;
