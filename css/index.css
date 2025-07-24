@@ -136,3 +136,9 @@ a.drop-topic{
 .hide{
     display: none ;
 }
+#vibeCodeingProjects{
+    background-color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
