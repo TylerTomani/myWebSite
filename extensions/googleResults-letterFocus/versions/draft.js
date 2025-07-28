@@ -1,4 +1,4 @@
-// letterFocus.js
+// draft
 document.addEventListener('keydown', function (e) {
     // Don't trigger inside input or textarea
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
