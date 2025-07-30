@@ -18,6 +18,8 @@ function animate(element) {
 copyCodes.forEach(el => {
     el.addEventListener('keydown', e => {
         if(e.key == 'c' && e.metaKey){
+            e.stopPropagation()
+            handleCopy(e.target)
             if(e.target.value){
                 copyTextToClipboard(e.target.value)
             }
@@ -25,25 +27,25 @@ copyCodes.forEach(el => {
                 copyTextToClipboard(e.target.innerText)
                 
             }
-            // copyTextToClipboard(e.target.innerText)
         }
     })
 })
-function handleCopy(el,animateCode) {
-    // Always copy the text from mainScript regardless of source
-    const textToCopy = mainScript.value || mainScript.innerText || "";
-    copyTextToClipboard(textToCopy);
-    console.log(animateCode)
-    if(!animateCode){
-        return 
+function handleCopy(el) {
+    const textToCopy = el.innerText
+    // Always copy the text from mainScript if nxt btn or back
+    if(el.id == 'nxtBtn' || el.id == 'backBtn' || el.id == 'mainScript'){
+        copyTextToClipboard(mainScript.value);
+        animate(mainScript);
+    } else {
+        copyTextToClipboard(textToCopy);
+        animate(el);
     }
-    animate(mainScript);
 }
 
 function setupCopyShortcut(element) {
     element.addEventListener('keydown', e => {
         // Check Command (metaKey) + C (case-insensitive)
-        if (e.metaKey && (e.key === 'c' || e.key === 'C')) {
+        if (e.metaKey && e.key.toLowerCase() === 'c') {
             e.preventDefault(); // prevent default copy just to be safe
             handleCopy(e.target,true);
         }

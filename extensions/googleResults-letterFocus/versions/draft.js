@@ -1,54 +1,100 @@
-// draft
-document.addEventListener('keydown', function (e) {
-    // Don't trigger inside input or textarea
+// draft - nice
+(() => {
+  	const style = document.createElement('style');
+  	style.textContent = `
+    	.focused {
+    	  box-shadow: 0 0 0 3px #4285f4 !important;
+    	  background-color: rgba(66, 133, 244, 0.25) !important;
+    	  border-radius: 6px !important;
+    	}
+	`;
+	document.head.appendChild(style);
+
+	let lastLetterPressed = null;
+	let currentFocusedLink = null;
+	let lastFocusedElement = null;
+	function getListItem(el) {
+    while (el && el !== document.body) {
+      if (
+        el.classList.contains('mTpL7c') ||
+        el.getAttribute('role') === 'listitem' ||
+        el.classList.contains('zReHs')
+      ) {
+        return el;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+  function getAllLinks() {
+    return [...document.querySelectorAll('span.R1QWuf, a.zReHs > h3, a.zReHs')]
+      .map(el => {
+        const span = el.tagName === 'H3' || el.tagName === 'A' ? el : null;
+        const link = el.closest('a.C6AK7c, [role="button"], a.zReHs');
+        return link && (span?.innerText || link.innerText)?.trim()
+          ? { span: span || link, link }
+          : null;
+      })
+      .filter(Boolean)
+      .filter(({ link }) => {
+        const rect = link.getBoundingClientRect();
+        return link.offsetParent !== null && rect.width > 0 && rect.height > 0;
+      });
+  }
+
+  document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
     const key = e.key.toLowerCase();
-
-    // Only continue if it's a single a-z or 0-9 key
     if (key.length !== 1 || !/^[a-z0-9]$/.test(key)) return;
 
-    // Get all visible <a> elements
-    const allLinks = [...document.querySelectorAll('a')].filter(link => {
-        const rect = link.getBoundingClientRect();
-        return link.offsetParent !== null && rect.width > 0 && rect.height > 0;
-    });
-
-    // Filter those that start with the key
-    const matchingLinks = allLinks.filter(link =>
-        link.textContent.trim().toLowerCase().startsWith(key)
+    const allLinks = getAllLinks();
+    const matchingLinks = allLinks.filter(({ span }) =>
+      span.innerText.trim().toLowerCase().startsWith(key)
     );
-
     if (matchingLinks.length === 0) return;
 
-    const activeElement = document.activeElement;
-    const activeIndexAll = allLinks.indexOf(activeElement);
-    const activeIndexMatch = matchingLinks.indexOf(activeElement);
-
-    let newIndex;
-
-    if (key !== window.lastLetterPressed) {
-        // New key pressed
-        if (e.shiftKey) {
-            // Go UP to previous matching link
-            const prev = [...matchingLinks].reverse().find(link => allLinks.indexOf(link) < activeIndexAll);
-            newIndex = matchingLinks.indexOf(prev);
-            if (newIndex === -1) newIndex = matchingLinks.length - 1;
-        } else {
-            // Go DOWN to next matching link
-            const next = matchingLinks.find(link => allLinks.indexOf(link) > activeIndexAll);
-            newIndex = matchingLinks.indexOf(next);
-            if (newIndex === -1) newIndex = 0;
-        }
-    } else {
-        // Same key pressed again
-        if (e.shiftKey) {
-            newIndex = (activeIndexMatch - 1 + matchingLinks.length) % matchingLinks.length;
-        } else {
-            newIndex = (activeIndexMatch + 1) % matchingLinks.length;
-        }
+    if (lastFocusedElement) {
+      lastFocusedElement.classList.remove('focused');
+      lastFocusedElement = null;
     }
 
-    matchingLinks[newIndex]?.focus();
-    window.lastLetterPressed = key;
-});
+    const activeIndexMatch = matchingLinks.findIndex(obj => obj.link === currentFocusedLink);
+
+    let newIndex;
+    if (key !== lastLetterPressed) {
+      newIndex = e.shiftKey ? matchingLinks.length - 1 : 0;
+    } else {
+      newIndex =
+        activeIndexMatch === -1
+          ? (e.shiftKey ? matchingLinks.length - 1 : 0)
+          : (e.shiftKey
+              ? (activeIndexMatch - 1 + matchingLinks.length)
+              : (activeIndexMatch + 1)) % matchingLinks.length;
+    }
+
+    const newLink = matchingLinks[newIndex]?.link;
+	if (newLink) {
+		newLink.focus();
+		// Prefer to focus the <h3> inside the link if available
+		const listItem = getListItem(newLink.parentElement)
+		const h3 = newLink.querySelector('h3');
+		if(listItem){
+			listItem.classList.add('focused');
+			lastFocusedElement = listItem;
+		} else 
+		if (h3) {
+		h3.classList.add('focused');
+		lastFocusedElement = h3;
+		} else {
+		newLink.classList.add('focused');
+		lastFocusedElement = newLink;
+		}
+
+		currentFocusedLink = newLink;
+		lastLetterPressed = key;
+
+		console.log('Focused:', newLink.innerText.trim());
+	}
+  });
+})();

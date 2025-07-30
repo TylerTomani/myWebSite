@@ -6,6 +6,7 @@ const homelink = document.querySelector('#homelink')
 const backToTopBtn = document.querySelector('#backToTopBtn')
 const textarea = document.querySelector('textarea')
 const codeElementsContainer = document.querySelector('.code-elements-container')
+const codeContainers = document.querySelector('.code-container')
 const btmPageCopyCodes = document.querySelectorAll('.code-elements-container .copy-code')
 const blackBoxesToggleImg = document.querySelectorAll('.black-click-img-box')
 let iCopyCodes = 0
@@ -72,7 +73,6 @@ addEventListener('keydown', e => {
     // Handles copy-code focus in code-elements-container
     if (key === 'c') {
         if (e.metaKey) return;
-
         // Always sync index manually based on focused element
         const active = document.activeElement;
         btmPageCopyCodes.forEach((el, idx) => {
@@ -133,8 +133,6 @@ function focusKeyToEls(e,key) {
         index2.focus()
     }
 }
-
-
 backToTopBtn.addEventListener('keydown', e => {
     let key = e.keyCode
     if (key === 13) {
