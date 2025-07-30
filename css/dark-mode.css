@@ -16,6 +16,10 @@
     background-color: var(--bg-primary)
 }
 
+.dark-mode pre,
+.dark-mode textarea{
+    color: white;
+}
 .dark-mode a {
     color: white;
 }
